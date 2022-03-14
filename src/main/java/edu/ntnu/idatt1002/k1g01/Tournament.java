@@ -14,7 +14,17 @@ public class Tournament {
     //All the teams competing in the tournament
     private ArrayList<Team> teams;
 
-
+    /**
+     * Initiates a new tournament.
+     * <br>Takes a name and a list of
+     * teams as arguments.
+     * @param tournamentName Name of tournament
+     * @param teams Teams to be in tournament
+     */
+    public Tournament(String tournamentName, ArrayList<Team> teams) {
+        this.tournamentName = tournamentName;
+        this.teams = teams;
+    }
 
     /**
      * Gets the tournament name
