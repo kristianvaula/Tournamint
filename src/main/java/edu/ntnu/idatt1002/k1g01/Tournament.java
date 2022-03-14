@@ -48,6 +48,15 @@ public class Tournament {
     }
 
     /**
+     * Gets the number of teams in the
+     * team list
+     * @return Number of teams
+     */
+    public int getNumberOfTeams(){
+        return teams.size();
+    }
+
+    /**
      * Adds a team to the tournament
      * <br> Checks if team is already in
      * tournament before it adds it to the
