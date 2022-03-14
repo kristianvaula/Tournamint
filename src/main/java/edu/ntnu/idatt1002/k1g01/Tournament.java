@@ -21,7 +21,11 @@ public class Tournament {
      * @param tournamentName Name of tournament
      * @param teams Teams to be in tournament
      */
-    public Tournament(String tournamentName, ArrayList<Team> teams) {
+    public Tournament(String tournamentName, ArrayList<Team> teams) throws IllegalArgumentException{
+        if(teams.size() == 0) {
+            throw new IllegalArgumentException(
+                    "Cannot create a tournament with less than two teams");
+        }
         this.tournamentName = tournamentName;
         this.teams = teams;
     }
@@ -50,11 +54,11 @@ public class Tournament {
      * tournament team list.
      * @return True if team added to list.
      */
-    public boolean addTeam(Team team){
-        if(!teams.contains(team)){
-            teams.add(team);
-            return true;
+    public void addTeam(Team team) throws IllegalArgumentException{
+        if(teams.contains(team)){
+            throw new IllegalArgumentException(
+                    "You cannot add the same team more than once");
         }
-        return false;
+        else teams.add(team);
     }
 }
