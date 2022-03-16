@@ -11,7 +11,7 @@ public class Stage {
 
     /**
      * Initiates a Stage
-     * @param rounds
+     * @param rounds an ArrayList of type Round
      */
     public Stage(ArrayList<Round> rounds) {
         this.rounds = rounds;
@@ -19,7 +19,7 @@ public class Stage {
 
     /**
      * Get the rounds in the Stage
-     * @return rounds
+     * @return rounds an ArrayList of type Round
      */
     public ArrayList<Round> getRounds() {
         return rounds;
