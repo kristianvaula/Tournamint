@@ -24,4 +24,9 @@ public class Round {
     public ArrayList<Match> getMatches() {
         return matches;
     }
+
+    @Override
+    public String toString() {
+        return "Matches in round: " + getMatches();
+    }
 }
