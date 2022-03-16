@@ -25,6 +25,19 @@ public class Round {
         return matches;
     }
 
+    /**
+     * Get the integer amount of mathes played in the round.
+     * @return Number of matches
+     */
+    public int amountOfMatches() {
+        return matches.size();
+    }
+
+
+    /**
+     * Displays matches in the round.
+     * @return matches
+     */
     @Override
     public String toString() {
         return "Matches in round: " + getMatches();
