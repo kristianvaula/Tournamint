@@ -8,13 +8,18 @@ import java.util.ArrayList;
 public class Round {
 
     private ArrayList<Match> matches; // All the current matches being played in the specific round
+    private String roundName; // Name of the round. Quarterfinals for example.
 
     /**
-     * Initiates a round
-     * @param matches Matches in the round
+     * Initiates a round.
+     * @param matches returns matches in round.
+     * @param roundName returns the name of the round.
      */
-    public Round(ArrayList<Match> matches) {
+    public Round(ArrayList<Match> matches, String roundName) {
+
         this.matches = matches;
+        this.roundName = roundName;
+
     }
 
     /**
