@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
- * Represents a match between atleast two teams.
+ * Represents a match between at least two teams.
  * <br>Keeps track of the teams in the match and
  * the scores between the teams.
  */
@@ -41,6 +41,11 @@ public abstract class Match {
      * @return Team winners
      */
     public abstract Team getWinner();
+
+    /**
+     * Sets the match result
+     */
+    public abstract void setResult();
 
     /**
      * Gets a copy of the list of
