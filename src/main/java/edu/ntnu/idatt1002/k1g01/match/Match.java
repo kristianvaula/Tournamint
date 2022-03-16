@@ -1,8 +1,13 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.match;
 
+import edu.ntnu.idatt1002.k1g01.Team;
+
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Represents a match between at least two teams.
@@ -34,13 +39,26 @@ public abstract class Match {
      * Gets match result
      * @return the match result
      */
-    public abstract String getMatchResult();
+    public abstract HashMap<Team,String> getMatchResult();
 
     /**
-     * Gets match winner
+     * Gets match result in descending orders
+     * @return LinkedHasMap results in descending order
+     */
+    public abstract LinkedHashMap<Team,String> getMatchResultOrdered();
+
+    /**
+     * Gets match result by as specific
+     * team in that match.
+     * @return The result of the match.
+     */
+    public abstract String getMatchResultByTeam(Team team);
+
+    /**
+     * Gets match winners
      * @return Team winners
      */
-    public abstract Team getWinner();
+    public abstract ArrayList<Team> getWinners(int n);
 
     /**
      * Sets the match result
