@@ -33,6 +33,13 @@ public class Round {
         return matches.size();
     }
 
+    /**
+     * Set the matches that are competing in the round.
+     * @param matches Matches you want to partake in the Round.
+     */
+    public void setMatches(ArrayList<Match> matches) {
+        this.matches = matches;
+    }
 
     /**
      * Displays matches in the round.
