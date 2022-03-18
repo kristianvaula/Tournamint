@@ -10,19 +10,20 @@ public class GroupStage {
      * Get the teams who will proceed in the tournament.
      * @return the winners.
      */
-    public ArrayList<Team> getWinnersFromGroups() {
+    public ArrayList<Team> getWinnersFromGroups() { //Need getWinners() method in Group first.
         ArrayList<Team> teamsProceeding = new ArrayList<>();
-        //for (Group group : groups) {
-        //    teamsProceeding.addAll(); (Add all groupwinners to the list).
-        //}
+        //Group group = new Group();
+
+        //for (Group group1 : groups) {
+        //    teamsProceeding.addAll(group.getWinners());
         return teamsProceeding;
     }
 
     /**
      * Checking if the groupstage is finished.
-     * @return true/false
+     * @return Returns True if the groupstage is finished and false if it´s not.
      */
     public boolean isFinished() {
-        return true; //Code not finished.
+        return !getWinnersFromGroups().isEmpty();
     }
 }
