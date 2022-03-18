@@ -90,6 +90,8 @@ public class PointMatch extends Match{
 
     /**
      * Sets result in pointsResult.
+     * After setting result method calls for
+     * updateIsFinished().
      * @param team Team we add results for
      * @param value String number value
      */
@@ -100,5 +102,23 @@ public class PointMatch extends Match{
         } catch (NumberFormatException e){
             throw new NumberFormatException("Result not a number");
         }
+        updateIsFinished();
+    }
+
+    /**
+     * Checks if there is registered a
+     * result on all participants in the match.
+     * If all participants have result, sets
+     * isFinished to true;
+     */
+    @Override
+    public void updateIsFinished(){
+        boolean hasResult = true;
+        for(Team team : getParticipants()){
+            if(!pointResult.containsKey(team)){
+                hasResult = false;
+            }
+        }
+        setFinished(hasResult);
     }
 }

@@ -40,6 +40,7 @@ public class TimeMatch extends Match{
      */
     @Override
     public HashMap<Team, String> getMatchResult() {
+        if(!isFinished()) return null;
         HashMap<Team,String> results = new HashMap<>();
         for (Team team : timeResult.keySet()){
             results.put(team,timeResult.get(team).toString());
@@ -100,6 +101,8 @@ public class TimeMatch extends Match{
      * Takes a String value for the result time.
      * For the result to be set it is important
      * that the result value is properly formatted.
+     * After setting result method calls for
+     * updateIsFinished().
      * <p>{code}
      * Time format:
      *  'hours:minutes:seconds:milliseconds'
@@ -119,5 +122,23 @@ public class TimeMatch extends Match{
         }catch(DateTimeParseException e){
             throw e;
         }
+        updateIsFinished();
+    }
+
+    /**
+     * Checks if there is registered a
+     * result on all participants in the match.
+     * If all participants have result, sets
+     * isFinished to true;
+     */
+    @Override
+    public void updateIsFinished(){
+        boolean hasResult = true;
+        for(Team team : getParticipants()){
+            if(!timeResult.containsKey(team)){
+                hasResult = false;
+            }
+        }
+        setFinished(hasResult);
     }
 }
