@@ -1,6 +1,8 @@
 package edu.ntnu.idatt1002.k1g01;
 
-import edu.ntnu.idatt1002.k1g01.match.Match;
+import edu.ntnu.idatt1002.k1g01.matches.Match;
+import edu.ntnu.idatt1002.k1g01.matches.PointMatch;
+import edu.ntnu.idatt1002.k1g01.matches.TimeMatch;
 
 import java.util.ArrayList;
 
@@ -50,11 +52,11 @@ public class KnockoutStage extends Stage {
      * Get the teams that won the round and will participate in the next round
      * @return roundWinners, an ArrayList holding Team objects
      */
-    public ArrayList<Team> getRoundWinners(int n) {
+    public ArrayList<Team> getRoundWinners(int amountOfWinners) {
         ArrayList<Team> roundWinners = new ArrayList<>();
         for(int i = 0; i < matches.size(); i++) {
-            for(int j = 0; j < n; j++) {
-                roundWinners.add(round.getMatches().get(i).getWinners(n).get(j));
+            for(int j = 0; j < amountOfWinners; j++) {
+                roundWinners.add(round.getMatches().get(i).getWinners(amountOfWinners).get(j));
             }
         }
         return roundWinners;
@@ -79,16 +81,25 @@ public class KnockoutStage extends Stage {
     /**
      * Generates the next round in the tournament
      */
-    public void generateNextRound(int teamsInMatch) {
-
-        
-
-        ArrayList<Team> teams = getRoundWinners(n);
-
+    public void generateNextRound(int amountOfWinners, int numberOfParticipantsInMatches, int numberOfMatchesInRound, char matchType) {
+        ArrayList<Team> allParticipants = new ArrayList<>(getRoundWinners(amountOfWinners));
+        ArrayList<Match> matches = new ArrayList<>();
+        Match match;
+        for (int m = 0; m < numberOfMatchesInRound; m++) {
+            ArrayList<Team> matchParticipants = new ArrayList<>(getRoundWinners(amountOfWinners));
+            for (int i = 0; i < numberOfParticipantsInMatches; i++) {
+                matchParticipants.add(allParticipants.get(i));
+                allParticipants.remove(i);
+            }
+            if (matchType == 'P') {
+                match = new PointMatch(matchParticipants);
+                matches.add(match);
+            }
+            else if (matchType == 'T') {
+                match = new TimeMatch(matchParticipants);
+                matches.add(match);
+            }
+        }
         Round nextRound = new Round(matches, getRoundName());
-
-        // The matches in the next round (first parameter) will be the winners from the current round
-        // The roundName should be automatically set depending on how many rounds from a final it is
     }
-
 }
