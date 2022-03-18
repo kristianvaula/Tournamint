@@ -20,6 +20,14 @@ public class GroupStage {
     }
 
     /**
+     * Get the groups participating in the groupstage.
+     * @return Returns a list of the groups in the groupstage.
+     */
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
+    /**
      * Checking if the groupstage is finished.
      * @return Returns True if the groupstage is finished and false if it´s not.
      */
