@@ -180,7 +180,7 @@ public abstract class Match {
      * Checks if this Match is equivalent to other Match.
      * Matches are equal if (same start date/time && same participants).
      * @param other Match
-     * @return true if equivalent, false if not.
+     * @return true if equivalent.
      */
     public boolean equals(Match other) {
         if (this.startTime != other.getStartTime()) { return false; }
