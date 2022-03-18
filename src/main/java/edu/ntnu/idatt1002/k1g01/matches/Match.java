@@ -64,10 +64,10 @@ public abstract class Match {
      public ArrayList<Team> getWinners(int n) {
      ArrayList<Team> winnerList = new ArrayList<>();
 
-     Team[] teams = (Team[])getMatchResultOrdered().keySet().toArray();
+     Object[] teams = getMatchResultOrdered().keySet().toArray();
 
      for (int i = 0; i < n; i++) {
-     winnerList.add(teams[i]);
+     winnerList.add((Team)teams[i]);
      }
      return winnerList;
      }
@@ -143,12 +143,28 @@ public abstract class Match {
     }
 
     /**
+     * Sets finished
+     * @param finished Boolean finished
+     */
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
+    /**
+     * Checks if there is registered a
+     * result on all participants in the match.
+     * If all participants have result, sets
+     * isFinished to true;
+     */
+    public abstract void updateIsFinished();
+
+    /**
      * Gets a string representation of the
      * match start time in format HH:MM
      * @return String start time
      */
     public String getStartTimeAsString() {
-        return "" + startTime.getHour() + " : " + startTime.getMinute();
+        return getStartTime().toString();
     }
 
     /**
