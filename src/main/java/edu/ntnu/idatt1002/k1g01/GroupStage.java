@@ -14,8 +14,9 @@ public class GroupStage {
         ArrayList<Team> teamsProceeding = new ArrayList<>();
         //Group group = new Group();
 
-        //for (Group group1 : groups) {
-        //    teamsProceeding.addAll(group.getWinners());
+        for (Group group1 : groups) {
+            //teamsProceeding.addAll(group.getWinners());
+        }
         return teamsProceeding;
     }
 
