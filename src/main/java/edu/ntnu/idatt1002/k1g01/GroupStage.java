@@ -12,10 +12,10 @@ public class GroupStage {
      */
     public ArrayList<Team> getWinnersFromGroups() { //Need getWinners() method in Group first.
         ArrayList<Team> teamsProceeding = new ArrayList<>();
-        Group group = new Group();
+        //Group group = new Group();
 
         for (Group group1 : groups) {
-            teamsProceeding.addAll(group.getWinners());
+            //teamsProceeding.addAll(group.getWinners());
         }
         return teamsProceeding;
     }
