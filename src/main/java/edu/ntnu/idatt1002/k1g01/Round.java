@@ -1,4 +1,5 @@
 package edu.ntnu.idatt1002.k1g01;
+import edu.ntnu.idatt1002.k1g01.match.*;
 
 import java.util.ArrayList;
 
