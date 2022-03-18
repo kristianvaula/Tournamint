@@ -159,4 +159,20 @@ public abstract class Match {
     public String getMatchDateAsString() {
         return "" + matchDate.getDayOfMonth() + " / " + matchDate.getMonth();
     }
+
+    /**
+     * Checks if this Match is equivalent to other Match.
+     * Matches are equal if (same start date/time && same participants).
+     * @param other Match
+     * @return true if equivalent, false if not.
+     */
+    public boolean equals(Match other) {
+        if (this.startTime != other.getStartTime()) { return false; }
+        if (this.matchDate != other.getMatchDate()) { return false; }
+        if (this.participants.size() != other.getParticipants().size()) { return false; }
+        for (Team participant : this.participants) {
+            if (! other.getParticipants().contains(participant)) { return false; }
+        }
+        return true;
+    }
 }
