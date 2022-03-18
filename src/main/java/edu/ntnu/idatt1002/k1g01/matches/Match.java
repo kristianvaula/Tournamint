@@ -1,8 +1,7 @@
-package edu.ntnu.idatt1002.k1g01.match;
+package edu.ntnu.idatt1002.k1g01.matches;
 
 import edu.ntnu.idatt1002.k1g01.Team;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -55,15 +54,28 @@ public abstract class Match {
     public abstract String getMatchResultByTeam(Team team);
 
     /**
-     * Gets match winners
-     * @return Team winners
+     * Gets n match winners in descending
+     * orders.<br> Gets the keySet from
+     * getMatchResultOrdered() and creates a
+     * list of teams ranked ordered by result.
+     * Then adds n best teams to winners list.
+     * @return ArrayList of n winning teams
      */
-    public abstract ArrayList<Team> getWinners(int n);
+     public ArrayList<Team> getWinners(int n) {
+     ArrayList<Team> winnerList = new ArrayList<>();
+
+     Team[] teams = (Team[])getMatchResultOrdered().keySet().toArray();
+
+     for (int i = 0; i < n; i++) {
+     winnerList.add(teams[i]);
+     }
+     return winnerList;
+     }
 
     /**
      * Sets the match result
      */
-    public abstract void setResult(Team team, int points);
+    public abstract void setResult(Team team, String value);
 
     /**
      * Gets a copy of the list of
