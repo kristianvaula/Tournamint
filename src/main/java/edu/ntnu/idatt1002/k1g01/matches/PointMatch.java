@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
  */
 public class PointMatch extends Match{
     //Result of match based on points
-    private HashMap<Team,Integer> pointResult;
+    private HashMap<Team,Integer> pointResult = new HashMap<>();
 
     /**
      * Initiates a new Match.

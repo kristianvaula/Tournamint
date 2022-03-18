@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 public class TimeMatch extends Match{
 
     //Result of match based on points
-    private HashMap<Team, LocalTime> timeResult;
+    private HashMap<Team, LocalTime> timeResult = new HashMap<>();
 
     //Sets constant time format to hour:minute:second:millisecond (f.eks: 00:10:04:1023)
     private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss:AA");
