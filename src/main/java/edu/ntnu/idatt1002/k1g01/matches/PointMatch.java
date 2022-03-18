@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k1g01.match;
+package edu.ntnu.idatt1002.k1g01.matches;
 
 import edu.ntnu.idatt1002.k1g01.Team;
 
@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+/**
+ * Represents a match where the winner(s)
+ * are based on who has the most points.
+ */
 public class PointMatch extends Match{
     //Result of match based on points
     private HashMap<Team,Integer> pointResult;
@@ -21,17 +25,10 @@ public class PointMatch extends Match{
     }
 
     /**
-     * Gets match result by as specific
-     * team in that match.
-     * @return The result of the match.
-     */
-    @Override
-    public String getMatchResultByTeam(Team team) {
-        return String.valueOf(pointResult.get(team));
-    }
-
-    /**
-     * Gets match result
+     * Gets all match result
+     * Returns a HashMap consisting of the
+     * match participants as keys and their
+     * points as values.
      * @return the match result
      */
     @Override
@@ -62,13 +59,23 @@ public class PointMatch extends Match{
     }
 
     /**
+     * Gets match result by as specific
+     * team in that match.
+     * @return The result of the match.
+     */
+    @Override
+    public String getMatchResultByTeam(Team team) {
+        return String.valueOf(pointResult.get(team));
+    }
+
+    /**
      * Gets n match winners in descending
      * orders.<br> Gets the keySet from
      * getMatchResultOrdered() and creates a
      * list of teams ranked ordered by result.
      * Then adds n best teams to winners list.
      * @return ArrayList of n winning teams
-     */
+
     @Override
     public ArrayList<Team> getWinners(int n) {
         ArrayList<Team> winnerList = new ArrayList<>();
@@ -79,15 +86,19 @@ public class PointMatch extends Match{
             winnerList.add(teams[i]);
         }
         return winnerList;
-    }
+    }*/
 
     /**
-     * Sets result in pointsResult
+     * Sets result in pointsResult.
      * @param team Team we add results for
-     * @param points Points for the team in the match
+     * @param value String number value
      */
     @Override
-    public void setResult(Team team, int points){
-        pointResult.put(team,Integer.valueOf(points));
+    public void setResult(Team team, String value) throws NumberFormatException{
+        try {
+            pointResult.put(team,Integer.parseInt(value));
+        } catch (NumberFormatException e){
+            throw new NumberFormatException("Result not a number");
+        }
     }
 }
