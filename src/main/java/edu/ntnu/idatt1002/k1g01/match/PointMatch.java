@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+/**
+ * Represents a match where the winner(s)
+ * are based on who has the most points.
+ */
 public class PointMatch extends Match{
     //Result of match based on points
     private HashMap<Team,Integer> pointResult;
