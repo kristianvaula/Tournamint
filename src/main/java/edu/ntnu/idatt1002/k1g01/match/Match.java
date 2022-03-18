@@ -63,7 +63,7 @@ public abstract class Match {
     /**
      * Sets the match result
      */
-    public abstract void setResult();
+    public abstract void setResult(Team team, int points);
 
     /**
      * Gets a copy of the list of
