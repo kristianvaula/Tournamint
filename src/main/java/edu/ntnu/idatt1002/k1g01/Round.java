@@ -2,6 +2,8 @@ package edu.ntnu.idatt1002.k1g01;
 
 import edu.ntnu.idatt1002.k1g01.matches.Match;
 
+import edu.ntnu.idatt1002.k1g01.match.Match;
+
 import java.util.ArrayList;
 
 /**
@@ -22,6 +24,10 @@ public class Round {
         this.matches = matches;
         this.roundName = roundName;
 
+    }
+
+    public String getRoundName() {
+        return roundName;
     }
 
     /**
