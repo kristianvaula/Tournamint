@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Represents a Stage in the tournament (Superclass)
  */
-public class Stage {
+public abstract class Stage {
 
     private ArrayList<Round> rounds; // All the rounds in the specific stage
 
@@ -23,5 +23,13 @@ public class Stage {
      */
     public ArrayList<Round> getRounds() {
         return rounds;
+    }
+
+    /**
+     * Sets the rounds in the Stage
+     * @param rounds ArrayList of rounds
+     */
+    public void setRounds(ArrayList<Round> rounds) {
+        this.rounds = rounds;
     }
 }
