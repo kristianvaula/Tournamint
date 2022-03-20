@@ -41,6 +41,13 @@ public class Team {
         return Objects.equals(name, team.name);
     }
 
+    @Override
+    public String toString() {
+        return "Team{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+
     /**
      * Hashes name of team
      * @return The hashcode
