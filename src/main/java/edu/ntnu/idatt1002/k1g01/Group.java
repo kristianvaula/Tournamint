@@ -4,6 +4,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import edu.ntnu.idatt1002.k1g01.matches.*;
 
+/**
+ * Represents a group in the group stage
+ *
+ * @author martdam
+ */
 public class Group {
     private final ArrayList<Team> teams;
     private final ArrayList<Round> rounds;
@@ -126,7 +131,7 @@ public class Group {
      * @return ArrayList of top teams in descending order. Null if some matches are not finished.
      * @throws NoSuchFieldException if not all matches in group are finished.
      */
-    public ArrayList<Team> getTopTeams(int n) throws NoSuchFieldException {
+    public ArrayList<Team> getTopTeams(int n){
         if (n > teams.size()) {
             throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+teams.size()+" teams!");
         }
@@ -134,7 +139,8 @@ public class Group {
         int[] points = new int[teams.size()];
         for (Match match : matches) {
             if (! match.isFinished()) {
-                throw new NoSuchFieldException("Not all matches have finished");
+                return null;
+                //throw new NoSuchFieldException("Not all matches have finished");
             }
             Team winner = match.getWinners(1).get(0);
             points[teams.indexOf(winner)]++;
