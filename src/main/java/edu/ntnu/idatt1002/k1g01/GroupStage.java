@@ -2,9 +2,18 @@ package edu.ntnu.idatt1002.k1g01;
 
 import java.util.ArrayList;
 
-public class GroupStage {
+public class GroupStage extends Stage{
 
     private ArrayList<Group> groups; //Groups partaking in the groupstage.
+
+    /**
+     * Initiates a Stage
+     *
+     * @param rounds an ArrayList of type Round
+     */
+    public GroupStage(ArrayList<Round> rounds) {
+        super(rounds);
+    }
 
     /**
      * Get the teams who will proceed in the tournament.

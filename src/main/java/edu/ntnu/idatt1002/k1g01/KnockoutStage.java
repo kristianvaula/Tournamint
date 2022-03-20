@@ -4,34 +4,49 @@ import edu.ntnu.idatt1002.k1g01.matches.Match;
 import edu.ntnu.idatt1002.k1g01.matches.PointMatch;
 import edu.ntnu.idatt1002.k1g01.matches.TimeMatch;
 
+import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.DuplicateFormatFlagsException;
+import java.util.Random;
 
 /**
  * Represents a KnockoutStage in the tournament (Subclass)
  */
-public class KnockoutStage extends Stage {
+public class KnockoutStage extends Stage{
 
-    private Match match;
-    static ArrayList<Match> matches = new ArrayList<>();
-    static Round round = new Round(matches, getRoundName());
-    static ArrayList<Round> rounds = new ArrayList<>();
-    KnockoutStage knockoutStage = new KnockoutStage(rounds);
+    private ArrayList<Team> teams = new ArrayList<>();
+    private int teamsPerMatch;
+    private int advancingPerMatch;
+    private String tournamentType;
 
     /**
      * Initiates a KnockoutStage
-     * @param rounds an ArrayList of type Round
+     * @param teams ArrayList of teams we will include in groupStage.
      */
-    public KnockoutStage(ArrayList<Round> rounds) {
-        super(rounds);
+    public KnockoutStage(ArrayList<Team> teams,int teamsPerMatch,String tournamentType) throws IllegalArgumentException{
+        super(generateKnockOutRounds(teams.size(),teamsPerMatch));
+        this.teams = teams;
+        this.teamsPerMatch = teamsPerMatch;
+        this.advancingPerMatch =teamsPerMatch/2;
+        this.tournamentType = tournamentType;
+        updateKnockoutStage();
     }
 
-    /**
-     * Get the rounds in the KnockoutStage
-     * @return rounds an ArrayList of type Round
-     */
-    @Override
-    public ArrayList<Round> getRounds() {
-        return super.getRounds();
+    public ArrayList<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(ArrayList<Team> teams) {
+        this.teams = teams;
+    }
+
+    public int getTeamsPerMatch() {
+        return teamsPerMatch;
+    }
+
+    public int getAdvancingPerMatch() {
+        return advancingPerMatch;
     }
 
     /**
@@ -40,7 +55,7 @@ public class KnockoutStage extends Stage {
      */
     public Team getWinnerFromKnockouts() {
         Team winnerTeam = null;
-        for(Round round : rounds) {
+        for(Round round : getRounds()) {
             if (round.getRoundName().equals("FINAL")) {
                 winnerTeam = round.getMatches().get(0).getWinners(1).get(0);
             }
@@ -49,57 +64,124 @@ public class KnockoutStage extends Stage {
     }
 
     /**
-     * Get the teams that won the round and will participate in the next round
-     * @return roundWinners, an ArrayList holding Team objects
+     * Generates the rounds needed in a knockout
+     * stage based on the amount of teams. Checks if the
+     * number of teams is compatible, and then generates
+     * the rounds.
+     * @param amountOfTeams the amount of teams that will play the first round
+     * @return Rounds of knockout stage.
      */
-    public ArrayList<Team> getRoundWinners(int amountOfWinners) {
-        ArrayList<Team> roundWinners = new ArrayList<>();
-        for(int i = 0; i < matches.size(); i++) {
-            for(int j = 0; j < amountOfWinners; j++) {
-                roundWinners.add(round.getMatches().get(i).getWinners(amountOfWinners).get(j));
-            }
+    private static ArrayList<Round> generateKnockOutRounds(int amountOfTeams,int teamsPerMatch){
+        int numberOfRounds = getNumberOfRounds(amountOfTeams,teamsPerMatch);
+        if(numberOfRounds == 0) {
+            throw new IllegalArgumentException("Amount of teams must be divisible by four");
         }
-        return roundWinners;
+
+        ArrayList<Round> rounds = new ArrayList<>();
+
+        for (int i = numberOfRounds; i > 0; i--) {
+            rounds.add(new Round(new ArrayList<>(),generateRoundName(i)));
+        }
+
+        return rounds;
     }
 
     /**
-     * Get the name of the round
-     * @return roundName, a String representing the name of the round
+     * Checks which power of teamsPerRound equals the
+     * amount of teams. Gives us the amount of
+     * rounds we need in our tournament. Returns
+     * 0 if we dont get a match, which means that
+     * the amount of teams is not compatible.
+     * @param numberOfTeams Number of teams
+     * @param teamsPerRound Teams per round
+     * @return Int number of rounds
      */
-    public static String getRoundName() {
-        String roundName = "";
+    private static int getNumberOfRounds(int numberOfTeams,int teamsPerRound){
+        for (int i = 0; i < 12; i++) {
+            if(Math.pow(teamsPerRound,i) == numberOfTeams && numberOfTeams <= 256) return i;
+        }
+        return 0;
+    }
+
+    /**
+     * Generates a round name
+     * @param roundNumber Which round it is counting from final
+     * @return String round name
+     */
+    private static String generateRoundName(int roundNumber) {
+        if(roundNumber == 1) {
+            return "FINAL";
+        }
+        else if(roundNumber == 2){
+            return "SEMIFINAL";
+        }
+        else if(roundNumber == 2){
+            return "QUARTERFINAL";
+        }
+        else {
+            return "ROUND OF " + Math.pow(2,roundNumber);
+        }
+    }
+
+    /**
+     * Sets up a round.
+     * Takes a round and a list of teams. Creates
+     * matches in the round using the list of
+     * teams.
+     * @param round Round
+     * @param teamList
+     */
+    public void roundSetUp(Round round,ArrayList<Team> teamList){
+        ArrayList<Team> teams = new ArrayList<>(teamList);
+        int amountOfMatches = teams.size()/getTeamsPerMatch();
+
+        for (int i = 0; i < amountOfMatches; i++) {
+            ArrayList<Team> participants = new ArrayList<>();
+
+            for (int j = 0; j < getTeamsPerMatch(); j++) {
+                Random rand = new Random();
+                int index = rand.nextInt(teams.size());
+                participants.add(teams.get(index));
+                teams.remove(index);
+            }
+            if(tournamentType.equals("PointMatch")){
+                round.addMatch(new PointMatch(participants));
+            }else if(tournamentType.equals("TimeMatch")){
+                round.addMatch(new TimeMatch(participants));
+            }
+        }
+    }
+
+    public void updateKnockoutStage(){
+        ArrayList<Round> rounds = getRounds();
+
+        if(rounds.get(0).getMatches().isEmpty()){
+            this.roundSetUp(rounds.get(0),getTeams());
+        }
         for (int i = 0; i < rounds.size(); i++) {
-            if (round.amountOfMatches() == 1) { roundName = "FINAL"; }
-            else if (round.amountOfMatches() == 2) { roundName = "SEMIFINAL"; }
-            else if (round.amountOfMatches() == 4) { roundName = "QUARTERFINAL"; }
-            else if (round.amountOfMatches() == 8) { roundName = "ROUND OF 16"; }
-            else { roundName = "GROUP MATCH"; }
+            //Loops through until we find round(i) is finished but
+            //next round does not have matches.
+            if(rounds.get(i).isFinished() && rounds.get(i+1).getMatches().isEmpty()){
+                Round lastRound = rounds.get(i);
+                Round nextRound = rounds.get(i+1);
+
+                ArrayList<Team> winners = lastRound.getWinners(advancingPerMatch);
+                this.roundSetUp(nextRound,winners);
+            }
         }
-        return roundName;
     }
 
     /**
-     * Generates the next round in the tournament
+     * Gets the Tournament winner
+     * @return Team winner
      */
-    public void generateNextRound(int amountOfWinners, int numberOfParticipantsInMatches, int numberOfMatchesInRound, char matchType) {
-        ArrayList<Team> allParticipants = new ArrayList<>(getRoundWinners(amountOfWinners));
-        ArrayList<Match> matches = new ArrayList<>();
-        Match match;
-        for (int m = 0; m < numberOfMatchesInRound; m++) {
-            ArrayList<Team> matchParticipants = new ArrayList<>(getRoundWinners(amountOfWinners));
-            for (int i = 0; i < numberOfParticipantsInMatches; i++) {
-                matchParticipants.add(allParticipants.get(i));
-                allParticipants.remove(i);
-            }
-            if (matchType == 'P') {
-                match = new PointMatch(matchParticipants);
-                matches.add(match);
-            }
-            else if (matchType == 'T') {
-                match = new TimeMatch(matchParticipants);
-                matches.add(match);
+    public Team getTournamentWinner() {
+        for(Round round : getRounds()){
+            if(round.getRoundName().equals("FINAL")){
+                return round.getMatches().get(0).getWinners(1).get(0);
             }
         }
-        Round nextRound = new Round(matches, getRoundName());
+        return null;
     }
+
 }
