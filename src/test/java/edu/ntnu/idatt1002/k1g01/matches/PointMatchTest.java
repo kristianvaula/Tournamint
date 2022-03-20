@@ -4,7 +4,6 @@ import edu.ntnu.idatt1002.k1g01.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -138,7 +137,7 @@ public class PointMatchTest {
         testMatch2.setResult(team2,"1");
         boolean after = testMatch2.isFinished();
 
-        assertTrue(before == false && after == true);
+        assertTrue(!before && after);
 
     }
 }
