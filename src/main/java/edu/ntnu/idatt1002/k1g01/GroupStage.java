@@ -5,14 +5,24 @@ import java.util.ArrayList;
 public class GroupStage extends Stage{
 
     private ArrayList<Group> groups; //Groups partaking in the groupstage.
+    private int advancingFromGroup; //Number of teams advancing from group
 
-    /**
-     * Initiates a Stage
-     *
-     * @param rounds an ArrayList of type Round
-     */
-    public GroupStage(ArrayList<Round> rounds) {
-        super(rounds);
+
+    public GroupStage(ArrayList<Team> teams,int advancingFromGroup) {
+        super(new ArrayList<>());
+
+        this.advancingFromGroup = advancingFromGroup;
+        this.groups.addAll(setUpGroups(teams,advancingFromGroup));
+    }
+
+    private static ArrayList<Group> setUpGroups(ArrayList<Team> teams,int advancingFromGroup){
+        ArrayList<Group> groupList = new ArrayList<>();
+        if(advancingFromGroup * 2)
+        int teamsPerGroup = advancingFromGroup * 2;
+        int amountOfGroups = teams.size()/teamsPerGroup;
+        for (int i = 0; i < ; i++) {
+
+        }
     }
 
     /**
@@ -21,10 +31,9 @@ public class GroupStage extends Stage{
      */
     public ArrayList<Team> getWinnersFromGroups() { //Need getWinners() method in Group first.
         ArrayList<Team> teamsProceeding = new ArrayList<>();
-        //Group group = new Group();
 
-        for (Group group1 : groups) {
-            //teamsProceeding.addAll(group.getWinners());
+        for (Group group : groups) {
+            teamsProceeding.addAll(group.getTopTeams());
         }
         return teamsProceeding;
     }
