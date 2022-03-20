@@ -1,13 +1,9 @@
 package edu.ntnu.idatt1002.k1g01;
 
-import edu.ntnu.idatt1002.k1g01.matches.Match;
 import edu.ntnu.idatt1002.k1g01.matches.PointMatch;
 import edu.ntnu.idatt1002.k1g01.matches.TimeMatch;
 
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.DuplicateFormatFlagsException;
 import java.util.Random;
 
 /**
