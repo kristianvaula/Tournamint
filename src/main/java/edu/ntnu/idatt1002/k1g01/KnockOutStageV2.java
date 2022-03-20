@@ -4,8 +4,11 @@ import edu.ntnu.idatt1002.k1g01.matches.Match;
 import edu.ntnu.idatt1002.k1g01.matches.PointMatch;
 import edu.ntnu.idatt1002.k1g01.matches.TimeMatch;
 
+import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.DuplicateFormatFlagsException;
+import java.util.Random;
 
 /**
  * Represents a KnockoutStage in the tournament (Subclass)
@@ -15,16 +18,18 @@ public class KnockoutStageV2 extends Stage{
     private ArrayList<Team> teams = new ArrayList<>();
     private int teamsPerMatch;
     private int advancingPerMatch;
+    private String tournamentType;
 
     /**
      * Initiates a KnockoutStage
      * @param teams ArrayList of teams we will include in groupStage.
      */
-    public KnockoutStageV2(ArrayList<Team> teams,int teamsPerMatch) throws IllegalArgumentException{
+    public KnockoutStageV2(ArrayList<Team> teams,int teamsPerMatch,String tournamentType) throws IllegalArgumentException{
         super(generateKnockOutRounds(teams.size(),teamsPerMatch));
         this.teams = teams;
         this.teamsPerMatch = teamsPerMatch;
         this.advancingPerMatch =teamsPerMatch/2;
+        this.tournamentType = tournamentType;
         updateKnockoutStage();
     }
 
@@ -109,20 +114,33 @@ public class KnockoutStageV2 extends Stage{
         }
     }
 
-    public void updateKnockoutStage(){
+    public void createFirstRound(){
         ArrayList<Round> rounds = getRounds();
         ArrayList<Team> teams = new ArrayList<>(getTeams());
         int matches = teams.size()/teamsPerMatch;
-        if(rounds.get(0).getMatches().isEmpty()){
-            Round firstRound = rounds.get(0);
-            for (int i = 0; i < matches; i++) {
-                ArrayList<Team> participants = new ArrayList<>();
-                for (int j = 0; j < teamsPerMatch; j++) {
-                    participants.add()
-                }
-                firstRound.addMatch(new Match());
+
+        Round firstRound = rounds.get(0);
+
+        for (int i = 0; i < matches; i++) {
+            ArrayList<Team> participants = new ArrayList<>();
+
+            for (int j = 0; j < teamsPerMatch; j++) {
+                Random rand = new Random();
+                int index = rand.nextInt(teams.size());
+                participants.add(teams.get(index));
+                teams.remove(index);
+            }
+            if(tournamentType.equals("PointMatch")){
+                firstRound.addMatch(new PointMatch(participants));
+            }else{
+                firstRound.addMatch(new TimeMatch(participants));
             }
         }
+    }
+
+    public void updateKnockoutStage(){
+        ArrayList<Round> rounds = getRounds();
+        int matches = teams.size()/teamsPerMatch;
 
         for (int i = 0; i < rounds.size(); i++) {
             //Loops through until we find round(i) is finished but
