@@ -21,7 +21,7 @@ public class KnockoutStage extends Stage{
      * @param teams ArrayList of teams we will include in groupStage.
      */
     public KnockoutStage(ArrayList<Team> teams,int teamsPerMatch,String tournamentType) throws IllegalArgumentException{
-        super(generateKnockOutRounds(teams.size(),teamsPerMatch));
+        super(generateKnockOutRounds(teams.size(),teamsPerMatch,teamsPerMatch/2));
         this.teams = teams;
         this.teamsPerMatch = teamsPerMatch;
         this.advancingPerMatch =teamsPerMatch/2;
@@ -67,8 +67,8 @@ public class KnockoutStage extends Stage{
      * @param amountOfTeams the amount of teams that will play the first round
      * @return Rounds of knockout stage.
      */
-    private static ArrayList<Round> generateKnockOutRounds(int amountOfTeams,int teamsPerMatch){
-        int numberOfRounds = getNumberOfRounds(amountOfTeams,teamsPerMatch);
+    private static ArrayList<Round> generateKnockOutRounds(int amountOfTeams,int teamsPerMatch,int advancingPerMatch){
+        int numberOfRounds = getNumberOfRounds(amountOfTeams,teamsPerMatch,advancingPerMatch);
         if(numberOfRounds == 0) {
             throw new IllegalArgumentException("Amount of teams must be divisible by four");
         }
@@ -92,9 +92,9 @@ public class KnockoutStage extends Stage{
      * @param teamsPerRound Teams per round
      * @return Int number of rounds
      */
-    private static int getNumberOfRounds(int numberOfTeams,int teamsPerRound){
+    private static int getNumberOfRounds(int numberOfTeams,int teamsPerRound,int advancingPerMatch){
         for (int i = 0; i < 12; i++) {
-            if(Math.pow(teamsPerRound,i) == numberOfTeams && numberOfTeams <= 256) return i;
+            if(Math.pow(teamsPerRound,i +(advancingPerMatch/4)) == numberOfTeams && numberOfTeams <= 256) return i;
         }
         return 0;
     }
