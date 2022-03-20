@@ -24,7 +24,6 @@ public class Round {
 
         this.matches = matches;
         this.roundName = roundName;
-
     }
 
     public String getRoundName() {
@@ -37,6 +36,35 @@ public class Round {
      */
     public ArrayList<Match> getMatches() {
         return matches;
+    }
+
+    /**
+     * Checks if the round is finished
+     * by looping through and checking
+     * for unfinished matches
+     * @return True if round finished.
+     */
+    public boolean isFinished(){
+        for(Match match : matches){
+            if(!match.isFinished()) return false;
+        }
+        return true;
+    }
+
+    public ArrayList<Team> getWinners(int advancingPerRound){
+        ArrayList<Team> winners = new ArrayList<>();
+        for(Match match : matches){
+            winners.addAll(match.getWinners(advancingPerRound));
+        }
+        return winners;
+    }
+
+    /**
+     * Adds a match to the matches list
+     * @param match match to add
+     */
+    public void addMatch(Match match){
+        matches.add(match);
     }
 
     /**
