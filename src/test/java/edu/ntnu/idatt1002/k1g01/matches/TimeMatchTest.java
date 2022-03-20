@@ -12,13 +12,16 @@ import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PointMatchTest {
+public class TimeMatchTest {
+
     private String teamName1,teamName2;
     private Team team1,team2,team3;
     private ArrayList<Team> teamList;
     private ArrayList<Team> extendedTeamList;
-    private PointMatch testMatch;
-    private PointMatch multiTeamMatch;
+    private TimeMatch testMatch;
+    private TimeMatch multiTeamMatch;
+    private final String TWO_MINUTES = "00:02:00:0000";
+    private final String FOUR_MINUTES = "00:04:00:0000";
 
     @BeforeEach
     void setUp() {
@@ -37,14 +40,14 @@ public class PointMatchTest {
         extendedTeamList.add(team2);
         extendedTeamList.add(team3);
 
-        testMatch = new PointMatch(teamList);
-        multiTeamMatch = new PointMatch(extendedTeamList);
+        testMatch = new TimeMatch(teamList);
+        multiTeamMatch = new TimeMatch(extendedTeamList);
     }
 
     @Test
     void getWinners() {
-        testMatch.setResult(team1,"3");
-        testMatch.setResult(team2,"1");
+        testMatch.setResult(team1,TWO_MINUTES);
+        testMatch.setResult(team2,FOUR_MINUTES);
 
         Team winner = testMatch.getWinners(1).get(0);
 
@@ -56,7 +59,7 @@ public class PointMatchTest {
         ArrayList<Team> participants = testMatch.getParticipants();
 
         assertTrue(participants.contains(team1)
-                        && participants.contains(team2));
+                && participants.contains(team2));
     }
 
     @Test
@@ -89,12 +92,12 @@ public class PointMatchTest {
 
     @Test
     void getMatchResult() {
-        testMatch.setResult(team1,"3");
-        testMatch.setResult(team2,"1");
+        testMatch.setResult(team1,TWO_MINUTES);
+        testMatch.setResult(team2,FOUR_MINUTES);
 
         HashMap<Team,String> results = testMatch.getMatchResult();
 
-        assertEquals("3",results.get(team1));
+        assertEquals("00:02:00:00",results.get(team1));
     }
 
     @Test
@@ -103,14 +106,14 @@ public class PointMatchTest {
 
         HashMap<Team,String> results = testMatch.getMatchResult();
 
-        assertEquals(true,results.isEmpty());
+        assertNull(results);
     }
 
     @Test
     void getMatchResultOrdered() {
-        multiTeamMatch.setResult(team1,"3");
-        multiTeamMatch.setResult(team2,"5");
-        multiTeamMatch.setResult(team3,"1");
+        multiTeamMatch.setResult(team1,TWO_MINUTES);
+        multiTeamMatch.setResult(team2,FOUR_MINUTES);
+        multiTeamMatch.setResult(team3,"00:01:00:0000");
 
         LinkedHashMap<Team,String> ordered = multiTeamMatch.getMatchResultOrdered();
         ArrayList<Team> teamsOrdered = new ArrayList<>(ordered.keySet());
@@ -120,24 +123,24 @@ public class PointMatchTest {
 
     @Test
     void getMatchResultByTeam() {
-        testMatch.setResult(team1,"3");
-        testMatch.setResult(team2,"1");
+        testMatch.setResult(team1,FOUR_MINUTES);
+        testMatch.setResult(team2,TWO_MINUTES);
 
         String resultTeam1 = testMatch.getMatchResultByTeam(team1);
 
-        assertEquals("3",resultTeam1);
+        assertEquals("00:04:00:00",resultTeam1);
     }
 
     @Test
     void updateIsFinished(){
-        PointMatch testMatch2 = new PointMatch(teamList);
+        TimeMatch testMatch2 = new TimeMatch(teamList);
         boolean before = testMatch2.isFinished();
 
-        testMatch2.setResult(team1,"3");
-        testMatch2.setResult(team2,"1");
+        testMatch2.setResult(team1,FOUR_MINUTES);
+        testMatch2.setResult(team2,TWO_MINUTES);
         boolean after = testMatch2.isFinished();
 
-        assertTrue(!before && after);
+        assertTrue(before == false && after == true);
 
     }
 }
