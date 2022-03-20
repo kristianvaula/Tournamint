@@ -17,9 +17,8 @@ public class TimeMatch extends Match{
 
     //Result of match based on points
     private HashMap<Team, LocalTime> timeResult = new HashMap<>();
-
-    //Sets constant time format to hour:minute:second:millisecond (f.eks: 00:10:04:1023)
-    private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss:AA");
+    //DateTimeFormatter for formatting string output of LocalTime
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss:nn");
 
     /**
      * Initiates a new Match.
@@ -43,7 +42,7 @@ public class TimeMatch extends Match{
         if(!isFinished()) return null;
         HashMap<Team,String> results = new HashMap<>();
         for (Team team : timeResult.keySet()){
-            results.put(team,timeResult.get(team).toString());
+            results.put(team,TIME_FORMATTER.format(timeResult.get(team)));
         }
         return results;
     }
@@ -61,7 +60,7 @@ public class TimeMatch extends Match{
         timeResult.entrySet()
                 .stream()
                 .sorted((k1,k2) -> -k1.getValue().compareTo(k2.getValue()))
-                .forEach(k -> sortedMap.put(k.getKey(),timeResult.get(k.getValue()).toString()));
+                .forEach(k -> sortedMap.put(k.getKey(),TIME_FORMATTER.format(timeResult.get(k.getKey()))));
 
         return sortedMap;
     }
@@ -73,51 +72,25 @@ public class TimeMatch extends Match{
      */
     @Override
     public String getMatchResultByTeam(Team team) {
-        return timeResult.get(team).toString();
+        return TIME_FORMATTER.format(timeResult.get(team));
     }
-
-    /**
-     * Gets n match winners in descending
-     * orders.<br> Gets the keySet from
-     * getMatchResultOrdered() and creates a
-     * list of teams ranked ordered by result.
-     * Then adds n best teams to winners list.
-     * @return ArrayList of n winning teams
-
-    @Override
-    public ArrayList<Team> getWinners(int n) {
-        ArrayList<Team> winnerList = new ArrayList<>();
-
-        Team[] teams = (Team[])getMatchResultOrdered().keySet().toArray();
-
-        for (int i = 0; i < n; i++) {
-            winnerList.add(teams[i]);
-        }
-        return winnerList;
-    }*/
 
     /**
      * Sets result in timeResults.
      * Takes a String value for the result time.
      * For the result to be set it is important
      * that the result value is properly formatted.
+     * The formatting happens in timeResultParser().
      * After setting result method calls for
      * updateIsFinished().
-     * <p>{code}
-     * Time format:
-     *  'hours:minutes:seconds:milliseconds'
      *
-     *  Example:
-     *  1#  01:23:30:0000
-     *  2#  00:00:23:2130
-     * {code}</p>
      * @param team Team we add results for
      * @param value
      */
     @Override
     public void setResult(Team team, String value) throws DateTimeParseException{
         try{
-            LocalTime result = LocalTime.parse(value,TIME_FORMAT);
+            LocalTime result = this.timeResultParser(value);
             timeResult.put(team,result);
         }catch(DateTimeParseException e){
             throw e;
@@ -140,5 +113,32 @@ public class TimeMatch extends Match{
             }
         }
         setFinished(hasResult);
+    }
+
+    /**
+     * Formats a LocalTime from a string.
+     * The string input is represented with
+     * the following format:
+     * <p>{code}
+     *        'hours:minutes:seconds:milliseconds'
+     *
+     *        Example:
+     *        1#  01:23:30:0000
+     *        2#  00:00:23:2130
+     * {code}</p>
+     * @param inputString String input
+     * @return Localtime parsed
+     */
+    public LocalTime timeResultParser(String inputString) throws DateTimeParseException{
+        String[] inputTable = inputString.split(":");
+        int hours = Integer.parseInt(inputTable[0]);
+        int minutes = Integer.parseInt(inputTable[1]);
+        int seconds = Integer.parseInt(inputTable[2]);
+        int milliseconds = Integer.parseInt(inputTable[3]);
+        try {
+            return LocalTime.of(hours,minutes,seconds,milliseconds);
+        }catch(DateTimeParseException e){
+            throw e;
+        }
     }
 }

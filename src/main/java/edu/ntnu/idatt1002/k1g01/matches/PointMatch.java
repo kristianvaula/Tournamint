@@ -69,26 +69,6 @@ public class PointMatch extends Match{
     }
 
     /**
-     * Gets n match winners in descending
-     * orders.<br> Gets the keySet from
-     * getMatchResultOrdered() and creates a
-     * list of teams ranked ordered by result.
-     * Then adds n best teams to winners list.
-     * @return ArrayList of n winning teams
-
-    @Override
-    public ArrayList<Team> getWinners(int n) {
-        ArrayList<Team> winnerList = new ArrayList<>();
-
-        Team[] teams = (Team[])getMatchResultOrdered().keySet().toArray();
-
-        for (int i = 0; i < n; i++) {
-            winnerList.add(teams[i]);
-        }
-        return winnerList;
-    }*/
-
-    /**
      * Sets result in pointsResult.
      * After setting result method calls for
      * updateIsFinished().
