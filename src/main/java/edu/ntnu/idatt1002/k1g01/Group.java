@@ -18,11 +18,11 @@ public class Group {
     /**
      * Creates a group of teams. Every team will be paired up in a match against every other team.
      * Matches will be grouped into rounds, so that every match in a round can be played concurrently.
-     * @param matchType Class of matches to generate. Example: PointMatch.class
+     * @param matchType Type of match as a string. Accepted: [point, time]
      * @param teams ArrayList of teams for the group.
      * @throws IllegalArgumentException if < 2 teams, or any duplicate teams in input.
      */
-    public Group( Class matchType, ArrayList<Team> teams) {
+    public Group( String matchType, ArrayList<Team> teams) {
         //validate input.
         if (teams.size() < 2) {
             throw new IllegalArgumentException("Attempted to create group with " + teams.size() + " teams. Minimum group size: 2!");
@@ -45,10 +45,10 @@ public class Group {
                     ArrayList<Team> teamsForMatch = new ArrayList<>();
                     teamsForMatch.add(teamA); teamsForMatch.add(teamB);
                     Match tempMatch;
-                    if (matchType == PointMatch.class) {
+                    if (matchType.equals("point")) {
                         tempMatch = new PointMatch(teamsForMatch);
                     }
-                    else if (matchType == TimeMatch.class) {
+                    else if (matchType.equals("time")) {
                         tempMatch = new TimeMatch(teamsForMatch);
                     }
                     else {throw new ClassCastException("Error in Group constructor: Unknown Match type!"); }
@@ -62,6 +62,7 @@ public class Group {
         }
 
         //Divide match pairs into minimum number of rounds so that each team has <= 1 entry per round.
+        int idealMatchesPerRound = teams.size()
         int groupRound = 1;
         int[] matchCountPerTeam = new int[teams.size()];
         int maxMatchCount = 0;
