@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Represents a KnockoutStage in the tournament (Subclass)
+ * Represents a KnockoutStage in the tournament
+ *
+ * @author kristvje
+ * @author thomaniv
  */
 public class KnockoutStage extends Stage{
 
@@ -79,8 +82,15 @@ public class KnockoutStage extends Stage{
      * @return Int number of rounds
      */
     private static int getNumberOfRounds(int numberOfTeams,int teamsPerRound,int advancingPerMatch){
-        for (int i = 0; i < 12; i++) {
-            if(Math.pow(teamsPerRound,i +(advancingPerMatch/4)) == numberOfTeams && numberOfTeams <= 256) return i;
+        if(advancingPerMatch == 2){
+            for (int i = 0; i < 12; i++) {
+                if(Math.pow(teamsPerRound,i) == numberOfTeams && numberOfTeams <= 256) return i;
+            }
+        }
+        else{
+            for (int i = 0; i < 12; i++) {
+                if(Math.pow(teamsPerRound,i +(advancingPerMatch/4)) == numberOfTeams && numberOfTeams <= 256) return i;
+            }
         }
         return 0;
     }

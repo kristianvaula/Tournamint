@@ -12,6 +12,8 @@ import java.util.LinkedHashMap;
  * Represents a match between at least two teams.
  * <br>Keeps track of the teams in the match and
  * the scores between the teams.
+ *
+ * @author kristvje
  */
 public abstract class Match {
     //The match participants

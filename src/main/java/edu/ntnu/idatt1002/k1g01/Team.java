@@ -5,6 +5,7 @@ import java.util.Objects;
 
 /**
  * Represents a team in the tournament
+ * @author kristvje
  */
 public class Team {
     // Name of the team
