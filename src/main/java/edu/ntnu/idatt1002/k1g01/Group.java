@@ -6,7 +6,7 @@ import edu.ntnu.idatt1002.k1g01.matches.*;
 
 /**
  * Contains a list of teams who all play one match against all others.
- * TODO handle matches with more than 2 teams.
+ * TODO Create groups with more than 2 teams per match.
  * Matches are divided among rounds so that every match in a round can be played concurrently.
  * @author Martin Dammerud
  */
