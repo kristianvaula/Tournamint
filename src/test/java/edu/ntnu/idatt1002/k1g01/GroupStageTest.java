@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GroupStageTest {
 
-    private Team team1,team2,team3, team4;
+    private Team team1,team2,team3, team4,team5,team6,team7,team8;
     private ArrayList<Team> teamList1,teamList2, teamList3;
     private PointMatch testMatch1, testMatch2;
     private GroupStage groupStage;
@@ -21,6 +21,10 @@ class GroupStageTest {
         team2 = new Team("TeamName2");
         team3 = new Team("TeamName3");
         team4 = new Team("TeamName4");
+        team5 = new Team("TeamName1");
+        team6 = new Team("TeamName2");
+        team7 = new Team("TeamName3");
+        team8 = new Team("TeamName4");
 
         teamList1 = new ArrayList<>();
         teamList1.add(team1);
@@ -35,15 +39,12 @@ class GroupStageTest {
         teamList3.add(team2);
         teamList3.add(team3);
         teamList3.add(team4);
+        teamList3.add(team5);
+        teamList3.add(team6);
+        teamList3.add(team7);
+        teamList3.add(team8);
 
-        testMatch1 = new PointMatch(teamList1);
-        testMatch1.setResult(team1, "2");
-        testMatch1.setResult(team2, "1");
-        testMatch2 = new PointMatch(teamList2);
-        testMatch2.setResult(team3, "3");
-        testMatch2.setResult(team4, "2");
-
-        groupStage = new GroupStage(teamList3, 4);
+        groupStage = new GroupStage(teamList3, 2,4, "PointMatch");
     }
 
     @Test
