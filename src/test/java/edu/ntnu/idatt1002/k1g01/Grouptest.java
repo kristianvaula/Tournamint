@@ -1,8 +1,10 @@
-package edu.ntnu.idatt1002.k1g01.matches;
+package edu.ntnu.idatt1002.k1g01;
 
 import edu.ntnu.idatt1002.k1g01.Group;
 import edu.ntnu.idatt1002.k1g01.Round;
 import edu.ntnu.idatt1002.k1g01.Team;
+import edu.ntnu.idatt1002.k1g01.matches.Match;
+import edu.ntnu.idatt1002.k1g01.matches.PointMatch;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -83,7 +85,8 @@ public class Grouptest {
         assertEquals(expected, actual);
     }
 
-    /* TODO: Fix Group constructor to make groups of ideal size and not fail this test.
+    // TODO: Fix Group constructor to make groups of ideal size and not fail this test.
+    /*
     @Test
     public void constructorGeneratesCorrectNumberOfRounds() {
         Group group = new Group(PointMatch.class, generateTeams(2));

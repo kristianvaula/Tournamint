@@ -5,15 +5,15 @@ import java.util.HashSet;
 import edu.ntnu.idatt1002.k1g01.matches.*;
 
 /**
- * Represents a group in the group stage
- *
- * @author martdam
+ * Contains a list of teams who all play one match against all others.
+ * TODO Create groups with more than 2 teams per match.
+ * Matches are divided among rounds so that every match in a round can be played concurrently.
+ * @author Martin Dammerud
  */
 public class Group {
     private final ArrayList<Team> teams;
     private final ArrayList<Round> rounds;
     private final ArrayList<Match> matches;
-
 
     /**
      * Creates a group of teams. Every team will be paired up in a match against every other team.
@@ -68,24 +68,21 @@ public class Group {
         while (tempMatches.size() > 0) {
             ArrayList<Match> matchesInRound = new ArrayList<>();
             ArrayList<Team> teamsInRound = new ArrayList<>();
-            Team requiredTeam = null;
-            //First, check if any team has fewer matches so far than others.
+            ArrayList<Team> deferredTeams = new ArrayList<>();
+            //First, check if any team has more matches so far than others.
             for (int i = 0; i < teams.size(); i++) {
-                if (matchCountPerTeam[i] < maxMatchCount) {
-                    requiredTeam = teams.get(i);
+                if (matchCountPerTeam[i] >= maxMatchCount) {
+                    deferredTeams.add(teams.get(i));
                 }
             }
-            //Add as many matches as possible to this round. Prioritize matches with teams that have fewer matches.
-            ArrayList<Match> doubleTempMatches = new ArrayList<>();
-            doubleTempMatches.addAll(tempMatches);
-            doubleTempMatches.addAll(tempMatches);
-            for (Match tempMatch : doubleTempMatches) {
+            //Add as many matches as possible to this round.
+            //Look for matches with no deferred teams.
+            for (Match tempMatch : tempMatches) {
                 boolean teamsFree = true;
                 for (Team team : tempMatch.getParticipants()) {
-                    if (teamsInRound.contains(team)) { teamsFree = false; break; }
+                    if (teamsInRound.contains(team) || deferredTeams.contains(team)) { teamsFree = false; break; }
                 }
-                if (teamsFree && (requiredTeam == null || tempMatch.getParticipants().contains(requiredTeam))) {
-                    requiredTeam = null;
+                if (teamsFree) {
                     matchesInRound.add(tempMatch);
                     teamsInRound.addAll(tempMatch.getParticipants());
                     for (Team matchTeam: tempMatch.getParticipants()) {
@@ -93,7 +90,36 @@ public class Group {
                     }
                 }
             }
-            //Update maxMatchCountPerTeam for the creation of next round.
+            //Look for matches with only one deferred team.
+            for (Match tempMatch : tempMatches) {
+                int teamsFree = 2;
+                for (Team team : tempMatch.getParticipants()) {
+                    if (teamsInRound.contains(team)) { teamsFree = 0; break; }
+                    else if(deferredTeams.contains(team)) { teamsFree--; }
+                }
+                if (teamsFree >= 1) {
+                    matchesInRound.add(tempMatch);
+                    teamsInRound.addAll(tempMatch.getParticipants());
+                    for (Team matchTeam: tempMatch.getParticipants()) {
+                        matchCountPerTeam[teams.indexOf(matchTeam)]++;
+                    }
+                }
+            }
+            //Look for matches with deferred teams.
+            for (Match tempMatch : tempMatches) {
+                boolean teamsFree = true;
+                for (Team team : tempMatch.getParticipants()) {
+                    if (teamsInRound.contains(team)) { teamsFree = false; break; }
+                }
+                if (teamsFree) {
+                    matchesInRound.add(tempMatch);
+                    teamsInRound.addAll(tempMatch.getParticipants());
+                    for (Team matchTeam: tempMatch.getParticipants()) {
+                        matchCountPerTeam[teams.indexOf(matchTeam)]++;
+                    }
+                }
+            }
+            //Update maxMatchCountPerTeam, used for deferring teams next round.
             for (int count : matchCountPerTeam) {
                 if (count > maxMatchCount) {
                     maxMatchCount = count;
@@ -122,6 +148,20 @@ public class Group {
     public ArrayList<Team> getTeams() { return teams; }
     public ArrayList<Round> getRounds() { return rounds; }
     public ArrayList<Match> getMatches() { return matches; }
+    public int getTeamCount() { return teams.size(); }
+    public int getRoundCount() { return rounds.size(); }
+    public int getMatchCount() { return matches.size(); }
+
+    /**
+     * Checks if every match in the group has been played.
+     * @return true if all matches are done.
+     */
+    public boolean isFinished() {
+        for (Match match : matches) {
+            if (! match.isFinished()) { return false; }
+        }
+        return true;
+    }
 
     /**
      * Finds the n best performing teams in this group.
@@ -131,7 +171,7 @@ public class Group {
      * @return ArrayList of top teams in descending order. Null if some matches are not finished.
      * @throws NoSuchFieldException if not all matches in group are finished.
      */
-    public ArrayList<Team> getTopTeams(int n){
+    public ArrayList<Team> getTopTeams(int n) throws NoSuchFieldException {
         if (n > teams.size()) {
             throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+teams.size()+" teams!");
         }
@@ -139,8 +179,7 @@ public class Group {
         int[] points = new int[teams.size()];
         for (Match match : matches) {
             if (! match.isFinished()) {
-                return null;
-                //throw new NoSuchFieldException("Not all matches have finished");
+                throw new NoSuchFieldException("Not all matches have finished");
             }
             Team winner = match.getWinners(1).get(0);
             points[teams.indexOf(winner)]++;

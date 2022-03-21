@@ -49,20 +49,6 @@ public class KnockoutStage extends Stage{
     }
 
     /**
-     * Get the team that won the final and the tournament
-     * @return winnerTeam, an object of type Team
-     */
-    public Team getWinnerFromKnockouts() {
-        Team winnerTeam = null;
-        for(Round round : getRounds()) {
-            if (round.getRoundName().equals("FINAL")) {
-                winnerTeam = round.getMatches().get(0).getWinners(1).get(0);
-            }
-        }
-        return winnerTeam;
-    }
-
-    /**
      * Generates the rounds needed in a knockout
      * stage based on the amount of teams. Checks if the
      * number of teams is compatible, and then generates
@@ -152,7 +138,7 @@ public class KnockoutStage extends Stage{
             }
             if(tournamentType.equals("PointMatch")){
                 round.addMatch(new PointMatch(participants));
-            }else if(tournamentType.equals("TimeMatch")){
+            } else if(tournamentType.equals("TimeMatch")){
                 round.addMatch(new TimeMatch(participants));
             }
         }
@@ -164,7 +150,7 @@ public class KnockoutStage extends Stage{
         if(rounds.get(0).getMatches().isEmpty()){
             this.roundSetUp(rounds.get(0),getTeams());
         }
-        for (int i = 0; i < rounds.size(); i++) {
+        for (int i = 0; i < rounds.size()-1; i++) {
             //Loops through until we find round(i) is finished but
             //next round does not have matches.
             if(rounds.get(i).isFinished() && rounds.get(i+1).getMatches().isEmpty()){
