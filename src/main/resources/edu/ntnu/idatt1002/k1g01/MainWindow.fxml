@@ -3,11 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.MainWindowController">
+<AnchorPane prefHeight="540.0" minHeight="540.0" maxHeight="810.0" prefWidth="960.0" minWidth="960" maxWidth="1440.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.MainWindowController">
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0">
          <top>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="158.0" prefWidth="600.0" style="-fx-background-color: lightgray; -fx-border-width: 5px; -fx-border-color: black;" BorderPane.alignment="CENTER">
                <children>
                   <MenuBar>
                     <menus>
