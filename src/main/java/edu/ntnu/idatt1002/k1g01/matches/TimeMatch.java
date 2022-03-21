@@ -61,7 +61,7 @@ public class TimeMatch extends Match{
         LinkedHashMap<Team,String> sortedMap = new LinkedHashMap<>();
         timeResult.entrySet()
                 .stream()
-                .sorted((k1,k2) -> -k1.getValue().compareTo(k2.getValue()))
+                .sorted((k1,k2) -> k1.getValue().compareTo(k2.getValue()))
                 .forEach(k -> sortedMap.put(k.getKey(),TIME_FORMATTER.format(timeResult.get(k.getKey()))));
 
         return sortedMap;

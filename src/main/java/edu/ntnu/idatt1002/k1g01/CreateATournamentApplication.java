@@ -8,15 +8,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainApplication extends Application {
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+public class CreateATournamentApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateATournamentWindow.fxml"));
         try {
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
@@ -28,5 +24,9 @@ public class MainApplication extends Application {
             System.out.println(e.getCause());
             throw e;
         }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
