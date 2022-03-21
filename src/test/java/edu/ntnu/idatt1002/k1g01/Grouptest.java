@@ -38,31 +38,31 @@ public class Grouptest {
     }
     @Test
     public void CanConstructWith_3() {
-        Group group = new Group(PointMatch.class, generateTeams(3));
+        Group group = new Group("point", generateTeams(3));
     }
     @Test
     public void CanConstructWith_4() {
-        Group group = new Group(PointMatch.class, generateTeams(4));
+        Group group = new Group("point", generateTeams(4));
     }
     @Test
     public void CanConstructWith_5() {
-        Group group = new Group(PointMatch.class, generateTeams(5));
+        Group group = new Group("point", generateTeams(5));
     }
     @Test
     public void CanConstructWith_6() {
-        Group group = new Group(PointMatch.class, generateTeams(6));
+        Group group = new Group("point", generateTeams(6));
     }
     @Test
     public void CanConstructWith_10() {
-        Group group = new Group(PointMatch.class, generateTeams(10));
+        Group group = new Group("point", generateTeams(10));
     }
     @Test
     public void CanConstructWith_13() {
-        Group group = new Group(PointMatch.class, generateTeams(13));
+        Group group = new Group("point", generateTeams(13));
     }
     @Test
     public void CanConstructWith_17() {
-        Group group = new Group(PointMatch.class, generateTeams(17));
+        Group group = new Group("point", generateTeams(17));
     }
 
     @Test
@@ -86,26 +86,29 @@ public class Grouptest {
     }
 
     // TODO: Fix Group constructor to make groups of ideal size and not fail this test.
-    /*
     @Test
     public void constructorGeneratesCorrectNumberOfRounds() {
-        Group group = new Group(PointMatch.class, generateTeams(2));
+        Group group = new Group("point", generateTeams(2));
         assertEquals(1, group.getRounds().size());
-        group = new Group(PointMatch.class, generateTeams(3));
+        group = new Group("point", generateTeams(3));
         assertEquals(3, group.getRounds().size());
-        group = new Group(PointMatch.class, generateTeams(4));
+        group = new Group("point", generateTeams(4));
         assertEquals(3, group.getRounds().size());
-        group = new Group(PointMatch.class, generateTeams(5));
+        group = new Group("point", generateTeams(5));
         assertEquals(5, group.getRounds().size());
-        group = new Group(PointMatch.class, generateTeams(6));
+        group = new Group("point", generateTeams(6));
+        System.out.print("here");
         assertEquals(5, group.getRounds().size());
+        group = new Group("point", generateTeams(7));
+        assertEquals(7, group.getRounds().size());
+        group = new Group("point", generateTeams(8));
+        assertEquals(7, group.getRounds().size());
     }
-    */
 
     @Test
     public void constructorGeneratesRoundsWithNoDuplicateTeams() {
         for (int n = 2; n < 20; n++) {
-            Group group = new Group(PointMatch.class, generateTeams(n));
+            Group group = new Group("point", generateTeams(n));
             for (Round round : group.getRounds()) {
                 HashSet<Team> teamSet = new HashSet<>();
                 ArrayList<Team> teamList = new ArrayList<>();
@@ -121,14 +124,14 @@ public class Grouptest {
     @Test
     public void getTopTeamsTrowsCorrectExceptions() {
         Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-            Group group = new Group(PointMatch.class, generateTeams(4));
+            Group group = new Group("point", generateTeams(4));
             group.getTopTeams(5);
         });
         String expected = "Requested top "+5+" teams from group with only "+4+" teams!";
         String actual = exception.getMessage();
         assertEquals(expected, actual);
         exception = assertThrows(NoSuchFieldException.class, () -> {
-            Group group = new Group(PointMatch.class, generateTeams(4));
+            Group group = new Group("point", generateTeams(4));
             group.getTopTeams(2);
         });
         expected = "Not all matches have finished";
