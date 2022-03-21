@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k1g01;
 
+import edu.ntnu.idatt1002.k1g01.matches.Match;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,13 +15,13 @@ import java.util.Random;
 public class GroupStage extends Stage{
 
     //Groups partaking in the groupstage.
-    private ArrayList<Group> groups;
+    private ArrayList<Group> groups = new ArrayList<Group>();;
     //Number of teams advancing from group
     private int advancingFromGroup;
     //Number of teams per group
     private int teamsPerGroup;
     //Type of matches in group
-    private Class matchType;
+    private String matchType;
 
     /**
      * Inititates a new group stage.
@@ -30,7 +32,7 @@ public class GroupStage extends Stage{
      * @param teamsPerGroup Number of teams per group
      * @param matchType Type of matches in group stage
      */
-    public GroupStage(ArrayList<Team> teams,int advancingFromGroup,int teamsPerGroup,Class matchType) {
+    public GroupStage(ArrayList<Team> teams,int advancingFromGroup,int teamsPerGroup,String matchType) {
         super(new ArrayList<>());
         this.teamsPerGroup = teamsPerGroup;
         this.matchType = matchType;
@@ -46,7 +48,7 @@ public class GroupStage extends Stage{
      * @param matchType Type of matches in group stage
      * @return The groups
      */
-    private static ArrayList<Group> setUpGroups(ArrayList<Team> teams,int teamsPerGroup,Class matchType){
+    private static ArrayList<Group> setUpGroups(ArrayList<Team> teams,int teamsPerGroup,String matchType){
         if((teams.size()/teamsPerGroup)%4 == 0){
             throw new IllegalArgumentException("Incompatible number of teams compared to teamsPerGroup");
         }
@@ -64,7 +66,7 @@ public class GroupStage extends Stage{
                 groupTeams.add(team);
                 teamList.remove(index);
             }
-            groups.add(new Group(matchType,teams));
+            groups.add(new Group(matchType,groupTeams));
         }
         return groups;
     }
@@ -73,7 +75,7 @@ public class GroupStage extends Stage{
      * Get the teams who will proceed in the tournament.
      * @return the winners.
      */
-    public ArrayList<Team> getWinnersFromGroups() { //Need getWinners() method in Group first.
+    public ArrayList<Team> getWinnersFromGroups() throws NoSuchFieldException{ //Need getWinners() method in Group first.
         ArrayList<Team> teamsProceeding = new ArrayList<>();
 
         for (Group group : groups) {
@@ -95,6 +97,9 @@ public class GroupStage extends Stage{
      * @return Returns True if the groupstage is finished and false if it´s not.
      */
     public boolean isFinished() {
-        return getWinnersFromGroups() != null;
+        for(Group group : groups){
+            if(!group.isFinished()) return false;
+        }
+        return true;
     }
 }
