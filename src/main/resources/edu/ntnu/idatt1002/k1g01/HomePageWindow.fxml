@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960" prefHeight="540.0" prefWidth="960"
+            xmlns="http://javafx.com/javafx/11.0.2"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.ntnu.idatt1002.k1g01.controller.HomePageController">
+   <children>
+      <BorderPane layoutY="-2.0" prefHeight="544.0" prefWidth="962.0" stylesheets="@style.css">
+         <top>
+            <VBox prefHeight="13.0" prefWidth="962.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuBar prefHeight="25.0" prefWidth="950.0">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Close" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Edit">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Delete" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <AnchorPane prefHeight="534.0" prefWidth="962.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button alignment="CENTER" layoutX="369.0" layoutY="174.0" mnemonicParsing="false" onAction="#changeScreenToCreateTournament" prefHeight="60.0" prefWidth="214.0" text="Create new tournament">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="369.0" layoutY="274.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="214.0" text="Open tournament">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Label alignment="CENTER" layoutX="292.0" layoutY="27.0" prefHeight="106.0" prefWidth="369.0" style="-fx-font-size: 30;" text="Tournamint">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+   <effect>
+      <DropShadow />
+   </effect>
+</AnchorPane>
