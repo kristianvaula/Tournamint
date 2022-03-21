@@ -7,6 +7,8 @@ import java.util.ArrayList;
  * <br> Keeps track of all teams and stages.
  * Controls the flow of the tournament and makes
  * the decisions on how the tournament develops
+ *
+ * @author kristvje
  */
 public class Tournament {
     //Name of the tournament

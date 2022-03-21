@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a match where the winner(s)
  * are based on who has the most points.
+ *
+ * @author kristjve
  */
 public class TimeMatch extends Match{
 

@@ -9,6 +9,8 @@ import java.util.LinkedHashMap;
 /**
  * Represents a match where the winner(s)
  * are based on who has the most points.
+ *
+ * @author kristjve
  */
 public class PointMatch extends Match{
     //Result of match based on points
