@@ -63,24 +63,21 @@ public class Group {
         while (tempMatches.size() > 0) {
             ArrayList<Match> matchesInRound = new ArrayList<>();
             ArrayList<Team> teamsInRound = new ArrayList<>();
-            Team requiredTeam = null;
-            //First, check if any team has fewer matches so far than others.
+            ArrayList<Team> deferredTeams = new ArrayList<>();
+            //First, check if any team has more matches so far than others.
             for (int i = 0; i < teams.size(); i++) {
-                if (matchCountPerTeam[i] < maxMatchCount) {
-                    requiredTeam = teams.get(i);
+                if (matchCountPerTeam[i] >= maxMatchCount) {
+                    deferredTeams.add(teams.get(i));
                 }
             }
-            //Add as many matches as possible to this round. Prioritize matches with teams that have fewer matches.
-            ArrayList<Match> doubleTempMatches = new ArrayList<>();
-            doubleTempMatches.addAll(tempMatches);
-            doubleTempMatches.addAll(tempMatches);
-            for (Match tempMatch : doubleTempMatches) {
+            //Add as many matches as possible to this round.
+            //Look for matches with no deferred teams.
+            for (Match tempMatch : tempMatches) {
                 boolean teamsFree = true;
                 for (Team team : tempMatch.getParticipants()) {
-                    if (teamsInRound.contains(team)) { teamsFree = false; break; }
+                    if (teamsInRound.contains(team) || deferredTeams.contains(team)) { teamsFree = false; break; }
                 }
-                if (teamsFree && (requiredTeam == null || tempMatch.getParticipants().contains(requiredTeam))) {
-                    requiredTeam = null;
+                if (teamsFree) {
                     matchesInRound.add(tempMatch);
                     teamsInRound.addAll(tempMatch.getParticipants());
                     for (Team matchTeam: tempMatch.getParticipants()) {
@@ -88,7 +85,36 @@ public class Group {
                     }
                 }
             }
-            //Update maxMatchCountPerTeam for the creation of next round.
+            //Look for matches with only one deferred team.
+            for (Match tempMatch : tempMatches) {
+                int teamsFree = 2;
+                for (Team team : tempMatch.getParticipants()) {
+                    if (teamsInRound.contains(team)) { teamsFree = 0; break; }
+                    else if(deferredTeams.contains(team)) { teamsFree--; }
+                }
+                if (teamsFree >= 1) {
+                    matchesInRound.add(tempMatch);
+                    teamsInRound.addAll(tempMatch.getParticipants());
+                    for (Team matchTeam: tempMatch.getParticipants()) {
+                        matchCountPerTeam[teams.indexOf(matchTeam)]++;
+                    }
+                }
+            }
+            //Look for matches with deferred teams.
+            for (Match tempMatch : tempMatches) {
+                boolean teamsFree = true;
+                for (Team team : tempMatch.getParticipants()) {
+                    if (teamsInRound.contains(team)) { teamsFree = false; break; }
+                }
+                if (teamsFree) {
+                    matchesInRound.add(tempMatch);
+                    teamsInRound.addAll(tempMatch.getParticipants());
+                    for (Team matchTeam: tempMatch.getParticipants()) {
+                        matchCountPerTeam[teams.indexOf(matchTeam)]++;
+                    }
+                }
+            }
+            //Update maxMatchCountPerTeam, used for deferring teams next round.
             for (int count : matchCountPerTeam) {
                 if (count > maxMatchCount) {
                     maxMatchCount = count;
