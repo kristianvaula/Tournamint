@@ -4,11 +4,16 @@ import java.util.Arrays;
 import java.util.HashSet;
 import edu.ntnu.idatt1002.k1g01.matches.*;
 
+/**
+ * Contains a list of teams who all play one match against all others.
+ * TODO handle matches with more than 2 teams.
+ * Matches are divided among rounds so that every match in a round can be played concurrently.
+ * @author Martin Dammerud
+ */
 public class Group {
     private final ArrayList<Team> teams;
     private final ArrayList<Round> rounds;
     private final ArrayList<Match> matches;
-
 
     /**
      * Creates a group of teams. Every team will be paired up in a match against every other team.
@@ -143,6 +148,20 @@ public class Group {
     public ArrayList<Team> getTeams() { return teams; }
     public ArrayList<Round> getRounds() { return rounds; }
     public ArrayList<Match> getMatches() { return matches; }
+    public int getTeamCount() { return teams.size(); }
+    public int getRoundCount() { return rounds.size(); }
+    public int getMatchCount() { return matches.size(); }
+
+    /**
+     * Checks if every match in the group has been played.
+     * @return true if all matches are done.
+     */
+    public boolean isFinished() {
+        for (Match match : matches) {
+            if (! match.isFinished()) { return false; }
+        }
+        return true;
+    }
 
     /**
      * Finds the n best performing teams in this group.
