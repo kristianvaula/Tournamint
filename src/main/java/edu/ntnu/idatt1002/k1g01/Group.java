@@ -62,7 +62,6 @@ public class Group {
         }
 
         //Divide match pairs into minimum number of rounds so that each team has <= 1 entry per round.
-        int idealMatchesPerRound = teams.size()
         int groupRound = 1;
         int[] matchCountPerTeam = new int[teams.size()];
         int maxMatchCount = 0;
@@ -141,7 +140,7 @@ public class Group {
      * @param teams teams for the group.
      * @throws IllegalArgumentException if < 2 teams, or any duplicate teams in input.
      */
-    public Group( Class matchType, Team ...teams) {
+    public Group( String matchType, Team ...teams) {
         this(matchType, new ArrayList<>(Arrays.asList(teams)));
     }
 
