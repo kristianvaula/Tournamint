@@ -21,6 +21,8 @@ public class Tournament implements Serializable {
     private ArrayList<Team> teams;
     //Group stage of tournament
     private GroupStage groupStage;
+    //Tells us if tournament has group stage
+    private boolean hasGroupStage;
     //Knockout stage of tournament;
     private KnockoutStage knockoutStage;
     //How many teams play each other in a match
@@ -44,6 +46,7 @@ public class Tournament implements Serializable {
         this.teams = teams;
         this.teamsPerMatch = teamsPerMatch;
         this.matchType = matchType;
+        this.hasGroupStage = false;
         this.knockoutStage = new KnockoutStage(teams,teamsPerMatch,matchType);
     }
 
@@ -62,6 +65,7 @@ public class Tournament implements Serializable {
         this.tournamentName = tournamentName;
         this.teams = teams;
         this.groupStage = new GroupStage(teams,advancingPerGroup,teamsPerGroup,matchType);
+        this.hasGroupStage = true;
     }
 
     /**
@@ -96,6 +100,30 @@ public class Tournament implements Serializable {
      */
     public int getNumberOfTeams(){
         return teams.size();
+    }
+
+    /**
+     * Gets teams per match
+     * @return int teams per match
+     */
+    public int getTeamsPerMatch() {
+        return teamsPerMatch;
+    }
+
+    /**
+     * Gets match type
+     * @return string match type
+     */
+    public String getMatchType() {
+        return matchType;
+    }
+
+    /**
+     * Has group stage
+     * @return true if tournament has group stage
+     */
+    public boolean hasGroupStage() {
+        return hasGroupStage;
     }
 
     /**

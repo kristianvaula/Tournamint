@@ -49,7 +49,7 @@ public class GroupStage extends Stage {
      * @param matchType Type of matches in group stage
      * @return The groups
      */
-    private static ArrayList<Group> setUpGroups(ArrayList<Team> teams,int teamsPerGroup,String matchType){
+    private static ArrayList<Group> setUpGroups(ArrayList<Team> teams,int teamsPerGroup,String matchType) throws  IllegalArgumentException{
         if((teams.size()/teamsPerGroup)%4 != 0){
             throw new IllegalArgumentException("Incompatible number of teams compared to teamsPerGroup");
         }
