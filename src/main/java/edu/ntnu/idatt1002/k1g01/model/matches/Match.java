@@ -1,7 +1,8 @@
-package edu.ntnu.idatt1002.k1g01.matches;
+package edu.ntnu.idatt1002.k1g01.model.matches;
 
-import edu.ntnu.idatt1002.k1g01.Team;
+import edu.ntnu.idatt1002.k1g01.model.Team;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.LinkedHashMap;
  *
  * @author kristvje
  */
-public abstract class Match {
+public abstract class Match implements Serializable {
     //The match participants
     private ArrayList<Team> participants;
     //The time at which the match starts

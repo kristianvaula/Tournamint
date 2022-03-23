@@ -1,6 +1,7 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model.stages;
 
-import edu.ntnu.idatt1002.k1g01.matches.Match;
+import edu.ntnu.idatt1002.k1g01.model.Group;
+import edu.ntnu.idatt1002.k1g01.model.Team;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,7 +14,7 @@ import java.util.Random;
  * @author martnal
  * @author espenjus
  */
-public class GroupStage extends Stage{
+public class GroupStage extends Stage {
 
     //Groups partaking in the groupstage.
     private ArrayList<Group> groups = new ArrayList<>();
@@ -33,13 +34,13 @@ public class GroupStage extends Stage{
      * @param teamsPerGroup Number of teams per group
      * @param matchType Type of matches in group stage
      */
-    public GroupStage(ArrayList<Team> teams,int advancingFromGroup,int teamsPerGroup,String matchType) {
+    public GroupStage(ArrayList<Team> teams, int advancingFromGroup, int teamsPerGroup, String matchType) {
         super(new ArrayList<>());
         if (advancingFromGroup <= 1 || advancingFromGroup >= teamsPerGroup) throw new IllegalArgumentException("Teams advancing from group must be at least one and maximum the amount of teams in the group");
         this.teamsPerGroup = teamsPerGroup;
         this.matchType = matchType;
         this.advancingFromGroup = advancingFromGroup;
-        this.groups.addAll(setUpGroups(teams,teamsPerGroup,matchType));
+        this.groups.addAll(setUpGroups(teams,advancingFromGroup,teamsPerGroup,matchType));
     }
 
     /**
@@ -50,10 +51,25 @@ public class GroupStage extends Stage{
      * @param matchType Type of matches in group stage
      * @return The groups
      */
-    private static ArrayList<Group> setUpGroups(ArrayList<Team> teams,int teamsPerGroup,String matchType){
-        if((teams.size()/teamsPerGroup)%4 == 0){
+    private static ArrayList<Group> setUpGroups(ArrayList<Team> teams, int advancingFromGroup,
+                                                int teamsPerGroup,String matchType) throws  IllegalArgumentException{
+        /*
+        TODO remove this old algorithm eventually
+        if((teams.size()/teamsPerGroup)%4 != 0){
             throw new IllegalArgumentException("Incompatible number of teams compared to teamsPerGroup");
         }
+        */
+
+        //New input verification. Makes suer a power of 2 teams will advance to the finals.
+        int advanceToFinals = teams.size()/teamsPerGroup*advancingFromGroup;
+        boolean compatible = false;
+        for (int i = 1; i < 10; i++) {
+            if (advanceToFinals - (2^i) == 0) { compatible = true; break; }
+        }
+        if (!compatible) {
+            throw new IllegalArgumentException("Incompatible number of teams advancing to finals: " + advanceToFinals);
+        }
+
         ArrayList<Group> groups = new ArrayList<>();
         ArrayList<Team> teamList = new ArrayList<>(teams);
         Random rand = new Random();

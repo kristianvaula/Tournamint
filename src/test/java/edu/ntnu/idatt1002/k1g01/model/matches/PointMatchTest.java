@@ -1,6 +1,6 @@
-package edu.ntnu.idatt1002.k1g01.matches;
+package edu.ntnu.idatt1002.k1g01.model.matches;
 
-import edu.ntnu.idatt1002.k1g01.Team;
+import edu.ntnu.idatt1002.k1g01.model.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,16 +13,13 @@ import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TimeMatchTest {
-
+public class PointMatchTest {
     private String teamName1,teamName2;
     private Team team1,team2,team3;
     private ArrayList<Team> teamList;
     private ArrayList<Team> extendedTeamList;
-    private TimeMatch testMatch;
-    private TimeMatch multiTeamMatch;
-    private final String TWO_MINUTES = "00:02:00:0000";
-    private final String FOUR_MINUTES = "00:04:00:0000";
+    private PointMatch testMatch;
+    private PointMatch multiTeamMatch;
 
     @BeforeEach
     void setUp() {
@@ -41,15 +38,15 @@ public class TimeMatchTest {
         extendedTeamList.add(team2);
         extendedTeamList.add(team3);
 
-        testMatch = new TimeMatch(teamList);
-        multiTeamMatch = new TimeMatch(extendedTeamList);
+        testMatch = new PointMatch(teamList);
+        multiTeamMatch = new PointMatch(extendedTeamList);
     }
 
     @Test
     @DisplayName("Tests the getWinners method")
     void getWinners() {
-        testMatch.setResult(team1,TWO_MINUTES);
-        testMatch.setResult(team2,FOUR_MINUTES);
+        testMatch.setResult(team1,"3");
+        testMatch.setResult(team2,"1");
 
         Team winner = testMatch.getWinners(1).get(0);
 
@@ -62,11 +59,11 @@ public class TimeMatchTest {
         ArrayList<Team> participants = testMatch.getParticipants();
 
         assertTrue(participants.contains(team1)
-                && participants.contains(team2));
+                        && participants.contains(team2));
     }
 
     @Test
-    @DisplayName("Tests the Set and Get methods for the time of the match")
+    @DisplayName("Tests the Set and Get methods for the time of a match to String")
     void setAndGetStartTimeAsString() {
         LocalTime time = LocalTime.of(20,15);
 
@@ -76,7 +73,7 @@ public class TimeMatchTest {
     }
 
     @Test
-    @DisplayName("Tests the Set and Get methods for the date of the match")
+    @DisplayName("Tests the Set and Get methods for the date of a match to String")
     void SetAndGetMatchDateAsString() {
         LocalDate date = LocalDate.of(2020,1,14);
         String outputTest = "" + date.getDayOfMonth() + " / " + date.getMonth();
@@ -99,30 +96,30 @@ public class TimeMatchTest {
     @Test
     @DisplayName("Tests the getMatchResult method")
     void getMatchResult() {
-        testMatch.setResult(team1,TWO_MINUTES);
-        testMatch.setResult(team2,FOUR_MINUTES);
+        testMatch.setResult(team1,"3");
+        testMatch.setResult(team2,"1");
 
         HashMap<Team,String> results = testMatch.getMatchResult();
 
-        assertEquals("00:02:00:00",results.get(team1));
+        assertEquals("3",results.get(team1));
     }
 
     @Test
-    @DisplayName("Tests the getMatchResult method when result is empty")
+    @DisplayName("Tests the getMatchResult method when the result is empty")
     void getMatchResultWithoutResult() {
         PointMatch testMatch2 = new PointMatch(teamList);
 
         HashMap<Team,String> results = testMatch.getMatchResult();
 
-        assertNull(results);
+        assertEquals(true,results.isEmpty());
     }
 
     @Test
     @DisplayName("Tests the getMatchResultOrdered method")
     void getMatchResultOrdered() {
-        multiTeamMatch.setResult(team1,TWO_MINUTES);
-        multiTeamMatch.setResult(team2,FOUR_MINUTES);
-        multiTeamMatch.setResult(team3,"00:01:00:0000");
+        multiTeamMatch.setResult(team1,"3");
+        multiTeamMatch.setResult(team2,"5");
+        multiTeamMatch.setResult(team3,"1");
 
         LinkedHashMap<Team,String> ordered = multiTeamMatch.getMatchResultOrdered();
         ArrayList<Team> teamsOrdered = new ArrayList<>(ordered.keySet());
@@ -133,25 +130,25 @@ public class TimeMatchTest {
     @Test
     @DisplayName("Tests the getMatchResultByTeam method")
     void getMatchResultByTeam() {
-        testMatch.setResult(team1,FOUR_MINUTES);
-        testMatch.setResult(team2,TWO_MINUTES);
+        testMatch.setResult(team1,"3");
+        testMatch.setResult(team2,"1");
 
         String resultTeam1 = testMatch.getMatchResultByTeam(team1);
 
-        assertEquals("00:04:00:00",resultTeam1);
+        assertEquals("3",resultTeam1);
     }
 
     @Test
     @DisplayName("Tests the updateIsFinished method")
     void updateIsFinished(){
-        TimeMatch testMatch2 = new TimeMatch(teamList);
+        PointMatch testMatch2 = new PointMatch(teamList);
         boolean before = testMatch2.isFinished();
 
-        testMatch2.setResult(team1,FOUR_MINUTES);
-        testMatch2.setResult(team2,TWO_MINUTES);
+        testMatch2.setResult(team1,"3");
+        testMatch2.setResult(team2,"1");
         boolean after = testMatch2.isFinished();
 
-        assertTrue(before == false && after == true);
+        assertTrue(!before && after);
 
     }
 }

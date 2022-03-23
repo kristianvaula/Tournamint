@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.CreateATournamentController">
+<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style=" -fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.CreateATournamentController">
     <children>
         <BorderPane prefHeight="540.0" prefWidth="960.0" stylesheets="@style.css">
             <top>
@@ -71,7 +71,7 @@
                         <Label layoutX="10.0" layoutY="180.0" prefHeight="25.0" prefWidth="266.0" text="Teams Advancing From Each Group" />
                         <ChoiceBox fx:id="teamsAdvancingFromGroupInput" prefHeight="31.0" prefWidth="93.0" />
                         <Pane layoutX="10.0" layoutY="224.0" prefHeight="30.0" prefWidth="250.0" />
-                        <Button mnemonicParsing="false" onAction="#cancelBackToHomePage" prefHeight="60.0" prefWidth="202.0" text="Cancel">
+                        <Button mnemonicParsing="false" onAction="#cancelBackToHomePage" prefHeight="60.0" prefWidth="219.0" text="Cancel">
                            <effect>
                               <InnerShadow />
                            </effect></Button>
@@ -81,14 +81,19 @@
                      <children>
                         <Pane prefHeight="38.0" prefWidth="202.0" />
                         <Label prefHeight="22.0" prefWidth="155.0" text="Match Winner By" />
-                        <ChoiceBox fx:id="matchTypeInput" prefWidth="150.0" />
-                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="265.0" prefWidth="226.0" />
-                        <Button mnemonicParsing="false" onAction="#createTournament" prefHeight="60.0" prefWidth="202.0" text="Create A Tournament">
+                        <RadioButton fx:id="pointMatchButton" mnemonicParsing="false" text="Point Match" />
+                        <Pane layoutX="10.0" layoutY="106.0" prefHeight="11.0" prefWidth="226.0" />
+                        <RadioButton fx:id="timeMatchButton" layoutX="10.0" layoutY="71.0" mnemonicParsing="false" text="Time Match" />
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="242.0" prefWidth="226.0">
+                           <children>
+                              <Label fx:id="tournamentErrorOutput" layoutX="1.0" layoutY="183.0" prefHeight="56.0" prefWidth="224.0" styleClass="errorFeedback" />
+                           </children></Pane>
+                        <Button mnemonicParsing="false" onAction="#createTournament" prefHeight="60.0" prefWidth="221.0" text="Create A Tournament">
                            <effect>
                               <InnerShadow />
                            </effect></Button>
                      </children></VBox>
-                  <Pane prefHeight="445.0" prefWidth="115.0" />
+                  <Pane prefHeight="434.0" prefWidth="77.0" />
                   <VBox prefHeight="428.0" prefWidth="266.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="38.0" prefWidth="287.0" text="Team List" />
@@ -106,9 +111,28 @@
                                  </graphic></Button>
                            </children>
                         </HBox>
-                        <Pane prefHeight="31.0" prefWidth="282.0" />
-                        <ListView prefHeight="286.0" prefWidth="266.0" />
+                        <Label fx:id="addTeamErrorOutput" prefHeight="22.0" prefWidth="251.0" styleClass="errorFeedback" />
+                        <Pane prefHeight="8.0" prefWidth="266.0" />
+                        <TableView fx:id="teamTableOutput" prefHeight="283.0" prefWidth="234.0">
+                          <columns>
+                            <TableColumn fx:id="teamNameColumn" onEditCommit="#changeTeamNameCellEvent" prefWidth="265.59997560977934" text="Team Name" />
+                          </columns>
+                        </TableView>
                      </children></VBox>
+                  <VBox prefHeight="434.0" prefWidth="16.0">
+                     <children>
+                        <Pane prefHeight="371.0" prefWidth="54.0" />
+                        <Button mnemonicParsing="false" onAction="#deleteSelectedTeam" prefHeight="42.0" prefWidth="12.0" style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icons/remove.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
          </center>

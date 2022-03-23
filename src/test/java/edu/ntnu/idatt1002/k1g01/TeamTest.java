@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k1g01;
 
+import edu.ntnu.idatt1002.k1g01.model.Team;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

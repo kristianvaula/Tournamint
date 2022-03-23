@@ -11,9 +11,21 @@
             <center>
                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <center>
-                        <TabPane maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="435.0" prefWidth="920.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                        <TabPane fx:id="matchesTabPaneOutput" maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="435.0" prefWidth="920.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                             <tabs>
-                                <Tab text="Upcoming Matches">
+                                <Tab text="All Matches">
+                                    <content>
+                                        <TableView prefHeight="200.0" prefWidth="200.0">
+                                            <columns>
+                                                <TableColumn prefWidth="500.0" text="Teams" />
+                                                <TableColumn prefWidth="120.0" text="Date" />
+                                                <TableColumn prefWidth="120.0" text="Time" />
+                                                <TableColumn prefWidth="178.0" text="Place" />
+                                            </columns>
+                                        </TableView>
+                                    </content>
+                                </Tab>
+                                <!--<Tab text="Upcoming Matches">
                                     <content>
                                         <TableView prefHeight="200.0" prefWidth="200.0">
                                             <columns>
@@ -36,19 +48,7 @@
                                             </columns>
                                         </TableView>
                                     </content>
-                                </Tab>
-                                <Tab text="All Matches">
-                                    <content>
-                                        <TableView prefHeight="200.0" prefWidth="200.0">
-                                            <columns>
-                                                <TableColumn prefWidth="500.0" text="Teams" />
-                                                <TableColumn prefWidth="120.0" text="Date" />
-                                                <TableColumn prefWidth="120.0" text="Time" />
-                                                <TableColumn prefWidth="178.0" text="Place" />
-                                            </columns>
-                                        </TableView>
-                                    </content>
-                                </Tab>
+                                </Tab>-->
                             </tabs>
                         </TabPane>
                     </center>
@@ -88,7 +88,7 @@
                                  </ImageView>
                              </graphic></Button>
                         <Pane prefHeight="200.0" prefWidth="200.0" />
-                              <Text fill="#18205b" strokeType="OUTSIDE" strokeWidth="0.0" text="Tournament name" textAlignment="CENTER" wrappingWidth="387.61865234375">
+                              <Text fx:id="tournamentNameOutput" fill="#18205b" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titles" text="Tournament name" textAlignment="CENTER" wrappingWidth="387.61865234375">
                                   <font>
                                       <Font size="35.0" />
                                   </font>

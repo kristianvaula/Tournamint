@@ -1,27 +1,42 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-/**
- * This method is used to go from HomePage to CreateATournament page when the "Create new tournament"
- * button is pressed.
- */
-public class HomePageController {
-    public void CreateButtonPressed(ActionEvent event) throws IOException {
+public class HomePageController implements Initializable {
 
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("CreateATournament.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
+    /**
+     * Changes the scene to CreateATournamentWindow
+     */
+    @FXML
+    public void changeScreenToCreateTournament(ActionEvent event)throws IOException {
+        try {
+            Parent createTournament = FXMLLoader.load(getClass().getResource("../view/CreateATournament.fxml"));
+            Scene createTournamentScene = new Scene(createTournament);
 
+            //This line gets the Stage information
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            window.setScene(createTournamentScene);
+            window.show();
 
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(tableViewScene);
-        window.show();
+        } catch (IOException e) {
+            System.out.println(e.getCause());
+            throw e;
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }
