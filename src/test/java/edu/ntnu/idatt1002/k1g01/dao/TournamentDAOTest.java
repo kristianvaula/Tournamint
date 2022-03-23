@@ -1,4 +1,5 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.dao;
+import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,4 @@
-package edu.ntnu.idatt1002.k1g01;
-
+package edu.ntnu.idatt1002.k1g01.dao;
 import edu.ntnu.idatt1002.k1g01.model.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
