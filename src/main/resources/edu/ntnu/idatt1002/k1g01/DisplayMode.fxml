@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.AdministrateTournamentController">
     <children>
         <BorderPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css">
@@ -42,13 +41,18 @@
                                             </image>
                                         </ImageView>
                                     </graphic></Button>
-                                <Pane prefHeight="200.0" prefWidth="200.0" />
+                                <Pane prefHeight="58.0" prefWidth="181.0" />
                                 <Text fill="#18205b" strokeType="OUTSIDE" strokeWidth="0.0" text="Tournament name" textAlignment="CENTER" wrappingWidth="387.61865234375">
                                     <font>
                                         <Font size="35.0" />
                                     </font>
                                 </Text>
-                                <Pane layoutX="90.0" layoutY="10.0" prefHeight="58.0" prefWidth="166.0" />
+                                <Pane layoutX="90.0" layoutY="10.0" prefHeight="58.0" prefWidth="26.0" />
+                        <StackPane prefHeight="58.0" prefWidth="159.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="98.0" text="Auto" />
+                           </children>
+                        </StackPane>
                                 <StackPane prefHeight="58.0" prefWidth="84.0">
                                     <children>
                                         <TextField alignment="CENTER" prefHeight="31.0" prefWidth="91.0" text="10:09:35">
