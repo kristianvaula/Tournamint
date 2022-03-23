@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.AdministrateTournamentController">
+<AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.AdministrateTournamentController">
     <children>
-        <BorderPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0">
+        <BorderPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css">
             <center>
                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <top>
-                        <Text fill="#18205b" strokeType="OUTSIDE" strokeWidth="0.0" text="TournamentName" textAlignment="CENTER" wrappingWidth="387.61865234375" BorderPane.alignment="CENTER">
-                            <font>
-                                <Font size="35.0" />
-                            </font>
-                        </Text>
-                    </top>
                     <center>
                         <TabPane maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="435.0" prefWidth="920.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                             <tabs>
@@ -70,48 +54,60 @@
                     </center>
                 </BorderPane>
             </center>
-            <top>
-                <MenuBar BorderPane.alignment="CENTER">
-                    <menus>
-                        <Menu mnemonicParsing="false" text="File">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
-                            </items>
-                        </Menu>
-                    </menus>
-                </MenuBar>
-            </top>
+         <top>
+            <VBox prefHeight="78.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+               <children>
+                      <MenuBar>
+                          <menus>
+                              <Menu mnemonicParsing="false" text="File">
+                                  <items>
+                                      <MenuItem mnemonicParsing="false" text="Close" />
+                                  </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Edit">
+                                  <items>
+                                      <MenuItem mnemonicParsing="false" text="Delete" />
+                                  </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Help">
+                                  <items>
+                                      <MenuItem mnemonicParsing="false" text="About" />
+                                  </items>
+                              </Menu>
+                          </menus>
+                      </MenuBar>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="58.0" prefWidth="11.0" />
+                            <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="88.0" style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
+                             <graphic>
+                                 <ImageView fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@icons/menu.png" />
+                                     </image>
+                                 </ImageView>
+                             </graphic></Button>
+                        <Pane prefHeight="200.0" prefWidth="200.0" />
+                              <Text fill="#18205b" strokeType="OUTSIDE" strokeWidth="0.0" text="Tournament name" textAlignment="CENTER" wrappingWidth="387.61865234375">
+                                  <font>
+                                      <Font size="35.0" />
+                                  </font>
+                              </Text>
+                        <Pane layoutX="90.0" layoutY="10.0" prefHeight="58.0" prefWidth="166.0" />
+                        <StackPane prefHeight="58.0" prefWidth="84.0">
+                           <children>
+                                  <TextField alignment="CENTER" prefHeight="31.0" prefWidth="91.0" text="10:09:35">
+                                      <font>
+                                          <Font size="15.0" />
+                                      </font>
+                                  </TextField>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
         </BorderPane>
-        <AnchorPane layoutX="-1.0" layoutY="25.0" prefHeight="63.0" prefWidth="153.0">
-            <children>
-                <MenuButton layoutX="21.0" layoutY="19.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" text="MENU">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Home" />
-                        <MenuItem mnemonicParsing="false" text="DisplayMode" />
-                        <MenuItem mnemonicParsing="false" text="Edit Tournament" />
-                        <MenuItem mnemonicParsing="false" text="Main Menu" />
-                    </items>
-                </MenuButton>
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="845.0" layoutY="26.0" prefHeight="62.0" prefWidth="116.0">
-            <children>
-                <TextField layoutX="15.0" layoutY="18.0" prefHeight="26.0" prefWidth="80.0" text="10:09:35">
-                    <font>
-                        <Font size="15.0" />
-                    </font>
-                </TextField>
-            </children>
-        </AnchorPane>
     </children>
 </AnchorPane>
