@@ -12,7 +12,6 @@ public class TournamentApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        System.out.println(getClass().getResource("view/HomePage.fxml"));
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/HomePage.fxml"));
             Parent root = fxmlLoader.load();
