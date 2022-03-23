@@ -16,11 +16,75 @@ public class Group {
     private final ArrayList<Match> matches;
 
     /**
+     * Recursive nightmare method.
+     * Uses recursion to navigate search space of possible match combinations until an optimal round is found.
+     * Round is optimal when:
+     *      0 or 1 team plays no matches this round.
+     *      No team has played more than 1 match more than any other team so far this group.
+     * @param tempMatches ArrayList of unallocated matches.
+     * @param teamsInRound ArrayList of teams that have already played this round ,and are thus unavailable.
+     * @param targetRoundSize Number of matches to add to round. (Also used to break out of recursion.)
+     * @param matchCountPerTeam Array that tracks how many matches each team has been allocated so far this group.
+     *                          (should be as even as possible)
+     * @return
+     *      null if no valid match combinations were found. (Should only be returned from recursive calls.)
+     *      ArrayList of matches that make up an optimal round.
+     */
+    private ArrayList<Match> generateRound(ArrayList<Match> tempMatches, ArrayList<Team> teamsInRound,
+                                           int targetRoundSize, int[] matchCountPerTeam) {
+        if (targetRoundSize == 0) {return new ArrayList<>(); } //Break out of recursive loop
+        int maxMatchCount = 0;
+        for (int count : matchCountPerTeam) {
+            if (count > maxMatchCount) { maxMatchCount = count; }
+        }
+        //Sort tempMatch, prioritizing marches between teams with fewer allocated matches.
+        //Disregard matches with teams that are already busy this round.
+        ArrayList<Match> sortedTempMatches = new ArrayList<>();
+        for (int n = 2; n >= 0; n--) {
+            for (Match match : tempMatches) {
+                int teamsFree = 2;
+                for (Team team : match.getParticipants()) {
+                    if (teamsInRound.contains(team)) { teamsFree = -9001; break; }
+                    if (matchCountPerTeam[teams.indexOf(team)] >= maxMatchCount) {
+                        teamsFree--;
+                    }
+                }
+                if (teamsFree == n) {
+                    sortedTempMatches.add(match);
+                }
+            }
+        }
+
+        //Attempt to assemble complete round from sortedTempMatches.
+        for (Match match : sortedTempMatches) {
+            ArrayList<Match> sendMatches = new ArrayList<>(tempMatches);
+            sendMatches.remove(match);
+            ArrayList<Team> sendTeams = new ArrayList<>(teamsInRound);
+            sendTeams.addAll(match.getParticipants());
+            int[] sendMatchCountPerTeam = matchCountPerTeam.clone();
+            for (Team team : match.getParticipants()) {
+                sendMatchCountPerTeam[teams.indexOf(team)]++;
+            }
+            // Recursive shenanigans. Calls self to continue assembling round until targetRoundSize == 0;
+            ArrayList<Match> gotMatches = generateRound(sendMatches, sendTeams, targetRoundSize-1,
+                    sendMatchCountPerTeam);
+            if (gotMatches != null) { // Check if lower level of this method was able to assemble valid round.
+                gotMatches.add(match);
+                return gotMatches; // Pass partially or fully assembled round up the stack.
+            }
+        }
+        return null; // Tell higher level of this method that no valid round could be found.
+    }
+
+    /**
      * Creates a group of teams. Every team will be paired up in a match against every other team.
      * Matches will be grouped into rounds, so that every match in a round can be played concurrently.
      * @param matchType Type of match as a string. Accepted: [point, time]
      * @param teams ArrayList of teams for the group.
      * @throws IllegalArgumentException if < 2 teams, or any duplicate teams in input.
+     * @throws ClassCastException if matchType string does not match any known types.
+     * @throws IllegalStateException if round generation algorithm fails.
+     * TODO WARNING! Round generation algorithm currently fails for groups with > 12 teams.
      */
     public Group( String matchType, ArrayList<Team> teams) {
         //validate input.
@@ -64,71 +128,29 @@ public class Group {
         //Divide match pairs into minimum number of rounds so that each team has <= 1 entry per round.
         int groupRound = 1;
         int[] matchCountPerTeam = new int[teams.size()];
-        int maxMatchCount = 0;
         while (tempMatches.size() > 0) {
-            ArrayList<Match> matchesInRound = new ArrayList<>();
-            ArrayList<Team> teamsInRound = new ArrayList<>();
-            ArrayList<Team> deferredTeams = new ArrayList<>();
-            //First, check if any team has more matches so far than others.
-            for (int i = 0; i < teams.size(); i++) {
-                if (matchCountPerTeam[i] >= maxMatchCount) {
-                    deferredTeams.add(teams.get(i));
-                }
-            }
-            //Add as many matches as possible to this round.
-            //Look for matches with no deferred teams.
-            for (Match tempMatch : tempMatches) {
-                boolean teamsFree = true;
-                for (Team team : tempMatch.getParticipants()) {
-                    if (teamsInRound.contains(team) || deferredTeams.contains(team)) { teamsFree = false; break; }
-                }
-                if (teamsFree) {
-                    matchesInRound.add(tempMatch);
-                    teamsInRound.addAll(tempMatch.getParticipants());
-                    for (Team matchTeam: tempMatch.getParticipants()) {
-                        matchCountPerTeam[teams.indexOf(matchTeam)]++;
-                    }
-                }
-            }
-            //Look for matches with only one deferred team.
-            for (Match tempMatch : tempMatches) {
-                int teamsFree = 2;
-                for (Team team : tempMatch.getParticipants()) {
-                    if (teamsInRound.contains(team)) { teamsFree = 0; break; }
-                    else if(deferredTeams.contains(team)) { teamsFree--; }
-                }
-                if (teamsFree >= 1) {
-                    matchesInRound.add(tempMatch);
-                    teamsInRound.addAll(tempMatch.getParticipants());
-                    for (Team matchTeam: tempMatch.getParticipants()) {
-                        matchCountPerTeam[teams.indexOf(matchTeam)]++;
-                    }
-                }
-            }
-            //Look for matches with deferred teams.
-            for (Match tempMatch : tempMatches) {
-                boolean teamsFree = true;
-                for (Team team : tempMatch.getParticipants()) {
-                    if (teamsInRound.contains(team)) { teamsFree = false; break; }
-                }
-                if (teamsFree) {
-                    matchesInRound.add(tempMatch);
-                    teamsInRound.addAll(tempMatch.getParticipants());
-                    for (Team matchTeam: tempMatch.getParticipants()) {
-                        matchCountPerTeam[teams.indexOf(matchTeam)]++;
-                    }
-                }
-            }
-            //Update maxMatchCountPerTeam, used for deferring teams next round.
-            for (int count : matchCountPerTeam) {
-                if (count > maxMatchCount) {
-                    maxMatchCount = count;
-                    break;
-                }
+            ArrayList<Match> matchesInRound;
+            //Get matches for round from spooky recursive method.
+            matchesInRound = generateRound(tempMatches, new ArrayList<>(), teams.size()/2,
+                    matchCountPerTeam);
+            if (matchesInRound == null) {
+                throw new IllegalStateException("Critical round generation failure!");
             }
             tempMatches.removeAll(matchesInRound);
+            for (Match match : matchesInRound) {
+                for (Team team : match.getParticipants()) {
+                    matchCountPerTeam[teams.indexOf(team)]++;
+                }
+            }
             rounds.add(new Round(matchesInRound, "groupRound_" + groupRound));
-            groupRound++;
+
+            // Set to true to print bug hunting text.
+            if (false) {
+                System.out.print("round: " + groupRound + ", matchCount: [ ");
+                for (int i : matchCountPerTeam) { System.out.print(i + " "); }
+                System.out.println("]");
+                groupRound++;
+            }
         }
     }
 
@@ -136,7 +158,7 @@ public class Group {
      * Overloaded constructor. Does not require team list on the form of an ArrayList.
      * Creates a group of teams. Every team will be paired up in a match against every other team.
      * Matches will be grouped into rounds, so that every match in a round can be played concurrently.
-     * @param matchType Class of matches to generate. Example: PointMatch.class
+     * @param matchType Type of match as a string. Accepted: [point, time]
      * @param teams teams for the group.
      * @throws IllegalArgumentException if < 2 teams, or any duplicate teams in input.
      */
@@ -169,9 +191,9 @@ public class Group {
      * TODO: Handle draws better! Currently awards group victory to team with lowest list index.
      * @param n Number of teams to fetch.
      * @return ArrayList of top teams in descending order. Null if some matches are not finished.
-     * @throws NoSuchFieldException if not all matches in group are finished.
+     * @throws ClassCastException if matchType string does not match any known types.
      */
-    public ArrayList<Team> getTopTeams(int n) throws NoSuchFieldException {
+    public ArrayList<Team> getTopTeams(int n) {
         if (n > teams.size()) {
             throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+teams.size()+" teams!");
         }
@@ -179,7 +201,7 @@ public class Group {
         int[] points = new int[teams.size()];
         for (Match match : matches) {
             if (! match.isFinished()) {
-                throw new NoSuchFieldException("Not all matches have finished");
+                return null;
             }
             Team winner = match.getWinners(1).get(0);
             points[teams.indexOf(winner)]++;
@@ -201,3 +223,4 @@ public class Group {
         return output;
     }
 }
+

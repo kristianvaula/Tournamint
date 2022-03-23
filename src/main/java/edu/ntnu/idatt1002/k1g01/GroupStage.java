@@ -15,7 +15,7 @@ import java.util.Random;
 public class GroupStage extends Stage{
 
     //Groups partaking in the groupstage.
-    private ArrayList<Group> groups = new ArrayList<Group>();;
+    private ArrayList<Group> groups = new ArrayList<>();
     //Number of teams advancing from group
     private int advancingFromGroup;
     //Number of teams per group
@@ -75,7 +75,7 @@ public class GroupStage extends Stage{
      * Get the teams who will proceed in the tournament.
      * @return the winners.
      */
-    public ArrayList<Team> getWinnersFromGroups() throws NoSuchFieldException{ //Need getWinners() method in Group first.
+    public ArrayList<Team> getWinnersFromGroups() {
         ArrayList<Team> teamsProceeding = new ArrayList<>();
 
         for (Group group : groups) {

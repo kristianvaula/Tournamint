@@ -81,7 +81,7 @@ public class KnockoutStage extends Stage{
      * @param teamsPerRound Teams per round
      * @return Int number of rounds
      */
-    private static int getNumberOfRounds(int numberOfTeams,int teamsPerRound,int advancingPerMatch){
+    public static int getNumberOfRounds(int numberOfTeams,int teamsPerRound,int advancingPerMatch){
         if(advancingPerMatch == 2){
             for (int i = 0; i < 12; i++) {
                 if(Math.pow(teamsPerRound,i) == numberOfTeams && numberOfTeams <= 256) return i;
