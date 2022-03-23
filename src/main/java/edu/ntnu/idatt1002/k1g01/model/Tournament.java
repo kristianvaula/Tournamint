@@ -3,6 +3,7 @@ package edu.ntnu.idatt1002.k1g01.model;
 import edu.ntnu.idatt1002.k1g01.model.stages.GroupStage;
 import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author kristvje
  */
-public class Tournament {
+public class Tournament implements Serializable {
     //Name of the tournament
     private String tournamentName;
     //All the teams competing in the tournament

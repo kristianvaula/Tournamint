@@ -1,4 +1,5 @@
 package edu.ntnu.idatt1002.k1g01.model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -11,7 +12,7 @@ import edu.ntnu.idatt1002.k1g01.model.matches.*;
  * Matches are divided among rounds so that every match in a round can be played concurrently.
  * @author Martin Dammerud
  */
-public class Group {
+public class Group implements Serializable {
     private final ArrayList<Team> teams;
     private final ArrayList<Round> rounds;
     private final ArrayList<Match> matches;

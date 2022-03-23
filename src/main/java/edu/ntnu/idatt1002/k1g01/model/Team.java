@@ -1,13 +1,14 @@
 package edu.ntnu.idatt1002.k1g01.model;
 
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Represents a team in the tournament
  * @author kristvje
  */
-public class Team {
+public class Team implements Serializable {
     // Name of the team
     private String name;
 

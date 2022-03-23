@@ -5,12 +5,13 @@ import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 
 // import edu.ntnu.idatt1002.k1g01.match.Match;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Represents one round in the tournament
  */
-public class Round {
+public class Round implements Serializable {
 
     private ArrayList<Match> matches; // All the current matches being played in the specific round
     private String roundName; // Name of the round. Quarterfinals for example.
