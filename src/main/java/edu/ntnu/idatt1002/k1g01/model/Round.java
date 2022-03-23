@@ -1,7 +1,7 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model;
 // import edu.ntnu.idatt1002.k1g01.match.*;
 
-import edu.ntnu.idatt1002.k1g01.matches.Match;
+import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 
 // import edu.ntnu.idatt1002.k1g01.match.Match;
 

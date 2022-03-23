@@ -81,8 +81,10 @@
                      <children>
                         <Pane prefHeight="38.0" prefWidth="202.0" />
                         <Label prefHeight="22.0" prefWidth="155.0" text="Match Winner By" />
-                        <ChoiceBox fx:id="matchTypeInput" prefWidth="150.0" />
-                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="265.0" prefWidth="226.0" />
+                        <RadioButton fx:id="pointMatchButton" mnemonicParsing="false" text="Point Match" />
+                        <Pane layoutX="10.0" layoutY="106.0" prefHeight="11.0" prefWidth="226.0" />
+                        <RadioButton fx:id="timeMatchButton" layoutX="10.0" layoutY="71.0" mnemonicParsing="false" text="Time Match" />
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="242.0" prefWidth="226.0" />
                         <Button mnemonicParsing="false" onAction="#createTournament" prefHeight="60.0" prefWidth="202.0" text="Create A Tournament">
                            <effect>
                               <InnerShadow />
@@ -106,8 +108,14 @@
                                  </graphic></Button>
                            </children>
                         </HBox>
-                        <Pane prefHeight="31.0" prefWidth="282.0" />
-                        <ListView prefHeight="286.0" prefWidth="266.0" />
+                        <Label fx:id="addTeamErrorOutput" prefHeight="22.0" prefWidth="251.0" />
+                        <Pane prefHeight="8.0" prefWidth="266.0" />
+                        <TableView fx:id="teamTableOutput" prefHeight="286.0" prefWidth="266.0">
+                          <columns>
+                            <TableColumn prefWidth="192.39995729923248" text="Team Name" />
+                            <TableColumn fx:id="teamListOutput" minWidth="0.0" prefWidth="74.0" text="Delete" />
+                          </columns>
+                        </TableView>
                      </children></VBox>
                </children>
             </HBox>

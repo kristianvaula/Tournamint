@@ -22,6 +22,10 @@
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
+#addTeamErrorOutput{
+    -fx-font-size: 9pt;
+    -fx-text-fill:red;
+}
 
 .radio-button{
     -fx-font-size: 11pt;

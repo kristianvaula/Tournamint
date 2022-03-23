@@ -1,7 +1,9 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model.stages;
 
-import edu.ntnu.idatt1002.k1g01.matches.PointMatch;
-import edu.ntnu.idatt1002.k1g01.matches.TimeMatch;
+import edu.ntnu.idatt1002.k1g01.model.Round;
+import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.matches.PointMatch;
+import edu.ntnu.idatt1002.k1g01.model.matches.TimeMatch;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,7 +14,7 @@ import java.util.Random;
  * @author kristvje
  * @author thomaniv
  */
-public class KnockoutStage extends Stage{
+public class KnockoutStage extends Stage {
 
     private ArrayList<Team> teams = new ArrayList<>();
     private int teamsPerMatch;
@@ -56,7 +58,7 @@ public class KnockoutStage extends Stage{
      * @param amountOfTeams the amount of teams that will play the first round
      * @return Rounds of knockout stage.
      */
-    private static ArrayList<Round> generateKnockOutRounds(int amountOfTeams,int teamsPerMatch,int advancingPerMatch){
+    private static ArrayList<Round> generateKnockOutRounds(int amountOfTeams, int teamsPerMatch, int advancingPerMatch){
         int numberOfRounds = getNumberOfRounds(amountOfTeams,teamsPerMatch,advancingPerMatch);
         if(numberOfRounds == 0) {
             throw new IllegalArgumentException("Amount of teams must be divisible by four");

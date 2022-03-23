@@ -1,8 +1,9 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import edu.ntnu.idatt1002.k1g01.matches.*;
+
+import edu.ntnu.idatt1002.k1g01.model.matches.*;
 
 /**
  * Contains a list of teams who all play one match against all others.

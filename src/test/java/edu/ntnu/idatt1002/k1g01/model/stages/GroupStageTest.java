@@ -1,12 +1,12 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model.stages;
 
-import edu.ntnu.idatt1002.k1g01.matches.PointMatch;
+import edu.ntnu.idatt1002.k1g01.model.stages.GroupStage;
+import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.matches.PointMatch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GroupStageTest {
 

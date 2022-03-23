@@ -1,7 +1,9 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model;
+
+import edu.ntnu.idatt1002.k1g01.model.stages.GroupStage;
+import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a tournament.
@@ -50,7 +52,6 @@ public class Tournament {
      * teams as arguments.
      * @param tournamentName Name of tournament
      * @param teams Teams to be in tournament
-     *
      */
     public Tournament(String tournamentName, ArrayList<Team> teams, String matchType,int teamsPerMatch,int teamsPerGroup,int advancingPerGroup) throws IllegalArgumentException{
         if(teams.size() < 2) {

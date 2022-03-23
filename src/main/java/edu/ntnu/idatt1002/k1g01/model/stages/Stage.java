@@ -1,4 +1,6 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model.stages;
+
+import edu.ntnu.idatt1002.k1g01.model.Round;
 
 import java.util.ArrayList;
 

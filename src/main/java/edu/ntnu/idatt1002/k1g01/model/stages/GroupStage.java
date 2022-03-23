@@ -1,6 +1,7 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model.stages;
 
-import edu.ntnu.idatt1002.k1g01.matches.Match;
+import edu.ntnu.idatt1002.k1g01.model.Group;
+import edu.ntnu.idatt1002.k1g01.model.Team;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,7 +13,7 @@ import java.util.Random;
  * @author kristvje
  * @author martnal
  */
-public class GroupStage extends Stage{
+public class GroupStage extends Stage {
 
     //Groups partaking in the groupstage.
     private ArrayList<Group> groups = new ArrayList<>();
@@ -32,7 +33,7 @@ public class GroupStage extends Stage{
      * @param teamsPerGroup Number of teams per group
      * @param matchType Type of matches in group stage
      */
-    public GroupStage(ArrayList<Team> teams,int advancingFromGroup,int teamsPerGroup,String matchType) {
+    public GroupStage(ArrayList<Team> teams, int advancingFromGroup, int teamsPerGroup, String matchType) {
         super(new ArrayList<>());
         this.teamsPerGroup = teamsPerGroup;
         this.matchType = matchType;
