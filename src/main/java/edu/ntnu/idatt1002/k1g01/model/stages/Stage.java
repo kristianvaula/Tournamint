@@ -2,12 +2,13 @@ package edu.ntnu.idatt1002.k1g01.model.stages;
 
 import edu.ntnu.idatt1002.k1g01.model.Round;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Represents a Stage in the tournament (Superclass)
  */
-public abstract class Stage {
+public abstract class Stage implements Serializable {
 
     private ArrayList<Round> rounds; // All the rounds in the specific stage
 
