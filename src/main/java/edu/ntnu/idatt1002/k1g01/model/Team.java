@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model;
 
 
 import java.util.Objects;

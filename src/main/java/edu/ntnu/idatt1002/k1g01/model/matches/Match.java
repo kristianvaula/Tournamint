@@ -1,6 +1,6 @@
-package edu.ntnu.idatt1002.k1g01.matches;
+package edu.ntnu.idatt1002.k1g01.model.matches;
 
-import edu.ntnu.idatt1002.k1g01.Team;
+import edu.ntnu.idatt1002.k1g01.model.Team;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

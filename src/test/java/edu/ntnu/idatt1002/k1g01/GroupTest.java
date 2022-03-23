@@ -1,6 +1,9 @@
 package edu.ntnu.idatt1002.k1g01;
 
-import edu.ntnu.idatt1002.k1g01.matches.Match;
+import edu.ntnu.idatt1002.k1g01.model.Group;
+import edu.ntnu.idatt1002.k1g01.model.Round;
+import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
