@@ -60,11 +60,11 @@ public class GroupStage extends Stage {
         }
         */
 
-        //New input verification. Makes suer a power of 2 teams will advance to the finals.
+        //New input verification. Makes sure a power of 2 teams will advance to the finals.
         int advanceToFinals = teams.size()/teamsPerGroup*advancingFromGroup;
         boolean compatible = false;
         for (int i = 1; i < 10; i++) {
-            if (advanceToFinals - (2^i) == 0) { compatible = true; break; }
+            if (advanceToFinals == Math.pow(2, i)) { compatible = true; break; }
         }
         if (!compatible) {
             throw new IllegalArgumentException("Incompatible number of teams advancing to finals: " + advanceToFinals);
