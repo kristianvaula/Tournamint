@@ -31,7 +31,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>edu.ntnu.idatt1002.k1g01.MainApplication</mainClass>
+                    <mainClass>edu.ntnu.idatt1002.k1g01.TournamentApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

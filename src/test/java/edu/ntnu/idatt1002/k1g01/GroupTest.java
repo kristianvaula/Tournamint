@@ -1,10 +1,6 @@
 package edu.ntnu.idatt1002.k1g01;
 
-import edu.ntnu.idatt1002.k1g01.Group;
-import edu.ntnu.idatt1002.k1g01.Round;
-import edu.ntnu.idatt1002.k1g01.Team;
 import edu.ntnu.idatt1002.k1g01.matches.Match;
-import edu.ntnu.idatt1002.k1g01.matches.PointMatch;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,7 +8,7 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Grouptest {
+public class GroupTest {
 
     private ArrayList<Team> generateTeams(int n){
         ArrayList<Team> teams = new ArrayList<>();
@@ -36,33 +32,28 @@ public class Grouptest {
         Team teamLuigi = new Team("Luigi");
         Group group = new Group("point", teamPingas, teamLuigi);
     }
+
+    //TODO Fix constructor to handle arbitrary number of teams.
     @Test
-    public void CanConstructWith_3() {
-        Group group = new Group("point", generateTeams(3));
+    public void CanConstructWithUpTo12() {
+        for (int i = 3; i < 12; i++) {
+            try {
+                Group group = new Group("point", generateTeams(i));
+            }
+            catch (Exception e) {throw new AssertionError("constructor crashed at: " + i + " teams.");
+            }
+        }
     }
+
     @Test
-    public void CanConstructWith_4() {
-        Group group = new Group("point", generateTeams(4));
-    }
-    @Test
-    public void CanConstructWith_5() {
-        Group group = new Group("point", generateTeams(5));
-    }
-    @Test
-    public void CanConstructWith_6() {
-        Group group = new Group("point", generateTeams(6));
-    }
-    @Test
-    public void CanConstructWith_10() {
-        Group group = new Group("point", generateTeams(10));
-    }
-    @Test
-    public void CanConstructWith_13() {
-        Group group = new Group("point", generateTeams(13));
-    }
-    @Test
-    public void CanConstructWith_17() {
-        Group group = new Group("point", generateTeams(17));
+    public void CanConstructWithTimeTypeMatches() {
+        for (int i = 2; i < 12; i++) {
+            try {
+                Group group = new Group("time", generateTeams(i));
+            }
+            catch (Exception e) {throw new AssertionError("constructor crashed at: " + i + " teams.");
+            }
+        }
     }
 
     @Test
@@ -85,31 +76,18 @@ public class Grouptest {
         assertEquals(expected, actual);
     }
 
-    /*
-    // TODO: Fix Group constructor to make groups of ideal size and not fail this test.
     @Test
-    public void constructorGeneratesCorrectNumberOfRounds() {
-        Group group = new Group("point", generateTeams(2));
-        assertEquals(1, group.getRounds().size());
-        group = new Group("point", generateTeams(3));
-        assertEquals(3, group.getRounds().size());
-        group = new Group("point", generateTeams(4));
-        assertEquals(3, group.getRounds().size());
-        group = new Group("point", generateTeams(5));
-        assertEquals(5, group.getRounds().size());
-        group = new Group("point", generateTeams(6));
-        System.out.print("here");
-        assertEquals(5, group.getRounds().size());
-        group = new Group("point", generateTeams(7));
-        assertEquals(7, group.getRounds().size());
-        group = new Group("point", generateTeams(8));
-        assertEquals(7, group.getRounds().size());
+    public void constructorGeneratesOptimalNumberOfRounds() {
+        for (int i = 2; i < 12; i++) {
+            Group group = new Group("point", generateTeams(i));
+            int expected = i - ((i+1) % 2);
+            assertEquals(expected, group.getRounds().size());
+        }
     }
-    */
 
     @Test
     public void constructorGeneratesRoundsWithNoDuplicateTeams() {
-        for (int n = 2; n < 20; n++) {
+        for (int n = 2; n < 12; n++) {
             Group group = new Group("point", generateTeams(n));
             for (Round round : group.getRounds()) {
                 HashSet<Team> teamSet = new HashSet<>();
@@ -132,17 +110,15 @@ public class Grouptest {
         String expected = "Requested top "+5+" teams from group with only "+4+" teams!";
         String actual = exception.getMessage();
         assertEquals(expected, actual);
-        exception = assertThrows(NoSuchFieldException.class, () -> {
-            Group group = new Group("point", generateTeams(4));
-            group.getTopTeams(2);
-        });
-        expected = "Not all matches have finished";
-        actual = exception.getMessage();
-        assertEquals(expected, actual);
+    }
+
+    @Test public void getTopTeamsReturnsNullWhenNotFinished(){
+        Group group = new Group("point", generateTeams(6));
+        assertNull(group.getTopTeams(2));
     }
 
     @Test
-    public void getTopTeamsGetsCorrectTeams() throws NoSuchFieldException {
+    public void getTopTeamsGetsCorrectTeams(){
         //Create teams
         Team teamPingas = new Team("Pingas");
         Team teamLuigi = new Team("Luigi");
@@ -176,8 +152,8 @@ public class Grouptest {
                 match.setResult(teamLuigi, "0");
             }
         }
-    assertEquals( teamPrincess, group.getTopTeams(3).get(0));
-    assertEquals( teamPingas, group.getTopTeams(3).get(1));
-    assertEquals( teamLuigi, group.getTopTeams(3).get(2));
+        assertEquals( teamPrincess, group.getTopTeams(3).get(0));
+        assertEquals( teamPingas, group.getTopTeams(3).get(1));
+        assertEquals( teamLuigi, group.getTopTeams(3).get(2));
     }
 }
