@@ -33,7 +33,7 @@ public class GroupTest {
     public void CanConstructWith_2() {
         Team teamPingas = new Team("Pingas");
         Team teamLuigi = new Team("Luigi");
-        Group group = new Group("point", teamPingas, teamLuigi);
+        Group group = new Group("pointMatch", teamPingas, teamLuigi);
     }
 
     //TODO Fix constructor to handle arbitrary number of teams.
@@ -41,7 +41,7 @@ public class GroupTest {
     public void CanConstructWithUpTo12() {
         for (int i = 3; i < 12; i++) {
             try {
-                Group group = new Group("point", generateTeams(i));
+                Group group = new Group("pointMatch", generateTeams(i));
             }
             catch (Exception e) {throw new AssertionError("constructor crashed at: " + i + " teams.");
             }
@@ -52,7 +52,7 @@ public class GroupTest {
     public void CanConstructWithTimeTypeMatches() {
         for (int i = 2; i < 12; i++) {
             try {
-                Group group = new Group("time", generateTeams(i));
+                Group group = new Group("timeMatch", generateTeams(i));
             }
             catch (Exception e) {throw new AssertionError("constructor crashed at: " + i + " teams.");
             }
@@ -66,13 +66,13 @@ public class GroupTest {
         Team teamLuigi = new Team("Luigi");
         //Perform tests
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            Group group = new Group("point", teamPingas);
+            Group group = new Group("pointMatch", teamPingas);
         });
         String expected = "Attempted to create group with " + 1 + " teams. Minimum group size: 2!";
         String actual = exception.getMessage();
         assertEquals(expected, actual);
         exception = assertThrows(IllegalArgumentException.class, () -> {
-            Group group = new Group("point", teamPingas, teamPingas);
+            Group group = new Group("pointMatch", teamPingas, teamPingas);
         });
         expected = "Attempted to create group with duplicate team entries!";
         actual = exception.getMessage();
@@ -82,7 +82,7 @@ public class GroupTest {
     @Test
     public void constructorGeneratesOptimalNumberOfRounds() {
         for (int i = 2; i < 12; i++) {
-            Group group = new Group("point", generateTeams(i));
+            Group group = new Group("pointMatch", generateTeams(i));
             int expected = i - ((i+1) % 2);
             assertEquals(expected, group.getRounds().size());
         }
@@ -91,7 +91,7 @@ public class GroupTest {
     @Test
     public void constructorGeneratesRoundsWithNoDuplicateTeams() {
         for (int n = 2; n < 12; n++) {
-            Group group = new Group("point", generateTeams(n));
+            Group group = new Group("pointMatch", generateTeams(n));
             for (Round round : group.getRounds()) {
                 HashSet<Team> teamSet = new HashSet<>();
                 ArrayList<Team> teamList = new ArrayList<>();
@@ -107,7 +107,7 @@ public class GroupTest {
     @Test
     public void getTopTeamsTrowsCorrectExceptions() {
         Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-            Group group = new Group("point", generateTeams(4));
+            Group group = new Group("pointMatch", generateTeams(4));
             group.getTopTeams(5);
         });
         String expected = "Requested top "+5+" teams from group with only "+4+" teams!";
@@ -116,7 +116,7 @@ public class GroupTest {
     }
 
     @Test public void getTopTeamsReturnsNullWhenNotFinished(){
-        Group group = new Group("point", generateTeams(6));
+        Group group = new Group("pointMatch", generateTeams(6));
         assertNull(group.getTopTeams(2));
     }
 
@@ -128,19 +128,19 @@ public class GroupTest {
         Team teamPrincess = new Team("Princess");
 
         //Pingas Wins
-        Group group = new Group("point", teamPingas, teamLuigi);
+        Group group = new Group("pointMatch", teamPingas, teamLuigi);
         group.getMatches().get(0).setResult(teamPingas, "3");
         group.getMatches().get(0).setResult(teamLuigi, "1");
         assertEquals( teamPingas, group.getTopTeams(1).get(0));
 
         //Luigu Wins
-        group = new Group("point", teamPingas, teamLuigi);
+        group = new Group("pointMatch", teamPingas, teamLuigi);
         group.getMatches().get(0).setResult(teamLuigi, "3");
         group.getMatches().get(0).setResult(teamPingas, "2");
         assertEquals( teamLuigi, group.getTopTeams(1).get(0));
 
         //Princess Wins, Pingas second Luigi last.
-        group = new Group("point", teamPingas, teamLuigi, teamPrincess);
+        group = new Group("pointMatch", teamPingas, teamLuigi, teamPrincess);
         for (Match match : group.getMatches()) {
             if(match.getParticipants().contains(teamPrincess)) {
                 match.setResult(teamPrincess, "4");

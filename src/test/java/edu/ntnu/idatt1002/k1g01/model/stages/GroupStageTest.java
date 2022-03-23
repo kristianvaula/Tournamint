@@ -21,10 +21,10 @@ class GroupStageTest {
         team2 = new Team("TeamName2");
         team3 = new Team("TeamName3");
         team4 = new Team("TeamName4");
-        team5 = new Team("TeamName1");
-        team6 = new Team("TeamName2");
-        team7 = new Team("TeamName3");
-        team8 = new Team("TeamName4");
+        team5 = new Team("TeamName5");
+        team6 = new Team("TeamName6");
+        team7 = new Team("TeamName7");
+        team8 = new Team("TeamName8");
 
         teamList1 = new ArrayList<>();
         teamList1.add(team1);
@@ -44,7 +44,7 @@ class GroupStageTest {
         teamList3.add(team7);
         teamList3.add(team8);
 
-        groupStage = new GroupStage(teamList3, 2,4, "PointMatch");
+        groupStage = new GroupStage(teamList3, 2,4, "pointMatch");
     }
 
     @Test
