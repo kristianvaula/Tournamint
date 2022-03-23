@@ -29,6 +29,14 @@ public class Team {
     }
 
     /**
+     * Sets name
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
      * Two teams equal each other if
      * they have the same name
      * @param o The team we are comparing to

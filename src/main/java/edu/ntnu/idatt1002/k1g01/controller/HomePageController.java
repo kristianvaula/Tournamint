@@ -21,7 +21,7 @@ public class HomePageController implements Initializable {
     @FXML
     public void changeScreenToCreateTournament(ActionEvent event)throws IOException {
         try {
-            Parent createTournament = FXMLLoader.load(getClass().getResource("../CreateATournament.fxml"));
+            Parent createTournament = FXMLLoader.load(getClass().getResource("../view/CreateATournament.fxml"));
             Scene createTournamentScene = new Scene(createTournament);
 
             //This line gets the Stage information
