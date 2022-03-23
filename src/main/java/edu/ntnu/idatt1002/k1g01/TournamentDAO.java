@@ -23,8 +23,15 @@ public class TournamentDAO {
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(tournament);
         }
-        catch (FileNotFoundException fnfException) {
-            throw new IOException("Could not save tournament to " + filePath + "  File not found!");
+    }
+
+    public Tournament load() throws IOException{
+        try (FileInputStream fis = new FileInputStream(filePath);
+        ObjectInputStream ois = new ObjectInputStream(fis)) {
+            return (Tournament)ois.readObject();
+        }
+        catch (ClassNotFoundException cnfException) {
+            throw new IOException("Class not found: " + cnfException.getMessage());
         }
     }
 }
