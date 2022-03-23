@@ -4,7 +4,6 @@ import edu.ntnu.idatt1002.k1g01.matches.Match;
 import edu.ntnu.idatt1002.k1g01.matches.PointMatch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -75,6 +74,7 @@ class GroupStageTest {
 
 
         @Test
+        @DisplayName("Tests that the getWinnersFromGroups contains correct winners based on advancingFromGroup variable")
         void getWinnersFromGroups() {
             GroupStage groupStage1 = new GroupStage(teamList1, advancingFromGroup, 3, "point");
             //simulates a group stage for one group where team1 and team 2 finishes in the top two places

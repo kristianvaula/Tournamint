@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k1g01;
 
 import edu.ntnu.idatt1002.k1g01.matches.Match;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class GroupTest {
     }
 
     @Test
+    @DisplayName("Tests if the Group constructor works with two teams")
     public void CanConstructWith_2() {
         Team teamPingas = new Team("Pingas");
         Team teamLuigi = new Team("Luigi");
@@ -35,6 +37,7 @@ public class GroupTest {
 
     //TODO Fix constructor to handle arbitrary number of teams.
     @Test
+    @DisplayName("Tests that the group constructor works with up to 12 teams")
     public void CanConstructWithUpTo12() {
         for (int i = 3; i < 12; i++) {
             try {
@@ -46,6 +49,7 @@ public class GroupTest {
     }
 
     @Test
+    @DisplayName("Tests the group constructor with timeType matches up to 12 teams")
     public void CanConstructWithTimeTypeMatches() {
         for (int i = 2; i < 12; i++) {
             try {
@@ -57,6 +61,7 @@ public class GroupTest {
     }
 
     @Test
+    @DisplayName("Tests that the Group constructor throws the correct exceptions")
     public void ConstructorTrowsCorrectExceptions() {
         //Initialize teams
         Team teamPingas = new Team("Pingas");
@@ -77,6 +82,7 @@ public class GroupTest {
     }
 
     @Test
+    @DisplayName("Tests that the constructor generates optimal number of Rounds")
     public void constructorGeneratesOptimalNumberOfRounds() {
         for (int i = 2; i < 12; i++) {
             Group group = new Group("point", generateTeams(i));
@@ -86,6 +92,7 @@ public class GroupTest {
     }
 
     @Test
+    @DisplayName("Tests that the contructor generates rounds without duplicate Teams")
     public void constructorGeneratesRoundsWithNoDuplicateTeams() {
         for (int n = 2; n < 12; n++) {
             Group group = new Group("point", generateTeams(n));
@@ -102,6 +109,7 @@ public class GroupTest {
     }
 
     @Test
+    @DisplayName("Tests that getTopTeams method throws correct exceptions")
     public void getTopTeamsTrowsCorrectExceptions() {
         Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
             Group group = new Group("point", generateTeams(4));
@@ -112,12 +120,15 @@ public class GroupTest {
         assertEquals(expected, actual);
     }
 
-    @Test public void getTopTeamsReturnsNullWhenNotFinished(){
+    @Test
+    @DisplayName("Tests that the getTopTeams method returns null when not finished")
+    public void getTopTeamsReturnsNullWhenNotFinished(){
         Group group = new Group("point", generateTeams(6));
         assertNull(group.getTopTeams(2));
     }
 
     @Test
+    @DisplayName("Tests that the getTopTeam method gets the correct teams")
     public void getTopTeamsGetsCorrectTeams(){
         //Create teams
         Team teamPingas = new Team("Pingas");

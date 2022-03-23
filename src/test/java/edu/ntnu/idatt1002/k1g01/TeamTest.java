@@ -13,7 +13,7 @@ public class TeamTest {
     public class ConstructorTest{
 
         @Test
-        @DisplayName("Initiates with correct name")
+        @DisplayName("Tests initiation with correct name")
         public void InitiatesWithName(){
             String name = "Testname";
 
@@ -24,11 +24,11 @@ public class TeamTest {
     }
 
     @Nested
-    @DisplayName("Equals and HashCode")
+    @DisplayName("Tests Equals and HashCode methods")
     public class EqualsAndHashCode{
 
         @Test
-        @DisplayName("Two teams with same name are equal")
+        @DisplayName("Tests that two teams with same name are equal")
         public void TwoTeamsWithSameNameAreEqual(){
             String testName = "TestName";
             Team team1 = new Team(testName);
@@ -40,7 +40,7 @@ public class TeamTest {
         }
 
         @Test
-        @DisplayName("Two teams with different name are not equal")
+        @DisplayName("Tests that two teams with different names are not equal")
         public void TwoTeamsWithDifferentNameAreNotEqual(){
             String testName = "TestName";
             String otherTestName = "otherTestName";
@@ -53,7 +53,7 @@ public class TeamTest {
         }
 
         @Test
-        @DisplayName("Two equal teams have the same hashcode")
+        @DisplayName("Tests that two equal teams have the same hashcode")
         public void TwoEqualTeamsHaveTheSameHashCode(){
             String testName = "TestName";
             Team team1 = new Team(testName);

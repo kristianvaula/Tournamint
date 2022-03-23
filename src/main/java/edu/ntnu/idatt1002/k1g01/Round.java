@@ -1,10 +1,6 @@
 package edu.ntnu.idatt1002.k1g01;
-// import edu.ntnu.idatt1002.k1g01.match.*;
 
 import edu.ntnu.idatt1002.k1g01.matches.Match;
-
-// import edu.ntnu.idatt1002.k1g01.match.Match;
-
 import java.util.ArrayList;
 
 /**
