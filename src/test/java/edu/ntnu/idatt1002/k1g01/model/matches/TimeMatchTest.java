@@ -118,7 +118,7 @@ public class TimeMatchTest {
         LinkedHashMap<Team,String> ordered = multiTeamMatch.getMatchResultOrdered();
         ArrayList<Team> teamsOrdered = new ArrayList<>(ordered.keySet());
 
-        assertEquals(team2,teamsOrdered.get(0));
+        assertEquals(team3,teamsOrdered.get(0));
     }
 
     @Test

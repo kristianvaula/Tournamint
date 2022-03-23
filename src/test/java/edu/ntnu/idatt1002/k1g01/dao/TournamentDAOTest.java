@@ -27,7 +27,7 @@ public class TournamentDAOTest {
 
     @Test
     public void saveTournamentToFile() {
-        Tournament tournament = new Tournament("testTournament", generateTeams(32), "point", 2, 4, 1);
+        Tournament tournament = new Tournament("testTournament", generateTeams(32), "pointMatch", 2, 4, 1);
         try {
             TournamentDAO dao = new TournamentDAO(filePath);
             dao.save(tournament);
@@ -40,7 +40,7 @@ public class TournamentDAOTest {
     @Test
     public void loadTournamentFromFile() {
         saveTournamentToFile();
-        Tournament savedTournament = new Tournament("testTournament", generateTeams(32), "point",
+        Tournament savedTournament = new Tournament("testTournament", generateTeams(32), "pointMatch",
                 2, 4, 1);
         Tournament loadedTournament;
         TournamentDAO dao = new TournamentDAO(filePath);

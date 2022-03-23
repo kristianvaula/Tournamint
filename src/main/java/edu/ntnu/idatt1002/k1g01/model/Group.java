@@ -81,7 +81,7 @@ public class Group implements Serializable {
     /**
      * Creates a group of teams. Every team will be paired up in a match against every other team.
      * Matches will be grouped into rounds, so that every match in a round can be played concurrently.
-     * @param matchType Type of match as a string. Accepted: [point, time]
+     * @param matchType Type of match as a string. Accepted: [pointMatch, timeMatch]
      * @param teams ArrayList of teams for the group.
      * @throws IllegalArgumentException if < 2 teams, or any duplicate teams in input.
      * @throws ClassCastException if matchType string does not match any known types.
@@ -111,10 +111,10 @@ public class Group implements Serializable {
                     ArrayList<Team> teamsForMatch = new ArrayList<>();
                     teamsForMatch.add(teamA); teamsForMatch.add(teamB);
                     Match tempMatch;
-                    if (matchType.equals("point")) {
+                    if (matchType.equals("pointMatch")) {
                         tempMatch = new PointMatch(teamsForMatch);
                     }
-                    else if (matchType.equals("time")) {
+                    else if (matchType.equals("timeMatch")) {
                         tempMatch = new TimeMatch(teamsForMatch);
                     }
                     else {throw new ClassCastException("Error in Group constructor: Unknown Match type!"); }
