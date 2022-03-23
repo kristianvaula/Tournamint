@@ -124,7 +124,7 @@ public class CreateATournamentController implements Initializable {
         if(tournamentName.isBlank() || tournamentName.isEmpty()){
             tournamentErrorOutput.setText("Please enter a tournament name");
         }else if(teamList.size()<2){
-            tournamentErrorOutput.setText("You need at least two teams to create a tournament");
+            tournamentErrorOutput.setText("Not enough teams");
         }else {
 
         }
@@ -138,6 +138,7 @@ public class CreateATournamentController implements Initializable {
      */
     public void addTeam(ActionEvent event) {
         String teamName = teamNameInputField.getText();
+        tournamentErrorOutput.setText("");
 
         if(teamName.isEmpty() || teamName.isBlank()){
             addTeamErrorOutput.setText("Please enter a team name");
@@ -146,10 +147,10 @@ public class CreateATournamentController implements Initializable {
             addTeamErrorOutput.setText("Teams cannot have the same name");
         }
         else if(teamList.size()>256){
+            addTeamErrorOutput.setText("Too many teams");
+        }else{
             teamList.add(new Team(teamName));
             updateTeamTable(event);
-        }else{
-            addTeamErrorOutput.setText("Tournament cannot have more than 256 teams");
         }
     }
 
