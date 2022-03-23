@@ -50,20 +50,20 @@
                 <AnchorPane maxWidth="930.0" minHeight="0.0" minWidth="0.0" prefHeight="358.0" prefWidth="898.0">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e4e480" height="88.0" layoutX="8.0" layoutY="308.0" stroke="#c3c1c1" strokeType="INSIDE" width="910.0" />
-                        <DatePicker layoutX="33.0" layoutY="350.0" prefHeight="35.0" prefWidth="250.0" />
+                        <DatePicker fx:id="pickedDate" layoutX="33.0" layoutY="350.0" prefHeight="35.0" prefWidth="250.0" promptText="YYYY-MM-DD" />
                         <Text fill="#5b5b5b" layoutX="138.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Text>
-                        <TextField layoutX="341.0" layoutY="350.0" prefHeight="35.0" prefWidth="250.0" />
-                        <TextField layoutX="649.0" layoutY="350.0" prefHeight="35.0" prefWidth="250.0" />
+                        <TextField fx:id="timeField" layoutX="341.0" layoutY="350.0" prefHeight="35.0" prefWidth="250.0" />
+                        <TextField fx:id="placeField" layoutX="649.0" layoutY="350.0" prefHeight="35.0" prefWidth="250.0" />
                         <Text fill="#5b5b5b" layoutX="444.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Text>
-                        <Text fill="#5b5b5b" layoutX="750.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Place">
+                        <Text fill="#5b5b5b" layoutX="759.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Info">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -72,12 +72,18 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="292.0" prefWidth="450.0">
                                  <children>
-                                    <TextField layoutX="25.0" layoutY="120.0" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: gray;">
+                                    <TextField fx:id="resultInputField1" layoutX="25.0" layoutY="120.0" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: gray;">
                                        <font>
                                           <Font size="50.0" />
                                        </font></TextField>
-                                    <Button layoutX="330.0" layoutY="140.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: green;" text="+1" />
-                                    <Button layoutX="330.0" layoutY="200.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: red;" text="-1" />
+                                    <Button layoutX="330.0" layoutY="140.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: green;" text="+1">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Button>
+                                    <Button layoutX="330.0" layoutY="200.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: red;" text="-1">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Button>
                                     <Text fx:id="team1Text" fill="#3c4a6b" layoutX="155.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="45.0" />
@@ -87,12 +93,18 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="292.0" prefWidth="450.0">
                                  <children>
-                                    <TextField layoutX="25.0" layoutY="120.0" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: gray;">
+                                    <TextField fx:id="resultInputField2" layoutX="25.0" layoutY="120.0" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: gray;">
                                        <font>
                                           <Font size="50.0" />
                                        </font></TextField>
-                                    <Button layoutX="330.0" layoutY="140.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: green;" text="+1" />
-                                    <Button layoutX="330.0" layoutY="200.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: red;" text="-1" />
+                                    <Button layoutX="330.0" layoutY="140.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: green;" text="+1">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Button>
+                                    <Button layoutX="330.0" layoutY="200.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: red;" text="-1">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></Button>
                                     <Text fx:id="team2Text" fill="#3c4a6b" layoutX="155.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="45.0" />
