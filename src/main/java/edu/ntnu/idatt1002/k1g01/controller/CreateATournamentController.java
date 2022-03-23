@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
 import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +26,8 @@ import java.util.ResourceBundle;
  */
 public class CreateATournamentController implements Initializable {
 
+    //The tournament
+    private Tournament tournament;
     //Teams the user adds
     private ArrayList<Team> teamList = new ArrayList<>();
 
@@ -48,7 +51,6 @@ public class CreateATournamentController implements Initializable {
     /**
      * Changes the scene to CreateATournamentWindow
      */
-    @FXML
     public void cancelBackToHomePage(ActionEvent event)throws IOException {
         try {
             Parent createTournament = FXMLLoader.load(getClass().getResource("../view/HomePage.fxml"));
@@ -108,10 +110,42 @@ public class CreateATournamentController implements Initializable {
     }
 
     /**
+     * Changes the scene to administrate tournament
+     * Also uses the administrate tournament controller to
+     * send the tournament instance.
+     * @param event the event
+     * @throws IOException if fxml file bad
+     */
+    @FXML
+    public void changeSceneToAdministrateTournament(ActionEvent event)throws IOException{
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/AdministrateTournament.fxml"));
+            Parent administrateParent = loader.load();
+
+            Scene administrateScene = new Scene(administrateParent);
+
+            //Access the controller and call a method
+            AdministrateTournamentController controller = loader.getController();
+            controller.initData(tournament);
+
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            window.setScene(administrateScene);
+            window.show();
+
+        } catch (IOException e) {
+            System.out.println(e.getCause());
+            throw e;
+        }
+    }
+
+    /**
      * Gets called when user presses Create Tournament
      * @param event the actionEvent
      */
-    public void createTournament(ActionEvent event) {
+    @FXML
+    public void createTournament(ActionEvent event) throws IOException{
         String tournamentName =  nameInputField.getText();
         String tournamentType = tournamentTypeInput.getValue();
         int teamsPerGroup = teamsPerGroupInput.getValue();
@@ -123,19 +157,36 @@ public class CreateATournamentController implements Initializable {
 
         if(tournamentName.isBlank() || tournamentName.isEmpty()){
             tournamentErrorOutput.setText("Please enter a tournament name");
-        }else if(teamList.size()<2){
+        }
+        else if(teamList.size()<2){
             tournamentErrorOutput.setText("Not enough teams");
-        }else {
+        }
+        else { // Create tournament
+            if(tournamentType.equals("Group Stage + Knockout Stage")){
+                try{
+                    tournament = new Tournament(tournamentName,teamList,matchType,2,teamsPerGroup,teamsAdvancingFromGroup);
+                    changeSceneToAdministrateTournament(event);
+                }catch (IllegalArgumentException e){
+                    tournamentErrorOutput.setText(e.getMessage());
+                }
+            }
+            else{
+                try{
+                    tournament = new Tournament(tournamentName,teamList,matchType,2);
+                    changeSceneToAdministrateTournament(event);
+                }catch (IllegalArgumentException e){
+                    tournamentErrorOutput.setText(e.getMessage());
+                }
+            }
 
         }
-
-
     }
 
     /**
      * Gets called when user presses (+)
      * @param event the actionEvent.
      */
+    @FXML
     public void addTeam(ActionEvent event) {
         String teamName = teamNameInputField.getText();
         tournamentErrorOutput.setText("");
@@ -154,6 +205,11 @@ public class CreateATournamentController implements Initializable {
         }
     }
 
+    /**
+     * Allows user to edit teams in list
+     * @param editedCell the event
+     */
+    @FXML
     public void changeTeamNameCellEvent(TableColumn.CellEditEvent editedCell){
         Team team = teamTableOutput.getSelectionModel().getSelectedItem();
         team.setName(editedCell.getNewValue().toString());
@@ -175,6 +231,7 @@ public class CreateATournamentController implements Initializable {
      * Updates team table by setting all teams
      * @param event the actionEvent
      */
+    @FXML
     public void updateTeamTable(ActionEvent event){
         teamTableOutput.setItems(getTeams());
     }

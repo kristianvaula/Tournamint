@@ -62,3 +62,10 @@
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
 }
+
+.titles{
+    -fx-font-size: 18pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: darkblue;
+    -fx-opacity: 1;
+}
