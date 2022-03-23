@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -17,9 +18,10 @@ public class HomePageController implements Initializable {
     /**
      * Changes the scene to CreateATournamentWindow
      */
+    @FXML
     public void changeScreenToCreateTournament(ActionEvent event)throws IOException {
         try {
-            Parent createTournament = FXMLLoader.load(getClass().getClassLoader().getResource("CreateATournamentWindow.fxml"));
+            Parent createTournament = FXMLLoader.load(getClass().getResource("../CreateATournament.fxml"));
             Scene createTournamentScene = new Scene(createTournament);
 
             //This line gets the Stage information
@@ -31,8 +33,6 @@ public class HomePageController implements Initializable {
             System.out.println(e.getCause());
             throw e;
         }
-
-
     }
 
     @Override

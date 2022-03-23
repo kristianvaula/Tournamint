@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.DisplayModeController">
+    <children>
+        <BorderPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0">
+            <center>
+                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <top>
+                        <Text fill="#18205b" strokeType="OUTSIDE" strokeWidth="0.0" text="TournamentName" textAlignment="CENTER" wrappingWidth="387.61865234375" BorderPane.alignment="CENTER">
+                            <font>
+                                <Font size="35.0" />
+                            </font>
+                        </Text>
+                    </top>
+                    <center>
+                        <TabPane maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="435.0" prefWidth="920.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                            <tabs>
+                                <Tab text="Upcoming Matches">
+                                    <content>
+                                        <TableView prefHeight="200.0" prefWidth="200.0">
+                                            <columns>
+                                                <TableColumn prefWidth="500.0" text="Teams" />
+                                                <TableColumn prefWidth="120.0" text="Date" />
+                                                <TableColumn prefWidth="120.0" text="Time" />
+                                                <TableColumn prefWidth="178.0" text="Place" />
+                                            </columns>
+                                        </TableView>
+                                    </content>
+                                </Tab>
+                                <Tab text="Previous Matches">
+                                    <content>
+                                        <TableView prefHeight="200.0" prefWidth="200.0">
+                                            <columns>
+                                                <TableColumn prefWidth="500.0" text="Teams" />
+                                                <TableColumn prefWidth="120.0" text="Date" />
+                                                <TableColumn prefWidth="120.0" text="Time" />
+                                                <TableColumn prefWidth="178.0" text="Place" />
+                                            </columns>
+                                        </TableView>
+                                    </content>
+                                </Tab>
+                                <Tab text="GroupStage">
+                                    <content>
+                                        <TableView prefHeight="200.0" prefWidth="200.0">
+                                            <columns>
+                                                <TableColumn prefWidth="500.0" text="Teams" />
+                                                <TableColumn prefWidth="120.0" text="Date" />
+                                                <TableColumn prefWidth="120.0" text="Time" />
+                                                <TableColumn prefWidth="178.0" text="Place" />
+                                            </columns>
+                                        </TableView>
+                                    </content>
+                                </Tab>
+                                <Tab text="KnockoutStage">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                    </center>
+                </BorderPane>
+            </center>
+            <top>
+                <MenuBar BorderPane.alignment="CENTER">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </top>
+        </BorderPane>
+        <AnchorPane layoutX="-1.0" layoutY="25.0" prefHeight="63.0" prefWidth="153.0">
+            <children>
+                <MenuButton layoutX="21.0" layoutY="19.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" text="MENU">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Home" />
+                        <MenuItem mnemonicParsing="false" text="DisplayMode" />
+                        <MenuItem mnemonicParsing="false" text="Edit Tournament" />
+                        <MenuItem mnemonicParsing="false" text="Main Menu" />
+                    </items>
+                </MenuButton>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="845.0" layoutY="26.0" prefHeight="62.0" prefWidth="116.0">
+            <children>
+                <TextField layoutX="15.0" layoutY="18.0" prefHeight="26.0" prefWidth="80.0" text="10:09:35">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </TextField>
+            </children>
+        </AnchorPane>
+        <ToggleButton layoutX="863.0" layoutY="90.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="69.0" style="-fx-border-color: gray;" text="Carousel">
+            <effect>
+                <DropShadow>
+                    <color>
+                        <Color red="0.47910574078559875" green="0.6258528232574463" blue="0.7236841917037964" />
+                    </color>
+                </DropShadow>
+            </effect>
+        </ToggleButton>
+    </children>
+</AnchorPane>
