@@ -1,7 +1,9 @@
 package edu.ntnu.idatt1002.k1g01.model.stages;
 
 import edu.ntnu.idatt1002.k1g01.model.Group;
+import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -108,6 +110,25 @@ public class GroupStage extends Stage {
      */
     public ArrayList<Group> getGroups() {
         return groups;
+    }
+
+    /**
+     * Gets the groupstage rounds
+     * Returns a list of rounds, where the first
+     * round contains all the matches from each groups
+     * first round, and so on.
+     * @return ArrayList of rounds
+     */
+    public ArrayList<Round> getGroupRounds(){
+        ArrayList<Round> rounds = new ArrayList<>();
+        int amountOfRounds = groups.get(0).getRounds().size();
+        for (int i = 0; i < amountOfRounds; i++) {
+            for (Group group : groups){
+                ArrayList<Match> matches = new ArrayList<>(group.getRounds().get(i).getMatches());
+                rounds.add(new Round(matches,"GroupRound "+i));
+            }
+        }
+        return rounds;
     }
 
     /**

@@ -201,6 +201,7 @@ public class CreateATournamentController implements Initializable {
             addTeamErrorOutput.setText("Too many teams");
         }else{
             teamList.add(new Team(teamName));
+            teamNameInputField.setText("");
             updateTeamTable(event);
         }
     }

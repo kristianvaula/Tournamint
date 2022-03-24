@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.model;
 
+import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.stages.GroupStage;
 import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
 
@@ -143,6 +144,24 @@ public class Tournament implements Serializable {
     }
 
     /**
+     * Gets all rounds generated at the
+     * time the method is called
+     * @return ArrayList all rounds
+     */
+    public ArrayList<Round> getAllRounds(){
+        if(hasGroupStage){
+            if(!groupStage.isFinished()){
+                return groupStage.getGroupRounds();
+            }
+            else{
+                return knockoutStage.getRounds();
+            }
+        }else{
+            return knockoutStage.getRounds();
+        }
+    }
+
+    /**
      * Updates the tournament.
      * If the groupStage is finished and the
      * knockoutStage has not yet been created,
@@ -152,11 +171,16 @@ public class Tournament implements Serializable {
      * @throws NoSuchFieldException
      */
     public void updateTournament() throws NoSuchFieldException{
-        if(groupStage.isFinished() && knockoutStage == null){
-            knockoutStage = new KnockoutStage(groupStage.getWinnersFromGroups(),teamsPerMatch,matchType);
+        if(hasGroupStage){
+            if(groupStage.isFinished() && knockoutStage == null){
+                knockoutStage = new KnockoutStage(groupStage.getWinnersFromGroups(),teamsPerMatch,matchType);
+            }else{
+                knockoutStage.updateKnockoutStage();
+            }
         }else{
             knockoutStage.updateKnockoutStage();
         }
+
     }
 
     /**
