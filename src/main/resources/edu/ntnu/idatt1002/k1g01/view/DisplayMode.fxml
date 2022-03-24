@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.AdministrateTournamentController">
+<AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.AdministrateTournamentController">
     <children>
         <BorderPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css">
             <top>
@@ -48,11 +64,11 @@
                                     </font>
                                 </Text>
                                 <Pane layoutX="90.0" layoutY="10.0" prefHeight="58.0" prefWidth="26.0" />
-                        <StackPane prefHeight="58.0" prefWidth="159.0">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="98.0" text="Auto" />
-                           </children>
-                        </StackPane>
+                                <StackPane prefHeight="58.0" prefWidth="159.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="98.0" text="Auto" />
+                                    </children>
+                                </StackPane>
                                 <StackPane prefHeight="58.0" prefWidth="84.0">
                                     <children>
                                         <TextField alignment="CENTER" prefHeight="31.0" prefWidth="91.0" text="10:09:35">
@@ -67,53 +83,176 @@
                     </children>
                 </VBox>
             </top>
-         <center>
-                  <TabPane maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="435.0" prefWidth="920.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-                      <tabs>
-                          <Tab text="Upcoming Matches">
-                              <content>
-                                  <TableView prefHeight="200.0" prefWidth="200.0">
-                                      <columns>
-                                          <TableColumn prefWidth="500.0" text="Teams" />
-                                          <TableColumn prefWidth="120.0" text="Date" />
-                                          <TableColumn prefWidth="120.0" text="Time" />
-                                          <TableColumn prefWidth="178.0" text="Place" />
-                                      </columns>
-                                  </TableView>
-                              </content>
-                          </Tab>
-                          <Tab text="Previous Matches">
-                              <content>
-                                  <TableView prefHeight="200.0" prefWidth="200.0">
-                                      <columns>
-                                          <TableColumn prefWidth="500.0" text="Teams" />
-                                          <TableColumn prefWidth="120.0" text="Date" />
-                                          <TableColumn prefWidth="120.0" text="Time" />
-                                          <TableColumn prefWidth="178.0" text="Place" />
-                                      </columns>
-                                  </TableView>
-                              </content>
-                          </Tab>
-                          <Tab text="GroupStage">
-                              <content>
-                                  <TableView prefHeight="200.0" prefWidth="200.0">
-                                      <columns>
-                                          <TableColumn prefWidth="500.0" text="Teams" />
-                                          <TableColumn prefWidth="120.0" text="Date" />
-                                          <TableColumn prefWidth="120.0" text="Time" />
-                                          <TableColumn prefWidth="178.0" text="Place" />
-                                      </columns>
-                                  </TableView>
-                              </content>
-                          </Tab>
-                          <Tab text="KnockoutStage">
-                              <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                              </content>
-                          </Tab>
-                      </tabs>
-                  </TabPane>
-         </center>
+            <center>
+                <TabPane maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="435.0" prefWidth="920.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                    <tabs>
+                        <Tab text="Upcoming Matches">
+                            <content>
+                                <TableView prefHeight="200.0" prefWidth="200.0">
+                                    <columns>
+                                        <TableColumn prefWidth="500.0" text="Teams" />
+                                        <TableColumn prefWidth="120.0" text="Date" />
+                                        <TableColumn prefWidth="120.0" text="Time" />
+                                        <TableColumn prefWidth="178.0" text="Place" />
+                                    </columns>
+                                </TableView>
+                            </content>
+                        </Tab>
+                        <Tab text="Previous Matches">
+                            <content>
+                                <TableView prefHeight="200.0" prefWidth="200.0">
+                                    <columns>
+                                        <TableColumn prefWidth="500.0" text="Teams" />
+                                        <TableColumn prefWidth="120.0" text="Date" />
+                                        <TableColumn prefWidth="120.0" text="Time" />
+                                        <TableColumn prefWidth="178.0" text="Place" />
+                                    </columns>
+                                </TableView>
+                            </content>
+                        </Tab>
+                        <Tab text="GroupStage">
+                            <content>
+                                <TableView prefHeight="200.0" prefWidth="200.0">
+                                    <columns>
+                                        <TableColumn prefWidth="500.0" text="Teams" />
+                                        <TableColumn prefWidth="120.0" text="Date" />
+                                        <TableColumn prefWidth="120.0" text="Time" />
+                                        <TableColumn prefWidth="178.0" text="Place" />
+                                    </columns>
+                                </TableView>
+                            </content>
+                        </Tab>
+                        <Tab text="KnockoutStage">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <VBox layoutX="1.0" layoutY="-1.0" prefHeight="403.0" prefWidth="222.0" spacing="1.0">
+                                            <children>
+                                                <TextField fx:id="quarterfinalSlot1" maxWidth="200.0" prefWidth="100.0">
+                                                    <VBox.margin>
+                                                        <Insets top="15.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="quarterfinalSlot2" maxWidth="200.0" />
+                                                <TextField fx:id="quarterfinalSlot3" maxWidth="200.0">
+                                                    <VBox.margin>
+                                                        <Insets top="40.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="quarterfinalSlot4" maxWidth="200.0" />
+                                                <TextField fx:id="quarterfinalSlot5" maxWidth="200.0">
+                                                    <VBox.margin>
+                                                        <Insets top="40.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="quarterfinalSlot6" maxWidth="200.0" />
+                                                <TextField fx:id="quarterfinalSlot7" maxWidth="200.0">
+                                                    <VBox.margin>
+                                                        <Insets top="40.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="quarterfinalSlot8" maxWidth="200.0">
+                                                    <VBox.margin>
+                                                        <Insets />
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                            <padding>
+                                                <Insets left="20.0" />
+                                            </padding>
+                                        </VBox>
+                                        <VBox layoutX="226.0" layoutY="-1.0" prefHeight="402.0" prefWidth="41.0" spacing="1.0">
+                                            <children>
+                                                <TextField fx:id="quarterfinalPoints1" maxWidth="40.0">
+                                                    <VBox.margin>
+                                                        <Insets top="15.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="quarterfinalPoints2" maxWidth="40.0" />
+                                                <TextField fx:id="quarterfinalPoints3" maxWidth="40.0">
+                                                    <VBox.margin>
+                                                        <Insets top="40.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="quarterfinalPoints4" maxWidth="40.0" />
+                                                <TextField fx:id="quarterfinalPoints5" maxWidth="40.0">
+                                                    <VBox.margin>
+                                                        <Insets top="40.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="quarterfinalPoints6" maxWidth="40.0" />
+                                                <TextField fx:id="quarterfinalPoints7" maxWidth="40.0">
+                                                    <VBox.margin>
+                                                        <Insets top="40.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="quarterfinalPoints8" maxWidth="40.0" />
+                                            </children>
+                                        </VBox>
+                                        <VBox layoutX="270.0" layoutY="-2.0" prefHeight="404.0" prefWidth="278.0" spacing="1.0">
+                                            <children>
+                                                <TextField fx:id="semifinalSlot1" maxWidth="200.0">
+                                                    <VBox.margin>
+                                                        <Insets top="70.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="semifinalSlot2" maxWidth="200.0" />
+                                                <TextField fx:id="semifinalSlot3" maxWidth="200.0">
+                                                    <VBox.margin>
+                                                        <Insets top="140.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="semifinalSlot4" maxWidth="200.0" />
+                                            </children>
+                                            <padding>
+                                                <Insets left="60.0" />
+                                            </padding>
+                                        </VBox>
+                                        <VBox layoutX="535.0" layoutY="-2.0" prefHeight="403.0" prefWidth="41.0" spacing="1.0">
+                                            <children>
+                                                <TextField fx:id="semifinalPoints1" maxWidth="40.0">
+                                                    <VBox.margin>
+                                                        <Insets top="70.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="semifinalPoints2" maxWidth="40.0" />
+                                                <TextField fx:id="semifinalPoints3" maxWidth="40.0">
+                                                    <VBox.margin>
+                                                        <Insets top="140.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="semifinalPoints4" maxWidth="40.0" />
+                                            </children>
+                                        </VBox>
+                                        <VBox layoutX="593.0" layoutY="-2.0" prefHeight="403.0" prefWidth="292.0" spacing="1.0">
+                                            <children>
+                                                <TextField fx:id="finalSlot1" maxWidth="200.0">
+                                                    <VBox.margin>
+                                                        <Insets top="170.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="finalSlot2" maxWidth="200.0" />
+                                            </children>
+                                            <padding>
+                                                <Insets left="60.0" />
+                                            </padding>
+                                        </VBox>
+                                        <VBox layoutX="858.0" layoutY="-2.0" prefHeight="400.0" prefWidth="46.0" spacing="1.0">
+                                            <children>
+                                                <TextField fx:id="finalPoints1" maxWidth="40.0">
+                                                    <VBox.margin>
+                                                        <Insets top="170.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                                <TextField fx:id="finalPoints2" maxWidth="40.0" />
+                                            </children>
+                                        </VBox>
+                                    </children></AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </center>
         </BorderPane>
     </children>
 </AnchorPane>
