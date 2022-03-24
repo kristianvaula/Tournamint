@@ -17,7 +17,7 @@
                                     <content>
                                         <TableView fx:id="matchTable" prefHeight="200.0" prefWidth="200.0">
                                             <columns>
-                                                <TableColumn fx:id="teamsColumn" prefWidth="500.0" text="Teams" />
+                                                <TableColumn fx:id="teamsColumn"  prefWidth="500.0" text="Teams" />
                                                 <TableColumn fx:id="dateColumn" prefWidth="120.0" text="Date" />
                                                 <TableColumn fx:id="timeColumn" prefWidth="120.0" text="Time" />
                                                 <TableColumn fx:id="infoColumn" prefWidth="178.0" text="Info" />

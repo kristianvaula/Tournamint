@@ -171,11 +171,16 @@ public class Tournament implements Serializable {
      * @throws NoSuchFieldException
      */
     public void updateTournament() throws NoSuchFieldException{
-        if(groupStage.isFinished() && knockoutStage == null){
-            knockoutStage = new KnockoutStage(groupStage.getWinnersFromGroups(),teamsPerMatch,matchType);
+        if(hasGroupStage){
+            if(groupStage.isFinished() && knockoutStage == null){
+                knockoutStage = new KnockoutStage(groupStage.getWinnersFromGroups(),teamsPerMatch,matchType);
+            }else{
+                knockoutStage.updateKnockoutStage();
+            }
         }else{
             knockoutStage.updateKnockoutStage();
         }
+
     }
 
     /**
