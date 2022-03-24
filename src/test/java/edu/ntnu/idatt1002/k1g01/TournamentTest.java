@@ -49,7 +49,7 @@ public class TournamentTest {
         public void InitiatesATournament(){
             String testName = "testName";
 
-            Tournament tournament = new Tournament(testName,teamList3,"PointMatch",2,4,2);
+            Tournament tournament = new Tournament(testName,teamList3,"pointMatch",2,4,2);
 
             assertEquals(testName,tournament.getTournamentName());
         }
@@ -76,7 +76,7 @@ public class TournamentTest {
         @Test
         @DisplayName("Tests that the getTeams method gets a list of teams")
         public void GetTeamsGetsCorrectTeamList(){
-            Tournament tournament = new Tournament("testName",teamList3,"PointMatch",2,4,2);
+            Tournament tournament = new Tournament("testName",teamList3,"pointMatch",2,4,2);
 
             ArrayList<Team> checkList = tournament.getTeams();
 
@@ -86,7 +86,7 @@ public class TournamentTest {
         @Test
         @DisplayName("Tests that the addTeam method adds a new team")
         public void AddTeamWithNewTeam(){
-            Tournament tournament = new Tournament("testName",teamList3,"PointMatch",2,4,2);
+            Tournament tournament = new Tournament("testName",teamList3,"pointMatch",2,4,2);
 
             Team newTeam = new Team("NewTeam");
             tournament.addTeam(newTeam);
@@ -100,7 +100,7 @@ public class TournamentTest {
             Team testTeam = new Team("TestTeam");
             teamList3.add(testTeam);
 
-            Tournament tournament = new Tournament("testName",teamList3,"PointMatch",2,4,2);
+            Tournament tournament = new Tournament("testName",teamList3,"pointMatch",2,4,2);
 
             try{
                 tournament.addTeam(testTeam);
@@ -113,7 +113,7 @@ public class TournamentTest {
         @Test
         @DisplayName("Tests that the getNumberOfTeam method returns correct amount of teams")
         public void GetCorrectNumberOfTeams(){
-            Tournament tournament = new Tournament("testName",teamList3,"PointMatch",2,4,2);
+            Tournament tournament = new Tournament("testName",teamList3,"pointMatch",2,4,2);
 
             int tournamentSizeBefore = tournament.getNumberOfTeams();
             teamList3.add(new Team("NewTeam"));

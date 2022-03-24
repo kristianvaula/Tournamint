@@ -152,8 +152,8 @@ public class CreateATournamentController implements Initializable {
         int teamsAdvancingFromGroup = teamsAdvancingFromGroupInput.getValue();
         String matchType;
         if(radioToggleGroup.getSelectedToggle().equals(timeMatchButton)){
-            matchType = "time";
-        }else matchType = "point";
+            matchType = "timeMatch";
+        }else matchType = "pointMatch";
 
         if(tournamentName.isBlank() || tournamentName.isEmpty()){
             tournamentErrorOutput.setText("Please enter a tournament name");
