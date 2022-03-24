@@ -73,9 +73,9 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="292.0" prefWidth="450.0">
                                  <children>
-                                    <TextField fx:id="resultInputField1" layoutX="25.0" layoutY="120.0" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: gray;">
+                                    <TextField fx:id="resultInputField1" alignment="CENTER" layoutX="25.0" layoutY="120.0" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: gray;">
                                        <font>
-                                          <Font size="50.0" />
+                                          <Font size="70.0" />
                                        </font></TextField>
                                     <Button layoutX="330.0" layoutY="140.0" mnemonicParsing="false" onAction="#incrementTeam1PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: green;" text="+1">
                                        <font>
@@ -94,9 +94,9 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="292.0" prefWidth="450.0">
                                  <children>
-                                    <TextField fx:id="resultInputField2" layoutX="25.0" layoutY="120.0" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: gray;">
+                                    <TextField fx:id="resultInputField2" alignment="CENTER" layoutX="25.0" layoutY="120.0" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: gray;">
                                        <font>
-                                          <Font size="50.0" />
+                                          <Font size="75.0" />
                                        </font></TextField>
                                     <Button layoutX="330.0" layoutY="140.0" mnemonicParsing="false" onAction="#incrementTeam2PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: green;" text="+1">
                                        <font>
