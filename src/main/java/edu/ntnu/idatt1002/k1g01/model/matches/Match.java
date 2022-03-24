@@ -19,6 +19,8 @@ import java.util.LinkedHashMap;
 public abstract class Match implements Serializable {
     //The match participants
     private ArrayList<Team> participants;
+    //String representation of the participants
+    private String matchAsString;
     //The time at which the match starts
     private LocalTime startTime = null;
     //The date at which the match starts
@@ -35,6 +37,7 @@ public abstract class Match implements Serializable {
      */
     public Match(ArrayList<Team> participants) {
         this.participants = participants;
+        this.matchAsString = generateMatchAsString(participants,new HashMap<>());
     }
 
     /**
@@ -87,6 +90,14 @@ public abstract class Match implements Serializable {
      */
     public ArrayList<Team> getParticipants() {
         return new ArrayList<>(participants);
+    }
+
+    /**
+     * Gets participants as String
+     * @return String participants
+     */
+    public String getMatchAsString() {
+        return matchAsString;
     }
 
     /**
@@ -177,6 +188,52 @@ public abstract class Match implements Serializable {
      */
     public String getMatchDateAsString() {
         return "" + matchDate.getDayOfMonth() + " / " + matchDate.getMonth();
+    }
+
+    /**
+     * Returns the match participants,
+     * and if there is a result this is also
+     * added.
+     * @return String participants
+     */
+    public static String generateMatchAsString(ArrayList<Team> participants,HashMap<Team,String> result){
+        if(!result.isEmpty()){
+            if(participants.size() == 2){
+                return participants.get(0).getName() + " "
+                        + result.get(participants.get(0))
+                        + " - "
+                        + result.get(participants.get(1)) + " "
+                        + participants.get(1).getName();
+            }
+            else if(participants.size() > 2 ){
+                String resultS = "";
+                for (Team team : participants){
+                    resultS += team.getName() + " " + result.get(team) + "\n";
+                }
+                return resultS;
+            }else
+                return "Insufficient data";
+        }else{
+            if(participants.size() == 2){
+                return participants.get(0).getName() + " vs " + participants.get(1).getName();
+            }
+            else if(participants.size() > 2 ){
+                String resultS = "";
+                for (Team team : participants){
+                    resultS += team.getName() + "\n";
+                }
+                return resultS;
+            }else
+                return "Insufficient data";
+        }
+    }
+
+    /**
+     * Sets matchAsString
+     * @param matchAsString the string
+     */
+    public void setMatchAsString(String matchAsString) {
+        this.matchAsString = matchAsString;
     }
 
     /**
