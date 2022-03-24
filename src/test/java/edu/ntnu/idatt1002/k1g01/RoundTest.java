@@ -1,7 +1,10 @@
 package edu.ntnu.idatt1002.k1g01;
 
-import edu.ntnu.idatt1002.k1g01.matches.Match;
-import edu.ntnu.idatt1002.k1g01.matches.PointMatch;
+import edu.ntnu.idatt1002.k1g01.model.Round;
+import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.matches.Match;
+import edu.ntnu.idatt1002.k1g01.model.matches.PointMatch;
+import edu.ntnu.idatt1002.k1g01.model.stages.GroupStage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +40,7 @@ class RoundTest {
         teamList3.add(team3);
         teamList3.add(team4);
 
-        groupStage = new GroupStage(teamList1, 2, 4, "point");
+        groupStage = new GroupStage(teamList1, 2, 4, "pointMatch");
         matches = groupStage.getGroups().get(0).getMatches();
 
 

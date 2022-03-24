@@ -1,7 +1,10 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model.stages;
 
-import edu.ntnu.idatt1002.k1g01.matches.Match;
-import edu.ntnu.idatt1002.k1g01.matches.PointMatch;
+
+import edu.ntnu.idatt1002.k1g01.model.Round;
+import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.matches.Match;
+import edu.ntnu.idatt1002.k1g01.model.matches.PointMatch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

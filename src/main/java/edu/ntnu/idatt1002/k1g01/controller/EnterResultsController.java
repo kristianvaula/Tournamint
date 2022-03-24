@@ -127,7 +127,7 @@ public class EnterResultsController implements Initializable {
         for (int i = 0; i < participants.size(); i++) {
             match.setResult(participants.get(i), getResults().get(i));
         }
-        match.setMatchDate(getDate());
+        //match.setMatchDate(getDate());
         match.setStartTime(getTime());
         match.setMatchInfo(getInfo());
     }
