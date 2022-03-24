@@ -17,6 +17,7 @@ import java.nio.file.Path;
 public class TournamentDAO {
     private static final String fileExtension = ".qxz";
     private final String filePath;
+    private Tournament tournament = null;
 
     /**
      * Constructor for Data Access Object.
@@ -55,6 +56,21 @@ public class TournamentDAO {
      * @throws IOException if saving failed.
      */
     public void save(Tournament tournament) throws IOException {
+        this.tournament = tournament;
+        try (FileOutputStream fos = new FileOutputStream(filePath);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(tournament);
+        }
+    }
+
+    /**
+     * Saves previously given or loaded tournament to file.
+     * Intended to easily save changes in state for a tournament object.
+     * @see Tournament
+     * @throws IOException if saving failed.
+     * @throws NullPointerException if this DAO has never previously loaded or been given a Tournament.
+     */
+    public void save() throws IOException, NullPointerException {
         try (FileOutputStream fos = new FileOutputStream(filePath);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(tournament);
@@ -70,7 +86,8 @@ public class TournamentDAO {
     public Tournament load() throws IOException{
         try (FileInputStream fis = new FileInputStream(filePath);
         ObjectInputStream ois = new ObjectInputStream(fis)) {
-            return (Tournament)ois.readObject();
+            this.tournament = (Tournament)ois.readObject();
+            return tournament;
         }
         catch (ClassNotFoundException cnfException) {
             throw new IOException("Class not found: " + cnfException.getMessage());
@@ -79,9 +96,10 @@ public class TournamentDAO {
 
     /**
      * Deletes the file that this DAO is connected to.
+     * Does not reset this.tournament pointer.
      * @throws IOException with explanation if deletion fails.
      */
-    public void deleteSelf() throws IOException {
+    public void deleteFile() throws IOException {
         Files.delete(Paths.get(filePath));
     }
 }

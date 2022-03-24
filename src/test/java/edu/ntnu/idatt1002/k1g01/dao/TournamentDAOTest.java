@@ -79,10 +79,27 @@ public class TournamentDAOTest {
     public void fileDeletionWorks() {
         saveTournamentToFile();
         TournamentDAO dao = new TournamentDAO(filePath);
-        try { dao.deleteSelf(); }
+        try { dao.deleteFile(); }
         catch (IOException ioException) {
             throw new AssertionError(ioException.getMessage());
         }
-        assertThrows(IOException.class, dao::deleteSelf);
+        assertThrows(IOException.class, dao::deleteFile);
+    }
+
+    @Test
+    public void fileUpdateWorks(){
+        Tournament oldTournament = new Tournament("testTournament", generateTeams(32), "pointMatch", 2, 4, 1);
+        Tournament newTournament = new Tournament("testTournament", generateTeams(32), "pointMatch", 2, 4, 1);
+        try {
+            TournamentDAO dao = new TournamentDAO(filePath);
+            dao.save(oldTournament);
+            assertEquals(dao.load().getTournamentName(), newTournament.getTournamentName());
+            oldTournament.setTournamentName("Some Other Name");
+            dao.save();
+            assertNotEquals(oldTournament.getTournamentName(), newTournament.getTournamentName());
+        }
+        catch (IOException ioException) {
+            throw new AssertionError(ioException.getMessage());
+        }
     }
 }
