@@ -69,3 +69,11 @@
     -fx-text-fill: darkblue;
     -fx-opacity: 1;
 }
+
+.resultInput{
+    -fx-border-color:lightgray;
+    -fx-font-size:30pt;
+}
+.incrementButtons{
+    -fx-border-width: 0pt;
+}
