@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.model;
 
+import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.stages.GroupStage;
 import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
 
@@ -140,6 +141,24 @@ public class Tournament implements Serializable {
      */
     public KnockoutStage getKnockoutStage() {
         return knockoutStage;
+    }
+
+    /**
+     * Gets all rounds generated at the
+     * time the method is called
+     * @return ArrayList all rounds
+     */
+    public ArrayList<Round> getAllRounds(){
+        if(hasGroupStage){
+            if(!groupStage.isFinished()){
+                return groupStage.getGroupRounds();
+            }
+            else{
+                return knockoutStage.getRounds();
+            }
+        }else{
+            return knockoutStage.getRounds();
+        }
     }
 
     /**
