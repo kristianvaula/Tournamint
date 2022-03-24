@@ -1,7 +1,9 @@
 package edu.ntnu.idatt1002.k1g01.model.stages;
 
 import edu.ntnu.idatt1002.k1g01.model.Group;
+import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -38,7 +40,7 @@ public class GroupStage extends Stage {
         this.teamsPerGroup = teamsPerGroup;
         this.matchType = matchType;
         this.advancingFromGroup = advancingFromGroup;
-        this.groups.addAll(setUpGroups(teams,teamsPerGroup,matchType));
+        this.groups.addAll(setUpGroups(teams,advancingFromGroup,teamsPerGroup,matchType));
     }
 
     /**
@@ -49,10 +51,25 @@ public class GroupStage extends Stage {
      * @param matchType Type of matches in group stage
      * @return The groups
      */
-    private static ArrayList<Group> setUpGroups(ArrayList<Team> teams,int teamsPerGroup,String matchType) throws  IllegalArgumentException{
+    private static ArrayList<Group> setUpGroups(ArrayList<Team> teams, int advancingFromGroup,
+                                                int teamsPerGroup,String matchType) throws  IllegalArgumentException{
+        /*
+        TODO remove this old algorithm eventually
         if((teams.size()/teamsPerGroup)%4 != 0){
             throw new IllegalArgumentException("Incompatible number of teams compared to teamsPerGroup");
         }
+        */
+
+        //New input verification. Makes sure a power of 2 teams will advance to the finals.
+        int advanceToFinals = teams.size()/teamsPerGroup*advancingFromGroup;
+        boolean compatible = false;
+        for (int i = 1; i < 10; i++) {
+            if (advanceToFinals == Math.pow(2, i)) { compatible = true; break; }
+        }
+        if (!compatible) {
+            throw new IllegalArgumentException("Incompatible number of teams advancing to finals: " + advanceToFinals);
+        }
+
         ArrayList<Group> groups = new ArrayList<>();
         ArrayList<Team> teamList = new ArrayList<>(teams);
         Random rand = new Random();
@@ -91,6 +108,25 @@ public class GroupStage extends Stage {
      */
     public ArrayList<Group> getGroups() {
         return groups;
+    }
+
+    /**
+     * Gets the groupstage rounds
+     * Returns a list of rounds, where the first
+     * round contains all the matches from each groups
+     * first round, and so on.
+     * @return ArrayList of rounds
+     */
+    public ArrayList<Round> getGroupRounds(){
+        ArrayList<Round> rounds = new ArrayList<>();
+        int amountOfRounds = groups.get(0).getRounds().size();
+        for (int i = 0; i < amountOfRounds; i++) {
+            for (Group group : groups){
+                ArrayList<Match> matches = new ArrayList<>(group.getRounds().get(i).getMatches());
+                rounds.add(new Round(matches,"GroupRound "+i));
+            }
+        }
+        return rounds;
     }
 
     /**
