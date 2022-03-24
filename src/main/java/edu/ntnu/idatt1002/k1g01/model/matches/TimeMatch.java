@@ -98,6 +98,7 @@ public class TimeMatch extends Match{
             throw e;
         }
         updateIsFinished();
+        updateMatchAsString();
     }
 
     /**
@@ -142,5 +143,13 @@ public class TimeMatch extends Match{
         }catch(DateTimeParseException e){
             throw e;
         }
+    }
+
+    /**
+     * Updates the match as a String
+     * if changes are made.
+     */
+    public void updateMatchAsString(){
+        super.setMatchAsString(super.generateMatchAsString(getParticipants(),getMatchResultOrdered()));
     }
 }

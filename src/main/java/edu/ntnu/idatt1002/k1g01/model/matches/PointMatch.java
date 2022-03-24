@@ -85,6 +85,7 @@ public class PointMatch extends Match{
             throw new NumberFormatException("Result not a number");
         }
         updateIsFinished();
+        updateMatchAsString();
     }
 
     /**
@@ -103,4 +104,13 @@ public class PointMatch extends Match{
         }
         setFinished(hasResult);
     }
+
+    /**
+     * Updates the match as a String
+     * if changes are made.
+     */
+    public void updateMatchAsString(){
+        super.setMatchAsString(super.generateMatchAsString(getParticipants(),getMatchResultOrdered()));
+    }
+
 }
