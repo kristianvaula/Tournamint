@@ -13,14 +13,14 @@
                     <center>
                         <TabPane fx:id="matchesTabPaneOutput" maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="435.0" prefWidth="920.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                             <tabs>
-                                <Tab text="All Matches">
+                                <Tab fx:id="allMatchesTab" text="All Matches">
                                     <content>
-                                        <TableView prefHeight="200.0" prefWidth="200.0">
+                                        <TableView fx:id="matchTable" prefHeight="200.0" prefWidth="200.0">
                                             <columns>
-                                                <TableColumn prefWidth="500.0" text="Teams" />
-                                                <TableColumn prefWidth="120.0" text="Date" />
-                                                <TableColumn prefWidth="120.0" text="Time" />
-                                                <TableColumn prefWidth="178.0" text="Place" />
+                                                <TableColumn fx:id="teamsColumn" prefWidth="500.0" text="Teams" />
+                                                <TableColumn fx:id="dateColumn" prefWidth="120.0" text="Date" />
+                                                <TableColumn fx:id="timeColumn" prefWidth="120.0" text="Time" />
+                                                <TableColumn fx:id="infoColumn" prefWidth="178.0" text="Info" />
                                             </columns>
                                         </TableView>
                                     </content>
