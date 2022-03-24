@@ -10,6 +10,7 @@ import java.nio.file.Path;
  * Used for saving and loading a tournament type Object.
  * Stores path to target file as object variable.
  * Tournaments are saved as ".qxz" files. Dumb extension name, but definitely unique.
+ *
  * //TODO Possibly change extension to something pronounceable.
  * //TODO Possibly change file format to something more human readable.
  * @author Martin Dammerud
@@ -18,6 +19,7 @@ public class TournamentDAO {
     private static final String fileExtension = ".qxz";
     private final String filePath;
     private Tournament tournament = null;
+    private boolean needLoad = true; //Keeps track if whether data must be loaded from file.
 
     /**
      * Constructor for Data Access Object.
@@ -56,6 +58,8 @@ public class TournamentDAO {
      * @throws IOException if saving failed.
      */
     public void save(Tournament tournament) throws IOException {
+        needLoad = false;
+        System.out.println("Saved tournament: " + tournament.getTournamentName() + " to: " + filePath);
         this.tournament = tournament;
         try (FileOutputStream fos = new FileOutputStream(filePath);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -71,22 +75,28 @@ public class TournamentDAO {
      * @throws NullPointerException if this DAO has never previously loaded or been given a Tournament.
      */
     public void save() throws IOException, NullPointerException {
+        needLoad = false;
+
         try (FileOutputStream fos = new FileOutputStream(filePath);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(tournament);
+            System.out.println("Saved tournament: " + tournament.getTournamentName() + " to: " + filePath);
         }
     }
 
     /**
-     * Loads a tournament from file.
+     * Loads a tournament from file if needed. Loads from memory if possible.
      * @return object of type Tournament.
      * @see Tournament
      * @throws IOException if Loading failed.
      */
     public Tournament load() throws IOException{
+        if (!needLoad) { return this.tournament; } //Data in memory is up-to-date. No load from file needed.
+        System.out.println("loading tournament from: " + filePath);
         try (FileInputStream fis = new FileInputStream(filePath);
         ObjectInputStream ois = new ObjectInputStream(fis)) {
             this.tournament = (Tournament)ois.readObject();
+            needLoad = false;
             return tournament;
         }
         catch (ClassNotFoundException cnfException) {

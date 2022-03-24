@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
+import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
@@ -28,6 +29,7 @@ import java.util.ResourceBundle;
  */
 public class EnterResultsController implements Initializable {
 
+    private TournamentDAO tournamentDAO;
     private Tournament tournament;
     private Match match;
 
@@ -52,8 +54,9 @@ public class EnterResultsController implements Initializable {
     }
 
     @FXML
-    public void initData(Match match,Tournament tournament){
-        this.tournament = tournament;
+    public void initData(Match match, TournamentDAO tournamentDAO) throws IOException{
+        this.tournamentDAO = tournamentDAO;
+        this.tournament = tournamentDAO.load(); //TODO handle the exception from this better.
         this.match = match;
         // Sets the team-names
         String team1 = match.getParticipants().get(0).getName();
@@ -84,14 +87,14 @@ public class EnterResultsController implements Initializable {
             Scene enterResultsScene = new Scene(enterResults);
 
             AdministrateTournamentController controller = loader.getController();
-            controller.initData(tournament);
+            controller.initData(tournamentDAO);
 
             Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
             window.setScene(enterResultsScene);
             window.show();
 
         } catch (IOException e) {
-            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
             throw e;
         }
     }
@@ -160,7 +163,8 @@ public class EnterResultsController implements Initializable {
     public void confirmResultsAndGoBack(ActionEvent event) throws IOException,NoSuchFieldException{
         match.setResult(match.getParticipants().get(0),String.valueOf(resultInputField1.getText()));
         match.setResult(match.getParticipants().get(1),String.valueOf(resultInputField2.getText()));
-        System.out.println(String.valueOf(resultInputField1));
+        //System.out.println("result one: " + String.valueOf(resultInputField1));
+        //System.out.println("result two: " + String.valueOf(resultInputField2));
 
         match.setMatchDate(dateField.getValue());
         match.setMatchInfo(infoField.getText());
@@ -169,9 +173,10 @@ public class EnterResultsController implements Initializable {
                 match.setStartTime(LocalTime.parse((CharSequence) timeField.getText()));
             }
         }catch (DateTimeParseException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         tournament.updateTournament();
+        tournamentDAO.save(); //Save changes to tournament.
 
         returnToAdministrateTournament(event);
     }

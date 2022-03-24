@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
+import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
 import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
@@ -32,6 +33,7 @@ public class AdministrateTournamentController implements Initializable {
 
     //The tournament
     private Tournament tournament;
+    private TournamentDAO tournamentDAO;
 
     //General Settings
     @FXML Text tournamentNameOutput;
@@ -65,9 +67,31 @@ public class AdministrateTournamentController implements Initializable {
         });
     }
 
+    /*
+    TODO avoid passing raw tournament objects; Pass DAO instead. Remove this block eventually!
     @FXML
     public void initData(Tournament tournament){
         this.tournament = tournament;
+        tournamentNameOutput.setText(tournament.getTournamentName());
+        updateTable();
+    }
+    */
+
+    /**
+     * Starts session for administrating a tournament with TournamentDAO.
+     * Makes file containing tournament accessible so that it can be easily updated frequently.
+     * TODO give user reassuring feedback whenever tournament file is updated.
+     * TODO better user feedback for errors.
+     * @param tournamentDAO DAO for tournament object. Must be non-null.
+     */
+    @FXML
+    public void initData(TournamentDAO tournamentDAO){
+        this.tournamentDAO = tournamentDAO;
+        try { this.tournament = tournamentDAO.load(); }
+        catch (IOException ioException) {
+            System.out.println("Error in initData: " + ioException.getMessage());
+            //TODO handle exception if loading somehow fails. Should not be possible at this point.
+        }
         tournamentNameOutput.setText(tournament.getTournamentName());
         updateTable();
     }
@@ -105,14 +129,14 @@ public class AdministrateTournamentController implements Initializable {
 
             //Access the controller and call a method
             EnterResultsController controller = loader.getController();
-            controller.initData(match,tournament);
+            controller.initData(match,tournamentDAO);
 
             Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
             window.setScene(administrateScene);
             window.show();
 
         } catch (IOException e) {
-            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
         }
     }
 

@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
+import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import javafx.collections.FXCollections;
@@ -14,8 +15,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,6 +31,8 @@ public class CreateATournamentController implements Initializable {
 
     //The tournament
     private Tournament tournament;
+    //The tournament DAO for that will connect it to its corresponding file.
+    private TournamentDAO tournamentDAO;
     //Teams the user adds
     private ArrayList<Team> teamList = new ArrayList<>();
 
@@ -62,7 +67,7 @@ public class CreateATournamentController implements Initializable {
             window.show();
 
         } catch (IOException e) {
-            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
             throw e;
         }
     }
@@ -100,7 +105,7 @@ public class CreateATournamentController implements Initializable {
         radioToggleGroup.selectToggle(pointMatchButton);
 
         //Setting up table
-        teamNameColumn.setCellValueFactory(new PropertyValueFactory<Team,String>("name"));
+        teamNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         //Make Table rows editable
         teamTableOutput.setEditable(true);
         teamNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -114,6 +119,35 @@ public class CreateATournamentController implements Initializable {
         teamList.add(new Team("Kameratene"));
         teamList.add(new Team("Sennep Inc"));
         updateTeamTable();
+    }
+
+    /**
+     * Asks the user for a file path and file name to save the new tournament.
+     * Creates TournamentDAO with user provided path.
+     * @param event the event
+     * @return TournamentDAO which links tournament object with persistent file.
+     * @throws IOException If saving is not completed.
+     * @author Martin Dammerud
+     */
+    @FXML
+    private TournamentDAO saveTournamentToFile(ActionEvent event) throws IOException {
+        //Initialize file selection dialog.
+        //TODO Consider more readable file extension name. Using .qxz because it does not collide with any known extensions.
+        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Tournamint Files (*.qxz)", "*.qxz");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(extensionFilter);
+        fileChooser.setSelectedExtensionFilter(extensionFilter);
+        fileChooser.setInitialFileName(tournament.getTournamentName());
+        fileChooser.setTitle("Save Tournament");
+        //TODO Consider setting a default path to save new tournaments.
+
+        //Show file selection dialog and get tournamentDAO from file.
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        File file = fileChooser.showSaveDialog(window);
+        TournamentDAO tournamentDAO = new TournamentDAO(file.getPath());
+
+        //Save tournament to given file path.
+        tournamentDAO.save(tournament); return tournamentDAO;
     }
 
     /**
@@ -135,14 +169,15 @@ public class CreateATournamentController implements Initializable {
 
             //Access the controller and call a method
             AdministrateTournamentController controller = loader.getController();
-            controller.initData(tournament);
+            TournamentDAO tournamentDAO = saveTournamentToFile(event); // Get DAO with user provided path.
+            controller.initData(tournamentDAO); //Call controller with DAO rather than raw tournament object.
 
             Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
             window.setScene(administrateScene);
             window.show();
 
         } catch (IOException e) {
-            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
             throw e;
         }
     }
