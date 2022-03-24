@@ -21,19 +21,30 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controls the enter results page
+ */
 public class EnterResultsController implements Initializable {
 
     private Match match;
     private ArrayList<Team> participants = new ArrayList<>();
 
+    // TeamNames
     @FXML private Text team1Text;
     @FXML private Text team2Text;
+
+    // InputFields
     @FXML private TextField resultInputField1;
     @FXML private TextField resultInputField2;
-    @FXML private DatePicker pickedDate;
+    @FXML private DatePicker dateField;
     @FXML private TextField timeField;
     @FXML private TextField infoField;
 
+    /**
+     * Initializes EnterResult
+     * @param url url
+     * @param resourceBundle resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Sets the team-names
@@ -48,6 +59,9 @@ public class EnterResultsController implements Initializable {
         resultInputField2.setText(initialResult);
     }
 
+    /**
+     * Changes the scene to AdministrateTournament
+     */
     @FXML
     public void cancelAndGoBack (ActionEvent event)throws IOException {
         try {
@@ -65,6 +79,9 @@ public class EnterResultsController implements Initializable {
         }
     }
 
+    /**
+     * Increments team1 points by one
+     */
     @FXML
     public void incrementTeam1PointByOne() {
         String result = resultInputField1.getText();
@@ -73,6 +90,9 @@ public class EnterResultsController implements Initializable {
         resultInputField1.setText(String.valueOf(value));
     }
 
+    /**
+     * Decrements team1 points by one
+     */
     @FXML
     public void incrementTeam2PointByOne() {
         String result = resultInputField2.getText();
@@ -81,6 +101,9 @@ public class EnterResultsController implements Initializable {
         resultInputField2.setText(String.valueOf(value));
     }
 
+    /**
+     * Increments team2 points by one
+     */
     @FXML
     public void decrementTeam1PointByOne() {
         String result = resultInputField1.getText();
@@ -89,6 +112,9 @@ public class EnterResultsController implements Initializable {
         resultInputField1.setText(String.valueOf(value));
     }
 
+    /**
+     * Decrements team2 points by one
+     */
     @FXML
     public void decrementTeam2PointByOne() {
         String result = resultInputField2.getText();
@@ -97,6 +123,10 @@ public class EnterResultsController implements Initializable {
         resultInputField2.setText(String.valueOf(value));
     }
 
+    /**
+     * Get the results from all participants in match in a list
+     * @return results An ArrayList holding String objects
+     */
     @FXML
     public ArrayList<String> getResults() {
         ArrayList<String> results = new ArrayList<>();
@@ -105,31 +135,62 @@ public class EnterResultsController implements Initializable {
         return results;
     }
 
+    /**
+     * Get the date of the match
+     * @param event
+     * @return date. A LocalDate object
+     */
     @FXML
     public LocalDate getDate(ActionEvent event) {
-        LocalDate date = pickedDate.getValue();
+        LocalDate date = dateField.getValue();
         return date;
     }
 
+    /**
+     * Get the time of the match
+     * @return time. A LocalTime object
+     */
     @FXML
     public LocalTime getTime() {
         LocalTime time = LocalTime.parse((CharSequence) timeField);
         return time;
     }
 
+    /**
+     * Get match info
+     * @return the text in the info input field
+     */
     @FXML
     public String getInfo() {
         return infoField.getText();
     }
 
+    /**
+     * Updates all tye match data and information, then
+     * Changes the scene to AdministrateTournament
+     */
     @FXML
-    public void confirmResultsAndGoBack(ActionEvent event) {
-        for (int i = 0; i < participants.size(); i++) {
-            match.setResult(participants.get(i), getResults().get(i));
-        }
-        match.setMatchDate(getDate());
-        match.setStartTime(getTime());
-        match.setMatchInfo(getInfo());
-    }
+    public void confirmResultsAndGoBack(ActionEvent event) throws IOException{
+        try {
+            // Updates match data and information
+            for (int i = 0; i < participants.size(); i++) {
+                match.setResult(participants.get(i), getResults().get(i));
+            }
+            match.setMatchDate(getDate());
+            match.setStartTime(getTime());
+            match.setMatchInfo(getInfo());
 
+            // Goes back to TournamentAdministrator page
+            Parent enterResults = FXMLLoader.load(getClass().getResource("../AdministrateTournament.fxml"));
+            Scene enterResultsScene = new Scene(enterResults);
+
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            window.setScene(enterResultsScene);
+            window.show();
+
+        } catch (IOException e) {
+            System.out.println(e.getCause());
+            throw e;
+        }
+    }
 }
