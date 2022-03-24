@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k1g01.model.matches;
 
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -45,6 +46,7 @@ public class TimeMatchTest {
     }
 
     @Test
+    @DisplayName("Tests the getWinners method")
     void getWinners() {
         testMatch.setResult(team1,TWO_MINUTES);
         testMatch.setResult(team2,FOUR_MINUTES);
@@ -55,6 +57,7 @@ public class TimeMatchTest {
     }
 
     @Test
+    @DisplayName("Tests the getParticipants method")
     void getParticipants() {
         ArrayList<Team> participants = testMatch.getParticipants();
 
@@ -63,6 +66,7 @@ public class TimeMatchTest {
     }
 
     @Test
+    @DisplayName("Tests the Set and Get methods for the time of the match")
     void setAndGetStartTimeAsString() {
         LocalTime time = LocalTime.of(20,15);
 
@@ -72,6 +76,7 @@ public class TimeMatchTest {
     }
 
     @Test
+    @DisplayName("Tests the Set and Get methods for the date of the match")
     void SetAndGetMatchDateAsString() {
         LocalDate date = LocalDate.of(2020,1,14);
         String outputTest = "" + date.getDayOfMonth() + " / " + date.getMonth();
@@ -82,6 +87,7 @@ public class TimeMatchTest {
     }
 
     @Test
+    @DisplayName("Tests the Set and Get methods for MatchInfo")
     void SetAndGetMatchInfo() {
         String info = "The game takes place at Field 8";
 
@@ -91,6 +97,7 @@ public class TimeMatchTest {
     }
 
     @Test
+    @DisplayName("Tests the getMatchResult method")
     void getMatchResult() {
         testMatch.setResult(team1,TWO_MINUTES);
         testMatch.setResult(team2,FOUR_MINUTES);
@@ -101,6 +108,7 @@ public class TimeMatchTest {
     }
 
     @Test
+    @DisplayName("Tests the getMatchResult method when result is empty")
     void getMatchResultWithoutResult() {
         PointMatch testMatch2 = new PointMatch(teamList);
 
@@ -110,6 +118,7 @@ public class TimeMatchTest {
     }
 
     @Test
+    @DisplayName("Tests the getMatchResultOrdered method")
     void getMatchResultOrdered() {
         multiTeamMatch.setResult(team1,TWO_MINUTES);
         multiTeamMatch.setResult(team2,FOUR_MINUTES);
@@ -118,10 +127,11 @@ public class TimeMatchTest {
         LinkedHashMap<Team,String> ordered = multiTeamMatch.getMatchResultOrdered();
         ArrayList<Team> teamsOrdered = new ArrayList<>(ordered.keySet());
 
-        assertEquals(team2,teamsOrdered.get(0));
+        assertEquals(team3,teamsOrdered.get(0));
     }
 
     @Test
+    @DisplayName("Tests the getMatchResultByTeam method")
     void getMatchResultByTeam() {
         testMatch.setResult(team1,FOUR_MINUTES);
         testMatch.setResult(team2,TWO_MINUTES);
@@ -132,6 +142,7 @@ public class TimeMatchTest {
     }
 
     @Test
+    @DisplayName("Tests the updateIsFinished method")
     void updateIsFinished(){
         TimeMatch testMatch2 = new TimeMatch(teamList);
         boolean before = testMatch2.isFinished();

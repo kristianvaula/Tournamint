@@ -14,6 +14,7 @@ import java.util.Random;
  *
  * @author kristvje
  * @author martnal
+ * @author espenjus
  */
 public class GroupStage extends Stage {
 
@@ -37,6 +38,7 @@ public class GroupStage extends Stage {
      */
     public GroupStage(ArrayList<Team> teams, int advancingFromGroup, int teamsPerGroup, String matchType) {
         super(new ArrayList<>());
+        if (advancingFromGroup < 1 || advancingFromGroup >= teamsPerGroup) throw new IllegalArgumentException("Teams advancing from group must be at least one and maximum the amount of teams in the group");
         this.teamsPerGroup = teamsPerGroup;
         this.matchType = matchType;
         this.advancingFromGroup = advancingFromGroup;

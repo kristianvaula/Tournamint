@@ -1,14 +1,15 @@
 package edu.ntnu.idatt1002.k1g01.model.stages;
 
-import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
+
 import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.matches.PointMatch;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,27 +53,32 @@ class KnockoutStageTest {
     }
 
     @Test
+    @DisplayName("Tests that the getTeams method returns the correct list")
     void getTeamsReturnsTeamList1() {
         assertEquals(teamList1, knockoutStage1.getTeams());
     }
 
     @Test
+    @DisplayName("Tests the setTeams method")
     void setTeamsToContainTeamList2() {
         knockoutStage1.setTeams(teamList2);
         assertEquals(teamList2, knockoutStage1.getTeams());
     }
 
     @Test
+    @DisplayName("Tests the getTeamsPerMatch method")
     void getTeamsPerMatchReturns2() {
         assertEquals(2, knockoutStage1.getTeamsPerMatch());
     }
 
     @Test
+    @DisplayName("Tests the getAdvancingPerMatches method")
     void getAdvancingPerMatchReturns1() {
         assertEquals(1, knockoutStage1.getAdvancingPerMatch());
     }
 
     @Test
+    @DisplayName("Tests the roundSetUp method for the final")
     void roundSetUpFinal() {
         Round round = new Round(new ArrayList<>(), "FINAL");
         knockoutStage1.roundSetUp(round, new ArrayList<>());
@@ -80,6 +86,7 @@ class KnockoutStageTest {
     }
 
     @Test
+    @DisplayName("Tests the updateKnockoutStage method")
     void updateKnockoutStage() {
         ArrayList<Round> rounds = knockoutStage2.getRounds();
         ArrayList<Match> matches = rounds.get(0).getMatches();
@@ -94,6 +101,7 @@ class KnockoutStageTest {
     }
 
     @Test
+    @DisplayName("Tests the getTournamentWinner method")
     void getTournamentWinner() {
         ArrayList<Round> rounds = knockoutStage2.getRounds();
         ArrayList<Match> matches = rounds.get(0).getMatches();

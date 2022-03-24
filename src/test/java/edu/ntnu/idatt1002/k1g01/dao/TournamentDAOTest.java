@@ -1,5 +1,4 @@
 package edu.ntnu.idatt1002.k1g01.dao;
-import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import org.junit.jupiter.api.Test;
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TournamentDAOTest {
-    String path = "testSaveFile";
+    String filePath = "testSaveFile";
 
     private ArrayList<Team> generateTeams(int n){
         ArrayList<Team> teams = new ArrayList<>();
@@ -28,9 +27,9 @@ public class TournamentDAOTest {
 
     @Test
     public void saveTournamentToFile() {
-        Tournament tournament = new Tournament("testTournament.csv", generateTeams(16), "point", 2, 4, 1);
+        Tournament tournament = new Tournament("testTournament", generateTeams(32), "pointMatch", 2, 4, 1);
         try {
-            TournamentDAO dao = new TournamentDAO(path);
+            TournamentDAO dao = new TournamentDAO(filePath);
             dao.save(tournament);
         }
         catch (IOException ioException) {
@@ -41,10 +40,10 @@ public class TournamentDAOTest {
     @Test
     public void loadTournamentFromFile() {
         saveTournamentToFile();
-        Tournament savedTournament = new Tournament("testTournament.csv", generateTeams(16), "point",
+        Tournament savedTournament = new Tournament("testTournament", generateTeams(32), "pointMatch",
                 2, 4, 1);
         Tournament loadedTournament;
-        TournamentDAO dao = new TournamentDAO(path);
+        TournamentDAO dao = new TournamentDAO(filePath);
         try { loadedTournament = dao.load(); }
         catch (IOException ioException) {
             throw new AssertionError("failed to load tournament from file: " + ioException.getMessage());
@@ -52,6 +51,55 @@ public class TournamentDAOTest {
         //TODO Perform more comprehensive comparison between Tournament objects to make sure they are indeed equivalent.
         assertEquals(savedTournament.getTournamentName(), loadedTournament.getTournamentName());
         assertEquals(savedTournament.getNumberOfTeams(), loadedTournament.getNumberOfTeams());
-        assertEquals(savedTournament.getTeams().get(0), loadedTournament.getTeams().get(0));
+        for (int i = 0; i < savedTournament.getNumberOfTeams(); i++)
+        {
+            assertEquals(savedTournament.getTeams().get(i), loadedTournament.getTeams().get(i));
+        }
+    }
+
+    @Test
+    public void fileExistsFindsFile() {
+        saveTournamentToFile();
+        assertTrue(TournamentDAO.fileExists(filePath));
+    }
+
+    @Test
+    public void fileExistsAddsExtensionCorrectly() {
+        saveTournamentToFile();
+        assertTrue(TournamentDAO.fileExists(filePath.replace(TournamentDAO.getFileExtension(), "")));
+    }
+
+    @Test
+    public void fileExistsReportsFalseProperly() {
+        saveTournamentToFile();
+        assertFalse(TournamentDAO.fileExists("pathToNothing.qxz"));
+    }
+
+    @Test
+    public void fileDeletionWorks() {
+        saveTournamentToFile();
+        TournamentDAO dao = new TournamentDAO(filePath);
+        try { dao.deleteFile(); }
+        catch (IOException ioException) {
+            throw new AssertionError(ioException.getMessage());
+        }
+        assertThrows(IOException.class, dao::deleteFile);
+    }
+
+    @Test
+    public void fileUpdateWorks(){
+        Tournament oldTournament = new Tournament("testTournament", generateTeams(32), "pointMatch", 2, 4, 1);
+        Tournament newTournament = new Tournament("testTournament", generateTeams(32), "pointMatch", 2, 4, 1);
+        try {
+            TournamentDAO dao = new TournamentDAO(filePath);
+            dao.save(oldTournament);
+            assertEquals(dao.load().getTournamentName(), newTournament.getTournamentName());
+            oldTournament.setTournamentName("Some Other Name");
+            dao.save();
+            assertNotEquals(oldTournament.getTournamentName(), newTournament.getTournamentName());
+        }
+        catch (IOException ioException) {
+            throw new AssertionError(ioException.getMessage());
+        }
     }
 }
