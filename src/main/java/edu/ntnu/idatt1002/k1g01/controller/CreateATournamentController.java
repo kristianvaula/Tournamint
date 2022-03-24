@@ -107,6 +107,13 @@ public class CreateATournamentController implements Initializable {
         //If we want the user to select multiple rows at once
         teamTableOutput.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
+        //For testing
+        nameInputField.setText("Turnering");
+        teamList.add(new Team("Gutta Krutt"));
+        teamList.add(new Team("Pølse Magne"));
+        teamList.add(new Team("Kameratene"));
+        teamList.add(new Team("Sennep Inc"));
+        updateTeamTable();
     }
 
     /**
@@ -202,7 +209,7 @@ public class CreateATournamentController implements Initializable {
         }else{
             teamList.add(new Team(teamName));
             teamNameInputField.setText("");
-            updateTeamTable(event);
+            updateTeamTable();
         }
     }
 
@@ -225,16 +232,16 @@ public class CreateATournamentController implements Initializable {
         for(Team team : teamList){
             teamsObservable.add(team);
         }
+        if(teamsObservable.size() == 0) return null;
         return teamsObservable;
     }
 
     /**
      * Updates team table by setting all teams
-     * @param event the actionEvent
      */
     @FXML
-    public void updateTeamTable(ActionEvent event){
-        teamTableOutput.setItems(getTeams());
+    public void updateTeamTable(){
+        if(getTeams() != null) teamTableOutput.setItems(getTeams());
     }
 
     /**

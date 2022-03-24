@@ -70,12 +70,18 @@ public class EnterResultsController implements Initializable {
      * Changes the scene to AdministrateTournament
      */
     @FXML
-    public void cancelAndGoBack (ActionEvent event)throws IOException {
+    public void returnToAdministrateTournament (ActionEvent event)throws IOException {
         try {
-            Parent enterResults = FXMLLoader.load(getClass().getResource("../view/AdministrateTournament.fxml"));
+            // Goes back to TournamentAdministrator page
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/AdministrateTournament.fxml"));
+            Parent enterResults = loader.load();
+
             Scene enterResultsScene = new Scene(enterResults);
 
-            //This line gets the Stage information
+            AdministrateTournamentController controller = loader.getController();
+            controller.initData(tournament);
+
             Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
             window.setScene(enterResultsScene);
             window.show();
@@ -161,26 +167,8 @@ public class EnterResultsController implements Initializable {
         }catch (DateTimeParseException e){
             System.out.println(e);
         }
+        tournament.updateTournament();
 
-        try {
-            // Goes back to TournamentAdministrator page
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../view/AdministrateTournament.fxml"));
-            Parent enterResults = loader.load();
-
-            Scene enterResultsScene = new Scene(enterResults);
-
-            AdministrateTournamentController controller = loader.getController();
-            controller.initData(tournament);
-            controller.updateTournament();
-
-            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            window.setScene(enterResultsScene);
-            window.show();
-
-        } catch (IOException e) {
-            System.out.println(e.getCause());
-            throw e;
-        }
+        returnToAdministrateTournament(event);
     }
 }
