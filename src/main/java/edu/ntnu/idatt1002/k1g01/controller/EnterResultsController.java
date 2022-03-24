@@ -49,10 +49,6 @@ public class EnterResultsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        // Sets the initial result of both teams to 0
-        String initialResult = "0";
-        resultInputField1.setText(initialResult);
-        resultInputField2.setText(initialResult);
     }
 
     @FXML
@@ -64,6 +60,14 @@ public class EnterResultsController implements Initializable {
         team1Text.setText(team1);
         String team2 = match.getParticipants().get(1).getName();
         team2Text.setText(team2);
+        if(match.getMatchResult().size()>0 ){
+            resultInputField1.setText(match.getMatchResult().get(match.getParticipants().get(0)));
+            resultInputField2.setText(match.getMatchResult().get(match.getParticipants().get(1)));
+        }else{
+            resultInputField1.setText("0");
+            resultInputField2.setText("0");
+        }
+
     }
 
     /**
