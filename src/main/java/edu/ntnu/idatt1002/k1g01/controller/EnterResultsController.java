@@ -137,11 +137,10 @@ public class EnterResultsController implements Initializable {
 
     /**
      * Get the date of the match
-     * @param event
      * @return date. A LocalDate object
      */
     @FXML
-    public LocalDate getDate(ActionEvent event) {
+    public LocalDate getDate() {
         LocalDate date = dateField.getValue();
         return date;
     }
