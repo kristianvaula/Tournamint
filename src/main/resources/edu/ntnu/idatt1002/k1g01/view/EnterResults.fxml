@@ -116,7 +116,7 @@
                               <InnerShadow />
                            </effect>
                         </Button>
-                        <Button layoutX="11.0" layoutY="12.0" mnemonicParsing="false" onAction="#cancelAndGoBack" prefHeight="49.0" prefWidth="308.0" style="-fx-background-color: #FF282D; -fx-border-color: black;" text="Cancel" textFill="WHITE">
+                        <Button layoutX="11.0" layoutY="12.0" mnemonicParsing="false" onAction="#returnToAdministrateTournament" prefHeight="49.0" prefWidth="308.0" style="-fx-background-color: #FF282D; -fx-border-color: black;" text="Cancel" textFill="WHITE">
                            <font>
                               <Font size="25.0" />
                            </font>
