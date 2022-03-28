@@ -47,43 +47,26 @@ public class HomePageController implements Initializable {
     @FXML
     public void OpenTournamentFromFile(ActionEvent event) {
 
-        //Initialize file selection dialog.
-        //TODO Consider more readable file extension name.
-        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Tournamint Files (*.qxz)", "*.qxz");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(extensionFilter);
-        fileChooser.setSelectedExtensionFilter(extensionFilter);
-        fileChooser.setTitle("Open Tournament");
-
-        //Show file selection dialog and get tournamentDAO from file.
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        TournamentDAO tournamentDAO;
         try {
-            File file = fileChooser.showOpenDialog(window);
-            tournamentDAO = new TournamentDAO(file.getPath());
-            tournamentDAO.load();
-        }
-        catch (Exception e) {
-            System.out.println("Error loading tournament from file: " + e.getMessage());
-            return;
-        }
+            //Get active source window.
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
-        //If load successful -> Open administrate tournament with DAO.
-        try {
+            //Get TournamentDAO from user specified file.
+            TournamentDAO tournamentDAO = FileController.openFromFile(window);
+
+            //Open administrate tournament with DAO.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/AdministrateTournament.fxml"));
             Parent administrateParent = loader.load();
             Scene administrateScene = new Scene(administrateParent);
 
-            //Access the controller and call a method
+            //Prepare controller and switch scene.
             AdministrateTournamentController controller = loader.getController();
             controller.initData(tournamentDAO);
-
-            window = (Stage) ((Node)event.getSource()).getScene().getWindow();
             window.setScene(administrateScene);
             window.show();
-
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

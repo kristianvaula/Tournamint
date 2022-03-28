@@ -15,19 +15,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.regex.MatchResult;
 
 /**
  * Controls administration of tournament
@@ -97,57 +93,18 @@ public class AdministrateTournamentController implements Initializable {
      */
     @FXML
     public void openFile() {
-        //Initialize file selection dialog.
-        //TODO Consider more readable file extension name.
-        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Tournamint Files (*.qxz)", "*.qxz");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(extensionFilter);
-        fileChooser.setSelectedExtensionFilter(extensionFilter);
-        fileChooser.setTitle("Open Tournament");
-
-        //Show file selection dialog and get tournamentDAO from file.
-        Stage window = (Stage) topMenuBar.getScene().getWindow();
-        TournamentDAO tournamentDAO;
-        try {
-            File file = fileChooser.showOpenDialog(window);
-            tournamentDAO = new TournamentDAO(file.getPath());
-            tournamentDAO.load();
-        }
-        catch (Exception e) {
-            System.out.println("Error loading tournament from file: " + e.getMessage());
-            return;
-        }
+        try { tournamentDAO = FileController.openFromFile( (Stage)topMenuBar.getScene().getWindow()); }
+        catch (Exception e) { System.out.println(e.getMessage()); }
         initData(tournamentDAO);
     }
 
     /**
      * Saves tournament to new file and switches working directory.
-     * TODO move save and load functionality to separate object to clean up UI code.
      */
     @FXML
     public void saveFile() {
-        //Initialize file selection dialog.
-        //TODO Consider more readable file extension name. Using .qxz because it does not collide with any known extensions.
-        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Tournamint Files (*.qxz)", "*.qxz");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(extensionFilter);
-        fileChooser.setSelectedExtensionFilter(extensionFilter);
-        fileChooser.setInitialFileName(tournament.getTournamentName());
-        fileChooser.setTitle("Save Tournament");
-        //TODO Consider setting a default path to save new tournaments.
-
-        //Show file selection dialog and get tournamentDAO from file.
-        try {
-            Stage window = (Stage) topMenuBar.getScene().getWindow();
-            File file = fileChooser.showSaveDialog(window);
-            tournamentDAO = new TournamentDAO(file.getPath());
-
-            //Save tournament to given file path.
-            tournamentDAO.save(tournament);
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        try {  tournamentDAO = FileController.saveToFile(tournament, (Stage)topMenuBar.getScene().getWindow()); }
+        catch (Exception e) { System.out.println(e.getMessage()); }
     }
 
     /*

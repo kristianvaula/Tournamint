@@ -15,10 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -130,31 +128,9 @@ public class CreateATournamentController implements Initializable {
      * @author Martin Dammerud
      */
     @FXML
-    private TournamentDAO saveTournamentToFile(ActionEvent event) throws IOException {
-        //Initialize file selection dialog.
-        //TODO Consider more readable file extension name. Using .qxz because it does not collide with any known extensions.
-        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Tournamint Files (*.qxz)", "*.qxz");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(extensionFilter);
-        fileChooser.setSelectedExtensionFilter(extensionFilter);
-        fileChooser.setInitialFileName(tournament.getTournamentName());
-        fileChooser.setTitle("Save Tournament");
-        //TODO Consider setting a default path to save new tournaments.
-
-        //Show file selection dialog and get tournamentDAO from file.
-        try {
-            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            File file = fileChooser.showSaveDialog(window);
-            TournamentDAO tournamentDAO = new TournamentDAO(file.getPath());
-
-            //Save tournament to given file path.
-            tournamentDAO.save(tournament); return tournamentDAO;
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null; // Likely canceled by user.
-        }
-
+    private TournamentDAO saveTournamentToFile(ActionEvent event) {
+        try { return FileController.saveToFile(tournament, (Stage) ((Node)event.getSource()).getScene().getWindow()); }
+        catch (Exception e) { System.out.println(e.getMessage()); return null; }
     }
 
     /**
@@ -177,7 +153,7 @@ public class CreateATournamentController implements Initializable {
             //Access the controller and call a method
             AdministrateTournamentController controller = loader.getController();
             TournamentDAO tournamentDAO = saveTournamentToFile(event); // Get DAO with user provided path.
-            if (tournamentDAO == null) { return; } // Ff File save canceled.
+            if (tournamentDAO == null) { return; } // File save likely canceled.
             controller.initData(tournamentDAO); //Call controller with DAO rather than raw tournament object.
 
             Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
