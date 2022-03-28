@@ -17,23 +17,27 @@ import java.nio.file.Path;
  */
 public class TournamentDAO {
     private static final String fileExtension = ".qxz";
-    private final String filePath;
+    //private final String filePath;
+    private final File file;
     private Tournament tournament = null;
 
     /**
      * Constructor for Data Access Object.
      * Adds extension automatically if missing in input
-     * @param filePath path where file will be found. Ex: "C:\\users\\user\\documents\\My Tournaments\\summerFun"
+     * @param file Object representing file where data will be saved.
      */
-    public TournamentDAO(String filePath) {
-        if (!filePath.endsWith(fileExtension)) {
-            filePath += fileExtension;
-        }
-        this.filePath = filePath;
+    public TournamentDAO(File file) {
+        this.file = file;
     }
 
-    //Dumb getters
-    public String getFilePath() { return filePath; }
+    /**
+     * @return the path to the file.
+     */
+    public String getFilePath() { return file.getPath(); }
+
+    /**
+     * @return the extension of tournamint files as a String.
+     */
     public static String getFileExtension() { return fileExtension; }
 
     /**
@@ -57,9 +61,9 @@ public class TournamentDAO {
      * @throws IOException if saving failed.
      */
     public void save(Tournament tournament) throws IOException {
-        System.out.println("Saved tournament: " + tournament.getTournamentName() + " to: " + filePath);
+        System.out.println("Saved tournament: " + tournament.getTournamentName() + " to: " + file.getPath());
         this.tournament = tournament;
-        try (FileOutputStream fos = new FileOutputStream(filePath);
+        try (FileOutputStream fos = new FileOutputStream(file.getPath());
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(tournament);
         }
@@ -73,10 +77,10 @@ public class TournamentDAO {
      * @throws NullPointerException if this DAO has never previously loaded or been given a Tournament.
      */
     public void save() throws IOException, NullPointerException {
-        try (FileOutputStream fos = new FileOutputStream(filePath);
+        try (FileOutputStream fos = new FileOutputStream(file);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(tournament);
-            System.out.println("Saved tournament: " + tournament.getTournamentName() + " to: " + filePath);
+            System.out.println("Saved tournament: " + tournament.getTournamentName() + " to: " + file.getPath());
         }
     }
 
@@ -88,8 +92,8 @@ public class TournamentDAO {
      */
     public Tournament load() throws IOException{
         if (tournament != null) { return this.tournament; } //Data in memory is up-to-date. No load from file needed.
-        System.out.println("loading tournament from: " + filePath);
-        try (FileInputStream fis = new FileInputStream(filePath);
+        System.out.println("loading tournament from: " +file.getPath());
+        try (FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis)) {
             this.tournament = (Tournament)ois.readObject();
             return tournament;
@@ -105,6 +109,8 @@ public class TournamentDAO {
      * @throws IOException with explanation if deletion fails.
      */
     public void deleteFile() throws IOException {
-        Files.delete(Paths.get(filePath));
+        if(!file.delete()) {
+            throw new IOException("Failed to delete: " + file.getPath());
+        }
     }
 }

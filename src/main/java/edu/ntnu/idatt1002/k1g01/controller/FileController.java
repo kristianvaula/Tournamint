@@ -27,7 +27,7 @@ public interface FileController {
         try {
             //Show file selection dialog and get tournamentDAO from file.
             File file = fileChooser.showSaveDialog(window);
-            TournamentDAO tournamentDAO = new TournamentDAO(file.getPath());
+            TournamentDAO tournamentDAO = new TournamentDAO(file);
 
             //Save tournament to given file path.
             tournamentDAO.save(tournament);
@@ -54,7 +54,7 @@ public interface FileController {
         //Show file selection dialog and get tournamentDAO from file.
         try {
             File file = fileChooser.showOpenDialog(window);
-            TournamentDAO tournamentDAO = new TournamentDAO(file.getPath());
+            TournamentDAO tournamentDAO = new TournamentDAO(file);
             tournamentDAO.load();
             return tournamentDAO;
         }
