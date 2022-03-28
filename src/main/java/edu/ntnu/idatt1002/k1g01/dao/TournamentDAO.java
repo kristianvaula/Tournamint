@@ -19,7 +19,6 @@ public class TournamentDAO {
     private static final String fileExtension = ".qxz";
     private final String filePath;
     private Tournament tournament = null;
-    private boolean needLoad = true; //Keeps track if whether data must be loaded from file.
 
     /**
      * Constructor for Data Access Object.
@@ -58,7 +57,6 @@ public class TournamentDAO {
      * @throws IOException if saving failed.
      */
     public void save(Tournament tournament) throws IOException {
-        needLoad = false;
         System.out.println("Saved tournament: " + tournament.getTournamentName() + " to: " + filePath);
         this.tournament = tournament;
         try (FileOutputStream fos = new FileOutputStream(filePath);
@@ -75,8 +73,6 @@ public class TournamentDAO {
      * @throws NullPointerException if this DAO has never previously loaded or been given a Tournament.
      */
     public void save() throws IOException, NullPointerException {
-        needLoad = false;
-
         try (FileOutputStream fos = new FileOutputStream(filePath);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(tournament);
@@ -91,12 +87,11 @@ public class TournamentDAO {
      * @throws IOException if Loading failed.
      */
     public Tournament load() throws IOException{
-        if (!needLoad) { return this.tournament; } //Data in memory is up-to-date. No load from file needed.
+        if (tournament != null) { return this.tournament; } //Data in memory is up-to-date. No load from file needed.
         System.out.println("loading tournament from: " + filePath);
         try (FileInputStream fis = new FileInputStream(filePath);
         ObjectInputStream ois = new ObjectInputStream(fis)) {
             this.tournament = (Tournament)ois.readObject();
-            needLoad = false;
             return tournament;
         }
         catch (ClassNotFoundException cnfException) {
