@@ -142,12 +142,19 @@ public class CreateATournamentController implements Initializable {
         //TODO Consider setting a default path to save new tournaments.
 
         //Show file selection dialog and get tournamentDAO from file.
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        File file = fileChooser.showSaveDialog(window);
-        TournamentDAO tournamentDAO = new TournamentDAO(file.getPath());
+        try {
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            File file = fileChooser.showSaveDialog(window);
+            TournamentDAO tournamentDAO = new TournamentDAO(file.getPath());
 
-        //Save tournament to given file path.
-        tournamentDAO.save(tournament); return tournamentDAO;
+            //Save tournament to given file path.
+            tournamentDAO.save(tournament); return tournamentDAO;
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
     }
 
     /**
@@ -170,6 +177,7 @@ public class CreateATournamentController implements Initializable {
             //Access the controller and call a method
             AdministrateTournamentController controller = loader.getController();
             TournamentDAO tournamentDAO = saveTournamentToFile(event); // Get DAO with user provided path.
+            if (tournamentDAO == null) { return; } // Ff File save canceled.
             controller.initData(tournamentDAO); //Call controller with DAO rather than raw tournament object.
 
             Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();

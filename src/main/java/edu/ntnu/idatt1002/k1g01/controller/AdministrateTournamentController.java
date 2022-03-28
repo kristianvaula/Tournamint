@@ -19,10 +19,13 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.MatchResult;
 
@@ -46,6 +49,7 @@ public class AdministrateTournamentController implements Initializable {
     @FXML TableColumn dateColumn;
     @FXML TableColumn timeColumn;
     @FXML TableColumn infoColumn;
+    @FXML MenuBar topMenuBar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -65,6 +69,55 @@ public class AdministrateTournamentController implements Initializable {
             });
             return row;
         });
+    }
+
+    /**
+     * Switches back to the start page.
+     * @param event the event
+     */
+    @FXML
+    public void switchToHomePage(ActionEvent event) {
+
+        try {
+            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/HomePage.fxml")));
+            Scene scene = new Scene(parent);
+
+            //This line gets the Stage information
+            Stage window = (Stage) topMenuBar.getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Opens another tournament from file.
+     */
+    @FXML
+    public void openFile() {
+        //Initialize file selection dialog.
+        //TODO Consider more readable file extension name.
+        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Tournamint Files (*.qxz)", "*.qxz");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(extensionFilter);
+        fileChooser.setSelectedExtensionFilter(extensionFilter);
+        fileChooser.setTitle("Open Tournament");
+
+        //Show file selection dialog and get tournamentDAO from file.
+        Stage window = (Stage) topMenuBar.getScene().getWindow();
+        TournamentDAO tournamentDAO;
+        try {
+            File file = fileChooser.showOpenDialog(window);
+            tournamentDAO = new TournamentDAO(file.getPath());
+            tournamentDAO.load();
+        }
+        catch (Exception e) {
+            System.out.println("Error loading tournament from file: " + e.getMessage());
+            return;
+        }
+        initData(tournamentDAO);
     }
 
     /*
