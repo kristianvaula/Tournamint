@@ -152,7 +152,7 @@ public class CreateATournamentController implements Initializable {
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
+            return null; // Likely canceled by user.
         }
 
     }
