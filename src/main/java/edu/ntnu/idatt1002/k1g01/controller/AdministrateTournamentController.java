@@ -120,6 +120,36 @@ public class AdministrateTournamentController implements Initializable {
         initData(tournamentDAO);
     }
 
+    /**
+     * Saves tournament to new file and switches working directory.
+     * TODO move save and load functionality to separate object to clean up UI code.
+     */
+    @FXML
+    public void saveFile() {
+        //Initialize file selection dialog.
+        //TODO Consider more readable file extension name. Using .qxz because it does not collide with any known extensions.
+        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Tournamint Files (*.qxz)", "*.qxz");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(extensionFilter);
+        fileChooser.setSelectedExtensionFilter(extensionFilter);
+        fileChooser.setInitialFileName(tournament.getTournamentName());
+        fileChooser.setTitle("Save Tournament");
+        //TODO Consider setting a default path to save new tournaments.
+
+        //Show file selection dialog and get tournamentDAO from file.
+        try {
+            Stage window = (Stage) topMenuBar.getScene().getWindow();
+            File file = fileChooser.showSaveDialog(window);
+            tournamentDAO = new TournamentDAO(file.getPath());
+
+            //Save tournament to given file path.
+            tournamentDAO.save(tournament);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /*
     TODO avoid passing raw tournament objects; Pass DAO instead. Remove this block eventually!
     @FXML

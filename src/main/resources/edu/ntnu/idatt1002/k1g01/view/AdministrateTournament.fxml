@@ -78,6 +78,7 @@
                                   <items>
                                       <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open" />
                               <MenuItem mnemonicParsing="false" onAction="#switchToHomePage" text="Close" />
+                              <MenuItem mnemonicParsing="false" onAction="#saveFile" text="Save as" />
                                   </items>
                               </Menu>
                               <Menu mnemonicParsing="false" text="Edit">
