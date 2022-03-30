@@ -27,25 +27,7 @@
             <top>
                 <VBox prefHeight="78.0" prefWidth="960.0" BorderPane.alignment="CENTER">
                     <children>
-                        <MenuBar>
-                            <menus>
-                                <Menu mnemonicParsing="false" text="File">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="Close" />
-                                    </items>
-                                </Menu>
-                                <Menu mnemonicParsing="false" text="Edit">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="Delete" />
-                                    </items>
-                                </Menu>
-                                <Menu mnemonicParsing="false" text="Help">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="About" />
-                                    </items>
-                                </Menu>
-                            </menus>
-                        </MenuBar>
+                        <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml"/>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                             <children>
                                 <Pane prefHeight="58.0" prefWidth="11.0" />

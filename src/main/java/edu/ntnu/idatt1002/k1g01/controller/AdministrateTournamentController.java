@@ -28,6 +28,9 @@ import java.util.ResourceBundle;
  */
 public class AdministrateTournamentController implements Initializable {
 
+    //The nested controller for the menuBar
+    @FXML private TopMenuBarController topMenuBarController;
+
     //The tournament variables
     private Tournament tournament;
     private TournamentDAO tournamentDAO;
@@ -45,9 +48,6 @@ public class AdministrateTournamentController implements Initializable {
     @FXML TableColumn infoColumn;
 
     @FXML MenuBar topMenuBar;
-
-
-    @FXML private TopMenuBarController topMenuBarController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){

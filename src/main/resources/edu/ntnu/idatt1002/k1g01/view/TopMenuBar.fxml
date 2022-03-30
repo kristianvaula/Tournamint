@@ -4,19 +4,19 @@
 
 <MenuBar fx:id="topMenuBar" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.TopMenuBarController">
     <menus>
-        <Menu mnemonicParsing="false" text="File">
+        <Menu fx:id="topMenuBarFile" mnemonicParsing="false" text="File">
             <items>
-                <MenuItem fx:id="topMenuBarOpen" mnemonicParsing="false" onAction="#openFile" text="Open"/>
-                <MenuItem fx:id="topMenuBarClose" mnemonicParsing="false" onAction="#changeSceneToHomePage" text="Close" />
-                <MenuItem fx:id="topMenuBarSaveAs" mnemonicParsing="false" onAction="#saveFile" text="Save as" />
+                <MenuItem fx:id="topMenuBarOpen" mnemonicParsing="false" onAction="#openFile" text="Open" />
+                <MenuItem fx:id="topMenuBarClose" mnemonicParsing="false" onAction="#changeSceneToHomePage" text="Close" disable="true"/>
+                <MenuItem fx:id="topMenuBarSaveAs" mnemonicParsing="false" onAction="#saveFile" text="Save as" disable="true"/>
             </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
+        <Menu fx:id="topMenuBarEdit" mnemonicParsing="false" text="Edit" disable="true">
             <items>
                 <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Help">
+        <Menu fx:id="topMenuBarHelp" mnemonicParsing="false" text="Help" disable="true">
             <items>
                 <MenuItem mnemonicParsing="false" text="About" />
             </items>

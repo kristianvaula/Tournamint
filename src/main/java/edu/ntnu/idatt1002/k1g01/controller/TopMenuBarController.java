@@ -39,6 +39,9 @@ public class TopMenuBarController implements Initializable{
     @FXML MenuItem topMenuBarSaveAs;
     private TournamentDAO tournamentDAO;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {}
+
     /**
      * Gives this controller access to another controllers tournamentDAO.
      * If the pointer to the DAO is changed the new variable should be passed here as well or the menuBar may behave unpredictably.
@@ -46,6 +49,8 @@ public class TopMenuBarController implements Initializable{
      */
     public void setTournamentDAO(TournamentDAO tournamentDAO) {
         this.tournamentDAO = tournamentDAO;
+        topMenuBarSaveAs.setDisable(false);
+        topMenuBarClose.setDisable(false);
     }
 
     public void printState() {
@@ -130,7 +135,4 @@ public class TopMenuBarController implements Initializable{
             System.out.println("" + e.getCause());
         }
     }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {}
 }

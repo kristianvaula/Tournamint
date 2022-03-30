@@ -29,6 +29,9 @@ import java.util.ResourceBundle;
  */
 public class EnterResultsController implements Initializable {
 
+    //The nested controller for the menuBar
+    @FXML private TopMenuBarController topMenuBarController;
+
     private TournamentDAO tournamentDAO;
     private Tournament tournament;
     private Match match;
@@ -57,6 +60,7 @@ public class EnterResultsController implements Initializable {
     public void initData(Match match, TournamentDAO tournamentDAO) throws IOException{
         this.tournamentDAO = tournamentDAO;
         this.tournament = tournamentDAO.load(); //TODO handle the exception from this better.
+        topMenuBarController.setTournamentDAO(tournamentDAO);//Give menuBar controller access to the DAO.
         this.match = match;
         // Sets the team-names
         String team1 = match.getParticipants().get(0).getName();
