@@ -26,6 +26,9 @@ import java.util.ResourceBundle;
 
 /**
  * Controls the enter results page
+ *
+ * @author thomaniv
+ * @author espjus
  */
 public class EnterResultsController implements Initializable {
 

@@ -24,6 +24,8 @@ import java.util.ResourceBundle;
 
 /**
  * Controls the create a tournament page
+ *
+ * @author kristvje
  */
 public class CreateATournamentController implements Initializable {
 
