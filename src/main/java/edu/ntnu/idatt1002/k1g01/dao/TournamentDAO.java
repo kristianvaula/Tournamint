@@ -18,7 +18,7 @@ import java.nio.file.Path;
 public class TournamentDAO {
     private static final String fileExtension = ".qxz";
     //private final String filePath;
-    private final File file;
+    private File file;
     private Tournament tournament = null;
 
     /**
@@ -28,6 +28,19 @@ public class TournamentDAO {
      */
     public TournamentDAO(File file) {
         this.file = file;
+    }
+
+    /**
+     * Used to change all parameters of this DAO into that of given DAO.
+     * Handy when the content needs to change but the pointer cannot change.
+     * @param otherTDAO TournamentDAO that this will copy all contents of.
+     * @throws IOException If otherDAO is null, or it fails to load.
+     */
+    public void mimic(TournamentDAO otherTDAO) throws IOException {
+        if (otherTDAO == null) { throw new IOException("mimic failure: otherTournamentDAO == null"); }
+        //Other DAO should already have sanitized its own creation, so its variables should be safe.
+        this.tournament = otherTDAO.load();
+        this.file = otherTDAO.file;
     }
 
     /**
