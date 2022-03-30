@@ -110,15 +110,6 @@ public class AdministrateTournamentController implements Initializable {
         catch (Exception e) { System.out.println(e.getMessage()); }
     }
 
-    /*
-    TODO avoid passing raw tournament objects; Pass DAO instead. Remove this block eventually!
-    @FXML
-    public void initData(Tournament tournament){
-        this.tournament = tournament;
-        tournamentNameOutput.setText(tournament.getTournamentName());
-        updateTable();
-    }
-    */
 
     /**
      * Starts session for administrating a tournament with TournamentDAO.
@@ -139,12 +130,21 @@ public class AdministrateTournamentController implements Initializable {
         updateTable();
     }
 
-    public void updateTournament() throws NoSuchFieldException{
+    /**
+     * Whenever a result is added we call the
+     * updateTournament function so that the
+     * tournament can generate new matches based
+     * on previous result.
+     * @throws NoSuchFieldException
+     */
+    public void updateTournament(){
         this.tournament.updateTournament();
     }
 
-
-
+    /**
+     * Gets all matches from all rounds in tournament
+     * @return
+     */
     public ObservableList<Match> getMatches(){
         ObservableList<Match> matchesObservable = FXCollections.observableArrayList();
 
@@ -183,6 +183,9 @@ public class AdministrateTournamentController implements Initializable {
         }
     }
 
+    /**
+     * Updates table with all matches
+     */
     @FXML
     public void updateTable(){
         matchTable.setItems(getMatches());
