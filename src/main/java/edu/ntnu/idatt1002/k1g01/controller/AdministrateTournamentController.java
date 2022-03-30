@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
+import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
 import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
@@ -28,11 +29,13 @@ import java.util.ResourceBundle;
  * Controls administration of tournament
  *
  * @author kristjve
+ * @author martdam
  */
 public class AdministrateTournamentController implements Initializable {
 
     //The tournament
     private Tournament tournament;
+    private TournamentDAO tournamentDAO;
 
     //General Settings
     @FXML Text tournamentNameOutput;

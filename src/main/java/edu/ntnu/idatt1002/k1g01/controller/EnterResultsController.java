@@ -29,6 +29,7 @@ import java.util.ResourceBundle;
  *
  * @author thomaniv
  * @author espjus
+ * @author martdam
  */
 public class EnterResultsController implements Initializable {
 
