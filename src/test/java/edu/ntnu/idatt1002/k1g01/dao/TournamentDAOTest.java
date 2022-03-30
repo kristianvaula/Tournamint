@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k1g01.dao;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.Team;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -9,7 +10,16 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TournamentDAOTest {
-    String filePath = "testSaveFile";
+    static final String filePath = "testSaveFile";
+
+    @AfterEach
+    public void deleteTestFile() {
+        File file = new File(filePath + TournamentDAO.getFileExtension());
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
 
     private ArrayList<Team> generateTeams(int n){
         ArrayList<Team> teams = new ArrayList<>();

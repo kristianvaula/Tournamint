@@ -27,7 +27,8 @@ public class TournamentDAO {
      * @param file Object representing file where data will be saved.
      */
     public TournamentDAO(File file) {
-        this.file = file;
+        if (file.getPath().endsWith(fileExtension)) {this.file = file;}
+        else {this.file = new File(file.getPath() + fileExtension); }
     }
 
     /**
@@ -60,8 +61,10 @@ public class TournamentDAO {
      * @return true if file is found.
      */
     public static boolean fileExists(String filePath) {
+        System.out.println("searching for raw path = " + filePath);
         if (!filePath.endsWith(fileExtension)) {
             filePath += fileExtension;
+            System.out.println("totalPath = " + filePath);
         }
         Path path = Paths.get(filePath);
         return Files.exists(path);
