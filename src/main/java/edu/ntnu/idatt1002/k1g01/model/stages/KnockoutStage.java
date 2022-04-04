@@ -142,7 +142,7 @@ public class KnockoutStage extends Stage {
                 participants.add(teams.get(index));
                 teams.remove(index);
             }
-            if(tournamentType.equals("time")){
+            if(tournamentType.equals("timeMatch")){
                 round.addMatch(new TimeMatch(participants));
             } else{
                 round.addMatch(new PointMatch(participants));
