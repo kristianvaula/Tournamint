@@ -121,6 +121,10 @@ public class CreateATournamentController implements Initializable {
         teamList.add(new Team("Pølse Magne"));
         teamList.add(new Team("Kameratene"));
         teamList.add(new Team("Sennep Inc"));
+        teamList.add(new Team("Yippi"));
+        teamList.add(new Team("Smør på Knekkebrød"));
+        teamList.add(new Team("Fløtepusene"));
+        teamList.add(new Team("Katt og Rusen 20000"));
         updateTeamTable();
     }
 
