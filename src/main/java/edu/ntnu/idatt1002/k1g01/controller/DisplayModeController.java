@@ -7,6 +7,7 @@ import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
@@ -25,21 +26,24 @@ public class DisplayModeController implements Initializable {
 
     private Tournament tournament;
 
-    //TextFields for the quarterfinals
-    @FXML
-    private TextField quarterfinalSlot1, quarterfinalSlot2, quarterfinalSlot3, quarterfinalSlot4, quarterfinalSlot5, quarterfinalSlot6, quarterfinalSlot7, quarterfinalSlot8;
-    @FXML private TextField quarterfinalPoints1, quarterfinalPoints2, quarterfinalPoints3, quarterfinalPoints4, quarterfinalPoints5, quarterfinalPoints6, quarterfinalPoints7, quarterfinalPoints8;
+    //labels for 1/8 finals
+    @FXML private Label slot1, slot2, slot3, slot4,slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15, slot16;
+    @FXML private Label points1, points2, points3, points4, points5, points6, points7, points8, points9, points10, points11, points12, points13, points14, points15, points16;
 
-    //TextFields for the semifinals
-    @FXML private TextField semifinalSlot1, semifinalSlot2, semifinalSlot3, semifinalSlot4;
-    @FXML private TextField semifinalPoints1, semifinalPoints2, semifinalPoints3, semifinalPoints4;
+    //Labels for the quarterfinals
+    @FXML private Label quarterfinalSlot1, quarterfinalSlot2, quarterfinalSlot3, quarterfinalSlot4, quarterfinalSlot5, quarterfinalSlot6, quarterfinalSlot7, quarterfinalSlot8;
+    @FXML private Label quarterfinalPoints1, quarterfinalPoints2, quarterfinalPoints3, quarterfinalPoints4, quarterfinalPoints5, quarterfinalPoints6, quarterfinalPoints7, quarterfinalPoints8;
 
-    //TextFields for the final
-    @FXML private TextField finalSlot1, finalSlot2;
-    @FXML private TextField finalPoints1, finalPoints2;
+    //Labels for the semifinals
+    @FXML private Label semifinalSlot1, semifinalSlot2, semifinalSlot3, semifinalSlot4;
+    @FXML private Label semifinalPoints1, semifinalPoints2, semifinalPoints3, semifinalPoints4;
 
-    public ArrayList<TextField> arrangeTextFields() {
-        ArrayList<TextField> slots = new ArrayList<>(); slots.add(quarterfinalPoints1); slots.add(quarterfinalPoints2);
+    //Labels for the final
+    @FXML private Label finalSlot1, finalSlot2;
+    @FXML private Label finalPoints1, finalPoints2;
+
+    public ArrayList<Label> arrangeLabels() {
+        ArrayList<Label> slots = new ArrayList<>(); slots.add(quarterfinalPoints1); slots.add(quarterfinalPoints2);
         slots.add(quarterfinalSlot3); slots.add(quarterfinalSlot4); slots.add(quarterfinalSlot5); slots.add(quarterfinalSlot7);
         slots.add(quarterfinalSlot8);
         return slots;
@@ -54,6 +58,8 @@ public class DisplayModeController implements Initializable {
     public void initData(Tournament tournament) {
         this.tournament = tournament;
     }
+
+
 
 
 
