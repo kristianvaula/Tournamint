@@ -25,6 +25,9 @@ import java.util.ResourceBundle;
 
 /**
  * Controls administration of tournament
+ *
+ * @author kristjve
+ * @author martdam
  */
 public class AdministrateTournamentController implements Initializable {
 
@@ -70,15 +73,46 @@ public class AdministrateTournamentController implements Initializable {
         });
     }
 
-    /*
-    TODO avoid passing raw tournament objects; Pass DAO instead. Remove this block eventually!
+    /**
+     * Switches back to the start page.
+     * @param event the event
+     */
     @FXML
-    public void initData(Tournament tournament){
-        this.tournament = tournament;
-        tournamentNameOutput.setText(tournament.getTournamentName());
-        updateTable();
+    public void switchToHomePage(ActionEvent event) {
+
+        try {
+            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/HomePage.fxml")));
+            Scene scene = new Scene(parent);
+
+            //This line gets the Stage information
+            Stage window = (Stage) topMenuBar.getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
-    */
+
+    /**
+     * Opens another tournament from file.
+     */
+    @FXML
+    public void openFile() {
+        try { tournamentDAO = FileController.openFromFile( (Stage)topMenuBar.getScene().getWindow()); }
+        catch (Exception e) { System.out.println(e.getMessage()); }
+        initData(tournamentDAO);
+    }
+
+    /**
+     * Saves tournament to new file and switches working directory.
+     */
+    @FXML
+    public void saveFile() {
+        try {  tournamentDAO = FileController.saveToFile(tournament, (Stage)topMenuBar.getScene().getWindow()); }
+        catch (Exception e) { System.out.println(e.getMessage()); }
+    }
+
 
     /**
      * Starts session for administrating a tournament with TournamentDAO.
@@ -102,12 +136,21 @@ public class AdministrateTournamentController implements Initializable {
         updateTable();
     }
 
-    public void updateTournament() throws NoSuchFieldException{
+    /**
+     * Whenever a result is added we call the
+     * updateTournament function so that the
+     * tournament can generate new matches based
+     * on previous result.
+     * @throws NoSuchFieldException
+     */
+    public void updateTournament(){
         this.tournament.updateTournament();
     }
 
-
-
+    /**
+     * Gets all matches from all rounds in tournament
+     * @return
+     */
     public ObservableList<Match> getMatches(){
         ObservableList<Match> matchesObservable = FXCollections.observableArrayList();
 
@@ -146,6 +189,9 @@ public class AdministrateTournamentController implements Initializable {
         }
     }
 
+    /**
+     * Updates table with all matches
+     */
     @FXML
     public void updateTable(){
         matchTable.setItems(getMatches());

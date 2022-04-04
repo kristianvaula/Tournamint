@@ -168,9 +168,8 @@ public class Tournament implements Serializable {
      * we initiate the knockoutStage. Else we
      * just call for the knockoutStage update
      * method();
-     * @throws NoSuchFieldException
      */
-    public void updateTournament() throws NoSuchFieldException{
+    public void updateTournament(){
         if(hasGroupStage){
             if(groupStage.isFinished() && knockoutStage == null){
                 knockoutStage = new KnockoutStage(groupStage.getWinnersFromGroups(),teamsPerMatch,matchType);
