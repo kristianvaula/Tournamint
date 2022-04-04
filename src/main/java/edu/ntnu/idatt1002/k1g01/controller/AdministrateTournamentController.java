@@ -6,7 +6,6 @@ import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -46,13 +44,12 @@ public class AdministrateTournamentController implements Initializable {
     @FXML Text tournamentNameOutput;
 
     //TabPane and TableView settings
-    @FXML TabPane matchesTabPaneOutput;
-    @FXML Tab allMatchesTab;
-    @FXML TableView matchTable;
-    @FXML TableColumn teamsColumn;
-    @FXML TableColumn dateColumn;
-    @FXML TableColumn timeColumn;
-    @FXML TableColumn infoColumn;
+    @FXML TableView<Match> matchTable;
+    @FXML TableColumn<Match,String> teamsColumn;
+    @FXML TableColumn<Match,String> resultColumn;
+    @FXML TableColumn<Match,String> dateColumn;
+    @FXML TableColumn<Match,String> timeColumn;
+    @FXML TableColumn<Match,String> infoColumn;
 
     @FXML MenuBar topMenuBar;
 
@@ -60,11 +57,11 @@ public class AdministrateTournamentController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle){
 
         //Preparing match table
-        teamsColumn.setCellValueFactory(new PropertyValueFactory<Match,String>("participantsAsString"));
-        resultColumn.setCellValueFactory(new PropertyValueFactory<Match,String>("resultAsString"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<Match,String>("MatchDateAsString"));
-        timeColumn.setCellValueFactory(new PropertyValueFactory<Match,String>("StartTimeAsString"));
-        infoColumn.setCellValueFactory(new PropertyValueFactory<Match,String>("matchInfo"));
+        teamsColumn.setCellValueFactory(new PropertyValueFactory<>("participantsAsString"));
+        resultColumn.setCellValueFactory(new PropertyValueFactory<>("resultAsString"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("MatchDateAsString"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("StartTimeAsString"));
+        infoColumn.setCellValueFactory(new PropertyValueFactory<>("matchInfo"));
         matchTable.setEditable(false);
 
         matchTable.setRowFactory(tableView -> {
@@ -83,10 +80,9 @@ public class AdministrateTournamentController implements Initializable {
 
     /**
      * Switches back to the start page.
-     * @param event the event
      */
     @FXML
-    public void switchToHomePage(ActionEvent event) {
+    public void switchToHomePage() {
         try {
             Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/HomePage.fxml")));
             Scene scene = new Scene(parent);
@@ -148,7 +144,6 @@ public class AdministrateTournamentController implements Initializable {
      * updateTournament function so that the
      * tournament can generate new matches based
      * on previous result.
-     * @throws NoSuchFieldException
      */
     public void updateTournament(){
         this.tournament.updateTournament();
@@ -207,7 +202,6 @@ public class AdministrateTournamentController implements Initializable {
      * Changes the scene to changeSceneToEnterMatchResult
      * Also uses the EnterResultsController tournament controller to
      * send the match instance.
-     * @throws IOException if fxml file bad
      */
     @FXML
     public void enterResultEvent(MouseEvent event,Match match){
