@@ -290,4 +290,22 @@ public class CreateATournamentController implements Initializable {
             tableRows.remove(team);
         }
     }
+
+    /**
+     *Activates or greys out input fields depending on selected tournamentType.
+     */
+    @FXML
+    public void tournamentTypeInputEvent() {
+        System.out.println(tournamentTypeInput.getValue());
+        switch (tournamentTypeInput.getValue()){
+            case ("Knockout Stage"):
+                teamsPerGroupInput.setDisable(true);
+                teamsAdvancingFromGroupInput.setDisable(true);
+                break;
+            case ("Group Stage + Knockout Stage"):
+                teamsPerGroupInput.setDisable(false);
+                teamsAdvancingFromGroupInput.setDisable(false);
+                break;
+        }
+    }
 }
