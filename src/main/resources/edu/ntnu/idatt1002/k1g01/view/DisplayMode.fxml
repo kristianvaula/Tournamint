@@ -2,9 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -27,7 +25,7 @@
             <top>
                 <VBox prefHeight="78.0" prefWidth="960.0" BorderPane.alignment="CENTER">
                     <children>
-                        <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml"/>
+                        <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml" />
                         <HBox prefHeight="100.0" prefWidth="200.0">
                             <children>
                                 <Pane prefHeight="58.0" prefWidth="11.0" />
@@ -105,132 +103,389 @@
                             </content>
                         </Tab>
                         <Tab text="KnockoutStage">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                        <VBox layoutX="1.0" layoutY="-1.0" prefHeight="403.0" prefWidth="222.0" spacing="1.0">
-                                            <children>
-                                                <TextField fx:id="quarterfinalSlot1" maxWidth="200.0" prefWidth="100.0">
-                                                    <VBox.margin>
-                                                        <Insets top="15.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="quarterfinalSlot2" maxWidth="200.0" />
-                                                <TextField fx:id="quarterfinalSlot3" maxWidth="200.0">
-                                                    <VBox.margin>
-                                                        <Insets top="40.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="quarterfinalSlot4" maxWidth="200.0" />
-                                                <TextField fx:id="quarterfinalSlot5" maxWidth="200.0">
-                                                    <VBox.margin>
-                                                        <Insets top="40.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="quarterfinalSlot6" maxWidth="200.0" />
-                                                <TextField fx:id="quarterfinalSlot7" maxWidth="200.0">
-                                                    <VBox.margin>
-                                                        <Insets top="40.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="quarterfinalSlot8" maxWidth="200.0">
-                                                    <VBox.margin>
-                                                        <Insets />
-                                                    </VBox.margin>
-                                                </TextField>
-                                            </children>
-                                            <padding>
-                                                <Insets left="20.0" />
-                                            </padding>
-                                        </VBox>
-                                        <VBox layoutX="226.0" layoutY="-1.0" prefHeight="402.0" prefWidth="41.0" spacing="1.0">
-                                            <children>
-                                                <TextField fx:id="quarterfinalPoints1" maxWidth="40.0">
-                                                    <VBox.margin>
-                                                        <Insets top="15.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="quarterfinalPoints2" maxWidth="40.0" />
-                                                <TextField fx:id="quarterfinalPoints3" maxWidth="40.0">
-                                                    <VBox.margin>
-                                                        <Insets top="40.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="quarterfinalPoints4" maxWidth="40.0" />
-                                                <TextField fx:id="quarterfinalPoints5" maxWidth="40.0">
-                                                    <VBox.margin>
-                                                        <Insets top="40.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="quarterfinalPoints6" maxWidth="40.0" />
-                                                <TextField fx:id="quarterfinalPoints7" maxWidth="40.0">
-                                                    <VBox.margin>
-                                                        <Insets top="40.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="quarterfinalPoints8" maxWidth="40.0" />
-                                            </children>
-                                        </VBox>
-                                        <VBox layoutX="270.0" layoutY="-2.0" prefHeight="404.0" prefWidth="278.0" spacing="1.0">
-                                            <children>
-                                                <TextField fx:id="semifinalSlot1" maxWidth="200.0">
-                                                    <VBox.margin>
-                                                        <Insets top="70.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="semifinalSlot2" maxWidth="200.0" />
-                                                <TextField fx:id="semifinalSlot3" maxWidth="200.0">
-                                                    <VBox.margin>
-                                                        <Insets top="140.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="semifinalSlot4" maxWidth="200.0" />
-                                            </children>
-                                            <padding>
-                                                <Insets left="60.0" />
-                                            </padding>
-                                        </VBox>
-                                        <VBox layoutX="535.0" layoutY="-2.0" prefHeight="403.0" prefWidth="41.0" spacing="1.0">
-                                            <children>
-                                                <TextField fx:id="semifinalPoints1" maxWidth="40.0">
-                                                    <VBox.margin>
-                                                        <Insets top="70.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="semifinalPoints2" maxWidth="40.0" />
-                                                <TextField fx:id="semifinalPoints3" maxWidth="40.0">
-                                                    <VBox.margin>
-                                                        <Insets top="140.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="semifinalPoints4" maxWidth="40.0" />
-                                            </children>
-                                        </VBox>
-                                        <VBox layoutX="593.0" layoutY="-2.0" prefHeight="403.0" prefWidth="292.0" spacing="1.0">
-                                            <children>
-                                                <TextField fx:id="finalSlot1" maxWidth="200.0">
-                                                    <VBox.margin>
-                                                        <Insets top="170.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="finalSlot2" maxWidth="200.0" />
-                                            </children>
-                                            <padding>
-                                                <Insets left="60.0" />
-                                            </padding>
-                                        </VBox>
-                                        <VBox layoutX="858.0" layoutY="-2.0" prefHeight="400.0" prefWidth="46.0" spacing="1.0">
-                                            <children>
-                                                <TextField fx:id="finalPoints1" maxWidth="40.0">
-                                                    <VBox.margin>
-                                                        <Insets top="170.0" />
-                                                    </VBox.margin>
-                                                </TextField>
-                                                <TextField fx:id="finalPoints2" maxWidth="40.0" />
-                                            </children>
-                                        </VBox>
-                                    </children></AnchorPane>
-                            </content>
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="403.0" prefWidth="918.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="411.0" prefWidth="219.0">
+                                       <children>
+                                          <VBox prefHeight="0.0" prefWidth="209.0" style="-fx-background-color: grey;">
+                                             <children>
+                                                <Label text="Team 1">
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Team 9">
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="1.0" top="1.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                          <VBox prefHeight="5.0" prefWidth="209.0" style="-fx-background-color: grey;">
+                                             <children>
+                                                <Label text="Team 5">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team 10">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="4.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                          <VBox prefHeight="0.0" prefWidth="209.0" style="-fx-background-color: grey;">
+                                             <children>
+                                                <Label text="Team 4">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team 11">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="1.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                          <VBox prefHeight="0.0" prefWidth="209.0" style="-fx-background-color: grey;">
+                                             <children>
+                                                <Label text="Team 6">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team 12">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="4.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                          <VBox prefHeight="0.0" prefWidth="211.0" style="-fx-background-color: grey;">
+                                             <children>
+                                                <Label text="Team 3">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team 13">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="1.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                          <VBox prefHeight="18.0" prefWidth="211.0" style="-fx-background-color: grey;">
+                                             <children>
+                                                <Label text="Team 7">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team 14">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="4.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                          <VBox prefHeight="0.0" prefWidth="211.0" style="-fx-background-color: grey;">
+                                             <children>
+                                                <Label text="Team 2">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team 15">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="1.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                          <VBox prefHeight="0.0" prefWidth="211.0" style="-fx-background-color: grey;">
+                                             <children>
+                                                <Label text="Team 8">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team 16">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="4.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="403.0" prefWidth="230.0">
+                                       <children>
+                                          <VBox prefHeight="42.0" prefWidth="229.0" style="-fx-background-color: grey;">
+                                             <VBox.margin>
+                                                <Insets bottom="16.0" top="16.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label text="Team 1">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team5">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </VBox>
+                                          <VBox prefHeight="30.0" prefWidth="229.0" style="-fx-background-color: grey;">
+                                             <VBox.margin>
+                                                <Insets bottom="16.0" top="16.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label text="Team 4">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team 6">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="47.0" prefWidth="229.0" style="-fx-background-color: grey;">
+                                             <VBox.margin>
+                                                <Insets bottom="16.0" top="16.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label text="Team 3">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team 7">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="23.0" prefWidth="229.0" style="-fx-background-color: grey;">
+                                             <VBox.margin>
+                                                <Insets bottom="16.0" top="16.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label text="Team 2">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team 8">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="403.0" prefWidth="230.0">
+                                       <children>
+                                          <VBox prefHeight="0.0" prefWidth="230.0" style="-fx-background-color: gray;">
+                                             <VBox.margin>
+                                                <Insets bottom="32.0" top="32.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label prefHeight="21.0" prefWidth="101.0" text="Team 1 ">
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="15.0" layoutY="15.0" prefHeight="21.0" prefWidth="107.0" text="Team 4">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <VBox layoutX="10.0" layoutY="172.0" prefHeight="16.0" prefWidth="230.0" style="-fx-background-color: gray;">
+                                             <VBox.margin>
+                                                <Insets bottom="32.0" top="32.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label text="Team 3">
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Team 2">
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="403.0" prefWidth="230.0">
+                                       <children>
+                                          <VBox prefHeight="19.0" prefWidth="230.0" style="-fx-background-color: grey;">
+                                             <VBox.margin>
+                                                <Insets bottom="64.0" top="64.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label text="Team 1">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Team 2">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
                         </Tab>
                     </tabs>
                 </TabPane>
