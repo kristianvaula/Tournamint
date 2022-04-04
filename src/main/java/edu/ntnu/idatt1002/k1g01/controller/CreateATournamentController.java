@@ -121,6 +121,10 @@ public class CreateATournamentController implements Initializable {
         teamList.add(new Team("Pølse Magne"));
         teamList.add(new Team("Kameratene"));
         teamList.add(new Team("Sennep Inc"));
+        teamList.add(new Team("Bilbo Baggins Boys"));
+        teamList.add(new Team("Samir and friends"));
+        teamList.add(new Team("An Ananas"));
+        teamList.add(new Team("Pingas"));
         updateTeamTable();
     }
 
@@ -284,6 +288,24 @@ public class CreateATournamentController implements Initializable {
         for(Team team : selectedRows){
             teamList.remove(team);
             tableRows.remove(team);
+        }
+    }
+
+    /**
+     *
+     */
+    @FXML
+    public void tournamentTypeInputEvent() {
+        System.out.println(tournamentTypeInput.getValue());
+        switch (tournamentTypeInput.getValue()){
+            case ("Knockout Stage"):
+                teamsPerGroupInput.setDisable(true);
+                teamsAdvancingFromGroupInput.setDisable(true);
+                break;
+            case ("Group Stage + Knockout Stage"):
+                teamsPerGroupInput.setDisable(false);
+                teamsAdvancingFromGroupInput.setDisable(false);
+                break;
         }
     }
 }
