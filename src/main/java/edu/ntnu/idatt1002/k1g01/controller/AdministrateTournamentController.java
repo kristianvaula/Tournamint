@@ -6,7 +6,6 @@ import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +21,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -33,7 +31,10 @@ import java.util.ResourceBundle;
  */
 public class AdministrateTournamentController implements Initializable {
 
-    //The tournament
+    //The nested controller for the menuBar
+    @FXML private TopMenuBarController topMenuBarController;
+
+    //The tournament variables
     private Tournament tournament;
     private TournamentDAO tournamentDAO;
 
@@ -48,10 +49,12 @@ public class AdministrateTournamentController implements Initializable {
     @FXML TableColumn dateColumn;
     @FXML TableColumn timeColumn;
     @FXML TableColumn infoColumn;
+
     @FXML MenuBar topMenuBar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
+
         //Makes the Tab non closable
         allMatchesTab.setClosable(false);
         teamsColumn.setCellValueFactory(new PropertyValueFactory<Match,String>("matchAsString"));
@@ -121,7 +124,10 @@ public class AdministrateTournamentController implements Initializable {
     @FXML
     public void initData(TournamentDAO tournamentDAO){
         this.tournamentDAO = tournamentDAO;
-        try { this.tournament = tournamentDAO.load(); }
+        topMenuBarController.setTournamentDAO(tournamentDAO); //Pass DAO pointer to nested controller.
+        try {
+            this.tournament = tournamentDAO.load();
+        }
         catch (IOException ioException) {
             System.out.println("Error in initData: " + ioException.getMessage());
             //TODO handle exception if loading somehow fails. Should not be possible at this point.

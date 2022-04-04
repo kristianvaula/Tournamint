@@ -30,6 +30,8 @@ import java.util.ResourceBundle;
  */
 public class CreateATournamentController implements Initializable {
 
+    //The nested controller for the menuBar
+    @FXML private TopMenuBarController topMenuBarController;
     //The tournament
     private Tournament tournament;
     //The tournament DAO for that will connect it to its corresponding file.

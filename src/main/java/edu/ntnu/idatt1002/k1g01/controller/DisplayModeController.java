@@ -9,6 +9,9 @@ import java.util.ResourceBundle;
 
 public class DisplayModeController implements Initializable {
 
+    //The nested controller for the menuBar
+    @FXML private TopMenuBarController topMenuBarController;
+
     //TextFields for the quarterfinals
     @FXML
     private TextField quarterfinalSlot1, quarterfinalSlot2, quarterfinalSlot3, quarterfinalSlot4, quarterfinalSlot5, quarterfinalSlot6, quarterfinalSlot7, quarterfinalSlot8;

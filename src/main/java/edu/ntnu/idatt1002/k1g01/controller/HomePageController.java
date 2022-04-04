@@ -19,6 +19,9 @@ import javafx.stage.FileChooser;
 
 public class HomePageController implements Initializable {
 
+    //The nested controller for the menuBar
+    @FXML private TopMenuBarController topMenuBarController;
+
     /**
      * Changes the scene to CreateATournamentWindow
      */
