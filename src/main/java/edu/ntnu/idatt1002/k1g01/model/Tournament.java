@@ -1,6 +1,5 @@
 package edu.ntnu.idatt1002.k1g01.model;
 
-import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.stages.GroupStage;
 import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
 
@@ -59,10 +58,16 @@ public class Tournament implements Serializable {
      * @param teams Teams to be in tournament
      */
     public Tournament(String tournamentName, ArrayList<Team> teams, String matchType,int teamsPerMatch,int teamsPerGroup,int advancingPerGroup) throws IllegalArgumentException{
+        System.out.println("Constructing tournament: ");
+        System.out.println("    teams: " + teams);
+        System.out.println("    teamsPerGroup: " + teamsPerGroup);
+        System.out.println("    advancingPerGroup: " + advancingPerGroup);
         if(teams.size() < 2) {
             throw new IllegalArgumentException(
                     "Cannot create a tournament with less than two teams");
         }
+        this.matchType = matchType;
+        this.teamsPerMatch = teamsPerMatch;
         this.tournamentName = tournamentName;
         this.teams = teams;
         this.groupStage = new GroupStage(teams,advancingPerGroup,teamsPerGroup,matchType);
@@ -170,15 +175,21 @@ public class Tournament implements Serializable {
      * method();
      */
     public void updateTournament(){
-        if(hasGroupStage){
-            if(groupStage.isFinished() && knockoutStage == null){
-                knockoutStage = new KnockoutStage(groupStage.getWinnersFromGroups(),teamsPerMatch,matchType);
-            }else{
-                knockoutStage.updateKnockoutStage();
-            }
-        }else{
-            knockoutStage.updateKnockoutStage();
-        }
+        System.out.println("Updating tournament:");
+        System.out.println("    teamsPerMatch: " + teamsPerMatch);
+        System.out.println("    matchType: " + matchType);
+
+         if (groupStage != null && knockoutStage == null) {
+             if (groupStage.isFinished()) {
+                 //Generate knockoutStage from finished groupStage.
+                 knockoutStage = new KnockoutStage(groupStage.getWinnersFromGroups(),teamsPerMatch,matchType);
+             }
+             else {
+                 //Updates groupStage. This method currently does nothing.
+                 groupStage.update();
+             }
+         }
+         else knockoutStage.update();
 
     }
 
