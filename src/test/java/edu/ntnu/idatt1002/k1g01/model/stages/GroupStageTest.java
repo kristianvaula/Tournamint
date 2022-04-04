@@ -57,8 +57,8 @@ class GroupStageTest {
     @Test
     @DisplayName("Tests that the GroupStage constructor divides teams from passed in ArrayList to correct number of groups")
     public void groupStageConstructorTest() {
-        assertTrue(!groupStage.getGroups().isEmpty());
-        assertTrue(groupStage.getGroups().size() == (teamList3.size()/teamsPerGroup));
+        assertFalse(groupStage.getGroups().isEmpty());
+        assertEquals(groupStage.getGroups().size(), (teamList3.size()/teamsPerGroup));
         for (Group testGroup : groupStage.getGroups()) {
             for (Team testTeam : testGroup.getTeams()) {
                 assertTrue(teamList3.contains(testTeam));
@@ -122,5 +122,16 @@ class GroupStageTest {
             }
         }
         assertTrue(groupStage1.isFinished());
+    }
+
+    @Test
+    @DisplayName("Test that isFinished does not report true if it has any matches left.")
+    void isFinishedDoesNotTriggerEarly() {
+        assertFalse(groupStage.isFinished());
+        for (Group group : groupStage.getGroups()) for (Match match : group.getMatches()) {
+            assertFalse(groupStage.isFinished());
+            match.setFinished(true);
+        }
+        assertTrue(groupStage.isFinished());
     }
 }

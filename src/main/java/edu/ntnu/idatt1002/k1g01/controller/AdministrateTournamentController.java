@@ -46,9 +46,10 @@ public class AdministrateTournamentController implements Initializable {
     @FXML Text tournamentNameOutput;
 
     //TabPane and TableView settings
+    @FXML TabPane matchesTabPaneOutput;
+    @FXML Tab allMatchesTab;
     @FXML TableView matchTable;
     @FXML TableColumn teamsColumn;
-    @FXML TableColumn resultColumn;
     @FXML TableColumn dateColumn;
     @FXML TableColumn timeColumn;
     @FXML TableColumn infoColumn;
