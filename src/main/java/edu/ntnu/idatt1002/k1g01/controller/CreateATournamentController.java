@@ -88,10 +88,8 @@ public class CreateATournamentController implements Initializable {
         tournamentTypeInput.setValue("Knockout Stage");
 
         //Adding teamsPerGroup values to choicebox
-        teamsPerGroupInput.getItems().add(2);
-        teamsPerGroupInput.getItems().add(4);
-        teamsPerGroupInput.getItems().add(6);
-        teamsPerGroupInput.getItems().add(8);
+        for (int n = 2; n < 9; n++)
+        teamsPerGroupInput.getItems().add(n);
         teamsPerGroupInput.setValue(4);
 
         //Adding teamsAdvancingFromGroup values to choicebox
