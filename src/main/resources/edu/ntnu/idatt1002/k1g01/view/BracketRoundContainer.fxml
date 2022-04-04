@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.text.Font?><?import javafx.geometry.Insets?>
+
+
+<VBox alignment="CENTER" layoutX="20.0" layoutY="10.0" prefHeight="411.0" prefWidth="219.0" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml">
+      fx:controller="edu.ntnu.idatt1002.k1g01.controller.BracketRoundContainerController">
+    <children>
+    <HBox prefHeight="45.0" prefWidth="209.0">
+        <children>
+            <VBox prefHeight="50.0" prefWidth="189.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="slot1" text="Team 5">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="slot2" text="Team 10">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="36.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="points1" alignment="CENTER" text="3">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="points2" text="0">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+        </children>
+        <VBox.margin>
+            <Insets bottom="1.0" top="1.0" />
+        </VBox.margin>
+    </HBox>
+    <HBox layoutX="10.0" layoutY="10.0" prefHeight="37.0" prefWidth="209.0">
+        <children>
+            <VBox prefHeight="50.0" prefWidth="189.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="slot3" text="Team 5">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="slot4" text="Team 10">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="36.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="points3" alignment="CENTER" text="3">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="points4" text="0">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+        </children>
+        <VBox.margin>
+            <Insets bottom="1.0" />
+        </VBox.margin>
+    </HBox>
+    <HBox layoutX="10.0" layoutY="155.0" prefHeight="45.0" prefWidth="209.0">
+        <children>
+            <VBox prefHeight="50.0" prefWidth="189.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="slot5" text="Team 5">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="slot6" text="Team 10">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+                <HBox.margin>
+                    <Insets />
+                </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="36.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="points5" alignment="CENTER" text="3">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="points6" text="0">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+        </children>
+        <VBox.margin>
+            <Insets bottom="1.0" />
+        </VBox.margin>
+    </HBox>
+    <HBox layoutX="10.0" layoutY="233.0" prefHeight="45.0" prefWidth="209.0">
+        <children>
+            <VBox prefHeight="50.0" prefWidth="189.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="slot7" text="Team 5">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="slot8" text="Team 10">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="36.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="points7" alignment="CENTER" text="3">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="points8s" text="0">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+        </children>
+        <VBox.margin>
+            <Insets bottom="1.0" />
+        </VBox.margin>
+    </HBox>
+    <HBox layoutX="10.0" layoutY="209.0" prefHeight="45.0" prefWidth="209.0">
+        <children>
+            <VBox prefHeight="50.0" prefWidth="189.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="slot9" text="Team 5">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="slot10" text="Team 10">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+            <VBox fx:id="points8" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="36.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label alignment="CENTER" text="3">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="points10" text="0">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+        </children>
+        <VBox.margin>
+            <Insets bottom="1.0" />
+        </VBox.margin>
+    </HBox>
+    <HBox layoutX="10.0" layoutY="233.0" prefHeight="45.0" prefWidth="209.0">
+        <children>
+            <VBox prefHeight="50.0" prefWidth="189.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="slot11" text="Team 5">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="slot12" text="Team 10">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="36.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="points11" alignment="CENTER" text="3">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="points12" text="0">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+        </children>
+        <VBox.margin>
+            <Insets bottom="1.0" />
+        </VBox.margin>
+    </HBox>
+    <HBox layoutX="10.0" layoutY="258.0" prefHeight="45.0" prefWidth="209.0">
+        <children>
+            <VBox prefHeight="50.0" prefWidth="189.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="slot13" text="Team 5">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="slot14" text="Team 10">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="36.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="points13" alignment="CENTER" text="3">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="points14" text="0">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+        </children>
+        <padding>
+            <Insets bottom="1.0" />
+        </padding>
+    </HBox>
+    <HBox layoutX="10.0" layoutY="283.0" prefHeight="45.0" prefWidth="209.0">
+        <children>
+            <VBox prefHeight="50.0" prefWidth="189.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="slot15" text="Team 5">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="slot16" text="Team 10">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="36.0" style="-fx-background-color: grey;">
+                <children>
+                    <Label fx:id="points15" alignment="CENTER" text="3">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="points16" text="0">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="5.0" top="3.0" />
+                        </VBox.margin>
+                    </Label>
+                </children>
+            </VBox>
+        </children>
+    </HBox>
+</children>
+</VBox>
