@@ -15,6 +15,7 @@ import java.util.Random;
  * @author kristvje
  * @author martnal
  * @author espenjus
+ * @author martdam
  */
 public class GroupStage extends Stage {
 
@@ -47,10 +48,11 @@ public class GroupStage extends Stage {
         System.out.println("    teams:" + teams);
         System.out.println("    advancingFromGroup:" + advancingFromGroup);
         System.out.println("    teamsPerGroup:" + advancingFromGroup);
+        System.out.println("    matchType: " + matchType);
     }
 
     /**
-     * Sets up groups in groupstage.
+     * Sets up groups in groupStage.
      *
      * @param teams The teams to enter the group stage
      * @param teamsPerGroup Number of teams per group
@@ -59,14 +61,8 @@ public class GroupStage extends Stage {
      */
     private static ArrayList<Group> setUpGroups(ArrayList<Team> teams, int advancingFromGroup,
                                                 int teamsPerGroup,String matchType) throws  IllegalArgumentException{
-        /*
-        TODO remove this old algorithm eventually
-        if((teams.size()/teamsPerGroup)%4 != 0){
-            throw new IllegalArgumentException("Incompatible number of teams compared to teamsPerGroup");
-        }
-        */
 
-        //New input verification. Makes sure a power of 2 teams will advance to the finals.
+        //Input verification. Makes sure a power of 2 teams will advance to the finals.
         int advanceToFinals = teams.size()/teamsPerGroup*advancingFromGroup;
         boolean compatible = false;
         for (int i = 1; i < 10; i++) {
@@ -135,10 +131,12 @@ public class GroupStage extends Stage {
         return rounds;
     }
 
-    public void update() {
-        //Currently, nothing to do here.
-        //Maybe hide future rounds until previous round is completed.
-    }
+    /**
+     * Implementation of abstract method in Stage.
+     * Currently, does nothing in this class.
+     * Flesh out if something needs to be updated between matches.
+     */
+    public void update() {}
 
     /**
      * Checking if the groupstage is finished.
