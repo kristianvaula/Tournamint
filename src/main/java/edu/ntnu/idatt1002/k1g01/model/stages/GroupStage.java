@@ -43,6 +43,10 @@ public class GroupStage extends Stage {
         this.matchType = matchType;
         this.advancingFromGroup = advancingFromGroup;
         this.groups.addAll(setUpGroups(teams,advancingFromGroup,teamsPerGroup,matchType));
+        System.out.println("Generating new groupStage:");
+        System.out.println("    teams:" + teams);
+        System.out.println("    advancingFromGroup:" + advancingFromGroup);
+        System.out.println("    teamsPerGroup:" + advancingFromGroup);
     }
 
     /**
@@ -129,6 +133,11 @@ public class GroupStage extends Stage {
             }
         }
         return rounds;
+    }
+
+    public void update() {
+        //Currently, nothing to do here.
+        //Maybe hide future rounds until previous round is completed.
     }
 
     /**

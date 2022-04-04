@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class KnockoutStage extends Stage {
 
-    private ArrayList<Team> teams = new ArrayList<>();
+    private ArrayList<Team> teams;
     private int teamsPerMatch;
     private int advancingPerMatch;
     private String tournamentType;
@@ -31,7 +31,7 @@ public class KnockoutStage extends Stage {
         this.teamsPerMatch = teamsPerMatch;
         this.advancingPerMatch =teamsPerMatch/2;
         this.tournamentType = tournamentType;
-        updateKnockoutStage();
+        update();
     }
 
     public ArrayList<Team> getTeams() {
@@ -84,6 +84,10 @@ public class KnockoutStage extends Stage {
      * @return Int number of rounds
      */
     public static int getNumberOfRounds(int numberOfTeams,int teamsPerRound,int advancingPerMatch){
+        System.out.println("calculating number of knockout rounds: ");
+        System.out.println("numberOfTeams: " + numberOfTeams);
+        System.out.println("teamsPerRound: " + teamsPerRound);
+        System.out.println("advancingPerMatch: " + advancingPerMatch);
         if(advancingPerMatch == 2){
             for (int i = 0; i < 12; i++) {
                 if(Math.pow(teamsPerRound,i) == numberOfTeams && numberOfTeams <= 256) return i;
@@ -146,7 +150,12 @@ public class KnockoutStage extends Stage {
         }
     }
 
-    public void updateKnockoutStage(){
+    /**
+     * Generates new rounds if necessary.
+     * Generates new matches for next round if previous round is finished.
+     */
+    @Override
+    public void update(){
         ArrayList<Round> rounds = getRounds();
 
         if(rounds.get(0).getMatches().isEmpty()){
