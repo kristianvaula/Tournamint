@@ -290,7 +290,8 @@ public class CreateATournamentController implements Initializable {
     }
 
     /**
-     *Activates or greys out input fields depending on selected tournamentType.
+     * Activates or greys out input fields depending on selected tournamentType.
+     * @author Martin Dammerud
      */
     @FXML
     public void tournamentTypeInputEvent() {
