@@ -31,7 +31,9 @@ import java.util.ResourceBundle;
  * @author espjus
  * @author martdam
  */
-public class EnterResultsController implements Initializable {
+public class EnterPointResultsController implements Initializable {
+
+
 
     //The nested controller for the menuBar
     @FXML private TopMenuBarController topMenuBarController;
