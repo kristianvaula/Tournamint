@@ -66,19 +66,27 @@ public class EnterResultsController implements Initializable {
         this.tournament = tournamentDAO.load(); //TODO handle the exception from this better.
         topMenuBarController.setTournamentDAO(tournamentDAO);//Give menuBar controller access to the DAO.
         this.match = match;
-        // Sets the team-names
-        String team1 = match.getParticipants().get(0).getName();
-        team1Text.setText(team1);
-        String team2 = match.getParticipants().get(1).getName();
-        team2Text.setText(team2);
+
+        // Sets up the current match info
+        // Names
+        Team team1 = match.getParticipants().get(0);
+        Team team2 = match.getParticipants().get(1);
+        team1Text.setText(team1.getName());
+        team2Text.setText(team2.getName());
+        //Results
         if(match.getMatchResult().size()>0 ){
-            resultInputField1.setText(match.getMatchResult().get(match.getParticipants().get(0)));
-            resultInputField2.setText(match.getMatchResult().get(match.getParticipants().get(1)));
+            resultInputField1.setText(match.getMatchResult().get(team1));
+            resultInputField2.setText(match.getMatchResult().get(team2));
         }else{
             resultInputField1.setText("0");
             resultInputField2.setText("0");
         }
-
+        //Other fields
+        timeField.setText(match.getStartTimeAsString());
+        if(match.getMatchDate() != null){
+            dateField.setValue(match.getMatchDate());
+        }
+        infoField.setText(match.getMatchInfo());
     }
 
     /**

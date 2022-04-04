@@ -17,7 +17,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
-import javax.lang.model.type.UnknownTypeException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -289,27 +288,6 @@ public class CreateATournamentController implements Initializable {
         for(Team team : selectedRows){
             teamList.remove(team);
             tableRows.remove(team);
-        }
-    }
-
-    /**
-     * Activates or greys out input fields depending on current tournamentType.
-     * @throws IOException if tournamentType value is unknown.
-     */
-    @FXML
-    public void tournamentTypeInputEvent() throws IOException {
-        System.out.println(tournamentTypeInput.getValue());
-        switch (tournamentTypeInput.getValue()){
-            case ("Knockout Stage"):
-                teamsPerGroupInput.setDisable(true);
-                teamsAdvancingFromGroupInput.setDisable(true);
-                break;
-            case ("Group Stage + Knockout Stage"):
-                teamsPerGroupInput.setDisable(false);
-                teamsAdvancingFromGroupInput.setDisable(false);
-                break;
-            default:
-                throw new IOException("Unknown tournamentType: " + tournamentTypeInput.getValue());
         }
     }
 }

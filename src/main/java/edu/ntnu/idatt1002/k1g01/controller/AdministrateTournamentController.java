@@ -6,7 +6,6 @@ import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -44,28 +44,31 @@ public class AdministrateTournamentController implements Initializable {
     @FXML Text tournamentNameOutput;
 
     //TabPane and TableView settings
-    @FXML TabPane matchesTabPaneOutput;
-    @FXML Tab allMatchesTab;
-    @FXML TableView matchTable;
-    @FXML TableColumn teamsColumn;
-    @FXML TableColumn dateColumn;
-    @FXML TableColumn timeColumn;
-    @FXML TableColumn infoColumn;
+    @FXML TableView<Match> matchTable;
+    @FXML TableColumn<Match,String> teamsColumn;
+    @FXML TableColumn<Match,String> resultColumn;
+    @FXML TableColumn<Match,String> dateColumn;
+    @FXML TableColumn<Match,String> timeColumn;
+    @FXML TableColumn<Match,String> infoColumn;
 
     @FXML MenuBar topMenuBar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
-        //Makes the Tab non closable
-        allMatchesTab.setClosable(false);
-        teamsColumn.setCellValueFactory(new PropertyValueFactory<Match,String>("matchAsString"));
+        //Preparing match table
+        teamsColumn.setCellValueFactory(new PropertyValueFactory<>("participantsAsString"));
+        resultColumn.setCellValueFactory(new PropertyValueFactory<>("resultAsString"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("MatchDateAsString"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("StartTimeAsString"));
+        infoColumn.setCellValueFactory(new PropertyValueFactory<>("matchInfo"));
         matchTable.setEditable(false);
 
         matchTable.setRowFactory(tableView -> {
             TableRow<Match> row = new TableRow<>();
+
             row.setOnMouseClicked(event ->{
-                if (! row.isEmpty() && event.getButton()== MouseButton.PRIMARY
+                if (!row.isEmpty() && event.getButton()== MouseButton.PRIMARY
                         && event.getClickCount() == 2) {
                     Match match = row.getItem();
                     enterResultEvent(event, match);
@@ -74,6 +77,45 @@ public class AdministrateTournamentController implements Initializable {
             return row;
         });
     }
+
+    /**
+     * Switches back to the start page.
+     */
+    @FXML
+    public void switchToHomePage() {
+        try {
+            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/HomePage.fxml")));
+            Scene scene = new Scene(parent);
+
+            //This line gets the Stage information
+            Stage window = (Stage) topMenuBar.getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Opens another tournament from file.
+     */
+    @FXML
+    public void openFile() {
+        try { tournamentDAO = FileController.openFromFile( (Stage)topMenuBar.getScene().getWindow()); }
+        catch (Exception e) { System.out.println(e.getMessage()); }
+        initData(tournamentDAO);
+    }
+
+    /**
+     * Saves tournament to new file and switches working directory.
+     */
+    @FXML
+    public void saveFile() {
+        try {  tournamentDAO = FileController.saveToFile(tournament, (Stage)topMenuBar.getScene().getWindow()); }
+        catch (Exception e) { System.out.println(e.getMessage()); }
+    }
+
 
     /**
      * Starts session for administrating a tournament with TournamentDAO.
@@ -94,7 +136,7 @@ public class AdministrateTournamentController implements Initializable {
             //TODO handle exception if loading somehow fails. Should not be possible at this point.
         }
         tournamentNameOutput.setText(tournament.getTournamentName());
-        updateTable();
+        displayAllMatches();
     }
 
     /**
@@ -102,31 +144,64 @@ public class AdministrateTournamentController implements Initializable {
      * updateTournament function so that the
      * tournament can generate new matches based
      * on previous result.
-     * @throws NoSuchFieldException
      */
     public void updateTournament(){
         this.tournament.updateTournament();
     }
 
     /**
-     * Gets all matches from all rounds in tournament
-     * @return
+     * Sets table rows to all matches
      */
-    public ObservableList<Match> getMatches(){
+    @FXML
+    public void displayAllMatches(){
         ObservableList<Match> matchesObservable = FXCollections.observableArrayList();
 
         for(Round round : tournament.getAllRounds()){
             matchesObservable.addAll(round.getMatches());
         }
+        matchTable.setItems(matchesObservable);
+    }
 
-        return matchesObservable;
+    /**
+     * Sets table rows to all games without results
+     */
+    @FXML
+    public void displayUpcomingMatches(){
+        ObservableList<Match> matchesObservable = FXCollections.observableArrayList();
+
+        for(Round round : tournament.getAllRounds()){
+            ArrayList<Match> matches = round.getMatches();
+            for(Match match : matches){
+                if(match.getMatchResult().isEmpty()){
+                    matchesObservable.add(match);
+                }
+            }
+        }
+        matchTable.setItems(matchesObservable);
+    }
+
+    /**
+     * Sets table rows to all games with results
+     */
+    @FXML
+    public void displayPreviousMatches(){
+        ObservableList<Match> matchesObservable = FXCollections.observableArrayList();
+
+        for(Round round : tournament.getAllRounds()){
+            ArrayList<Match> matches = round.getMatches();
+            for(Match match : matches){
+                if(!match.getMatchResult().isEmpty()){
+                    matchesObservable.add(match);
+                }
+            }
+        }
+        matchTable.setItems(matchesObservable);
     }
 
     /**
      * Changes the scene to changeSceneToEnterMatchResult
      * Also uses the EnterResultsController tournament controller to
      * send the match instance.
-     * @throws IOException if fxml file bad
      */
     @FXML
     public void enterResultEvent(MouseEvent event,Match match){
@@ -148,13 +223,5 @@ public class AdministrateTournamentController implements Initializable {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    /**
-     * Updates table with all matches
-     */
-    @FXML
-    public void updateTable(){
-        matchTable.setItems(getMatches());
     }
 }

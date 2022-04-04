@@ -1,78 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.AdministrateTournamentController">
+<AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.AdministrateTournamentController">
     <children>
         <BorderPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css">
             <center>
                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <center>
-                        <TabPane fx:id="matchesTabPaneOutput" maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="435.0" prefWidth="920.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-                            <tabs>
-                                <Tab fx:id="allMatchesTab" text="All Matches">
-                                    <content>
-                                        <TableView fx:id="matchTable" prefHeight="200.0" prefWidth="200.0">
-                                            <columns>
-                                                <TableColumn fx:id="teamsColumn" prefWidth="500.0" text="Teams" />
-                                                <TableColumn fx:id="dateColumn" prefWidth="120.0" text="Date" />
-                                                <TableColumn fx:id="timeColumn" prefWidth="120.0" text="Time" />
-                                                <TableColumn fx:id="infoColumn" prefWidth="178.0" text="Info" />
-                                            </columns>
-                                        </TableView>
-                                    </content>
-                                </Tab>
-                                <!--<Tab text="Upcoming Matches">
-                                    <content>
-                                        <TableView prefHeight="200.0" prefWidth="200.0">
-                                            <columns>
-                                                <TableColumn prefWidth="500.0" text="Teams" />
-                                                <TableColumn prefWidth="120.0" text="Date" />
-                                                <TableColumn prefWidth="120.0" text="Time" />
-                                                <TableColumn prefWidth="178.0" text="Place" />
-                                            </columns>
-                                        </TableView>
-                                    </content>
-                                </Tab>
-                                <Tab text="Previous Matches">
-                                    <content>
-                                        <TableView prefHeight="200.0" prefWidth="200.0">
-                                            <columns>
-                                                <TableColumn prefWidth="500.0" text="Teams" />
-                                                <TableColumn prefWidth="120.0" text="Date" />
-                                                <TableColumn prefWidth="120.0" text="Time" />
-                                                <TableColumn prefWidth="178.0" text="Place" />
-                                            </columns>
-                                        </TableView>
-                                    </content>
-                                </Tab>-->
-                            </tabs>
-                        </TabPane>
-                    </center>
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <FlowPane prefHeight="45.0" prefWidth="960.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#displayAllMatches" prefHeight="30.0" prefWidth="145.0" text="All Matches">
+                                 <FlowPane.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </FlowPane.margin>
+                              </Button>
+                              <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#displayUpcomingMatches" prefHeight="30.0" prefWidth="145.0" text="Upcoming Matches">
+                                 <FlowPane.margin>
+                                    <Insets top="10.0" />
+                                 </FlowPane.margin>
+                              </Button>
+                              <Button layoutX="159.0" layoutY="15.0" mnemonicParsing="false" onAction="#displayPreviousMatches" prefHeight="30.0" prefWidth="144.0" text="Previous Matches">
+                                 <FlowPane.margin>
+                                    <Insets top="10.0" />
+                                 </FlowPane.margin>
+                              </Button>
+                           </children></FlowPane>
+                                  <TableView fx:id="matchTable" prefHeight="441.0" prefWidth="934.0">
+                                      <columns>
+                                          <TableColumn fx:id="teamsColumn" prefWidth="425.80001199245453" text="Teams" />
+                                          <TableColumn fx:id="resultColumn" minWidth="0.0" prefWidth="94.39999389648438" text="Result" />
+                                          <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="140.0" text="Date" />
+                                          <TableColumn fx:id="timeColumn" minWidth="0.0" prefWidth="140.0" text="Time" />
+                                          <TableColumn fx:id="infoColumn" minWidth="0.0" prefWidth="137.6000854492188" text="Info" />
+                                      </columns>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                                  </TableView>
+                     </children>
+                  </VBox>
+               </center>
                 </BorderPane>
             </center>
          <top>
             <VBox prefHeight="78.0" prefWidth="960.0" BorderPane.alignment="CENTER">
                <children>
-                   <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml"/>
+                   <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Pane prefHeight="58.0" prefWidth="11.0" />
