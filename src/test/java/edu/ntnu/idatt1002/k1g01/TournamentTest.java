@@ -40,6 +40,7 @@ public class TournamentTest {
         teamList3.add(team4);
     }
 
+
     @Nested
     @DisplayName("Tests the constructor(s)")
     public class ConstructorTest{
@@ -64,10 +65,11 @@ public class TournamentTest {
                 Tournament tournament = new Tournament(testName,teamList,"PointMatch",2,4,2);
                 fail();
             }catch(IllegalArgumentException e){
-                assertEquals(e.getClass(),new IllegalArgumentException().getClass());
+                assertEquals(e.getClass(), IllegalArgumentException.class);
             }
         }
     }
+
 
     @Nested
     @DisplayName("Tests tournament methods")
@@ -100,13 +102,13 @@ public class TournamentTest {
             Team testTeam = new Team("TestTeam");
             teamList3.add(testTeam);
 
-            Tournament tournament = new Tournament("testName",teamList3,"pointMatch",2,4,2);
+            Tournament tournament = new Tournament("testName",teamList3,"pointMatch",2,3,1);
 
             try{
                 tournament.addTeam(testTeam);
                 fail();
             }catch(IllegalArgumentException e){
-                assertEquals(e.getClass(),new IllegalArgumentException().getClass());
+                assertEquals(e.getClass(), IllegalArgumentException.class);
             }
         }
 
@@ -119,7 +121,7 @@ public class TournamentTest {
             teamList3.add(new Team("NewTeam"));
             int tournamentSizeAfter = tournament.getNumberOfTeams();
 
-            assertTrue(tournamentSizeBefore + 1 == tournamentSizeAfter);
+            assertEquals(tournamentSizeBefore + 1, tournamentSizeAfter);
         }
     }
 }
