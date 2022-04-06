@@ -126,8 +126,8 @@ public class TimeMatch extends Match{
      *        'hours:minutes:seconds:milliseconds'
      *
      *        Example:
-     *        1#  01:23:30:0000
-     *        2#  00:00:23:2130
+     *        1#  01:23:30:00
+     *        2#  00:00:23:21
      * {code}</p>
      * @param inputString String input
      * @return Localtime parsed
@@ -137,7 +137,7 @@ public class TimeMatch extends Match{
         int hours = Integer.parseInt(inputTable[0]);
         int minutes = Integer.parseInt(inputTable[1]);
         int seconds = Integer.parseInt(inputTable[2]);
-        int milliseconds = Integer.parseInt(inputTable[3]);
+        int milliseconds = Integer.parseInt(inputTable[3]) * 100;
         try {
             return LocalTime.of(hours,minutes,seconds,milliseconds);
         }catch(DateTimeParseException e){
