@@ -153,7 +153,7 @@ public class AdministrateTournamentController implements Initializable {
      * Sets table rows to all matches
      */
     @FXML
-    public void displayAllMatches(){
+    public void displayAllMatches() {
         ObservableList<Match> matchesObservable = FXCollections.observableArrayList();
 
         for(Round round : tournament.getAllRounds()){
@@ -166,7 +166,7 @@ public class AdministrateTournamentController implements Initializable {
      * Sets table rows to all games without results
      */
     @FXML
-    public void displayUpcomingMatches(){
+    public void displayUpcomingMatches() {
         ObservableList<Match> matchesObservable = FXCollections.observableArrayList();
 
         for(Round round : tournament.getAllRounds()){
