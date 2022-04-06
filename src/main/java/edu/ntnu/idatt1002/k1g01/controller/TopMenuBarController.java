@@ -37,6 +37,9 @@ public class TopMenuBarController implements Initializable{
     @FXML MenuItem topMenuBarOpen;
     @FXML MenuItem topMenuBarClose;
     @FXML MenuItem topMenuBarSaveAs;
+    @FXML Menu topMenuBarView;
+    @FXML MenuItem topMenuBarDisplay;
+    @FXML MenuItem topMenuBarAdministrate;
     private TournamentDAO tournamentDAO;
 
     @Override
@@ -51,6 +54,8 @@ public class TopMenuBarController implements Initializable{
         this.tournamentDAO = tournamentDAO;
         topMenuBarSaveAs.setDisable(false);
         topMenuBarClose.setDisable(false);
+        topMenuBarDisplay.setDisable(false);
+        topMenuBarView.setDisable(false);
     }
 
     public void printState() {
@@ -125,6 +130,38 @@ public class TopMenuBarController implements Initializable{
 
             //Initiate new scene controller with loaded DAO as data.
             AdministrateTournamentController controller = loader.getController();
+            controller.initData(tournamentDAO);
+
+            //Switch to new scene.
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            System.out.println("" + e.getCause());
+        }
+    }
+
+    /**
+     * Changes the scene to administrate tournament
+     * Also uses the administrate tournament controller to
+     * send the tournament instance.
+     */
+    @FXML
+    public void changeSceneToDisplayMode(){
+        //First check if a tournament is actually loaded so that it can be administrated.
+        if (tournamentDAO == null) { System.out.println("TopMenuBarController.TournamentDAO == null"); return; }
+
+        Stage stage = (Stage) topMenuBar.getScene().getWindow();
+
+        try {
+            //Load new scene from FXML document.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/DisplayMode.fxml"));
+            Parent sceneParent = loader.load();
+            Scene scene = new Scene(sceneParent);
+
+            //Initiate new scene controller with loaded DAO as data.
+            DisplayModeController controller = loader.getController();
             controller.initData(tournamentDAO);
 
             //Switch to new scene.
