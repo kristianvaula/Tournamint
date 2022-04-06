@@ -172,7 +172,10 @@ public class AdministrateTournamentController implements Initializable {
         for(Round round : tournament.getAllRounds()){
             ArrayList<Match> matches = round.getMatches();
             for(Match match : matches){
-                if(match.getMatchResult().isEmpty()){
+                if(match.getMatchResult() == null){
+                    matchesObservable.add(match);
+                }
+                else if(match.getMatchResult().isEmpty()){
                     matchesObservable.add(match);
                 }
             }
@@ -190,8 +193,10 @@ public class AdministrateTournamentController implements Initializable {
         for(Round round : tournament.getAllRounds()){
             ArrayList<Match> matches = round.getMatches();
             for(Match match : matches){
-                if(!match.getMatchResult().isEmpty()){
-                    matchesObservable.add(match);
+                if(match.getMatchResult() != null){
+                    if(!match.getMatchResult().isEmpty()){
+                        matchesObservable.add(match);
+                    }
                 }
             }
         }
@@ -207,14 +212,24 @@ public class AdministrateTournamentController implements Initializable {
     public void enterResultEvent(MouseEvent event,Match match){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../view/EnterResults.fxml"));
-            Parent administrateParent = loader.load();
+            System.out.println(tournament.getMatchType());
+            if(tournament.getMatchType().equals("timeMatch")){ // Which controller we are using
+                loader.setLocation(getClass().getResource("../view/EnterTimeResults.fxml"));
+            }else{
+                loader.setLocation(getClass().getResource("../view/EnterPointResults.fxml"));
+            }
 
+            Parent administrateParent = loader.load();
             Scene administrateScene = new Scene(administrateParent);
 
             //Access the controller and call a method
-            EnterResultsController controller = loader.getController();
-            controller.initData(match,tournamentDAO);
+            if(tournament.getMatchType().equals("timeMatch")){ // Which controller we are using
+                EnterTimeResultsController controller = loader.getController();
+                controller.initData(match,tournamentDAO);
+            }else{
+                EnterPointResultsController controller = loader.getController();
+                controller.initData(match,tournamentDAO);
+            }
 
             Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
             window.setScene(administrateScene);

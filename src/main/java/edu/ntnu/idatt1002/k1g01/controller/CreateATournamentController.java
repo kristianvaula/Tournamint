@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
 import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
+import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import javafx.collections.FXCollections;
@@ -47,6 +48,7 @@ public class CreateATournamentController implements Initializable {
     @FXML private RadioButton pointMatchButton;
     @FXML private RadioButton timeMatchButton;
     @FXML private Label tournamentErrorOutput;
+    @FXML private Label tournamentWarningOutput;
     private ToggleGroup radioToggleGroup;
 
     //Team settings
@@ -174,11 +176,12 @@ public class CreateATournamentController implements Initializable {
     }
 
     /**
-     * Gets called when user presses Create Tournament
-     * @param event the actionEvent
+     * Generates a tournament from GUI parameters and displays any errors or warning to the user.
+     * Does not automatically save the tournament or change scene.
+     * Handy for giving user constant feedback for input.
+     * @return User specified tournament.
      */
-    @FXML
-    public void createTournament(ActionEvent event) throws IOException{
+    public Tournament generateTournament(){
         String tournamentName =  nameInputField.getText();
         String tournamentType = tournamentTypeInput.getValue();
         int teamsPerGroup = teamsPerGroupInput.getValue();
@@ -198,20 +201,41 @@ public class CreateATournamentController implements Initializable {
             if(tournamentType.equals("Group Stage + Knockout Stage")){
                 try{
                     tournament = new Tournament(tournamentName,teamList,matchType,2,teamsPerGroup,teamsAdvancingFromGroup);
-                    changeSceneToAdministrateTournament(event);
                 }catch (IllegalArgumentException e){
                     tournamentErrorOutput.setText(e.getMessage());
+                    return null;
                 }
             }
             else{
                 try{
                     tournament = new Tournament(tournamentName,teamList,matchType,2);
-                    changeSceneToAdministrateTournament(event);
                 }catch (IllegalArgumentException e){
                     tournamentErrorOutput.setText(e.getMessage());
+                    return null;
                 }
             }
+        }
+        int countMinSize = tournament.partialGroupCount();
+        if (tournament!= null && countMinSize != 0) {
+            int minGroupSize = tournament.getGroupStage().minGroupTeamCount();
+            tournamentWarningOutput.setText("Warning: " + countMinSize + " groups have only " + minGroupSize + " teams.");
+        }
+        return tournament;
+    }
 
+    /**
+     * Gets called when user presses Create Tournament
+     * If successful, proceeds to save and administrate tournament.
+     * @param event the actionEvent
+     */
+    @FXML
+    public void createTournament(ActionEvent event) throws IOException{
+
+        try{
+            tournament = generateTournament();
+            changeSceneToAdministrateTournament(event);
+        }catch (IllegalArgumentException e){
+            tournamentErrorOutput.setText(e.getMessage());
         }
     }
 
@@ -290,7 +314,8 @@ public class CreateATournamentController implements Initializable {
     }
 
     /**
-     *Activates or greys out input fields depending on selected tournamentType.
+     * Activates or greys out input fields depending on selected tournamentType.
+     * @author Martin Dammerud
      */
     @FXML
     public void tournamentTypeInputEvent() {

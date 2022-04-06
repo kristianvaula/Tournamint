@@ -27,8 +27,12 @@
     -fx-opacity: 1;
 }
 .errorFeedback{
-    -fx-font-size: 9pt;
+    -fx-font-size: 11pt;
     -fx-text-fill:red;
+}
+.warningFeedback{
+    -fx-font-size: 11pt;
+    -fx-text-fill:#ff7700;
 }
 
 .radio-button{
