@@ -148,10 +148,11 @@ public class Tournament implements Serializable {
      * @return
      *      true: If at least one group is not of full size.
      *      false: If there is no group stage, or group stage has only full groups.
+     * @author Martin Dammerud
      */
-    public boolean hasPartialGroups() {
-        if (groupStage == null) return false;
-        return groupStage.hasPartialGroups();
+    public int partialGroupCount() {
+        if (groupStage == null) return 0;
+        return groupStage.partialGroupCount();
     }
 
     /**

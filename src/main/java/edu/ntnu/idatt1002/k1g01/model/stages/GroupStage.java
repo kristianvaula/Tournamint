@@ -139,11 +139,28 @@ public class GroupStage extends Stage {
      *      true: If all groups are of same full size
      *      false: If at least one group is missing 1 team.
      */
-    public boolean hasPartialGroups() {
+    public int partialGroupCount() {
+        int output = 0;
         for (Group group : groups) {
-            if (group.getTeamCount() != teamsPerGroup) return true;
+            if (group.getTeamCount() < teamsPerGroup) output++;
         }
-        return false;
+        return output;
+    }
+
+    /**
+     * @return size of the smallest group in this groupStage.
+     * @author Martin Dammerud
+     */
+    public int minGroupTeamCount() {
+        return groups.stream().mapToInt(Group::getTeamCount).min().getAsInt();
+    }
+
+    /**
+     * @return size of the largest group in this groupStage.
+     * @author Martin Dammerud
+     */
+    public int maxGroupTeamCount() {
+        return groups.stream().mapToInt(Group::getTeamCount).max().getAsInt();
     }
 
     /**

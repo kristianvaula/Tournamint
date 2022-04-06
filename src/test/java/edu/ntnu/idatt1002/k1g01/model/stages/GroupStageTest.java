@@ -185,7 +185,7 @@ class GroupStageTest {
             for (int trueSize : groupStage.getGroups().stream().mapToInt(Group::getTeamCount).toArray()) {
                 //Check every group is actually full.
                 assertEquals(teamsPerGroup, trueSize);
-                assertFalse(groupStage.hasPartialGroups());
+                assertEquals(0, groupStage.partialGroupCount());
             }
             //Check correct number of groups were generated in groupStage.
             assertEquals(teamCount, groupStage.getGroups().size() * teamsPerGroup);
@@ -216,7 +216,7 @@ class GroupStageTest {
                 //Check no group is missing more than one team.
                 assertTrue(teamsPerGroup == trueSize || teamsPerGroup == trueSize + 1);
             }
-            assertTrue(groupStage.hasPartialGroups());
+            assertTrue(groupStage.partialGroupCount() > 0);
 
             //Check rounds can be extracted without exception;
             groupStage.getGroupRounds();
