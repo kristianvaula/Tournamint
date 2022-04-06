@@ -61,7 +61,7 @@ public class KnockoutStage extends Stage {
     private static ArrayList<Round> generateKnockOutRounds(int amountOfTeams, int teamsPerMatch, int advancingPerMatch){
         int numberOfRounds = getNumberOfRounds(amountOfTeams,teamsPerMatch,advancingPerMatch);
         if(numberOfRounds == 0) {
-            throw new IllegalArgumentException("Amount of teams must be divisible by four");
+            throw new IllegalArgumentException("Combination of teams and tournament settings is invalid");
         }
 
         ArrayList<Round> rounds = new ArrayList<>();
@@ -74,28 +74,38 @@ public class KnockoutStage extends Stage {
     }
 
     /**
-     * Checks which power of teamsPerRound equals the
+     * Checks which power of teamsPerMatch equals the
      * amount of teams. Gives us the amount of
      * rounds we need in our tournament. Returns
      * 0 if we dont get a match, which means that
      * the amount of teams is not compatible.
      * @param numberOfTeams Number of teams
-     * @param teamsPerRound Teams per round
+     * @param teamsPerMatch Teams per round
      * @return Int number of rounds
      */
-    public static int getNumberOfRounds(int numberOfTeams,int teamsPerRound,int advancingPerMatch){
+    public static int getNumberOfRounds(int numberOfTeams,int teamsPerMatch,int advancingPerMatch){
         System.out.println("calculating number of knockout rounds: ");
         System.out.println("numberOfTeams: " + numberOfTeams);
-        System.out.println("teamsPerRound: " + teamsPerRound);
+        System.out.println("teamsPerMatch: " + teamsPerMatch);
         System.out.println("advancingPerMatch: " + advancingPerMatch);
-        if(advancingPerMatch == 2){
+        // If 2 teams per match
+        if(teamsPerMatch == 2 && advancingPerMatch == 1){
             for (int i = 0; i < 12; i++) {
-                if(Math.pow(teamsPerRound,i) == numberOfTeams && numberOfTeams <= 256) return i;
+                if(Math.pow(teamsPerMatch,i) == numberOfTeams) return i;
             }
-        }
-        else{
+        }// If 4 teams per match
+        else if(teamsPerMatch == 4){
             for (int i = 0; i < 12; i++) {
-                if(Math.pow(teamsPerRound,i +(advancingPerMatch/4)) == numberOfTeams && numberOfTeams <= 256) return i;
+                if(Math.pow((teamsPerMatch/advancingPerMatch),i) == numberOfTeams){
+                    return i - (advancingPerMatch-1);
+                }
+            }
+        }// If 8 teams per match
+        else if(teamsPerMatch == 8){
+            for (int i = 0; i < 12; i++) {
+                if(teamsPerMatch * Math.pow((teamsPerMatch/advancingPerMatch),i) == numberOfTeams){
+                    return i + 1;
+                }
             }
         }
         return 0;
@@ -181,7 +191,9 @@ public class KnockoutStage extends Stage {
     public Team getTournamentWinner() {
         for(Round round : getRounds()){
             if(round.getRoundName().equals("FINAL")){
-                return round.getMatches().get(0).getWinners(1).get(0);
+                if(round.isFinished()){
+                    return round.getMatches().get(0).getWinners(1).get(0);
+                }
             }
         }
         return null;
