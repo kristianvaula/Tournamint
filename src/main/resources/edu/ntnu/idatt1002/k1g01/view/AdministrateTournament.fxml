@@ -34,10 +34,10 @@
                            </children></FlowPane>
                                   <TableView fx:id="matchTable" prefHeight="441.0" prefWidth="934.0">
                                       <columns>
-                                          <TableColumn fx:id="teamsColumn" prefWidth="425.80001199245453" text="Teams" />
-                                          <TableColumn fx:id="resultColumn" minWidth="0.0" prefWidth="94.39999389648438" text="Result" />
-                                          <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="140.0" text="Date" />
-                                          <TableColumn fx:id="timeColumn" minWidth="0.0" prefWidth="140.0" text="Time" />
+                                          <TableColumn fx:id="teamsColumn" prefWidth="323.40002477169037" text="Teams" />
+                                          <TableColumn fx:id="resultColumn" minWidth="0.0" prefWidth="231.0" text="Result (HH-MM-SS-NN)" />
+                                          <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="121.0" text="Date" />
+                                          <TableColumn fx:id="timeColumn" minWidth="0.0" prefWidth="127.0" text="Time" />
                                           <TableColumn fx:id="infoColumn" minWidth="0.0" prefWidth="137.6000854492188" text="Info" />
                                       </columns>
                            <VBox.margin>
