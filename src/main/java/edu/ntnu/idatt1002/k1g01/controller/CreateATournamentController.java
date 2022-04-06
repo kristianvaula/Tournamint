@@ -123,6 +123,14 @@ public class CreateATournamentController implements Initializable {
         teamList.add(new Team("Samir and friends"));
         teamList.add(new Team("An Ananas"));
         teamList.add(new Team("Pingas"));
+        //teamList.add(new Team("Knekkebrød IL"));
+        //teamList.add(new Team("Dammeruds Ondskapens Inc"));
+        //teamList.add(new Team("DunderVafflene"));
+        //teamList.add(new Team("TwinTurbo"));
+        //teamList.add(new Team("Kalle Flattbrød"));
+        //teamList.add(new Team("BlodDopa"));
+        //teamList.add(new Team("LilleBjørn"));
+        //teamList.add(new Team("HoppFraTiende"));
         updateTeamTable();
     }
 
@@ -182,6 +190,7 @@ public class CreateATournamentController implements Initializable {
         String tournamentName =  nameInputField.getText();
         String tournamentType = tournamentTypeInput.getValue();
         int teamsPerGroup = teamsPerGroupInput.getValue();
+        int teamsPerMatch = 2;
         int teamsAdvancingFromGroup = teamsAdvancingFromGroupInput.getValue();
         String matchType;
         if(radioToggleGroup.getSelectedToggle().equals(timeMatchButton)){
@@ -191,13 +200,13 @@ public class CreateATournamentController implements Initializable {
         if(tournamentName.isBlank() || tournamentName.isEmpty()){
             tournamentErrorOutput.setText("Please enter a tournament name");
         }
-        else if(teamList.size()<2){
+        else if(teamList.size()<2 ||teamList.size() < teamsPerMatch ){
             tournamentErrorOutput.setText("Not enough teams");
         }
         else { // Create tournament
             if(tournamentType.equals("Group Stage + Knockout Stage")){
                 try{
-                    tournament = new Tournament(tournamentName,teamList,matchType,2,teamsPerGroup,teamsAdvancingFromGroup);
+                    tournament = new Tournament(tournamentName,teamList,matchType,teamsPerMatch,teamsPerGroup,teamsAdvancingFromGroup);
                     changeSceneToAdministrateTournament(event);
                 }catch (IllegalArgumentException e){
                     tournamentErrorOutput.setText(e.getMessage());
@@ -205,7 +214,7 @@ public class CreateATournamentController implements Initializable {
             }
             else{
                 try{
-                    tournament = new Tournament(tournamentName,teamList,matchType,2);
+                    tournament = new Tournament(tournamentName,teamList,matchType,teamsPerMatch);
                     changeSceneToAdministrateTournament(event);
                 }catch (IllegalArgumentException e){
                     tournamentErrorOutput.setText(e.getMessage());
