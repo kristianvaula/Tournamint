@@ -219,6 +219,8 @@ public abstract class Match implements Serializable {
      */
     public static String[] generateMatchAsString(ArrayList<Team> participants,HashMap<Team,String> result){
         String[] returnString = new String[2];  // [0] = Teams [1] = Result
+        returnString[0] = "";
+        returnString[1] = "";
         if(!result.isEmpty()){ // If match has result
             Set<Team> keySet = result.keySet();
             ArrayList<Team> participantsOrdered = new ArrayList<>(keySet.stream().collect(Collectors.toList()));
