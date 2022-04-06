@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k1g01.model.stages;
 
 import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.matches.PointMatch;
 import edu.ntnu.idatt1002.k1g01.model.matches.TimeMatch;
 
@@ -153,8 +154,12 @@ public class KnockoutStage extends Stage {
                 teams.remove(index);
             }
             if(tournamentType.equals("timeMatch")){
-                round.addMatch(new TimeMatch(participants));
+                Match match = new TimeMatch(participants);
+                match.setMatchInfo(round.getRoundName());
+                round.addMatch(match);
             } else{
+                Match match = new PointMatch(participants);
+                match.setMatchInfo(round.getRoundName());
                 round.addMatch(new PointMatch(participants));
             }
         }
