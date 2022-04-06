@@ -153,16 +153,23 @@ public class TopMenuBarController implements Initializable{
 
         Stage stage = (Stage) topMenuBar.getScene().getWindow();
 
+        System.out.println("start try load displayMode");
         try {
             //Load new scene from FXML document.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/DisplayMode.fxml"));
+
+            //Load file.
+            System.out.println("loader.load");
             Parent sceneParent = loader.load();
+            System.out.println("loader.load done");
             Scene scene = new Scene(sceneParent);
 
             //Initiate new scene controller with loaded DAO as data.
             DisplayModeController controller = loader.getController();
+            System.out.println("initData start");
             controller.initData(tournamentDAO);
+            System.out.println("initData done");
 
             //Switch to new scene.
             stage.setScene(scene);

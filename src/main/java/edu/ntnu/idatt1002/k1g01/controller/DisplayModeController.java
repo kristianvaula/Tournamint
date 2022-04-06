@@ -33,7 +33,7 @@ public class DisplayModeController implements Initializable {
     private Tournament tournament;
     private TournamentDAO tournamentDAO;
     @FXML private HBox outerHbox;
-    private ArrayList<BracketRoundContainerController> roundControllers;
+    private ArrayList<BracketRoundContainerController> roundControllers = new ArrayList<>();
 
     @FXML
     private Text tournamentNameOutput;
@@ -43,6 +43,8 @@ public class DisplayModeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("displayMode initialize start");
+        System.out.println("    tournament ptr = " + tournament);
     }
 
     /**
@@ -52,20 +54,30 @@ public class DisplayModeController implements Initializable {
      * TODO better user feedback for errors.
      * @param tournamentDAO DAO for tournament object. Must be non-null.
      */
-    @FXML
-    public void initData(TournamentDAO tournamentDAO) throws IOException {
+    public void initData(TournamentDAO tournamentDAO) {
+        System.out.println("    display initData");
         this.tournamentDAO = tournamentDAO;
         topMenuBarController.setTournamentDAO(tournamentDAO); //Pass DAO pointer to nested controller.
         try {
+            System.out.println("    try load");
             this.tournament = tournamentDAO.load();
+            System.out.println("    tournament ptr = " + tournament);
         }
         catch (IOException ioException) {
             System.out.println("Error in initData: " + ioException.getMessage());
             //TODO handle exception if loading somehow fails. Should not be possible at this point.
         }
         tournamentNameOutput.setText(tournament.getTournamentName());
+        System.out.println("    try set text");
+
         if (!(tournament.getKnockoutStage() == null && tournament.getKnockoutStage().getRounds().isEmpty())) {
-            setBracketRoundContainers();
+            try {
+                System.out.println("    trying setBracketRoundContainers");
+                setBracketRoundContainers();
+                System.out.println("    setBracketRoundContainers done");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -75,8 +87,9 @@ public class DisplayModeController implements Initializable {
      * @throws IOException
      */
     public void setBracketRoundContainers() throws IOException {
+        System.out.println("        setBracketRoundContainers start");
        int numberOfRounds = this.tournament.getKnockoutStage().getRounds().size();
-        if (numberOfRounds == 0) throw new IllegalArgumentException("Number of rounds in knockout stage is zero");
+        if (numberOfRounds == 0) throw new IllegalArgumentException("       Number of rounds in knockout stage is zero");
         else if (numberOfRounds > 4) {
             for (int i = numberOfRounds - 4; i < numberOfRounds; i++) {
                 addBracketRoundContainer(this.tournament.getKnockoutStage().getRounds().get(i));
@@ -86,6 +99,7 @@ public class DisplayModeController implements Initializable {
                 addBracketRoundContainer(this.tournament.getKnockoutStage().getRounds().get(i));
             }
         }
+        System.out.println("        setBracketRoundContainers done");
     }
 
     /**
@@ -93,10 +107,15 @@ public class DisplayModeController implements Initializable {
      * @throws IOException
      */
     public void addBracketRoundContainer(Round round) throws IOException {
+        System.out.println("            Adding BracketRoundContainer");
         FXMLLoader loader = new FXMLLoader();
-        VBox roundContainer = loader.load(Objects.requireNonNull(getClass().getResource("edu" + DLM + "ntnu" + DLM + "idatt1002" + DLM + "k1g01" + DLM + "view" + DLM + "BracketRoundContainer.fxml")));
-        outerHbox.getChildren().add(roundContainer);
+        System.out.println("            FXML loaded");
+        System.out.println("            DLM = " + DLM);
+        VBox BracketRoundContainer = loader.load(Objects.requireNonNull(getClass().getResource("../view/BracketRoundContainer.fxml")).openStream());
+        System.out.println("            BracketRoundContainer ptr = " + BracketRoundContainer);
+        outerHbox.getChildren().add(BracketRoundContainer);
         BracketRoundContainerController controller = loader.getController();
+        System.out.println("            controller ptr = " + controller);
         controller.setMatchesInRoundContainers(round);
         roundControllers.add(controller);
     }

@@ -3,8 +3,10 @@ package edu.ntnu.idatt1002.k1g01.controller;
 import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
@@ -17,11 +19,12 @@ import java.util.ResourceBundle;
 public class BracketRoundContainerController implements Initializable {
 
     private final static String DLM = File.separator;
-    private VBox BracketRound;
-    private ArrayList<BracketMatchBlockController> matchControllers;
+    @FXML private VBox BracketRoundContainer;
+    private ArrayList<BracketMatchBlockController> matchControllers = new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        System.out.println("***initializing BracketRoundContainerController");
+        System.out.println("***     BracketRoundContainer = " + this.BracketRoundContainer);
     }
 
     /**
@@ -32,8 +35,10 @@ public class BracketRoundContainerController implements Initializable {
     public void setMatchesInRoundContainers(Round round) throws IOException {
         for (Match match : round.getMatches()) {
             FXMLLoader loader = new FXMLLoader();
-            VBox roundContainer = loader.load(Objects.requireNonNull(getClass().getResource("edu" + DLM + "ntnu" + DLM + "idatt1002" + DLM + "k1g01" + DLM + "view" + DLM + "BracketMatchBlock.fxml")));
-            BracketRound.getChildren().add(roundContainer);
+            HBox matchBlock = loader.load(Objects
+                    .requireNonNull(getClass().getResource("../view/BracketMatchBlock.fxml"))
+                    .openStream());
+            BracketRoundContainer.getChildren().add(matchBlock);
             BracketMatchBlockController controller = loader.getController();
             matchControllers.add(controller);
         }

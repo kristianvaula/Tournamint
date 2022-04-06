@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.AdministrateTournamentController">
+<AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.DisplayModeController">
     <children>
         <BorderPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css">
             <top>
@@ -38,7 +38,7 @@
                                         </ImageView>
                                     </graphic></Button>
                                 <Pane prefHeight="58.0" prefWidth="181.0" />
-                                <Text fx:id="nameField" fill="#18205b" strokeType="OUTSIDE" strokeWidth="0.0" text="Tournament name" textAlignment="CENTER" wrappingWidth="387.61865234375">
+                                <Text fx:id="tournamentNameOutput" fill="#18205b" strokeType="OUTSIDE" strokeWidth="0.0" text="Tournament name" textAlignment="CENTER" wrappingWidth="387.61865234375">
                                     <font>
                                         <Font size="35.0" />
                                     </font>
