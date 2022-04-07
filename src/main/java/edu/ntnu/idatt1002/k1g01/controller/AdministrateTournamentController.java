@@ -213,9 +213,13 @@ public class AdministrateTournamentController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader();
             System.out.println(tournament.getMatchType());
-            if(tournament.getMatchType().equals("timeMatch")){ // Which controller we are using
+            if(tournament.getTeamsPerMatch() > 2){
+                loader.setLocation(getClass().getResource("../view/EnterMultiTeamResults.fxml"));
+            }
+            else if(tournament.getMatchType().equals("timeMatch")){ // Which controller we are using
                 loader.setLocation(getClass().getResource("../view/EnterTimeResults.fxml"));
-            }else{
+            }
+            else {
                 loader.setLocation(getClass().getResource("../view/EnterPointResults.fxml"));
             }
 
@@ -223,10 +227,15 @@ public class AdministrateTournamentController implements Initializable {
             Scene administrateScene = new Scene(administrateParent);
 
             //Access the controller and call a method
-            if(tournament.getMatchType().equals("timeMatch")){ // Which controller we are using
-                EnterTimeResultsController controller = loader.getController();
+            if(tournament.getTeamsPerMatch() > 2){
+                EnterMultiTeamResultsController controller = loader.getController();
                 controller.initData(match,tournamentDAO);
-            }else{
+            }
+            else if(tournament.getMatchType().equals("timeMatch")) { // Which controller we are using
+                EnterTimeResultsController controller = loader.getController();
+                controller.initData(match, tournamentDAO);
+            }
+            else{
                 EnterPointResultsController controller = loader.getController();
                 controller.initData(match,tournamentDAO);
             }
@@ -236,7 +245,7 @@ public class AdministrateTournamentController implements Initializable {
             window.show();
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e);
         }
     }
 }

@@ -25,11 +25,12 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Controls the enter results page
+ * Controls the enter points results page
  *
  * @author thomaniv
  * @author espjus
  * @author martdam
+ * @author kristvje
  */
 public class EnterPointResultsController implements Initializable {
 
@@ -38,6 +39,7 @@ public class EnterPointResultsController implements Initializable {
     //The nested controller for the menuBar
     @FXML private TopMenuBarController topMenuBarController;
 
+    //Attributes
     private TournamentDAO tournamentDAO;
     private Tournament tournament;
     private Match match;
@@ -46,9 +48,11 @@ public class EnterPointResultsController implements Initializable {
     @FXML private Text team1Text;
     @FXML private Text team2Text;
 
-    // InputFields
+    // Result Fields
     @FXML private TextField resultInputField1;
     @FXML private TextField resultInputField2;
+
+    //General Input Fields
     @FXML private DatePicker dateField;
     @FXML private TextField timeField;
     @FXML private TextField infoField;
@@ -62,6 +66,13 @@ public class EnterPointResultsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle){
     }
 
+    /**
+     * Used by other controllers to initialize important
+     * data before we open the page
+     * @param match match we are going to enter results to
+     * @param tournamentDAO the TournamentDAO
+     * @throws IOException if load fails
+     */
     @FXML
     public void initData(Match match, TournamentDAO tournamentDAO) throws IOException{
         this.tournamentDAO = tournamentDAO;

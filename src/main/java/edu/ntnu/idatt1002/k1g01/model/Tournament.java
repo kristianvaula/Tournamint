@@ -103,6 +103,18 @@ public class Tournament implements Serializable {
     }
 
     /**
+     * Returns a team based on name
+     * @param name Name of team
+     * @return Team if exists
+     */
+    public Team getTeamByName(String name){
+        for(Team team : teams){
+            if(team.getName().equals(name)) return team;
+        }
+        return null;
+    }
+
+    /**
      * Gets the number of teams in the
      * team list
      * @return Number of teams

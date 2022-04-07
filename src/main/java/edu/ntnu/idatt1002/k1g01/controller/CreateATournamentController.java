@@ -185,6 +185,7 @@ public class CreateATournamentController implements Initializable {
         String tournamentName =  nameInputField.getText();
         String tournamentType = tournamentTypeInput.getValue();
         int teamsPerGroup = teamsPerGroupInput.getValue();
+        int teamsPerMatch = 2;
         int teamsAdvancingFromGroup = teamsAdvancingFromGroupInput.getValue();
         String matchType;
         if(radioToggleGroup.getSelectedToggle().equals(timeMatchButton)){
@@ -194,13 +195,13 @@ public class CreateATournamentController implements Initializable {
         if(tournamentName.isBlank() || tournamentName.isEmpty()){
             tournamentErrorOutput.setText("Please enter a tournament name");
         }
-        else if(teamList.size()<2){
+        else if(teamList.size()<2 ||teamList.size() < teamsPerMatch ){
             tournamentErrorOutput.setText("Not enough teams");
         }
         else { // Create tournament
             if(tournamentType.equals("Group Stage + Knockout Stage")){
                 try{
-                    tournament = new Tournament(tournamentName,teamList,matchType,2,teamsPerGroup,teamsAdvancingFromGroup);
+                    tournament = new Tournament(tournamentName,teamList,matchType,teamsPerMatch,teamsPerGroup,teamsAdvancingFromGroup);
                 }catch (IllegalArgumentException e){
                     tournamentErrorOutput.setText(e.getMessage());
                     return null;
@@ -208,7 +209,7 @@ public class CreateATournamentController implements Initializable {
             }
             else{
                 try{
-                    tournament = new Tournament(tournamentName,teamList,matchType,2);
+                    tournament = new Tournament(tournamentName,teamList,matchType,teamsPerMatch);
                 }catch (IllegalArgumentException e){
                     tournamentErrorOutput.setText(e.getMessage());
                     return null;

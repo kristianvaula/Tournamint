@@ -18,21 +18,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Controls the enter results page
+ * Controls the enter time results page
  *
- * @author thomaniv
- * @author espjus
- * @author martdam
+ * @author kristvje
  */
 public class EnterTimeResultsController implements Initializable {
     //The nested controller for the menuBar
@@ -42,21 +37,21 @@ public class EnterTimeResultsController implements Initializable {
     private Tournament tournament;
     private Match match;
 
-    // Team 1
+    // Team 1 Result Fields
     @FXML private Text team1Text;
     @FXML private TextField team1Hours;
     @FXML private TextField team1Min;
     @FXML private TextField team1Sec;
     @FXML private TextField team1Nano;
 
-    // Team 2
+    // Team 2 Result Fields
     @FXML private Text team2Text;
     @FXML private TextField team2Hours;
     @FXML private TextField team2Min;
     @FXML private TextField team2Sec;
     @FXML private TextField team2Nano;
 
-    // Match Input fields
+    // General Input Fields
     @FXML private DatePicker dateField;
     @FXML private TextField timeField;
     @FXML private TextField infoField;
@@ -70,6 +65,13 @@ public class EnterTimeResultsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle){
     }
 
+    /**
+     * Used by other controllers to initialize important
+     * data before we open the page
+     * @param match match we are going to enter results to
+     * @param tournamentDAO the TournamentDAO
+     * @throws IOException if load fails
+     */
     @FXML
     public void initData(Match match, TournamentDAO tournamentDAO) throws IOException{
         this.tournamentDAO = tournamentDAO;
@@ -224,10 +226,8 @@ public class EnterTimeResultsController implements Initializable {
      */
     @FXML
     public void confirmResultsAndGoBack(ActionEvent event) throws IOException,NoSuchFieldException{
-        String team1NanoMultiplied = String.valueOf(Integer.parseInt(team1Nano.getText()) * 100);
-        String team2NanoMultiplied = String.valueOf(Integer.parseInt(team1Nano.getText()) * 100);
-        String team1Result = team1Hours.getText() + ":" + team1Min.getText() + ":" + team1Sec.getText() + ":" + team1NanoMultiplied;
-        String team2Result = team2Hours.getText() + ":" + team2Min.getText() + ":" + team2Sec.getText() + ":" + team2NanoMultiplied;
+        String team1Result = team1Hours.getText() + ":" + team1Min.getText() + ":" + team1Sec.getText() + ":" + team1Nano.getText();
+        String team2Result = team2Hours.getText() + ":" + team2Min.getText() + ":" + team2Sec.getText() + ":" + team2Nano.getText();
 
         try{
             match.setResult(match.getParticipants().get(0),team1Result);
@@ -236,6 +236,7 @@ public class EnterTimeResultsController implements Initializable {
             System.out.println(e.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Please check numbers");
+            alert.show();
         }
         match.setMatchDate(dateField.getValue());
         match.setMatchInfo(infoField.getText());
@@ -247,6 +248,7 @@ public class EnterTimeResultsController implements Initializable {
             System.out.println(e.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Please check time");
+            alert.show();
         }
 
         tournament.updateTournament();
