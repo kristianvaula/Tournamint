@@ -207,6 +207,14 @@ public class Group implements Serializable {
     }
 
     /**
+     * Returns a LinkedHasMap with n teams sorted from highest to lowest score, and current score.
+     * @return LinkedHashMap of Team, points.
+     */
+    public LinkedHashMap<Team, Integer> getStanding() {
+        return getStanding(getTeamCount());
+    }
+
+    /**
      * Finds the n best performing teams in this group.
      * WARNING! Only accounts for single best team in each match, as this class currently only handles 2 teams per match.
      * TODO: Handle draws better! Currently awards group victory to team with lowest list index.
