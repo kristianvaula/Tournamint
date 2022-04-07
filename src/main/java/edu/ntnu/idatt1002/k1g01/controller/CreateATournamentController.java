@@ -125,14 +125,14 @@ public class CreateATournamentController implements Initializable {
         teamList.add(new Team("Samir and friends"));
         teamList.add(new Team("An Ananas"));
         teamList.add(new Team("Pingas"));
-        teamList.add(new Team(" Krutt"));
-        teamList.add(new Team(" Magne"));
-        teamList.add(new Team("meratene"));
-        teamList.add(new Team(" Inc"));
-        teamList.add(new Team(" Baggins Boys"));
-        teamList.add(new Team(" and friends"));
-        teamList.add(new Team(" Ananas"));
-        teamList.add(new Team("Pngas"));
+        //teamList.add(new Team("Gutta "));
+        //teamList.add(new Team("Pølse "));
+        //teamList.add(new Team("Kamerat"));
+        //teamList.add(new Team("Sennep "));
+        //teamList.add(new Team("Bilbo Baggins "));
+        //teamList.add(new Team("Samir and "));
+        //teamList.add(new Team("An "));
+        //teamList.add(new Team("Ping"));
         updateTeamTable();
     }
 
