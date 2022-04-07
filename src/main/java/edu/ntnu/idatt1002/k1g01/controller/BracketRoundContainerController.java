@@ -23,8 +23,7 @@ public class BracketRoundContainerController implements Initializable {
     private ArrayList<BracketMatchBlockController> matchControllers = new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("***initializing BracketRoundContainerController");
-        System.out.println("***     BracketRoundContainer = " + this.BracketRoundContainer);
+
     }
 
     /**
