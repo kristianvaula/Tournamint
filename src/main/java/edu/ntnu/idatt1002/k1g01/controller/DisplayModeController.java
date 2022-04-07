@@ -6,11 +6,16 @@ import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -25,18 +30,44 @@ import java.util.ResourceBundle;
 
 public class DisplayModeController implements Initializable {
 
-    private final static String DLM = File.separator;
-    //The nested controller for the menuBar
-    @FXML private TopMenuBarController topMenuBarController;
-
     //The tournament variables
     private Tournament tournament;
     private TournamentDAO tournamentDAO;
-    @FXML private HBox outerHbox;
     private ArrayList<BracketRoundContainerController> roundControllers = new ArrayList<>();
 
-    @FXML
-    private Text tournamentNameOutput;
+    private final static String DLM = File.separator;
+
+    //The nested controller for the menuBar
+    @FXML private TopMenuBarController topMenuBarController;
+
+    //Tabpane
+    @FXML private TabPane displayTabPane;
+
+    //Tab Upcoming Matches
+    @FXML private Tab upcomingMatchesTab;
+    @FXML private TableView<Match> upcomingMatchesTable;
+    @FXML private TableColumn<Match,String> upcomTeamsColumn;
+    @FXML private TableColumn<Match,String> upcomResultColumn;
+    @FXML private TableColumn<Match,String> upcomDateColumn;
+    @FXML private TableColumn<Match,String> upcomTimeColumn;
+    @FXML private TableColumn<Match,String> upcomInfoColumn;
+
+    //Tab Previous Matches
+    @FXML private Tab previousMatchesTab;
+    @FXML private TableView<Match> previousMatchesTable;
+    @FXML private TableColumn<Match,String> prevTeamsColumn;
+    @FXML private TableColumn<Match,String> prevResultColumn;
+    @FXML private TableColumn<Match,String> prevDateColumn;
+    @FXML private TableColumn<Match,String> prevTimeColumn;
+    @FXML private TableColumn<Match,String> prevInfoColumn;
+
+    //Tab GroupStage
+    @FXML private Tab groupStageTab;
+
+    //Tab knockoutStage
+    @FXML private Tab knockoutStageTab;
+    @FXML private HBox outerHbox;
+    @FXML private Text tournamentNameOutput;
 
 
 
@@ -45,6 +76,23 @@ public class DisplayModeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("displayMode initialize start");
         System.out.println("    tournament ptr = " + tournament);
+
+        //Preparing match table
+        upcomTeamsColumn.setCellValueFactory(new PropertyValueFactory<>("participantsAsString"));
+        upcomResultColumn.setCellValueFactory(new PropertyValueFactory<>("resultAsString"));
+        upcomDateColumn.setCellValueFactory(new PropertyValueFactory<>("MatchDateAsString"));
+        upcomTimeColumn.setCellValueFactory(new PropertyValueFactory<>("StartTimeAsString"));
+        upcomInfoColumn.setCellValueFactory(new PropertyValueFactory<>("matchInfo"));
+        upcomingMatchesTable.setEditable(false);
+
+        //Preparing match table
+        prevTeamsColumn.setCellValueFactory(new PropertyValueFactory<>("participantsAsString"));
+        prevResultColumn.setCellValueFactory(new PropertyValueFactory<>("resultAsString"));
+        prevDateColumn.setCellValueFactory(new PropertyValueFactory<>("MatchDateAsString"));
+        prevTimeColumn.setCellValueFactory(new PropertyValueFactory<>("StartTimeAsString"));
+        prevInfoColumn.setCellValueFactory(new PropertyValueFactory<>("matchInfo"));
+        previousMatchesTable.setEditable(false);
+
     }
 
     /**
@@ -66,6 +114,85 @@ public class DisplayModeController implements Initializable {
         }
         tournamentNameOutput.setText(tournament.getTournamentName());
 
+        displayTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+            @Override
+            public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab newTab) {
+                if (oldTab == newTab) ;
+                else if (newTab == knockoutStageTab) {
+                    loadKnockOutStage();
+                } else if (newTab == groupStageTab) {
+                    loadGroupStageTab();
+                } else if (newTab == previousMatchesTab) {
+                    loadPreviousMatchesTab();
+                } else {
+                    loadUpcomingMatchesTab();
+                }
+            }
+        });
+
+        if(tournament.getGroupStage()!= null){
+            if(tournament.getGroupStage().isFinished()){
+                loadKnockOutStage();
+            }
+            else loadGroupStageTab();
+        }
+        else loadUpcomingMatchesTab();
+    }
+
+    /**
+     * Loads upcoming matches tab
+     */
+    @FXML
+    public void loadUpcomingMatchesTab(){
+        ObservableList<Match> matchesObservable = FXCollections.observableArrayList();
+
+        for(Round round : tournament.getAllRounds()){
+            ArrayList<Match> matches = round.getMatches();
+            for(Match match : matches){
+                if(match.getMatchResult() == null){
+                    matchesObservable.add(match);
+                }
+                else if(match.getMatchResult().isEmpty()){
+                    matchesObservable.add(match);
+                }
+            }
+        }
+        upcomingMatchesTable.setItems(matchesObservable);
+    }
+
+    /**
+     * Loads previous matches tab
+     */
+    @FXML
+    public void loadPreviousMatchesTab(){
+        ObservableList<Match> matchesObservable = FXCollections.observableArrayList();
+
+        for(Round round : tournament.getAllRounds()){
+            ArrayList<Match> matches = round.getMatches();
+            for(Match match : matches){
+                if(match.getMatchResult() != null){
+                    if(!match.getMatchResult().isEmpty()){
+                        matchesObservable.add(match);
+                    }
+                }
+            }
+        }
+        previousMatchesTable.setItems(matchesObservable);
+    }
+
+    /**
+     * Loads group stage tab
+     */
+    @FXML
+    public void loadGroupStageTab(){
+        System.out.println("GroupStage not implemented");
+    }
+
+    /**
+     * Loads knockout stage tab
+     */
+    @FXML
+    public void loadKnockOutStage(){
         if (!(tournament.getKnockoutStage() == null && tournament.getKnockoutStage().getRounds().isEmpty())) {
             try {
                 setBracketRoundContainers();
@@ -106,8 +233,4 @@ public class DisplayModeController implements Initializable {
         controller.setMatchesInRoundContainers(round);
         roundControllers.add(controller);
     }
-
-
-
-
 }
