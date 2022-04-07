@@ -25,7 +25,11 @@
                         <Label text="Edit Results And Confirm" />
                         <HBox prefHeight="309.0" prefWidth="939.0" style="-fx-background-color: white;">
                            <children>
-                              <VBox fx:id="teamVBox" prefHeight="302.0" prefWidth="947.0" />
+                              <ScrollPane hbarPolicy="NEVER" prefHeight="302.0" prefWidth="958.0">
+                                 <content>
+                                    <VBox fx:id="teamVBox" prefHeight="302.0" prefWidth="947.0" />
+                                 </content>
+                              </ScrollPane>
                            </children>
                         </HBox>
                      </children>

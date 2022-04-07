@@ -62,51 +62,53 @@
                 </VBox>
             </top>
             <center>
-                <TabPane maxHeight="469.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="469.0" prefWidth="920.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                <TabPane fx:id="displayTabPane" maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="435.0" prefWidth="934.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                     <tabs>
-                        <Tab text="Upcoming Matches">
+                        <Tab fx:id="upcomingMatchesTab" text="Upcoming Matches">
                             <content>
-                                <TableView prefHeight="200.0" prefWidth="200.0">
+                                <TableView fx:id="upcomingMatchesTable" prefHeight="441.0" prefWidth="934.0">
                                     <columns>
-                                        <TableColumn prefWidth="500.0" text="Teams" />
-                                        <TableColumn prefWidth="120.0" text="Date" />
-                                        <TableColumn prefWidth="120.0" text="Time" />
-                                        <TableColumn prefWidth="178.0" text="Place" />
+                                        <TableColumn fx:id="upcomTeamsColumn" prefWidth="310.0" text="Teams" />
+                                        <TableColumn fx:id="upcomResultColumn" minWidth="0.0" prefWidth="221.0" text="Result" />
+                                        <TableColumn fx:id="upcomDateColumn" minWidth="0.0" prefWidth="125.0" text="Date" />
+                                        <TableColumn fx:id="upcomTimeColumn" minWidth="0.0" prefWidth="125.0" text="Time" />
+                                        <TableColumn fx:id="upcomInfoColumn" minWidth="0.0" prefWidth="136.79998779296875" text="Info" />
                                     </columns>
                                 </TableView>
                             </content>
                         </Tab>
-                        <Tab text="Previous Matches">
+                        <Tab fx:id="previousMatchesTab" text="Previous Matches">
                             <content>
-                                <TableView prefHeight="200.0" prefWidth="200.0">
+                                <TableView fx:id="previousMatchesTable" prefHeight="441.0" prefWidth="934.0">
                                     <columns>
-                                        <TableColumn prefWidth="500.0" text="Teams" />
-                                        <TableColumn prefWidth="120.0" text="Date" />
-                                        <TableColumn prefWidth="120.0" text="Time" />
-                                        <TableColumn prefWidth="178.0" text="Place" />
+                                        <TableColumn fx:id="prevTeamsColumn" prefWidth="310.0" text="Teams" />
+                                        <TableColumn fx:id="prevResultColumn" minWidth="0.0" prefWidth="221.0" text="Result " />
+                                        <TableColumn fx:id="prevDateColumn" minWidth="0.0" prefWidth="125.0" text="Date" />
+                                        <TableColumn fx:id="prevTimeColumn" minWidth="0.0" prefWidth="125.0" text="Time" />
+                                        <TableColumn fx:id="prevInfoColumn" minWidth="0.0" prefWidth="136.79998779296875" text="Info" />
                                     </columns>
                                 </TableView>
                             </content>
-                        </Tab>
                         <Tab text="GroupStage">
-                     <content>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <ScrollPane hbarPolicy="NEVER" prefHeight="423.0" prefWidth="917.0">
-                                 <content>
-                                    <HBox prefHeight="421.0" prefWidth="920.0">
-                                       <children>
+                         <content>
+                            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                               <children>
+                                  <ScrollPane hbarPolicy="NEVER" prefHeight="423.0" prefWidth="917.0">
+                                     <content>
+                                        <HBox prefHeight="421.0" prefWidth="920.0">
+                                           <children>
 
-                                          <!--> Will put in GroupContainers here <!-->
-                                       </children>
-                                    </HBox>
-                                 </content>
-                              </ScrollPane>
-                           </children>
-                        </AnchorPane>
-                     </content>
+                                              <!--> Will put in GroupContainers here <!-->
+                                           </children>
+                                        </HBox>
+                                     </content>
+                                  </ScrollPane>
+                               </children>
+                            </AnchorPane>
+                         </content>
                         </Tab>
-                        <Tab text="KnockoutStage">
+                        <Tab fx:id="groupStageTab" text="GroupStage" />
+                        <Tab fx:id="knockoutStageTab" text="KnockoutStage">
                      <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
