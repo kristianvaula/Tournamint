@@ -5,10 +5,7 @@ import edu.ntnu.idatt1002.k1g01.model.Team;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -21,6 +18,8 @@ import java.util.stream.Collectors;
 public abstract class Match implements Serializable {
     //The match participants
     private ArrayList<Team> participants;
+    //The match participants
+    private ArrayList<Match> previousMatches;
     //String representation of the participants, implemented for GUI
     private String participantsAsString;
     //String representation of the result, implemented for GUI
@@ -44,6 +43,16 @@ public abstract class Match implements Serializable {
 
         String[] matchAsString = generateMatchAsString(participants,new HashMap<>());
         this.participantsAsString = matchAsString[0];
+    }
+
+    /**
+     * Preemptively creates match from other matches.
+     * This match will eventually get its teams from the winners of these input matches.
+     * @param previousMatches Match[] that will feed their winners to this match.
+     * @author Martin Dammerud
+     */
+    public Match(ArrayList<Match> previousMatches, int advancingPerMatch) {
+
     }
 
     /**
