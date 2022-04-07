@@ -124,7 +124,7 @@ public class KnockoutStage extends Stage {
         else if(roundNumber == 2){
             return "SEMIFINAL";
         }
-        else if(roundNumber == 2){
+        else if(roundNumber == 3){
             return "QUARTERFINAL";
         }
         else {

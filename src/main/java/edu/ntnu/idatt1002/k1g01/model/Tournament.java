@@ -36,6 +36,8 @@ public class Tournament implements Serializable {
      * and a knockoutstage as arguments.
      * @param tournamentName Name of tournament
      * @param teams Teams to be in tournament
+     * @param matchType type of match ("pointMatch" / "timeMatch")
+     * @param teamsPerMatch teams per match
      */
     public Tournament(String tournamentName, ArrayList<Team> teams,String matchType,int teamsPerMatch) throws IllegalArgumentException{
         if(teams.size() < 2) {
@@ -56,12 +58,13 @@ public class Tournament implements Serializable {
      * teams as arguments.
      * @param tournamentName Name of tournament
      * @param teams Teams to be in tournament
+     * @param matchType type of match ("pointMatch" / "timeMatch")
+     * @param teamsPerMatch teams per match
+     * @param teamsPerGroup maximum teams per group in groupStage
+     * @param advancingPerGroup teams advancing to knockoutStage from each group in groupStage
      */
-    public Tournament(String tournamentName, ArrayList<Team> teams, String matchType,int teamsPerMatch,int teamsPerGroup,int advancingPerGroup) throws IllegalArgumentException{
-        System.out.println("Constructing tournament: ");
-        System.out.println("    teams: " + teams);
-        System.out.println("    teamsPerGroup: " + teamsPerGroup);
-        System.out.println("    advancingPerGroup: " + advancingPerGroup);
+    public Tournament(String tournamentName, ArrayList<Team> teams, String matchType,int teamsPerMatch,
+                      int teamsPerGroup,int advancingPerGroup) throws IllegalArgumentException{
         if(teams.size() < 2) {
             throw new IllegalArgumentException(
                     "Cannot create a tournament with less than two teams");
@@ -70,7 +73,7 @@ public class Tournament implements Serializable {
         this.teamsPerMatch = teamsPerMatch;
         this.tournamentName = tournamentName;
         this.teams = teams;
-        this.groupStage = new GroupStage(teams,advancingPerGroup,teamsPerGroup,matchType);
+        this.groupStage = new GroupStage(new ArrayList<>(teams),advancingPerGroup,teamsPerGroup,matchType);
         this.hasGroupStage = true;
     }
 
@@ -153,6 +156,18 @@ public class Tournament implements Serializable {
     }
 
     /**
+     * Checks if this tournament has a groupStage with partial groups.
+     * @return
+     *      true: If at least one group is not of full size.
+     *      false: If there is no group stage, or group stage has only full groups.
+     * @author Martin Dammerud
+     */
+    public int partialGroupCount() {
+        if (groupStage == null) return 0;
+        return groupStage.partialGroupCount();
+    }
+
+    /**
      * Gets knockoutStage
      * @return the knockoutStage
      */
@@ -210,6 +225,7 @@ public class Tournament implements Serializable {
      * <br> Checks if team is already in
      * tournament before it adds it to the
      * tournament team list.
+     * TODO does this actually work? Tournament would need to be re-initialized with altered team list.
      */
     public void addTeam(Team team) throws IllegalArgumentException{
         if(teams.contains(team)){
@@ -224,6 +240,7 @@ public class Tournament implements Serializable {
      * <br> Checks if team is already in
      * tournament before it removes it to the
      * tournament team list.
+     * TODO does this actually work? Tournament would need to be re-initialized with altered team list.
      */
     public void removeTeam(Team team){
         teams.remove(team);

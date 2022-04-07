@@ -11,9 +11,10 @@
                 <MenuItem fx:id="topMenuBarSaveAs" mnemonicParsing="false" onAction="#saveFile" text="Save as" disable="true"/>
             </items>
         </Menu>
-        <Menu fx:id="topMenuBarEdit" mnemonicParsing="false" text="Edit" disable="true">
+        <Menu fx:id="topMenuBarView" mnemonicParsing="false" text="View" disable="true">
             <items>
-                <MenuItem mnemonicParsing="false" text="Delete" />
+                <MenuItem mnemonicParsing="false" onAction="#changeSceneToDisplayMode" text="Display" fx:id="topMenuBarDisplay"/>
+                <MenuItem mnemonicParsing="false" onAction="#changeSceneToAdministrateTournament" text="Administrate" fx:id="topMenuBarAdministrate"/>
             </items>
         </Menu>
         <Menu fx:id="topMenuBarHelp" mnemonicParsing="false" text="Help" disable="true">
