@@ -41,15 +41,15 @@ public class AdministrateTournamentController implements Initializable {
     private TournamentDAO tournamentDAO;
 
     //General Settings
-    @FXML Text tournamentNameOutput;
+    @FXML private Text tournamentNameOutput;
 
     //TabPane and TableView settings
-    @FXML TableView<Match> matchTable;
-    @FXML TableColumn<Match,String> teamsColumn;
-    @FXML TableColumn<Match,String> resultColumn;
-    @FXML TableColumn<Match,String> dateColumn;
-    @FXML TableColumn<Match,String> timeColumn;
-    @FXML TableColumn<Match,String> infoColumn;
+    @FXML private TableView<Match> matchTable;
+    @FXML private TableColumn<Match,String> teamsColumn;
+    @FXML private TableColumn<Match,String> resultColumn;
+    @FXML private TableColumn<Match,String> dateColumn;
+    @FXML private TableColumn<Match,String> timeColumn;
+    @FXML private TableColumn<Match,String> infoColumn;
 
     @FXML MenuBar topMenuBar;
 
@@ -76,6 +76,28 @@ public class AdministrateTournamentController implements Initializable {
             });
             return row;
         });
+    }
+
+    /**
+     * Starts session for administrating a tournament with TournamentDAO.
+     * Makes file containing tournament accessible so that it can be easily updated frequently.
+     * TODO give user reassuring feedback whenever tournament file is updated.
+     * TODO better user feedback for errors.
+     * @param tournamentDAO DAO for tournament object. Must be non-null.
+     */
+    @FXML
+    public void initData(TournamentDAO tournamentDAO){
+        this.tournamentDAO = tournamentDAO;
+        topMenuBarController.setTournamentDAO(tournamentDAO); //Pass DAO pointer to nested controller.
+        try {
+            this.tournament = tournamentDAO.load();
+        }
+        catch (IOException ioException) {
+            System.out.println("Error in initData: " + ioException.getMessage());
+            //TODO handle exception if loading somehow fails. Should not be possible at this point.
+        }
+        tournamentNameOutput.setText("Administrate " + tournament.getTournamentName());
+        displayAllMatches();
     }
 
     /**
@@ -114,29 +136,6 @@ public class AdministrateTournamentController implements Initializable {
     public void saveFile() {
         try {  tournamentDAO = FileController.saveToFile(tournament, (Stage)topMenuBar.getScene().getWindow()); }
         catch (Exception e) { System.out.println(e.getMessage()); }
-    }
-
-
-    /**
-     * Starts session for administrating a tournament with TournamentDAO.
-     * Makes file containing tournament accessible so that it can be easily updated frequently.
-     * TODO give user reassuring feedback whenever tournament file is updated.
-     * TODO better user feedback for errors.
-     * @param tournamentDAO DAO for tournament object. Must be non-null.
-     */
-    @FXML
-    public void initData(TournamentDAO tournamentDAO){
-        this.tournamentDAO = tournamentDAO;
-        topMenuBarController.setTournamentDAO(tournamentDAO); //Pass DAO pointer to nested controller.
-        try {
-            this.tournament = tournamentDAO.load();
-        }
-        catch (IOException ioException) {
-            System.out.println("Error in initData: " + ioException.getMessage());
-            //TODO handle exception if loading somehow fails. Should not be possible at this point.
-        }
-        tournamentNameOutput.setText(tournament.getTournamentName());
-        displayAllMatches();
     }
 
     /**
