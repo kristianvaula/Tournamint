@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.model.matches;
 
+import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -111,7 +112,7 @@ public class PointMatchTest {
 
         HashMap<Team,String> results = testMatch.getMatchResult();
 
-        assertEquals(true,results.isEmpty());
+        assertTrue(results.isEmpty());
     }
 
     @Test
@@ -150,5 +151,50 @@ public class PointMatchTest {
 
         assertTrue(!before && after);
 
+    }
+
+    @Test
+    @DisplayName("Test match with TeamHolograms")
+    public void worksWithHolograms() {
+        String win = "9001";
+        String lose = "0";
+
+        //Prepare teams and matches.
+        ArrayList<Team> teamsA = new ArrayList<>();
+        Team mario = new Team("mario"); teamsA.add(mario);
+        Team luigi = new Team("luigi"); teamsA.add(luigi);
+        ArrayList<Team> teamsB = new ArrayList<>();
+        Team pingas = new Team("pingas"); teamsB.add(pingas);
+        Team billy = new Team ("billy"); teamsB.add(billy);
+        Match[] matches = new Match[2];
+        matches[0] = new PointMatch(teamsA);
+        matches[1] = new PointMatch(teamsB);
+        Match matchC = new PointMatch(1, matches);
+
+        //Make sure matchC full of holograms can't have results set when no sub-matches are finished.
+        assertThrows(ClassCastException.class, () -> {
+            matchC.setResult(matchC.getParticipants().get(0), win);
+        });
+
+        //Play some contained matches.
+        matches[0].setResult(mario, win);
+        matches[0].setResult(luigi, lose);
+        matches[1].setResult(pingas, win);
+
+        //Make sure matchC full of holograms can't have results set when one sub-match is not finished.
+        assertThrows(ClassCastException.class, () -> {
+            matchC.setResult(matchC.getParticipants().get(0), win);
+        });
+
+        //Play last contained match.
+        matches[1].setResult(billy, lose);
+
+        //Make sure matchC can be set now that all sub-matches are finished.
+        matchC.setResult(mario, lose);
+        matchC.setResult(pingas, win);
+
+        //Make sure Correct winner can be fetched from finished matchC.
+        assertEquals("pingas", matchC.getWinner(0).getName());
+        assertEquals(pingas, matchC.getWinner(0));
     }
 }

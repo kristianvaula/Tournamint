@@ -1,6 +1,8 @@
 package edu.ntnu.idatt1002.k1g01.model.matches;
 
+import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.TeamHologram;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -18,8 +20,6 @@ import java.util.stream.Collectors;
 public abstract class Match implements Serializable {
     //The match participants
     private ArrayList<Team> participants;
-    //The match participants
-    private ArrayList<Match> previousMatches;
     //String representation of the participants, implemented for GUI
     private String participantsAsString;
     //String representation of the result, implemented for GUI
@@ -49,10 +49,51 @@ public abstract class Match implements Serializable {
      * Preemptively creates match from other matches.
      * This match will eventually get its teams from the winners of these input matches.
      * @param previousMatches Match[] that will feed their winners to this match.
+     * @implNote
+ *          compiler doesn't like overloading with signature difference inside generic class.
+ *          Therefore, raw array instead of ArrayList<?>
      * @author Martin Dammerud
      */
-    public Match(ArrayList<Match> previousMatches, int advancingPerMatch) {
+    public Match(int advancingPerMatch, Match[] previousMatches) {
+        this.participants = new ArrayList<>();
+        for (Match match : previousMatches) for (int winner = 0; winner < advancingPerMatch; winner++) {
+            this.participants.add(new TeamHologram(match, winner));
+        }
+    }
 
+    /**
+     * Preemptively creates match from Groups.
+     * This match will eventually get its teams from the winners of these input matches.
+     * @param previousGroups Group[] that will feed their winners to this match.
+     * @implNote
+     *      compiler doesn't like overloading with signature difference inside generic class.
+     *      Therefore, raw array instead of ArrayList<?>
+     * @author Martin Dammerud
+     */
+    public Match( int advancingPerGroup, Group[] previousGroups) {
+        this.participants = new ArrayList<>();
+        for (Group group : previousGroups) for (int winner = 0; winner < advancingPerGroup; winner++) {
+            this.participants.add(new TeamHologram(group, winner));
+        }
+    }
+
+    /**
+     * Checks if any of teams in this match are just holograms.
+     * Unpacks normal teams from holograms if possible.
+     * If there are any holograms, then the match can't yet be played.
+     * @return true if there
+     */
+    public boolean playable() {
+        boolean output = true;
+        for (int i = 0; i < participants.size(); i++) {
+            Team team = participants.get(i);
+            if (team.getClass() == TeamHologram.class) {
+                Team trueTeam = team.getTrueTeam();
+                if (trueTeam != null) participants.set(i, trueTeam);
+                else output = false;
+            }
+        }
+        return output;
     }
 
     /**
@@ -104,6 +145,15 @@ public abstract class Match implements Serializable {
      winnerList.add((Team)teams[i]);
      }
      return winnerList;
+     }
+
+    /**
+     * Returns single Team that got n'th place in this match.
+     * @param n place to get.
+     * @return single n'th place Team.
+     */
+     public Team getWinner(int n) {
+         return getWinners(participants.size()).get(n);
      }
 
     /**
@@ -232,7 +282,7 @@ public abstract class Match implements Serializable {
         returnString[1] = "";
         if(!result.isEmpty()){ // If match has result
             Set<Team> keySet = result.keySet();
-            ArrayList<Team> participantsOrdered = new ArrayList<>(keySet.stream().collect(Collectors.toList()));
+            ArrayList<Team> participantsOrdered = new ArrayList<>(keySet);
             if(participantsOrdered.size() == 2){ // If two participant teams
                 returnString[0] = participantsOrdered.get(0).getName() + " vs "
                                 + participantsOrdered.get(1).getName();

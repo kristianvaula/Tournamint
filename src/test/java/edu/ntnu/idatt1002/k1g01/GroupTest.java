@@ -7,8 +7,8 @@ import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -170,4 +170,6 @@ public class GroupTest {
         assertEquals( teamPingas, group.getTopTeams(3).get(1));
         assertEquals( teamLuigi, group.getTopTeams(3).get(2));
     }
+
+    //TODO create test for Group.getStanding. Make sure teams are returned in correct order.
 }
