@@ -193,19 +193,24 @@ public class EnterMultiTeamResultsController implements Initializable {
         int i = 1;
         for(Team team : match.getParticipants()){
             Label teamName = new Label(team.getName());
-            TextField result = new TextField(match.getMatchResult().get(team));
-            if(tournament.getMatchType().equals("timeMatch")){
-                result.appendText(" (HH:MM:SS:NN)");
+            TextField result = new TextField();
+            if(match.getMatchResult() != null){
+                if(match.getMatchResult().get(team) != null){
+                    result.setText(match.getMatchResult().get(team));
+                }
             }
-
-
+            if(tournament.getMatchType().equals("timeMatch")){
+                result.setPromptText(" HH:MM:SS:NN ");
+            }
 
             HBox hbox = new HBox();
             hbox.setPrefHeight(30.0);
             teamName.setPrefHeight(30.0);
             teamName.setMinWidth((teamVBox.getPrefWidth()*60)/100);
             teamName.getStyleClass().add("label-multiTeam");
+
             teamName.setPadding(new Insets(5,0,5,10));
+
             result.setPrefHeight(30.0);
             result.setMinWidth((teamVBox.getPrefWidth()*40)/100);
             result.setId(team.getName());
