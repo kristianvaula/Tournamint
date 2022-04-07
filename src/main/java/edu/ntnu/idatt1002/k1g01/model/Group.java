@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 
 import edu.ntnu.idatt1002.k1g01.model.matches.*;
 
@@ -169,8 +170,57 @@ public class Group implements Serializable {
         this(matchType, new ArrayList<>(Arrays.asList(teams)));
     }
 
+    /**
+     * Returns a LinkedHasMap with n teams sorted from highest to lowest score, and current score.
+     * @param n number of teams to get.
+     * @return LinkedHashMap of Team, points.
+     */
+    public LinkedHashMap<Team, Integer> getStanding(int n) {
+        if (n > teams.size()) {
+            throw new IndexOutOfBoundsException("Requested top " + n + " teams from group with only " + teams.size() + " teams!");
+        }
+
+        //Get number of wins per team.
+        int[] points = new int[teams.size()];
+        for (Match match : matches) {
+            if (match.isFinished()) {
+                Team winner = match.getWinners(1).get(0);
+                points[teams.indexOf(winner)]++;
+            }
+        }
+
+        //Assemble output ArrayList.
+        LinkedHashMap<Team, Integer> output = new LinkedHashMap<>();
+        for (int i = 0; i < n; i++) {
+            int highScore = Integer.MIN_VALUE + 1;
+            int bestTeamIndex = 0;
+            for (int x = 0; x < points.length; x++) {
+                if (points[x] > highScore) {
+                    highScore = points[x];
+                    bestTeamIndex = x;
+                }
+            }
+            output.put(teams.get(bestTeamIndex), points[bestTeamIndex]);
+            points[bestTeamIndex] = Integer.MIN_VALUE;
+        }
+        return output;
+    }
+
+    /**
+     * Finds the n best performing teams in this group.
+     * WARNING! Only accounts for single best team in each match, as this class currently only handles 2 teams per match.
+     * TODO: Handle draws better! Currently awards group victory to team with lowest list index.
+     * @param n Number of teams to fetch.
+     * @return ArrayList of top teams in descending order. Null if some matches are not finished.
+     */
+    public ArrayList<Team> getTopTeams(int n) {
+        if (getTeamCount() < n) throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+getTeamCount()+" teams!");
+        for (Match match : matches) if (!match.isFinished()) return null;
+        return new ArrayList<>(getStanding(n).keySet()); //TODO check if order is always retained.
+    }
+
     //Dumb getters
-    public ArrayList<Team> getTeams() { return teams; }
+    public ArrayList<Team> getTeams() {return teams; }
     public ArrayList<Round> getRounds() { return rounds; }
     public ArrayList<Match> getMatches() { return matches; }
     public int getTeamCount() { return teams.size(); }
@@ -186,44 +236,6 @@ public class Group implements Serializable {
             if (! match.isFinished()) { return false; }
         }
         return true;
-    }
-
-    /**
-     * Finds the n best performing teams in this group.
-     * WARNING! Only accounts for single best team in each match, as this class currently only handles 2 teams per match.
-     * TODO: Handle draws better! Currently awards group victory to team with lowest list index.
-     * @param n Number of teams to fetch.
-     * @return ArrayList of top teams in descending order. Null if some matches are not finished.
-     * @throws ClassCastException if matchType string does not match any known types.
-     */
-    public ArrayList<Team> getTopTeams(int n) {
-        if (n > teams.size()) {
-            throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+teams.size()+" teams!");
-        }
-        //Get number of wins per team.
-        int[] points = new int[teams.size()];
-        for (Match match : matches) {
-            if (! match.isFinished()) {
-                return null;
-            }
-            Team winner = match.getWinners(1).get(0);
-            points[teams.indexOf(winner)]++;
-        }
-        //Assemble output ArrayList.
-        ArrayList<Team> output = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            int highScore = Integer.MIN_VALUE + 1;
-            int bestTeamIndex = 0;
-            for (int x = 0; x < points.length; x++) {
-                if (points[x] > highScore) {
-                    highScore = points[x];
-                    bestTeamIndex = x;
-                }
-            }
-            output.add(teams.get(bestTeamIndex));
-            points[bestTeamIndex] = Integer.MIN_VALUE;
-        }
-        return output;
     }
 }
 
