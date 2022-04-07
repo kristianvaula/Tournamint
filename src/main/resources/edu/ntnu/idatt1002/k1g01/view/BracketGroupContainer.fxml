@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="421.0" prefWidth="485.0"
+<VBox alignment="CENTER" prefHeight="421.0" prefWidth="485.0"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="BracketGroupContainer"

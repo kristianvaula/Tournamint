@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
 import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
+import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
@@ -33,8 +34,7 @@ public class DisplayModeController implements Initializable {
     //The tournament variables
     private Tournament tournament;
     private TournamentDAO tournamentDAO;
-    @FXML private HBox outerHbox;
-    @FXML private HBox groupStageHBox;
+
     private ArrayList<BracketRoundContainerController> roundControllers = new ArrayList<>();
     private ArrayList<BracketGroupContainerController> groupStageControllers = new ArrayList<>();
 
@@ -70,6 +70,7 @@ public class DisplayModeController implements Initializable {
     //Tab knockoutStage
     @FXML private Tab knockoutStageTab;
     @FXML private HBox outerHbox;
+    @FXML private HBox groupStageHBox;
     @FXML private Text tournamentNameOutput;
 
 
@@ -187,20 +188,36 @@ public class DisplayModeController implements Initializable {
      * Loads group stage tab
      */
     @FXML
-    public void loadGroupStageTab(){
-        System.out.println("GroupStage not implemented");
+    public void loadGroupStageTab()  {
+       if (tournament.hasGroupStage()) {
+           try {
+               setBracketGroupContainers();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+           int i = 0;
+           for (Group group : tournament.getGroupStage().getGroups()) {
+                   groupStageControllers.get(i%2).displayGroup(group);
+                   i++;
+           }
+       }
     }
+
+
+
 
     /**
      * Loads knockout stage tab
      */
     @FXML
     public void loadKnockOutStage(){
-        if (!(tournament.getKnockoutStage() == null && tournament.getKnockoutStage().getRounds().isEmpty())) {
-            try {
-                setBracketRoundContainers();
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (tournament.getKnockoutStage() != null){
+            if(!tournament.getKnockoutStage().getRounds().isEmpty()){
+                try {
+                    setBracketRoundContainers();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

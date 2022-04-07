@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -89,16 +90,16 @@
                                     </columns>
                                 </TableView>
                             </content>
-                        <Tab text="GroupStage">
+                        </Tab>
+                        <Tab fx:id="groupStageTab" text="GroupStage">
                          <content>
                             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                <children>
-                                  <ScrollPane hbarPolicy="NEVER" prefHeight="423.0" prefWidth="917.0">
+                                  <ScrollPane hbarPolicy="NEVER" prefHeight="405.0" prefWidth="917.0">
                                      <content>
-                                        <HBox prefHeight="421.0" prefWidth="920.0">
+                                        <HBox fx:id="groupStageHBox" alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="404.0" prefWidth="900.0">
                                            <children>
-
-                                              <!--> Will put in GroupContainers here <!-->
+                                               <!--> Will put in GroupContainers here <!-->
                                            </children>
                                         </HBox>
                                      </content>
@@ -107,19 +108,18 @@
                             </AnchorPane>
                          </content>
                         </Tab>
-                        <Tab fx:id="groupStageTab" text="GroupStage" />
                         <Tab fx:id="knockoutStageTab" text="KnockoutStage">
-                     <content>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <HBox fx:id="outerHbox" alignment="CENTER" prefHeight="403.0" prefWidth="918.0">
-                                 <children>
-                                 <!--> Will place BracketRoundContainers here <!-->
-                                 </children>
-                              </HBox>
-                           </children>
-                        </AnchorPane>
-                     </content>
+                         <content>
+                            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                               <children>
+                                  <HBox fx:id="outerHbox" alignment="CENTER" prefHeight="403.0" prefWidth="918.0">
+                                     <children>
+                                     <!--> Will place BracketRoundContainers here <!-->
+                                     </children>
+                                  </HBox>
+                               </children>
+                            </AnchorPane>
+                         </content>
                         </Tab>
                     </tabs>
                 </TabPane>
