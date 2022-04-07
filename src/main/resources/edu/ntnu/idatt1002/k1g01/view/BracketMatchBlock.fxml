@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox layoutX="10.0" layoutY="10.0" prefHeight="37.0" prefWidth="209.0"
-      xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="edu.ntnu.idatt1002.k1g01.controller.BracketMatchBlockController">
+<HBox layoutX="10.0" layoutY="10.0" prefHeight="37.0" prefWidth="209.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.BracketMatchBlockController">
     <children>
         <VBox prefHeight="50.0" prefWidth="189.0" style="-fx-background-color: grey;">
             <children>
@@ -59,7 +53,3 @@
         <Insets bottom="1.0" />
     </VBox.margin>
 </HBox>
-
-
-
-

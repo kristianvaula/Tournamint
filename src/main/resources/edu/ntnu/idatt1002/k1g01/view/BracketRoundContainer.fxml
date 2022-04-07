@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?><?import javafx.geometry.Insets?>
 
 
-<VBox alignment="CENTER" layoutX="20.0" layoutY="10.0" prefHeight="411.0" prefWidth="219.0" xmlns="http://javafx.com/javafx" fx:id="BracketRoundContainer"
+<VBox alignment="CENTER" layoutX="20.0" layoutY="10.0" prefHeight="400.0" prefWidth="219.0" xmlns="http://javafx.com/javafx" fx:id="BracketRoundContainer"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="edu.ntnu.idatt1002.k1g01.controller.BracketRoundContainerController">
     <children>
