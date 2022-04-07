@@ -89,16 +89,22 @@
                             </content>
                         </Tab>
                         <Tab text="GroupStage">
-                            <content>
-                                <TableView prefHeight="200.0" prefWidth="200.0">
-                                    <columns>
-                                        <TableColumn prefWidth="500.0" text="Teams" />
-                                        <TableColumn prefWidth="120.0" text="Date" />
-                                        <TableColumn prefWidth="120.0" text="Time" />
-                                        <TableColumn prefWidth="178.0" text="Place" />
-                                    </columns>
-                                </TableView>
-                            </content>
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane hbarPolicy="NEVER" prefHeight="423.0" prefWidth="917.0">
+                                 <content>
+                                    <HBox prefHeight="421.0" prefWidth="920.0">
+                                       <children>
+
+                                          <!--> Will put in GroupContainers here <!-->
+                                       </children>
+                                    </HBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
                         </Tab>
                         <Tab text="KnockoutStage">
                      <content>

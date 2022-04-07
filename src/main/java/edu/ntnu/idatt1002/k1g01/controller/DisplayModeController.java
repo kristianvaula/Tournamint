@@ -33,7 +33,9 @@ public class DisplayModeController implements Initializable {
     private Tournament tournament;
     private TournamentDAO tournamentDAO;
     @FXML private HBox outerHbox;
+    @FXML private HBox groupStageHBox;
     private ArrayList<BracketRoundContainerController> roundControllers = new ArrayList<>();
+    private ArrayList<BracketGroupContainerController> groupStageControllers = new ArrayList<>();
 
     @FXML
     private Text tournamentNameOutput;
@@ -105,6 +107,30 @@ public class DisplayModeController implements Initializable {
         BracketRoundContainerController controller = loader.getController();
         controller.setMatchesInRoundContainers(round);
         roundControllers.add(controller);
+    }
+
+    public void setBracketGroupContainers() throws IOException {
+        if (this.tournament.hasGroupStage()) {
+            int numberOfGroups = this.tournament.getGroupStage().getGroups().size();
+            addBracketGroupContainer();
+            if (numberOfGroups >= 2) {
+                addBracketGroupContainer();
+            }
+        }
+
+
+    }
+
+    /**
+     * method that adds a groupContainer to the Group stage tab
+     * @throws IOException
+     */
+    public void addBracketGroupContainer() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        VBox BracketGroupContainer = loader.load(Objects.requireNonNull(getClass().getResource("../view/BracketGroupContainer.fxml")).openStream());
+        groupStageHBox.getChildren().add(BracketGroupContainer);
+        BracketGroupContainerController controller = loader.getController();
+        groupStageControllers.add(controller);
     }
 
 
