@@ -217,7 +217,6 @@ public class Tournament implements Serializable {
              }
          }
          else knockoutStage.update();
-
     }
 
     /**

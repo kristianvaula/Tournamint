@@ -115,6 +115,7 @@ public class PointMatch extends Match{
             throw new NumberFormatException("Result not a number");
         }
         updateIsFinished();
+        updateMatchAsString(getParticipants(),getMatchResultOrdered());
     }
 
     /**

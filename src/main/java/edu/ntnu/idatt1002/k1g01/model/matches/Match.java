@@ -240,6 +240,7 @@ public abstract class Match implements Serializable {
      * @return String participants
      */
     public String getParticipantsAsString() {
+        updateMatchAsString();
         return participantsAsString;
     }
 
@@ -325,6 +326,13 @@ public abstract class Match implements Serializable {
         if(updatedString[1] != null) {
             this.resultAsString = updatedString[1];
         }
+    }
+
+    /**
+     * Updates the match as a string if any changes have been made.
+     */
+    public void updateMatchAsString() {
+        updateMatchAsString(participants, getMatchResult());
     }
 
     /**
