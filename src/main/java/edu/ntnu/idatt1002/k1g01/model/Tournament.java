@@ -74,7 +74,23 @@ public class Tournament implements Serializable {
         this.tournamentName = tournamentName;
         this.teams = teams;
         this.groupStage = new GroupStage(new ArrayList<>(teams),advancingPerGroup,teamsPerGroup,matchType);
+        this.knockoutStage = new KnockoutStage(getTeamHolograms(groupStage), teamsPerMatch, matchType);
         this.hasGroupStage = true;
+    }
+
+    /**
+     * Generates stand-in teams (holograms) based on a groupStage.
+     * @param groupStage A groupStage
+     * @return ArrayList of TeamHolograms.
+     * @author Martin Dammerud.
+     */
+    private ArrayList<Team> getTeamHolograms(GroupStage groupStage) {
+        ArrayList<Team> holoTeams = new ArrayList<>();
+        ArrayList<Group> groups = groupStage.getGroups();
+        for (Group group : groups) for (int w = 0; w < groupStage.getAdvancingFromGroup(); w++) {
+            holoTeams.add(new TeamHologram(group, w));
+        }
+        return holoTeams;
     }
 
     /**

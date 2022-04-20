@@ -134,6 +134,13 @@ public class GroupStage extends Stage {
     }
 
     /**
+     * @return Number of teams advancing from each group.
+     */
+    public int getAdvancingFromGroup() {
+        return advancingFromGroup;
+    }
+
+    /**
      * Checks if all groups in this groupStage are of size teamsPerGroup.
      * @return
      *      true: If all groups are of same full size
