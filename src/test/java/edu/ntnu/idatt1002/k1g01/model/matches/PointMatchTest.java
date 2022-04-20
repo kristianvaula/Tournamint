@@ -202,29 +202,28 @@ public class PointMatchTest {
     @DisplayName("Detects draws correctly with 2 teams")
     public void detectsDrawsWith2() {
         PointMatch match = new PointMatch(teamList);
-        assertTrue(match.containsDraw());
+        assertTrue(match.containsDraw(1));
         match.setResult(team1, "0");
-        assertTrue(match.containsDraw());
+        assertTrue(match.containsDraw(1));
         match.setResult(team2, "2");
-        assertFalse(match.containsDraw());
+        assertFalse(match.containsDraw(1));
         match.setResult(team1, "2");
-        assertTrue(match.containsDraw());
+        assertTrue(match.containsDraw(1));
     }
 
     @Test
     @DisplayName("Detects draws correctly with 3 teams")
     public void detectsDrawsWith3() {
         Match match = new PointMatch(extendedTeamList);
-        assertTrue(match.containsDraw());// 0, 0, 0
+        assertTrue(match.containsDraw(1));// 0, 0, 0
         match.setResult(team2, "2");
-        assertTrue(match.containsDraw());// 0, 2, 0
         match.setResult(team1, "2");
-        assertTrue(match.containsDraw());// 2, 2, 0
+        assertTrue(match.containsDraw(1));
         match.setResult(team3, "2");
-        assertTrue(match.containsDraw());// 2, 2, 2
+        assertTrue(match.containsDraw(1));// 2, 2, 2
         match.setResult(team1, "1");
         match.setResult(team2, "2");
         match.setResult(team3, "3");
-        assertFalse(match.containsDraw());// 1, 2, 3
+        assertFalse(match.containsDraw(1));// 1, 2, 3
     }
 }

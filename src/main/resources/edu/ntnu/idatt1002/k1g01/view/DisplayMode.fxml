@@ -1,59 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0"
-            xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.ntnu.idatt1002.k1g01.controller.DisplayModeController">
-    <BorderPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0"
-                prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css">
+<AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.DisplayModeController">
+    <BorderPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css">
         <top>
             <VBox prefHeight="78.0" prefWidth="960.0" BorderPane.alignment="CENTER">
-                <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml"/>
+                <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml" />
                 <HBox prefHeight="100.0" prefWidth="200.0">
-                    <Pane prefHeight="58.0" prefWidth="11.0"/>
-                    <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="88.0"
-                            style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
+                    <Pane prefHeight="58.0" prefWidth="11.0" />
+                    <Button mnemonicParsing="false" onAction="#displayPopUpMenu" prefHeight="58.0" prefWidth="88.0" style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
                         <graphic>
-                            <ImageView fitHeight="50.0" fitWidth="67.0" pickOnBounds="true"
-                                       preserveRatio="true">
-                                <Image url="@icons/menu.png"/>
+                            <ImageView fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@icons/menu.png" />
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Pane prefHeight="58.0" prefWidth="181.0"/>
-                    <Text fx:id="tournamentNameOutput" fill="#18205b" strokeType="OUTSIDE" strokeWidth="0.0"
-                          text="Tournament name" textAlignment="CENTER" wrappingWidth="387.61865234375">
+                    <Pane prefHeight="58.0" prefWidth="181.0" />
+                    <Text fx:id="tournamentNameOutput" fill="#18205b" strokeType="OUTSIDE" strokeWidth="0.0" text="Tournament name" textAlignment="CENTER" wrappingWidth="387.61865234375">
                         <font>
-                            <Font size="35.0"/>
+                            <Font size="35.0" />
                         </font>
                     </Text>
-                    <Pane layoutX="90.0" layoutY="10.0" prefHeight="58.0" prefWidth="26.0"/>
+                    <Pane layoutX="90.0" layoutY="10.0" prefHeight="58.0" prefWidth="26.0" />
                     <StackPane prefHeight="58.0" prefWidth="159.0">
-                        <Button mnemonicParsing="false" onAction="#autoDisplaySwitch" prefHeight="33.0"
-                                prefWidth="98.0" text="Auto"/>
+                        <Button mnemonicParsing="false" onAction="#autoDisplaySwitch" prefHeight="33.0" prefWidth="98.0" text="Auto" />
                     </StackPane>
                     <StackPane fx:id="time" prefHeight="58.0" prefWidth="84.0">
-                        <TextField fx:id="clock" alignment="CENTER" prefHeight="31.0" prefWidth="91.0"
-                                   text="10:09:35">
+                        <TextField fx:id="clock" alignment="CENTER" prefHeight="31.0" prefWidth="91.0" text="10:09:35">
                             <font>
-                                <Font size="15.0"/>
+                                <Font size="15.0" />
                             </font>
                         </TextField>
                     </StackPane>
@@ -61,33 +41,36 @@
             </VBox>
         </top>
         <center>
-            <TabPane fx:id="displayTabPane" maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0"
-                     prefHeight="435.0" prefWidth="934.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <TabPane fx:id="displayTabPane" maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="435.0" prefWidth="934.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                 <Tab fx:id="upcomingMatchesTab" text="Upcoming Matches">
                     <TableView fx:id="upcomingMatchesTable" prefHeight="441.0" prefWidth="934.0">
                         <columns>
-                            <TableColumn fx:id="upcomTeamsColumn" prefWidth="310.0" text="Teams"/>
-                            <TableColumn fx:id="upcomResultColumn" minWidth="0.0" prefWidth="221.0" text="Result"/>
-                            <TableColumn fx:id="upcomDateColumn" minWidth="0.0" prefWidth="125.0" text="Date"/>
-                            <TableColumn fx:id="upcomTimeColumn" minWidth="0.0" prefWidth="125.0" text="Time"/>
-                            <TableColumn fx:id="upcomInfoColumn" minWidth="0.0" prefWidth="136.79998779296875" text="Info"/>
+                            <TableColumn fx:id="upcomTeamsColumn" prefWidth="310.0" text="Teams" />
+                            <TableColumn fx:id="upcomResultColumn" minWidth="0.0" prefWidth="221.0" text="Result" />
+                            <TableColumn fx:id="upcomDateColumn" minWidth="0.0" prefWidth="125.0" text="Date" />
+                            <TableColumn fx:id="upcomTimeColumn" minWidth="0.0" prefWidth="125.0" text="Time" />
+                            <TableColumn fx:id="upcomInfoColumn" minWidth="0.0" prefWidth="136.79998779296875" text="Info" />
                         </columns>
                     </TableView>
                 </Tab>
                 <Tab fx:id="previousMatchesTab" text="Previous Matches">
                     <TableView fx:id="previousMatchesTable" prefHeight="441.0" prefWidth="934.0">
                         <columns>
-                            <TableColumn fx:id="prevTeamsColumn" prefWidth="310.0" text="Teams"/>
-                            <TableColumn fx:id="prevResultColumn" minWidth="0.0" prefWidth="221.0"
-                                         text="Result "/>
-                            <TableColumn fx:id="prevDateColumn" minWidth="0.0" prefWidth="125.0" text="Date"/>
-                            <TableColumn fx:id="prevTimeColumn" minWidth="0.0" prefWidth="125.0" text="Time"/>
-                            <TableColumn fx:id="prevInfoColumn" minWidth="0.0" prefWidth="136.79998779296875"
-                                         text="Info"/>
+                            <TableColumn fx:id="prevTeamsColumn" prefWidth="310.0" text="Teams" />
+                            <TableColumn fx:id="prevResultColumn" minWidth="0.0" prefWidth="221.0" text="Result " />
+                            <TableColumn fx:id="prevDateColumn" minWidth="0.0" prefWidth="125.0" text="Date" />
+                            <TableColumn fx:id="prevTimeColumn" minWidth="0.0" prefWidth="125.0" text="Time" />
+                            <TableColumn fx:id="prevInfoColumn" minWidth="0.0" prefWidth="136.79998779296875" text="Info" />
                         </columns>
                     </TableView>
                 </Tab>
-                <Tab fx:id="groupStageTab" text="GroupStage"/>
+                <Tab fx:id="groupStageTab" text="GroupStage">
+                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <HBox fx:id="groupStageHBox" alignment="CENTER" prefHeight="403.0" prefWidth="918.0">
+                            <!--> Will place BracketRoundContainers here <!-->
+                        </HBox>
+                    </AnchorPane>
+                </Tab>
                 <Tab fx:id="knockoutStageTab" text="KnockoutStage">
                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                         <HBox fx:id="outerHbox" alignment="CENTER" prefHeight="403.0" prefWidth="918.0">
@@ -98,4 +81,10 @@
             </TabPane>
         </center>
     </BorderPane>
+   <StackPane fx:id="menuStackPane" prefHeight="540.0" prefWidth="960.0">
+       <fx:include fx:id="popUpMenu" source="Menu.fxml" />
+       <StackPane.margin>
+           <Insets bottom="100.0" left="200.0" right="200.0" top="100.0" />
+       </StackPane.margin>
+   </StackPane>
 </AnchorPane>

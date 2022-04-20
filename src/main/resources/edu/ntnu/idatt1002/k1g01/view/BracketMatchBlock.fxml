@@ -10,7 +10,7 @@
     <children>
         <VBox prefHeight="50.0" prefWidth="189.0" style="-fx-background-color: grey;">
             <children>
-                <Label fx:id="Team1" text="Team 5">
+                <Label fx:id="Team1">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -30,7 +30,7 @@
         </VBox>
         <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="36.0" style="-fx-background-color: grey;">
             <children>
-                <Label fx:id="PointsTeam1" alignment="CENTER" text="3">
+                <Label fx:id="PointsTeam1" alignment="CENTER" text="-">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -38,7 +38,7 @@
                         <Insets left="5.0" top="3.0" />
                     </VBox.margin>
                 </Label>
-                <Label fx:id="PointsTeam2" text="0">
+                <Label fx:id="PointsTeam2" alignment="CENTER" text="-">
                     <font>
                         <Font size="18.0" />
                     </font>

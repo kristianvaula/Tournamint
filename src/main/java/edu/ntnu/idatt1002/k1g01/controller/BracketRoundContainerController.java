@@ -47,7 +47,9 @@ public class BracketRoundContainerController implements Initializable {
             if(spacing<0)BracketRoundContainer.setMargin(matchBlock,new Insets(0,5,0,0));
             else BracketRoundContainer.setMargin(matchBlock,new Insets(margin,5,margin,0));
             BracketMatchBlockController controller = loader.getController();
+            controller.setMatchInfo(match);
             matchControllers.add(controller);
         }
     }
+
 }

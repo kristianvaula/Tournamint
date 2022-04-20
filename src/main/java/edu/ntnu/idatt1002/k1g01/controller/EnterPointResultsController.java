@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -114,6 +115,7 @@ public class EnterPointResultsController implements Initializable {
             Parent enterResults = loader.load();
 
             Scene enterResultsScene = new Scene(enterResults);
+            enterResultsScene.setUserData(loader);
 
             AdministrateTournamentController controller = loader.getController();
             controller.initData(tournamentDAO);
@@ -157,7 +159,7 @@ public class EnterPointResultsController implements Initializable {
     public void decrementTeam1PointByOne() {
         String result = resultInputField1.getText();
         int value = Integer.parseInt(result);
-        value--;
+        if(value > 0) value--;
         resultInputField1.setText(String.valueOf(value));
     }
 
@@ -168,7 +170,7 @@ public class EnterPointResultsController implements Initializable {
     public void decrementTeam2PointByOne() {
         String result = resultInputField2.getText();
         int value = Integer.parseInt(result);
-        value--;
+        if(value > 0) value--;
         resultInputField2.setText(String.valueOf(value));
     }
 
@@ -190,23 +192,31 @@ public class EnterPointResultsController implements Initializable {
      */
     @FXML
     public void confirmResultsAndGoBack(ActionEvent event) throws IOException,NoSuchFieldException{
-        match.setResult(match.getParticipants().get(0),String.valueOf(resultInputField1.getText()));
-        match.setResult(match.getParticipants().get(1),String.valueOf(resultInputField2.getText()));
-        //System.out.println("result one: " + String.valueOf(resultInputField1));
-        //System.out.println("result two: " + String.valueOf(resultInputField2));
-
-        match.setMatchDate(dateField.getValue());
-        match.setMatchInfo(infoField.getText());
         try{
-            if(!(timeField.getText().isEmpty() || timeField.getText().isBlank())) {
-                match.setStartTime(LocalTime.parse((CharSequence) timeField.getText()));
-            }
-        }catch (DateTimeParseException e){
-            System.out.println(e.getMessage());
-        }
-        tournament.updateTournament();
-        tournamentDAO.save(); //Save changes to tournament.
+            match.setResult(match.getParticipants().get(0),String.valueOf(resultInputField1.getText()));
+            match.setResult(match.getParticipants().get(1),String.valueOf(resultInputField2.getText()));
+            //System.out.println("result one: " + String.valueOf(resultInputField1));
+            //System.out.println("result two: " + String.valueOf(resultInputField2));
 
-        returnToAdministrateTournament(event);
+            match.setMatchDate(dateField.getValue());
+            match.setMatchInfo(infoField.getText());
+            try{
+                if(!(timeField.getText().isEmpty() || timeField.getText().isBlank())) {
+                    match.setStartTime(LocalTime.parse((CharSequence) timeField.getText()));
+                }
+            }catch (DateTimeParseException e){
+                System.out.println(e.getMessage());
+            }
+            tournament.updateTournament();
+            tournamentDAO.save(); //Save changes to tournament.
+
+            returnToAdministrateTournament(event);
+        }
+        catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 }

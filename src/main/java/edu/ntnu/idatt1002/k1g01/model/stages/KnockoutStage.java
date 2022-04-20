@@ -175,7 +175,7 @@ public class KnockoutStage extends Stage {
             } else{
                 Match match = new PointMatch(participants);
                 match.setMatchInfo(round.getRoundName());
-                round.addMatch(new PointMatch(participants));
+                round.addMatch(match);
             }
         }
     }

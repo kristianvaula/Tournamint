@@ -162,7 +162,7 @@ public class Group implements Serializable {
     }
 
     /**
-     * Returns a LinkedHasMap with n teams sorted from highest to lowest score, and their current score.
+     * Returns a LinkedHasMap with n teams sorted from highest to lowest score, and current score.
      * @param n number of teams to get.
      * @return LinkedHashMap of Team, points.
      */
@@ -171,23 +171,23 @@ public class Group implements Serializable {
             throw new IndexOutOfBoundsException("Requested top " + n + " teams from group with only " + teams.size() + " teams!");
         }
 
-        //Get number of group points per team.
+        //Get number of wins per team.
         int[] points = new int[teams.size()];
         for (Match match : matches) {
             if (match.isFinished()) {
-                if (match.containsDraw()) {
+                if (match.containsDraw(1)) {
                     for (Team team : match.getParticipants()) {
                         points[teams.indexOf(team)]++;
                     }
                 }
                 else {
                     Team winner = match.getWinner(0);
-                    points[teams.indexOf(winner)] += 2;// 2 points for a win.
+                    points[teams.indexOf(winner)] += 3;// 3 points for a win.
                 }
             }
         }
 
-        //Assemble output LinkedHashmap.
+        //Assemble output ArrayList.
         LinkedHashMap<Team, Integer> output = new LinkedHashMap<>();
         for (int i = 0; i < n; i++) {
             int highScore = Integer.MIN_VALUE + 1;
@@ -205,7 +205,7 @@ public class Group implements Serializable {
     }
 
     /**
-     * Returns a LinkedHasMap of all teams sorted from highest to lowest score, and their current score.
+     * Returns a LinkedHasMap with n teams sorted from highest to lowest score, and current score.
      * @return LinkedHashMap of Team, points.
      */
     public LinkedHashMap<Team, Integer> getStanding() {
@@ -222,7 +222,7 @@ public class Group implements Serializable {
     public ArrayList<Team> getTopTeams(int n) {
         if (size() < n) throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+ size()+" teams!");
         for (Match match : matches) if (!match.isFinished()) return null;
-        return new ArrayList<>(getStanding(n).keySet());
+        return new ArrayList<>(getStanding(n).keySet()); //TODO check if order is always retained.
     }
 
     /**
@@ -236,11 +236,8 @@ public class Group implements Serializable {
 
     //Dumb getters
     public ArrayList<Team> getTeams() {return teams; }
-    public Team getTeam(int i) { return teams.get(i); }
     public ArrayList<Round> getRounds() { return rounds; }
-    public Round getRound(int i) { return rounds.get(i); }
     public ArrayList<Match> getMatches() { return matches; }
-    public Match getMatch(int i) { return matches.get(i); }
     public int size() { return teams.size(); }
     public int getRoundCount() { return rounds.size(); }
     public int getMatchCount() { return matches.size(); }
