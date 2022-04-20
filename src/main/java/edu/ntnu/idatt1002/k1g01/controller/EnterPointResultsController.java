@@ -137,7 +137,7 @@ public class EnterPointResultsController implements Initializable {
     public void incrementTeam1PointByOne() {
         String result = resultInputField1.getText();
         int value = Integer.parseInt(result);
-        if(value > 0) value++;
+        value++;
         resultInputField1.setText(String.valueOf(value));
     }
 
