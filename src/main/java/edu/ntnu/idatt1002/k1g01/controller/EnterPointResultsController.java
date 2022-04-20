@@ -136,7 +136,7 @@ public class EnterPointResultsController implements Initializable {
     public void incrementTeam1PointByOne() {
         String result = resultInputField1.getText();
         int value = Integer.parseInt(result);
-        value++;
+        if(value > 0) value++;
         resultInputField1.setText(String.valueOf(value));
     }
 
@@ -158,7 +158,7 @@ public class EnterPointResultsController implements Initializable {
     public void decrementTeam1PointByOne() {
         String result = resultInputField1.getText();
         int value = Integer.parseInt(result);
-        value--;
+        if(value > 0) value--;
         resultInputField1.setText(String.valueOf(value));
     }
 
@@ -169,7 +169,7 @@ public class EnterPointResultsController implements Initializable {
     public void decrementTeam2PointByOne() {
         String result = resultInputField2.getText();
         int value = Integer.parseInt(result);
-        value--;
+        if(value > 0) value--;
         resultInputField2.setText(String.valueOf(value));
     }
 

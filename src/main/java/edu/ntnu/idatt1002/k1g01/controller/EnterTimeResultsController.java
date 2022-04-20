@@ -159,14 +159,14 @@ public class EnterTimeResultsController implements Initializable {
             if(buttonID.contains("team1")){
                 if(decrement && Integer.parseInt(team1Hours.getText()) > 0){
                     team1Hours.setText(String.valueOf(Integer.parseInt(team1Hours.getText()) - 1));
-                }else {
+                }else if(!decrement) {
                     team1Hours.setText(String.valueOf(Integer.parseInt(team1Hours.getText()) + 1));
                 }
 
             }else{
                 if(decrement && Integer.parseInt(team2Hours.getText()) > 0){
                     team2Hours.setText(String.valueOf(Integer.parseInt(team2Hours.getText()) - 1));
-                }else {
+                }else if(!decrement) {
                     team2Hours.setText(String.valueOf(Integer.parseInt(team2Hours.getText()) + 1));
                 }
             }
@@ -175,14 +175,14 @@ public class EnterTimeResultsController implements Initializable {
             if (buttonID.contains("team1")){
                 if (decrement && Integer.parseInt(team1Min.getText()) > 0) {
                     team1Min.setText(String.valueOf(Integer.parseInt(team1Min.getText()) - 1));
-                } else {
+                } else if(!decrement){
                     team1Min.setText(String.valueOf(Integer.parseInt(team1Min.getText()) + 1));
                 }
 
             } else {
                 if (decrement && Integer.parseInt(team2Min.getText()) > 0) {
                     team2Min.setText(String.valueOf(Integer.parseInt(team2Min.getText()) - 1));
-                } else {
+                } else if(!decrement){
                     team2Min.setText(String.valueOf(Integer.parseInt(team2Min.getText()) + 1));
                 }
             }
@@ -207,14 +207,14 @@ public class EnterTimeResultsController implements Initializable {
             if (buttonID.contains("team1")) {
                 if (decrement && Integer.parseInt(team1Nano.getText()) > 0) {
                     team1Nano.setText(String.valueOf(Integer.parseInt(team1Nano.getText()) - 1));
-                } else if(!decrement){
+                } else if(!decrement) {
                     team1Nano.setText(String.valueOf(Integer.parseInt(team1Nano.getText()) + 1));
                 }
 
             } else {
                 if (decrement && Integer.parseInt(team2Nano.getText()) > 0) {
                     team2Nano.setText(String.valueOf(Integer.parseInt(team2Nano.getText()) - 1));
-                }else if(!decrement){
+                }else if(!decrement ){
                     team2Nano.setText(String.valueOf(Integer.parseInt(team2Nano.getText()) + 1));
                 }
             }
