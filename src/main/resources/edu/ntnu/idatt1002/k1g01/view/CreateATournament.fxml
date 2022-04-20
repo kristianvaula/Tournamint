@@ -5,7 +5,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style=" -fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.CreateATournamentController">
+<?import javafx.geometry.Insets?>
+<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style=" -fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.CreateATournamentController">
     <children>
         <BorderPane prefHeight="540.0" prefWidth="960.0" stylesheets="@style.css">
             <top>
@@ -15,7 +16,7 @@
                   <Pane prefHeight="26.0" prefWidth="960.0" />
                   <HBox prefHeight="78.0" prefWidth="960.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="88.0" style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
+                        <Button mnemonicParsing="false" onAction="#displayPopUpMenu" prefHeight="58.0" prefWidth="88.0" style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -120,5 +121,11 @@
             </HBox>
          </center>
         </BorderPane>
+       <StackPane fx:id="menuStackPane" prefHeight="540.0" prefWidth="960.0">
+          <fx:include fx:id="popUpMenu" source="Menu.fxml" />
+          <StackPane.margin>
+             <Insets bottom="100.0" left="200.0" right="200.0" top="100.0" />
+          </StackPane.margin>
+       </StackPane>
     </children>
 </AnchorPane>

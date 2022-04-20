@@ -16,6 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,8 +33,10 @@ import java.util.ResourceBundle;
  */
 public class CreateATournamentController implements Initializable {
 
-    //The nested controller for the menuBar
+    //The nested controller for the menuBar and pop-up menu
     @FXML private TopMenuBarController topMenuBarController;
+    @FXML private MenuController popUpMenuController;
+
     //The tournament
     private Tournament tournament;
     //The tournament DAO for that will connect it to its corresponding file.
@@ -57,6 +61,9 @@ public class CreateATournamentController implements Initializable {
     @FXML private TableColumn<Team,String> teamNameColumn;
     @FXML private Label addTeamErrorOutput;
 
+    //Pop-up menu
+    @FXML private StackPane menuStackPane;
+    @FXML private Node menuVBox;
 
     /**
      * Changes the scene to CreateATournamentWindow
@@ -84,6 +91,10 @@ public class CreateATournamentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Pop-up menu
+        menuStackPane.setDisable(true);
+        menuStackPane.setVisible(false);
+
         //Adding tournamentTypes values to choicebox
         tournamentTypeInput.getItems().add("Knockout Stage");
         tournamentTypeInput.getItems().add("Group Stage + Knockout Stage");
@@ -160,7 +171,6 @@ public class CreateATournamentController implements Initializable {
     @FXML
     public void changeSceneToAdministrateTournament(ActionEvent event)throws IOException{
         try {
-
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/AdministrateTournament.fxml"));
             Parent administrateParent = loader.load();
@@ -339,5 +349,21 @@ public class CreateATournamentController implements Initializable {
                 teamsAdvancingFromGroupInput.setDisable(false);
                 break;
         }
+    }
+    /**
+     * Displays the pop up menu
+     */
+    @FXML
+    public void displayPopUpMenu(){
+        menuStackPane.setDisable(false);
+        menuStackPane.setVisible(true);
+    }
+
+    /**
+     * Disables irrelevant buttons
+     */
+    @FXML
+    public void disableMenuButtons(){
+        popUpMenuController.disableDisplayAndAdministrate();
     }
 }

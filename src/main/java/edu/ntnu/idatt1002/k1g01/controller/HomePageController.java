@@ -28,12 +28,20 @@ public class HomePageController implements Initializable {
     @FXML
     public void changeScreenToCreateTournament(ActionEvent event)throws IOException {
         try {
-            Parent createTournament = FXMLLoader.load(getClass().getResource("../view/CreateATournament.fxml"));
-            Scene createTournamentScene = new Scene(createTournament);
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/CreateATournament.fxml"));
+            //Load file.
+            Parent sceneParent = loader.load();
+            Scene scene = new Scene(sceneParent);
+            scene.setUserData(loader);
+
+            //Initiate new scene controller with loaded DAO as data.
+            CreateATournamentController controller = loader.getController();
+            controller.disableMenuButtons();
 
             //This line gets the Stage information
             Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            window.setScene(createTournamentScene);
+            window.setScene(scene);
             window.show();
 
         } catch (IOException e) {

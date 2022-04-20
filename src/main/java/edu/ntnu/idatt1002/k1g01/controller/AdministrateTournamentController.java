@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -36,8 +37,9 @@ import java.util.ResourceBundle;
  */
 public class AdministrateTournamentController implements Initializable {
 
-    //The nested controller for the menuBar
+    //The nested controller for the menuBar and pop-up menu
     @FXML private TopMenuBarController topMenuBarController;
+    @FXML private MenuController popUpMenuController;
 
     //The tournament variables
     private Tournament tournament;
@@ -58,8 +60,14 @@ public class AdministrateTournamentController implements Initializable {
 
     @FXML MenuBar topMenuBar;
 
+    //Pop-up menu
+    @FXML private StackPane menuStackPane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
+        //Pop-up menu
+        menuStackPane.setDisable(true);
+        menuStackPane.setVisible(false);
 
         // Clock
         clock.setEditable(false);
@@ -99,6 +107,7 @@ public class AdministrateTournamentController implements Initializable {
     public void initData(TournamentDAO tournamentDAO){
         this.tournamentDAO = tournamentDAO;
         topMenuBarController.setTournamentDAO(tournamentDAO); //Pass DAO pointer to nested controller.
+        popUpMenuController.setTournamentDAO(tournamentDAO);
         try {
             this.tournament = tournamentDAO.load();
         }
@@ -236,6 +245,7 @@ public class AdministrateTournamentController implements Initializable {
 
             Parent administrateParent = loader.load();
             Scene administrateScene = new Scene(administrateParent);
+            System.out.println("Setting user data");
 
             //Access the controller and call a method
             if(tournament.getTeamsPerMatch() > 2){
@@ -289,5 +299,15 @@ public class AdministrateTournamentController implements Initializable {
             }
         });
         thread.start();
+    }
+
+    /**
+     * Displays the pop up menu
+     */
+    @FXML
+    public void displayPopUpMenu(){
+
+        menuStackPane.setDisable(false);
+        menuStackPane.setVisible(true);
     }
 }

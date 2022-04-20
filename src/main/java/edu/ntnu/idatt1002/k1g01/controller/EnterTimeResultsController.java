@@ -131,6 +131,7 @@ public class EnterTimeResultsController implements Initializable {
             Parent enterResults = loader.load();
 
             Scene enterResultsScene = new Scene(enterResults);
+            enterResultsScene.setUserData(loader);
 
             AdministrateTournamentController controller = loader.getController();
             controller.initData(tournamentDAO);
