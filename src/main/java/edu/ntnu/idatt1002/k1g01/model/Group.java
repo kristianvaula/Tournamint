@@ -146,16 +146,7 @@ public class Group implements Serializable {
                 }
             }
             rounds.add(new Round(matchesInRound, "groupRound_" + groupRound));
-
-            // Set to true to print bug hunting text.
-            if (false) {
-                System.out.print("round: " + groupRound + ", matchCount: [ ");
-                for (int i : matchCountPerTeam) { System.out.print(i + " "); }
-                System.out.println("]");
-                groupRound++;
-            }
         }
-
     }
 
     /**
@@ -207,6 +198,14 @@ public class Group implements Serializable {
     }
 
     /**
+     * Returns a LinkedHasMap with n teams sorted from highest to lowest score, and current score.
+     * @return LinkedHashMap of Team, points.
+     */
+    public LinkedHashMap<Team, Integer> getStanding() {
+        return getStanding(getTeamCount());
+    }
+
+    /**
      * Finds the n best performing teams in this group.
      * WARNING! Only accounts for single best team in each match, as this class currently only handles 2 teams per match.
      * TODO: Handle draws better! Currently awards group victory to team with lowest list index.
@@ -217,6 +216,15 @@ public class Group implements Serializable {
         if (getTeamCount() < n) throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+getTeamCount()+" teams!");
         for (Match match : matches) if (!match.isFinished()) return null;
         return new ArrayList<>(getStanding(n).keySet()); //TODO check if order is always retained.
+    }
+
+    /**
+     * Returns single Team that got n'th place in this group.
+     * @param n place to get.
+     * @return single n'th place Team.
+     */
+    public Team getWinner(int n) {
+        return getTopTeams(teams.size()).get(n);
     }
 
     //Dumb getters

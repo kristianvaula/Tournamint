@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
 import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
+import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
@@ -34,7 +35,9 @@ public class DisplayModeController implements Initializable {
     //The tournament variables
     private Tournament tournament;
     private TournamentDAO tournamentDAO;
+
     private ArrayList<BracketRoundContainerController> roundControllers = new ArrayList<>();
+    private ArrayList<BracketGroupContainerController> groupStageControllers = new ArrayList<>();
 
     private final static String DLM = File.separator;
     private final static int AUTO_DISPLAY_TIMER = 5;
@@ -74,6 +77,7 @@ public class DisplayModeController implements Initializable {
     //Tab knockoutStage
     @FXML private Tab knockoutStageTab;
     @FXML private HBox outerHbox;
+    @FXML private HBox groupStageHBox;
     @FXML private Text tournamentNameOutput;
 
 
@@ -82,6 +86,7 @@ public class DisplayModeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("displayMode initialize start");
         System.out.println("    tournament ptr = " + tournament);
+
         //Preparing match table
         upcomTeamsColumn.setCellValueFactory(new PropertyValueFactory<>("participantsAsString"));
         upcomResultColumn.setCellValueFactory(new PropertyValueFactory<>("resultAsString"));
@@ -119,7 +124,6 @@ public class DisplayModeController implements Initializable {
             //TODO handle exception if loading somehow fails. Should not be possible at this point.
         }
         tournamentNameOutput.setText(tournament.getTournamentName());
-        clock.setText(new SimpleDateFormat("hh:mm:ss").format(new Date()));
 
         displayTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
@@ -218,8 +222,19 @@ public class DisplayModeController implements Initializable {
      * Loads group stage tab
      */
     @FXML
-    public void loadGroupStageTab(){
-        System.out.println("GroupStage not implemented");
+    public void loadGroupStageTab()  {
+       if (tournament.hasGroupStage()) {
+           try {
+               setBracketGroupContainers();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+           int i = 0;
+           for (Group group : tournament.getGroupStage().getGroups()) {
+                   groupStageControllers.get(i%2).displayGroup(group);
+                   i++;
+           }
+       }
     }
 
     /**
@@ -227,11 +242,13 @@ public class DisplayModeController implements Initializable {
      */
     @FXML
     public void loadKnockOutStage(){
-        if (!(tournament.getKnockoutStage() == null && tournament.getKnockoutStage().getRounds().isEmpty())) {
-            try {
-                setBracketRoundContainers();
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (tournament.getKnockoutStage() != null){
+            if(!tournament.getKnockoutStage().getRounds().isEmpty()){
+                try {
+                    setBracketRoundContainers();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -242,7 +259,7 @@ public class DisplayModeController implements Initializable {
      * @throws IOException
      */
     public void setBracketRoundContainers() throws IOException {
-        int numberOfRounds = this.tournament.getKnockoutStage().getRounds().size();
+       int numberOfRounds = this.tournament.getKnockoutStage().getRounds().size();
         if (numberOfRounds == 0) throw new IllegalArgumentException("       Number of rounds in knockout stage is zero");
         else if (numberOfRounds > 4) {
             for (int i = numberOfRounds - 4; i < numberOfRounds; i++) {
@@ -266,6 +283,30 @@ public class DisplayModeController implements Initializable {
         BracketRoundContainerController controller = loader.getController();
         controller.setMatchesInRoundContainers(round);
         roundControllers.add(controller);
+    }
+
+    public void setBracketGroupContainers() throws IOException {
+        if (this.tournament.hasGroupStage()) {
+            int numberOfGroups = this.tournament.getGroupStage().getGroups().size();
+            addBracketGroupContainer();
+            if (numberOfGroups >= 2) {
+                addBracketGroupContainer();
+            }
+        }
+
+
+    }
+
+    /**
+     * method that adds a groupContainer to the Group stage tab
+     * @throws IOException
+     */
+    public void addBracketGroupContainer() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        VBox BracketGroupContainer = loader.load(Objects.requireNonNull(getClass().getResource("../view/BracketGroupContainer.fxml")).openStream());
+        groupStageHBox.getChildren().add(BracketGroupContainer);
+        BracketGroupContainerController controller = loader.getController();
+        groupStageControllers.add(controller);
     }
 
     /**

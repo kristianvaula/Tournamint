@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.model.matches;
 
+import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 
 import java.time.LocalTime;
@@ -30,6 +31,32 @@ public class TimeMatch extends Match{
      */
     public TimeMatch(ArrayList<Team> participants) {
         super(participants);
+    }
+
+    /**
+     * Preemptively creates match from other matches.
+     * This match will eventually get its teams from the winners of these input matches.
+     * @param previousMatches Match[] that will feed their winners to this match.
+     * @implNote
+     *          compiler doesn't like overloading with signature difference inside generic class.
+     *          Therefore, raw array instead of ArrayList<?>
+     * @author Martin Dammerud
+     */
+    public TimeMatch(int i, Match[] previousMatches) {
+        super(i, previousMatches);
+    }
+
+    /**
+     * Preemptively creates match from Groups.
+     * This match will eventually get its teams from the winners of these input matches.
+     * @param previousGroups Group[] that will feed their winners to this match.
+     * @implNote
+     *      compiler doesn't like overloading with signature difference inside generic class.
+     *      Therefore, raw array instead of ArrayList<?>
+     * @author Martin Dammerud
+     */
+    public TimeMatch(int i, Group[] previousGroups) {
+        super(i, previousGroups);
     }
 
     /**
@@ -88,15 +115,16 @@ public class TimeMatch extends Match{
      *
      * @param team Team we add results for
      * @param value
+     * @throws ClassCastException if match still contains TeamHolograms.
      */
     @Override
     public void setResult(Team team, String value) throws DateTimeParseException{
-        try{
-            LocalTime result = this.timeResultParser(value);
-            timeResult.put(team,result);
-        }catch(DateTimeParseException e){
-            throw e;
-        }
+        if (!playable()) throw new ClassCastException("Match needs winners from unfinished matches");
+
+        //used to be inside a try block that did nothing.
+        LocalTime result = this.timeResultParser(value);
+        timeResult.put(team,result);
+
         updateIsFinished();
         updateMatchAsString(getParticipants(),getMatchResultOrdered());
     }
@@ -113,6 +141,7 @@ public class TimeMatch extends Match{
         for(Team team : getParticipants()){
             if(!timeResult.containsKey(team)){
                 hasResult = false;
+                break;
             }
         }
         setFinished(hasResult);
@@ -138,10 +167,9 @@ public class TimeMatch extends Match{
         int minutes = Integer.parseInt(inputTable[1]);
         int seconds = Integer.parseInt(inputTable[2]);
         int milliseconds = Integer.parseInt(inputTable[3]) * 100;
-        try {
-            return LocalTime.of(hours,minutes,seconds,milliseconds);
-        }catch(DateTimeParseException e){
-            throw e;
-        }
+
+        //Used to be inside a try block that did nothing.
+        return LocalTime.of(hours,minutes,seconds,milliseconds);
+
     }
 }

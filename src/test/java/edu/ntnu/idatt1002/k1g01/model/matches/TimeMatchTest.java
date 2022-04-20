@@ -151,7 +151,52 @@ public class TimeMatchTest {
         testMatch2.setResult(team2,TWO_MINUTES);
         boolean after = testMatch2.isFinished();
 
-        assertTrue(before == false && after == true);
+        assertTrue(!before && after);
 
+    }
+
+    @Test
+    @DisplayName("Test match with TeamHolograms")
+    public void worksWithHolograms() {
+        String win = "0:1:0:0";
+        String lose = "0:2:0:0";
+
+        //Prepare teams and matches.
+        ArrayList<Team> teamsA = new ArrayList<>();
+        Team mario = new Team("mario"); teamsA.add(mario);
+        Team luigi = new Team("luigi"); teamsA.add(luigi);
+        ArrayList<Team> teamsB = new ArrayList<>();
+        Team pingas = new Team("pingas"); teamsB.add(pingas);
+        Team billy = new Team ("billy"); teamsB.add(billy);
+        Match[] matches = new Match[2];
+        matches[0] = new TimeMatch(teamsA);
+        matches[1] = new TimeMatch(teamsB);
+        Match matchC = new TimeMatch(1, matches);
+
+        //Make sure matchC full of holograms can't have results set when no sub-matches are finished.
+        assertThrows(ClassCastException.class, () -> {
+            matchC.setResult(matchC.getParticipants().get(0), win);
+        });
+
+        //Play some contained matches.
+        matches[0].setResult(mario, win);
+        matches[0].setResult(luigi, lose);
+        matches[1].setResult(pingas, win);
+
+        //Make sure matchC full of holograms can't have results set when one sub-match is not finished.
+        assertThrows(ClassCastException.class, () -> {
+            matchC.setResult(matchC.getParticipants().get(0), win);
+        });
+
+        //Play last contained match.
+        matches[1].setResult(billy, lose);
+
+        //Make sure matchC can be set now that all sub-matches are finished.
+        matchC.setResult(mario, lose);
+        matchC.setResult(pingas, win);
+
+        //Make sure Correct winner can be fetched from finished matchC.
+        assertEquals("pingas", matchC.getWinner(0).getName());
+        assertEquals(pingas, matchC.getWinner(0));
     }
 }

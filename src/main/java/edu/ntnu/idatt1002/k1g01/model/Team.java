@@ -10,8 +10,12 @@ import java.util.Objects;
  */
 public class Team implements Serializable {
     // Name of the team
-    private String name;
+    protected String name;
 
+    /**
+     * Default constructor for inheritance.
+     */
+    public Team() {}
 
     /**
      * Initiates a new team
@@ -38,6 +42,13 @@ public class Team implements Serializable {
     }
 
     /**
+     * Only here to make it easier to handle holograms.
+     * TODO look for a way to not need this stupid method.
+     * @return this exact same Team.
+     */
+    public Team getTrueTeam() { return this; }
+
+    /**
      * Two teams equal each other if
      * they have the same name
      * @param o The team we are comparing to
@@ -45,6 +56,11 @@ public class Team implements Serializable {
      */
     @Override
     public boolean equals(Object o) {
+        //First checks in case o is just a TeamHologram. Holograms are all initialized to name = "?" by default.
+        if (o.getClass() == TeamHologram.class) {
+            if (this == ((TeamHologram) o).getTrueTeam()) return true;
+            return this == o;
+        }
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Team team = (Team) o;
