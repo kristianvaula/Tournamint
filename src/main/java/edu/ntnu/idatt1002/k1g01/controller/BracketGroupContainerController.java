@@ -54,6 +54,7 @@ public class BracketGroupContainerController implements Initializable {
         int i = 1;
         for(Team team : teams){
             Label teamName = new Label(team.getName());
+            System.out.println(String.valueOf(standings.get(team)));
             Label points = new Label(String.valueOf(standings.get(team)));
             HBox hbox = new HBox();
             hbox.setPrefHeight(40.0);
@@ -62,13 +63,13 @@ public class BracketGroupContainerController implements Initializable {
             teamName.getStyleClass().add("label-multiTeam");
             teamName.setPadding(new Insets(5,0,5,10));
             teamName.setAlignment(CENTER);
-            teamName.setMinWidth((groupBox.getPrefWidth()*60)/100);
+            teamName.setMinWidth((BracketGroupContainer.getPrefWidth()*60)/100);
 
             points.setPrefHeight(40.0);
             points.getStyleClass().add("label-multiTeam");
             points.setPadding(new Insets(5,0,5,0));
             points.setAlignment(CENTER);
-            points.setMinWidth((groupBox.getPrefWidth()*60)/100);
+            points.setMinWidth((BracketGroupContainer.getPrefWidth()*40)/100);
 
             String background = null;
             if(i%2==0){
