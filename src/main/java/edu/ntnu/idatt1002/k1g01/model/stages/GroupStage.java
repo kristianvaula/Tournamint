@@ -94,8 +94,8 @@ public class GroupStage extends Stage {
 
         //Verify that all groups are valid.
         for (Group group : groups) {
-            if (group.getTeamCount() <= advancingFromGroup) {
-                throw new IllegalArgumentException("Invalid group! At least one group of size: " + group.getTeamCount()
+            if (group.size() <= advancingFromGroup) {
+                throw new IllegalArgumentException("Invalid group! At least one group of size: " + group.size()
                         + " with " + advancingFromGroup + " advancing.");
             }
         }
@@ -142,7 +142,7 @@ public class GroupStage extends Stage {
     public int partialGroupCount() {
         int output = 0;
         for (Group group : groups) {
-            if (group.getTeamCount() < teamsPerGroup) output++;
+            if (group.size() < teamsPerGroup) output++;
         }
         return output;
     }
@@ -152,7 +152,7 @@ public class GroupStage extends Stage {
      * @author Martin Dammerud
      */
     public int minGroupTeamCount() {
-        return groups.stream().mapToInt(Group::getTeamCount).min().getAsInt();
+        return groups.stream().mapToInt(Group::size).min().getAsInt();
     }
 
     /**
@@ -160,7 +160,7 @@ public class GroupStage extends Stage {
      * @author Martin Dammerud
      */
     public int maxGroupTeamCount() {
-        return groups.stream().mapToInt(Group::getTeamCount).max().getAsInt();
+        return groups.stream().mapToInt(Group::size).max().getAsInt();
     }
 
     /**

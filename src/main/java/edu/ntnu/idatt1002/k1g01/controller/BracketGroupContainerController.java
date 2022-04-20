@@ -48,7 +48,7 @@ public class BracketGroupContainerController implements Initializable {
         VBox groupBox = new VBox();
         groupBox.setMaxWidth(420);
         groupBox.getChildren().add(createTitleGroupHBox());
-        LinkedHashMap<Team,Integer> standings = group.getStanding(group.getTeamCount());
+        LinkedHashMap<Team,Integer> standings = group.getStanding(group.size());
         Set<Team> keySet = standings.keySet();
         ArrayList<Team> teams = new ArrayList<>(keySet.stream().collect(Collectors.toList()));
         int i = 1;
