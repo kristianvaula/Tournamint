@@ -148,14 +148,20 @@ public abstract class Match implements Serializable {
      }
 
     /**
-     * Checks if 2 or more teams have the exact same result
+     * Checks if worst ranked winner and best ranked loser
+     * has equal result.
      * @return
      *      true: if there is at least 2 participants have the same result-value.
      *      false: if there is no draw.
      * @author Martin Dammerud
      */
-    public boolean containsDraw() {
-        return (new HashSet<>(getMatchResult().values()).size() < participants.size());
+    public boolean containsDraw(int winners) {
+        LinkedHashMap<Team,String> results = getMatchResultOrdered();
+        Team[] teamsOrdered = (Team[]) results.keySet().toArray();
+        if(teamsOrdered[2].equals(teamsOrdered[3])){
+            return true;
+        }
+        return false;
      }
 
     /**
