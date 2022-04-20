@@ -76,11 +76,11 @@ public class PointMatchTest {
     @DisplayName("Tests the Set and Get methods for the date of a match to String")
     void SetAndGetMatchDateAsString() {
         LocalDate date = LocalDate.of(2020,1,14);
-        String outputTest = "" + date.getDayOfMonth() + " / " + date.getMonth();
+        String outputTest = "" + date.getDayOfMonth() + ". " + date.getMonth();
 
         testMatch.setMatchDate(date);
 
-        assertEquals(outputTest,testMatch.getMatchDateAsString());
+        assertEquals(outputTest.toLowerCase(),testMatch.getMatchDateAsString());
     }
 
     @Test
