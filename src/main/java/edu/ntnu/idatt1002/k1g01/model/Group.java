@@ -163,6 +163,8 @@ public class Group implements Serializable {
 
     /**
      * Returns a LinkedHasMap with n teams sorted from highest to lowest score, and current score.
+     * Gives 3 points for a win, 1 for a draw and 0 for losses.
+     *
      * @param n number of teams to get.
      * @return LinkedHashMap of Team, points.
      */
