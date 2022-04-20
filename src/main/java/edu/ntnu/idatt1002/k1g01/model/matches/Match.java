@@ -210,13 +210,13 @@ public abstract class Match implements Serializable {
 
     /**
      * Gets a string representation of the
-     * match date in format D/M
+     * match date in format D . M
      * @return String match date
      */
     public String getMatchDateAsString() {
         if(matchDate == null) return "";
         String month = matchDate.getMonth().toString().toLowerCase();
-        return "" + matchDate.getDayOfMonth() + " . " + month;
+        return "" + matchDate.getDayOfMonth() + ". " + month;
     }
 
     /**
