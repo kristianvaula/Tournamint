@@ -182,7 +182,7 @@ class GroupStageTest {
             int teamCount = knockoutSize * teamsPerGroup / teamsAdvancing;
             GroupStage groupStage = new GroupStage(generateTeams(teamCount), teamsAdvancing, teamsPerGroup,
                     "pointMatch");
-            for (int trueSize : groupStage.getGroups().stream().mapToInt(Group::getTeamCount).toArray()) {
+            for (int trueSize : groupStage.getGroups().stream().mapToInt(Group::size).toArray()) {
                 //Check every group is actually full.
                 assertEquals(teamsPerGroup, trueSize);
                 assertEquals(0, groupStage.partialGroupCount());
@@ -212,7 +212,7 @@ class GroupStageTest {
             //String tournamentName, ArrayList<Team> teams, String matchType,int teamsPerMatch,int teamsPerGroup,int advancingPerGroup
             GroupStage groupStage = new GroupStage(generateTeams(teamCount), teamsAdvancing, teamsPerGroup,
                     "pointMatch");
-            for (int trueSize : groupStage.getGroups().stream().mapToInt(Group::getTeamCount).toArray()) {
+            for (int trueSize : groupStage.getGroups().stream().mapToInt(Group::size).toArray()) {
                 //Check no group is missing more than one team.
                 assertTrue(teamsPerGroup == trueSize || teamsPerGroup == trueSize + 1);
             }

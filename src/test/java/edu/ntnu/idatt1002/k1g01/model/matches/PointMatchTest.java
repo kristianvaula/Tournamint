@@ -197,4 +197,34 @@ public class PointMatchTest {
         assertEquals("pingas", matchC.getWinner(0).getName());
         assertEquals(pingas, matchC.getWinner(0));
     }
+
+    @Test
+    @DisplayName("Detects draws correctly with 2 teams")
+    public void detectsDrawsWith2() {
+        PointMatch match = new PointMatch(teamList);
+        assertTrue(match.containsDraw());
+        match.setResult(team1, "0");
+        assertTrue(match.containsDraw());
+        match.setResult(team2, "2");
+        assertFalse(match.containsDraw());
+        match.setResult(team1, "2");
+        assertTrue(match.containsDraw());
+    }
+
+    @Test
+    @DisplayName("Detects draws correctly with 3 teams")
+    public void detectsDrawsWith3() {
+        Match match = new PointMatch(extendedTeamList);
+        assertTrue(match.containsDraw());// 0, 0, 0
+        match.setResult(team2, "2");
+        assertTrue(match.containsDraw());// 0, 2, 0
+        match.setResult(team1, "2");
+        assertTrue(match.containsDraw());// 2, 2, 0
+        match.setResult(team3, "2");
+        assertTrue(match.containsDraw());// 2, 2, 2
+        match.setResult(team1, "1");
+        match.setResult(team2, "2");
+        match.setResult(team3, "3");
+        assertFalse(match.containsDraw());// 1, 2, 3
+    }
 }

@@ -37,9 +37,9 @@ public class TeamHologram extends Team{
      */
     public TeamHologram(Group group, int winner) {
         if (group == null) throw new NullPointerException("Match cannot be null!");
-        if (winner > group.getTeamCount()) {
+        if (winner > group.size()) {
             throw new IndexOutOfBoundsException("Impossible to get winner: " + winner + " from group with "
-                    + group.getTeamCount() + " teams");
+                    + group.size() + " teams");
         }
         this.group = group;
         this.winner = winner;

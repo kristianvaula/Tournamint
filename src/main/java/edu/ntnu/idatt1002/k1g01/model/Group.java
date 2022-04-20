@@ -162,7 +162,7 @@ public class Group implements Serializable {
     }
 
     /**
-     * Returns a LinkedHasMap with n teams sorted from highest to lowest score, and current score.
+     * Returns a LinkedHasMap with n teams sorted from highest to lowest score, and their current score.
      * @param n number of teams to get.
      * @return LinkedHashMap of Team, points.
      */
@@ -171,16 +171,23 @@ public class Group implements Serializable {
             throw new IndexOutOfBoundsException("Requested top " + n + " teams from group with only " + teams.size() + " teams!");
         }
 
-        //Get number of wins per team.
+        //Get number of group points per team.
         int[] points = new int[teams.size()];
         for (Match match : matches) {
             if (match.isFinished()) {
-                Team winner = match.getWinners(1).get(0);
-                points[teams.indexOf(winner)]++;
+                if (match.containsDraw()) {
+                    for (Team team : match.getParticipants()) {
+                        points[teams.indexOf(team)]++;
+                    }
+                }
+                else {
+                    Team winner = match.getWinner(0);
+                    points[teams.indexOf(winner)] += 2;// 2 points for a win.
+                }
             }
         }
 
-        //Assemble output ArrayList.
+        //Assemble output LinkedHashmap.
         LinkedHashMap<Team, Integer> output = new LinkedHashMap<>();
         for (int i = 0; i < n; i++) {
             int highScore = Integer.MIN_VALUE + 1;
@@ -198,11 +205,11 @@ public class Group implements Serializable {
     }
 
     /**
-     * Returns a LinkedHasMap with n teams sorted from highest to lowest score, and current score.
+     * Returns a LinkedHasMap of all teams sorted from highest to lowest score, and their current score.
      * @return LinkedHashMap of Team, points.
      */
     public LinkedHashMap<Team, Integer> getStanding() {
-        return getStanding(getTeamCount());
+        return getStanding(size());
     }
 
     /**
@@ -213,9 +220,9 @@ public class Group implements Serializable {
      * @return ArrayList of top teams in descending order. Null if some matches are not finished.
      */
     public ArrayList<Team> getTopTeams(int n) {
-        if (getTeamCount() < n) throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+getTeamCount()+" teams!");
+        if (size() < n) throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+ size()+" teams!");
         for (Match match : matches) if (!match.isFinished()) return null;
-        return new ArrayList<>(getStanding(n).keySet()); //TODO check if order is always retained.
+        return new ArrayList<>(getStanding(n).keySet());
     }
 
     /**
@@ -229,9 +236,12 @@ public class Group implements Serializable {
 
     //Dumb getters
     public ArrayList<Team> getTeams() {return teams; }
+    public Team getTeam(int i) { return teams.get(i); }
     public ArrayList<Round> getRounds() { return rounds; }
+    public Round getRound(int i) { return rounds.get(i); }
     public ArrayList<Match> getMatches() { return matches; }
-    public int getTeamCount() { return teams.size(); }
+    public Match getMatch(int i) { return matches.get(i); }
+    public int size() { return teams.size(); }
     public int getRoundCount() { return rounds.size(); }
     public int getMatchCount() { return matches.size(); }
 

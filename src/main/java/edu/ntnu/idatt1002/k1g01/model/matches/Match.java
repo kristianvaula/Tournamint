@@ -148,6 +148,17 @@ public abstract class Match implements Serializable {
      }
 
     /**
+     * Checks if 2 or more teams have the exact same result
+     * @return
+     *      true: if there is at least 2 participants have the same result-value.
+     *      false: if there is no draw.
+     * @author Martin Dammerud
+     */
+    public boolean containsDraw() {
+        return (new HashSet<>(getMatchResult().values()).size() < participants.size());
+     }
+
+    /**
      * Returns single Team that got n'th place in this match.
      * @param n place to get.
      * @return single n'th place Team.
