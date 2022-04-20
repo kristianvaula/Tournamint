@@ -4,6 +4,7 @@ import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
 import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,7 +22,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -42,6 +45,8 @@ public class AdministrateTournamentController implements Initializable {
 
     //General Settings
     @FXML private Text tournamentNameOutput;
+    @FXML private TextField clock;
+    @FXML private volatile boolean stopClock = false;
 
     //TabPane and TableView settings
     @FXML private TableView<Match> matchTable;
@@ -56,6 +61,10 @@ public class AdministrateTournamentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
+        // Clock
+        clock.setEditable(false);
+        Timenow();
+
         //Preparing match table
         teamsColumn.setCellValueFactory(new PropertyValueFactory<>("participantsAsString"));
         resultColumn.setCellValueFactory(new PropertyValueFactory<>("resultAsString"));
@@ -68,6 +77,7 @@ public class AdministrateTournamentController implements Initializable {
             TableRow<Match> row = new TableRow<>();
 
             row.setOnMouseClicked(event ->{
+                stopClock = true;
                 if (!row.isEmpty() && event.getButton()== MouseButton.PRIMARY
                         && event.getClickCount() == 2) {
                     Match match = row.getItem();
@@ -97,6 +107,7 @@ public class AdministrateTournamentController implements Initializable {
             //TODO handle exception if loading somehow fails. Should not be possible at this point.
         }
         tournamentNameOutput.setText("Administrate " + tournament.getTournamentName());
+        clock.setText(new SimpleDateFormat("hh:mm:ss").format(new Date()));
         displayAllMatches();
     }
 
@@ -105,6 +116,7 @@ public class AdministrateTournamentController implements Initializable {
      */
     @FXML
     public void switchToHomePage() {
+        stopClock = true;
         try {
             Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/HomePage.fxml")));
             Scene scene = new Scene(parent);
@@ -246,5 +258,36 @@ public class AdministrateTournamentController implements Initializable {
         } catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    /**
+     * Stops clock
+     */
+    @FXML
+    public void stopClock() {
+        this.stopClock = false;
+        System.out.println("Stopped clock at " + new SimpleDateFormat("hh:mm:ss").format(new Date()));
+    }
+
+    /**
+     * Running clock
+     * Has to be stopped before changing scene.
+     */
+    public void Timenow(){
+        Thread thread = new Thread(() -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            while(!stopClock){
+                try{
+                    Thread.sleep(1000);
+                }catch(Exception e){
+                    System.out.println(e);
+                }
+                final String timeNow = sdf.format(new Date());
+                Platform.runLater(()->{
+                    clock.setText(timeNow);
+                });
+            }
+        });
+        thread.start();
     }
 }
