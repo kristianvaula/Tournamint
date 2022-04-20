@@ -84,8 +84,7 @@ public abstract class Match implements Serializable {
      * @return true if there
      */
     public boolean playable() {
-        for (int i = 0; i < participants.size(); i++) {
-            Team team = participants.get(i);
+        for (Team team : participants) {
             if (team.getTrueTeam() == null) return false;
         }
         return true;
@@ -153,14 +152,8 @@ public abstract class Match implements Serializable {
     public boolean containsDraw(int winners) {
         if(this.isFinished()){
             LinkedHashMap<Team,String> results = getMatchResultOrdered();
-            List<Team> teamsOrdered = new ArrayList<>();
-            for (Team team : results.keySet()) {
-                teamsOrdered.add(team);
-            }
-            if(results.get((Team) teamsOrdered.get(winners - 1)).equals(results.get((Team) teamsOrdered.get(winners)))){
-                return true;
-            }
-            return false;
+            List<Team> teamsOrdered = new ArrayList<>(results.keySet());
+            return results.get(teamsOrdered.get(winners - 1)).equals(results.get(teamsOrdered.get(winners)));
         }
         return true;
      }
@@ -299,7 +292,7 @@ public abstract class Match implements Serializable {
         String[] returnString = new String[2];  // [0] = Teams [1] = Result
         returnString[0] = "";
         returnString[1] = "";
-        if(!result.isEmpty()){ // If match has result
+        if(result != null && !result.isEmpty()){ // If match has result
             Set<Team> keySet = result.keySet();
             ArrayList<Team> participantsOrdered = new ArrayList<>(keySet);
             if(participantsOrdered.size() == 2){ // If two participant teams

@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 
 public class TeamHologramTest {
+    private static final String defaultName = " - ";
     ArrayList<Team> teams = new ArrayList<>();
     Match match;
     Group group;
@@ -30,7 +31,7 @@ public class TeamHologramTest {
     @Test
     public void testWithMatchInput1() {
         TeamHologram hTeam = new TeamHologram(match, 0);
-        assertEquals("?", hTeam.getName());
+        assertEquals(defaultName, hTeam.getName());
         assertNull(hTeam.getTrueTeam());
         match.setResult(teams.get(0), "9001");
         match.setResult(teams.get(1), "0");
@@ -41,7 +42,7 @@ public class TeamHologramTest {
     @Test
     public void testWithMatchInput2() {
         TeamHologram hTeam = new TeamHologram(match, 0);
-        assertEquals("?", hTeam.getName());
+        assertEquals(defaultName, hTeam.getName());
         assertNull(hTeam.getTrueTeam());
         match.setResult(teams.get(0), "0");
         match.setResult(teams.get(1), "9001");
@@ -52,7 +53,7 @@ public class TeamHologramTest {
     @Test
     public void testWithMatchInput3() {
         TeamHologram hTeam = new TeamHologram(match, 1);
-        assertEquals("?", hTeam.getName());
+        assertEquals(defaultName, hTeam.getName());
         assertNull(hTeam.getTrueTeam());
         match.setResult(teams.get(0), "9001");
         match.setResult(teams.get(1), "0");
@@ -64,7 +65,7 @@ public class TeamHologramTest {
     public void testWithGroupInput1() {
         Group group = new Group("pointMatch", teams);
         TeamHologram hTeam = new TeamHologram(group, 0);
-        assertEquals("?", hTeam.getName());
+        assertEquals(defaultName, hTeam.getName());
         assertNull(hTeam.getTrueTeam());
         group.getMatches().get(0).setResult(teams.get(0), "9001");
         group.getMatches().get(0).setResult(teams.get(1), "0");
@@ -76,7 +77,7 @@ public class TeamHologramTest {
     public void testWithGroupInput2() {
         Group group = new Group("pointMatch", teams);
         TeamHologram hTeam = new TeamHologram(group, 0);
-        assertEquals("?", hTeam.getName());
+        assertEquals(defaultName, hTeam.getName());
         assertNull(hTeam.getTrueTeam());
         group.getMatches().get(0).setResult(teams.get(0), "0");
         group.getMatches().get(0).setResult(teams.get(1), "9001");
@@ -88,7 +89,7 @@ public class TeamHologramTest {
     public void testWithGroupInput3() {
         Group group = new Group("pointMatch", teams);
         TeamHologram hTeam = new TeamHologram(group, 1);
-        assertEquals("?", hTeam.getName());
+        assertEquals(defaultName, hTeam.getName());
         assertNull(hTeam.getTrueTeam());
         group.getMatches().get(0).setResult(teams.get(0), "9001");
         group.getMatches().get(0).setResult(teams.get(1), "0");

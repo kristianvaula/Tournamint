@@ -187,7 +187,7 @@ public class GroupTest {
             //group.getStanding should have teams in reverse order vs teams ArrayList.
             assertEquals(new ArrayList<>(group.getStanding().keySet()).get(i), teams.get(teams.size() - 1 - i));
             //Points should be equal to 2 * index in teams ArrayList when each team get 2 point per win.
-            assertEquals(i * 2, group.getStanding().get(teams.get(i)));
+            assertEquals(i * 3, group.getStanding().get(teams.get(i)));
         }
     }
 
@@ -217,7 +217,7 @@ public class GroupTest {
             //first half of group.getStanding should contain the same teams as last half of "teams" ArrayList in reverse order.
             assertEquals(standingTeams.get(i), teams.get(compareIndex));
             //first half of teams in group.getStanding should have points equal to 2 * their index in "teams" ArrayList.
-            assertEquals(compareIndex * 2, group.getStanding().get(standingTeams.get(i)));
+            assertEquals(compareIndex * 3, group.getStanding().get(standingTeams.get(i)));
         }
 
         //make sure lower half of teams got correct number of points from draws.
@@ -255,7 +255,7 @@ public class GroupTest {
 
         //make sure first half of teams got correct number of points from wins and draws.
         for (int i = 0; i < group.size() / 2; i++) {
-            assertEquals(group.size() + group.size() / 2 - 1, group.getStanding().get(teams.get(i)));
+            assertEquals(group.size() * 2 - 1, group.getStanding().get(teams.get(i)));
         }
     }
 }
