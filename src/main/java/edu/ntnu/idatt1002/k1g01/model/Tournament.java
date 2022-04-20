@@ -185,12 +185,14 @@ public class Tournament implements Serializable {
             if(!groupStage.isFinished()){
                 return groupStage.getGroupRounds();
             }
-            else{
-                return knockoutStage.getRounds();
+            else if(groupStage.isFinished()){
+                ArrayList allRounds = groupStage.getGroupRounds();
+                allRounds.addAll(knockoutStage.getRounds());
+                return allRounds;
             }
-        }else{
-            return knockoutStage.getRounds();
         }
+        return knockoutStage.getRounds();
+
     }
 
     /**

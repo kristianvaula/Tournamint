@@ -107,7 +107,8 @@ public class PointMatch extends Match{
      * @throws ClassCastException if match still contains TeamHolograms.
      */
     @Override
-    public void setResult(Team team, String value) throws NumberFormatException, ClassCastException{
+    public void setResult(Team team, String value) throws NumberFormatException, ClassCastException,IllegalArgumentException{
+        if (Integer.parseInt(value) < 0) throw new IllegalArgumentException("Match score cannot be negative");
         if (!playable()) throw new ClassCastException("Match needs winners from unfinished matches");
         for (Team participant : getParticipants()) {
             if (participant.getClass() == TeamHologram.class) {

@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
@@ -159,14 +160,14 @@ public class EnterTimeResultsController implements Initializable {
             if(buttonID.contains("team1")){
                 if(decrement && Integer.parseInt(team1Hours.getText()) > 0){
                     team1Hours.setText(String.valueOf(Integer.parseInt(team1Hours.getText()) - 1));
-                }else {
+                }else if(!decrement) {
                     team1Hours.setText(String.valueOf(Integer.parseInt(team1Hours.getText()) + 1));
                 }
 
             }else{
                 if(decrement && Integer.parseInt(team2Hours.getText()) > 0){
                     team2Hours.setText(String.valueOf(Integer.parseInt(team2Hours.getText()) - 1));
-                }else {
+                }else if(!decrement) {
                     team2Hours.setText(String.valueOf(Integer.parseInt(team2Hours.getText()) + 1));
                 }
             }
@@ -175,14 +176,14 @@ public class EnterTimeResultsController implements Initializable {
             if (buttonID.contains("team1")){
                 if (decrement && Integer.parseInt(team1Min.getText()) > 0) {
                     team1Min.setText(String.valueOf(Integer.parseInt(team1Min.getText()) - 1));
-                } else {
+                } else if(!decrement){
                     team1Min.setText(String.valueOf(Integer.parseInt(team1Min.getText()) + 1));
                 }
 
             } else {
                 if (decrement && Integer.parseInt(team2Min.getText()) > 0) {
                     team2Min.setText(String.valueOf(Integer.parseInt(team2Min.getText()) - 1));
-                } else {
+                } else if(!decrement){
                     team2Min.setText(String.valueOf(Integer.parseInt(team2Min.getText()) + 1));
                 }
             }
@@ -207,14 +208,14 @@ public class EnterTimeResultsController implements Initializable {
             if (buttonID.contains("team1")) {
                 if (decrement && Integer.parseInt(team1Nano.getText()) > 0) {
                     team1Nano.setText(String.valueOf(Integer.parseInt(team1Nano.getText()) - 1));
-                } else if(!decrement){
+                } else if(!decrement) {
                     team1Nano.setText(String.valueOf(Integer.parseInt(team1Nano.getText()) + 1));
                 }
 
             } else {
                 if (decrement && Integer.parseInt(team2Nano.getText()) > 0) {
                     team2Nano.setText(String.valueOf(Integer.parseInt(team2Nano.getText()) - 1));
-                }else if(!decrement){
+                }else if(!decrement ){
                     team2Nano.setText(String.valueOf(Integer.parseInt(team2Nano.getText()) + 1));
                 }
             }
@@ -233,27 +234,37 @@ public class EnterTimeResultsController implements Initializable {
         try{
             match.setResult(match.getParticipants().get(0),team1Result);
             match.setResult(match.getParticipants().get(1),team2Result);
-        }catch (NumberFormatException e){
+
+            match.setMatchDate(dateField.getValue());
+            match.setMatchInfo(infoField.getText());
+            try{
+                if(!(timeField.getText().isEmpty() || timeField.getText().isBlank())) {
+                    match.setStartTime(LocalTime.parse((CharSequence) timeField.getText()));
+                }
+                //EXIT FROM RESULT
+                tournament.updateTournament();
+                tournamentDAO.save(); //Save changes to tournament.
+                returnToAdministrateTournament(event);
+            }catch (DateTimeParseException e){
+                System.out.println(e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Please check time");
+                alert.show();
+            }
+        }
+        catch (NumberFormatException e){
             System.out.println(e.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Please check numbers");
             alert.show();
         }
-        match.setMatchDate(dateField.getValue());
-        match.setMatchInfo(infoField.getText());
-        try{
-            if(!(timeField.getText().isEmpty() || timeField.getText().isBlank())) {
-                match.setStartTime(LocalTime.parse((CharSequence) timeField.getText()));
-            }
-        }catch (DateTimeParseException e){
+        catch (DateTimeException e){
             System.out.println(e.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Please check time");
+            alert.setContentText("Results cannot have negative values");
             alert.show();
         }
 
-        tournament.updateTournament();
-        tournamentDAO.save(); //Save changes to tournament.
-        returnToAdministrateTournament(event);
+
     }
 }

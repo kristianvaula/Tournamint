@@ -3,6 +3,7 @@ package edu.ntnu.idatt1002.k1g01.model.matches;
 import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 
+import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -118,7 +119,7 @@ public class TimeMatch extends Match{
      * @throws ClassCastException if match still contains TeamHolograms.
      */
     @Override
-    public void setResult(Team team, String value) throws DateTimeParseException{
+    public void setResult(Team team, String value) throws DateTimeParseException,DateTimeException{
         if (!playable()) throw new ClassCastException("Match needs winners from unfinished matches");
 
         //used to be inside a try block that did nothing.
@@ -161,7 +162,7 @@ public class TimeMatch extends Match{
      * @param inputString String input
      * @return Localtime parsed
      */
-    public LocalTime timeResultParser(String inputString) throws DateTimeParseException{
+    public LocalTime timeResultParser(String inputString) throws DateTimeParseException, DateTimeException {
         String[] inputTable = inputString.split(":");
         int hours = Integer.parseInt(inputTable[0]);
         int minutes = Integer.parseInt(inputTable[1]);
