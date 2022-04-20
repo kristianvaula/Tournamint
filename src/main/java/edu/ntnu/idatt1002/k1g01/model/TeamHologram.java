@@ -27,7 +27,7 @@ public class TeamHologram extends Team{
         }
         this.match = match;
         this.winner = winner;
-        this.name = "?";
+        this.name = " - ";
     }
 
     /**
@@ -43,7 +43,7 @@ public class TeamHologram extends Team{
         }
         this.group = group;
         this.winner = winner;
-        this.name = "?";
+        this.name = " - ";
     }
 
     /**
