@@ -17,6 +17,16 @@ public class Round implements Serializable {
     private String roundName; // Name of the round. Quarterfinals for example.
 
     /**
+     * Initiates an empty round.
+     * @param roundName returns the name of the round.
+     */
+    public Round(String roundName) {
+
+        this.matches = new ArrayList<>();
+        this.roundName = roundName;
+    }
+
+    /**
      * Initiates a round.
      * @param matches returns matches in round.
      * @param roundName returns the name of the round.

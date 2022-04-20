@@ -61,6 +61,7 @@ public class AdministrateTournamentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
+        System.out.println("initializing administrate page");
         // Clock
         clock.setEditable(false);
         Timenow();

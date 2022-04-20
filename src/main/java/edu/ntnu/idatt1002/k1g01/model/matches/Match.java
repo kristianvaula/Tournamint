@@ -84,16 +84,11 @@ public abstract class Match implements Serializable {
      * @return true if there
      */
     public boolean playable() {
-        boolean output = true;
         for (int i = 0; i < participants.size(); i++) {
             Team team = participants.get(i);
-            if (team.getClass() == TeamHologram.class) {
-                Team trueTeam = team.getTrueTeam();
-                if (trueTeam != null) participants.set(i, trueTeam);
-                else output = false;
-            }
+            if (team.getTrueTeam() == null) return false;
         }
-        return output;
+        return true;
     }
 
     /**

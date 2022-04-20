@@ -56,15 +56,16 @@ public class Team implements Serializable {
      */
     @Override
     public boolean equals(Object o) {
+        if (o == null) return false;
         //First checks in case o is just a TeamHologram. Holograms are all initialized to name = "?" by default.
         if (o.getClass() == TeamHologram.class) {
             if (this == ((TeamHologram) o).getTrueTeam()) return true;
             return this == o;
         }
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Team team = (Team) o;
-        return Objects.equals(name, team.name);
+        if (getClass() != o.getClass()) return false;
+        Team otherTeam = (Team) o;
+        return Objects.equals(name, otherTeam.name);
     }
 
     @Override

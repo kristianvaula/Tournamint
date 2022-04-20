@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k1g01.model.stages;
 
 import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.TeamHologram;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.matches.PointMatch;
 import edu.ntnu.idatt1002.k1g01.model.matches.TimeMatch;
@@ -32,6 +33,20 @@ public class KnockoutStage extends Stage {
         this.teamsPerMatch = teamsPerMatch;
         this.advancingPerMatch =teamsPerMatch/2;
         this.tournamentType = tournamentType;
+
+        ArrayList<Round> rounds = getRounds();
+        roundSetUp(rounds.get(0), teams);
+        int roundCount = getNumberOfRounds(teams.size(), teamsPerMatch, advancingPerMatch);
+        for (int i = 1; i < roundCount; i++) {
+
+            ArrayList<Team> holoTeams = new ArrayList<>();
+            for (Match match : rounds.get(i-1).getMatches()) {
+                for (int w = 0; w < advancingPerMatch; w++) {
+                    holoTeams.add(new TeamHologram(match, w));
+                }
+            }
+            roundSetUp(rounds.get(i), holoTeams);
+        }
         update();
     }
 
@@ -171,6 +186,7 @@ public class KnockoutStage extends Stage {
      */
     @Override
     public void update(){
+        /*
         ArrayList<Round> rounds = getRounds();
 
         if(rounds.get(0).getMatches().isEmpty()){
@@ -187,6 +203,7 @@ public class KnockoutStage extends Stage {
                 this.roundSetUp(nextRound,winners);
             }
         }
+        */
     }
 
     /**

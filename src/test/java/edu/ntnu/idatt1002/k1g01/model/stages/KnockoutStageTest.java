@@ -114,10 +114,12 @@ class KnockoutStageTest {
         ArrayList<Match> matches1 = rounds.get(1).getMatches();
         for(Match match: matches1) {
             for (int i = 0; i < match.getParticipants().size(); i++) {
-                match.setResult(match.getParticipants().get(i), String.valueOf(i));
+                match.setResult(match.getParticipants().get(i), String.valueOf(i + 1));
             }
         }
-        Team winner = knockoutStage2.getRounds().get(1).getMatches().get(0).getWinners(1).get(0);
+        Team winner = knockoutStage2.getRounds().get(1)
+                .getMatches().get(0)
+                .getWinners(1).get(0);
 
         assertEquals(winner,knockoutStage2.getTournamentWinner());
     }

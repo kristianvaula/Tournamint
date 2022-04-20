@@ -109,18 +109,12 @@ public class PointMatch extends Match{
     @Override
     public void setResult(Team team, String value) throws NumberFormatException, ClassCastException{
         if (!playable()) throw new ClassCastException("Match needs winners from unfinished matches");
-        for (Team participant : getParticipants()) {
-            if (participant.getClass() == TeamHologram.class) {
-                throw new IllegalArgumentException("Cannot set result in a match with TeamHolograms.");
-            }
-        }
         try {
-            pointResult.put(team,Integer.parseInt(value));
+            pointResult.put(team, Integer.parseInt(value));
         } catch (NumberFormatException e){
             throw new NumberFormatException("Result not a number");
         }
         updateIsFinished();
-        updateMatchAsString(getParticipants(),getMatchResultOrdered());
     }
 
     /**
