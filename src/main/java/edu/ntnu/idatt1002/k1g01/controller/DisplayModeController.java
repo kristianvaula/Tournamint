@@ -3,30 +3,26 @@ package edu.ntnu.idatt1002.k1g01.controller;
 import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
 import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Round;
-import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
-import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -42,8 +38,9 @@ public class DisplayModeController implements Initializable {
     private final static String DLM = File.separator;
     private final static int AUTO_DISPLAY_TIMER = 5;
 
-    //The nested controller for the menuBar
+    //The nested controller for the menuBar and pop up menu
     @FXML private TopMenuBarController topMenuBarController;
+    @FXML private MenuController popUpMenuController;
 
     //Clock
     @FXML private TextField clock;
@@ -73,19 +70,24 @@ public class DisplayModeController implements Initializable {
 
     //Tab GroupStage
     @FXML private Tab groupStageTab;
+    @FXML private HBox groupStageHBox;
 
     //Tab knockoutStage
     @FXML private Tab knockoutStageTab;
     @FXML private HBox outerHbox;
-    @FXML private HBox groupStageHBox;
     @FXML private Text tournamentNameOutput;
 
-
+    //Pop-up menu
+    @FXML private StackPane menuStackPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("displayMode initialize start");
         System.out.println("    tournament ptr = " + tournament);
+
+        //Pop-up menu
+        menuStackPane.setDisable(true);
+        menuStackPane.setVisible(false);
 
         //Preparing match table
         upcomTeamsColumn.setCellValueFactory(new PropertyValueFactory<>("participantsAsString"));
@@ -116,6 +118,7 @@ public class DisplayModeController implements Initializable {
     public void initData(TournamentDAO tournamentDAO) {
         this.tournamentDAO = tournamentDAO;
         topMenuBarController.setTournamentDAO(tournamentDAO); //Pass DAO pointer to nested controller.
+        popUpMenuController.setTournamentDAO(tournamentDAO);
         try {
             this.tournament = tournamentDAO.load();
         }
@@ -141,13 +144,7 @@ public class DisplayModeController implements Initializable {
             }
         });
 
-        if(tournament.getGroupStage()!= null){
-            if(tournament.getGroupStage().isFinished()){
-                loadKnockOutStage();
-            }
-            else loadGroupStageTab();
-        }
-        else loadUpcomingMatchesTab();
+        changeToNextTab();
     }
 
     /**
@@ -223,18 +220,20 @@ public class DisplayModeController implements Initializable {
      */
     @FXML
     public void loadGroupStageTab()  {
-       if (tournament.hasGroupStage()) {
-           try {
-               setBracketGroupContainers();
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-           int i = 0;
-           for (Group group : tournament.getGroupStage().getGroups()) {
-                   groupStageControllers.get(i%2).displayGroup(group);
-                   i++;
-           }
-       }
+        if(groupStageHBox.getChildren().isEmpty()){
+            if (tournament.hasGroupStage()) {
+                try {
+                    setBracketGroupContainers();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                int i = 0;
+                for (Group group : tournament.getGroupStage().getGroups()) {
+                    groupStageControllers.get(i%2).displayGroup(group);
+                    i++;
+                }
+            }
+        }
     }
 
     /**
@@ -242,6 +241,8 @@ public class DisplayModeController implements Initializable {
      */
     @FXML
     public void loadKnockOutStage(){
+        outerHbox.getChildren().clear();
+
         if (tournament.getKnockoutStage() != null){
             if(!tournament.getKnockoutStage().getRounds().isEmpty()){
                 try {
@@ -356,5 +357,15 @@ public class DisplayModeController implements Initializable {
             }
         });
         thread.start();
+    }
+
+    /**
+     * Displays the pop up menu
+     */
+    @FXML
+    public void displayPopUpMenu(){
+        System.out.println("Displayed Pop-Up Menu");
+        menuStackPane.setDisable(false);
+        menuStackPane.setVisible(true);
     }
 }

@@ -175,8 +175,16 @@ public class Group implements Serializable {
         int[] points = new int[teams.size()];
         for (Match match : matches) {
             if (match.isFinished()) {
-                Team winner = match.getWinners(1).get(0);
-                points[teams.indexOf(winner)]++;
+                Team team1 = match.getParticipants().get(0);
+                Team team2 = match.getParticipants().get(1);
+                if(match.getMatchResultByTeam(team1).equals(match.getMatchResultByTeam(team2))){
+                    points[teams.indexOf(team1)]++;
+                    points[teams.indexOf(team2)]++;
+                }
+                else{
+                    Team winner = match.getWinners(1).get(0);
+                    points[teams.indexOf(winner)] = points[teams.indexOf(winner)] + 3;
+                }
             }
         }
 
