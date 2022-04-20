@@ -100,6 +100,7 @@ public class TopMenuBarController implements Initializable{
     public void changeSceneToHomePage() {
         Stage stage = (Stage) topMenuBar.getScene().getWindow();
         try {
+            stopClockThread();
             Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/HomePage.fxml")));
             Scene scene = new Scene(parent);
             stage.setScene(scene);
@@ -122,12 +123,13 @@ public class TopMenuBarController implements Initializable{
         Stage stage = (Stage) topMenuBar.getScene().getWindow();
 
         try {
+            stopClockThread();
             //Load new scene from FXML document.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/AdministrateTournament.fxml"));
             Parent sceneParent = loader.load();
             Scene scene = new Scene(sceneParent);
-
+            scene.setUserData(loader);
             //Initiate new scene controller with loaded DAO as data.
             AdministrateTournamentController controller = loader.getController();
             controller.initData(tournamentDAO);
@@ -153,8 +155,8 @@ public class TopMenuBarController implements Initializable{
 
         Stage stage = (Stage) topMenuBar.getScene().getWindow();
 
-
         try {
+            stopClockThread();
             //Load new scene from FXML document.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/DisplayMode.fxml"));
@@ -162,7 +164,7 @@ public class TopMenuBarController implements Initializable{
             //Load file.
             Parent sceneParent = loader.load();
             Scene scene = new Scene(sceneParent);
-
+            scene.setUserData(loader);
             //Initiate new scene controller with loaded DAO as data.
             DisplayModeController controller = loader.getController();
             controller.initData(tournamentDAO);
@@ -173,6 +175,22 @@ public class TopMenuBarController implements Initializable{
 
         } catch (IOException e) {
             System.out.println("" + e.getCause());
+        }
+    }
+
+    /**
+     * Stops the
+     */
+    public void stopClockThread(){
+        FXMLLoader loader = (FXMLLoader) topMenuBar.getScene().getUserData();
+        Class controllerClass = loader.getController().getClass();
+
+        if(controllerClass.equals(DisplayModeController.class)){
+            DisplayModeController controller = loader.getController();
+            controller.stopClock();
+        }else if(controllerClass.equals(AdministrateTournamentController.class)){
+            AdministrateTournamentController controller = loader.getController();
+            controller.stopClock();
         }
     }
 }

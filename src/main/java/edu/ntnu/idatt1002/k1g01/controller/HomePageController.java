@@ -62,7 +62,7 @@ public class HomePageController implements Initializable {
             loader.setLocation(getClass().getResource("../view/AdministrateTournament.fxml"));
             Parent administrateParent = loader.load();
             Scene administrateScene = new Scene(administrateParent);
-
+            administrateScene.setUserData(loader);
             //Prepare controller and switch scene.
             AdministrateTournamentController controller = loader.getController();
             controller.initData(tournamentDAO);

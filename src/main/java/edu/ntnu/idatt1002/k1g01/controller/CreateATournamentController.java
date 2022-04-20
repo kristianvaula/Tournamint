@@ -166,7 +166,7 @@ public class CreateATournamentController implements Initializable {
             Parent administrateParent = loader.load();
 
             Scene administrateScene = new Scene(administrateParent);
-
+            administrateScene.setUserData(loader);
             //Access the controller and call a method
             AdministrateTournamentController controller = loader.getController();
             TournamentDAO tournamentDAO = saveTournamentToFile(event); // Get DAO with user provided path.
