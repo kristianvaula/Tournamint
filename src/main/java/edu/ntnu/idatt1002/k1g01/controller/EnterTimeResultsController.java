@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
@@ -233,27 +234,37 @@ public class EnterTimeResultsController implements Initializable {
         try{
             match.setResult(match.getParticipants().get(0),team1Result);
             match.setResult(match.getParticipants().get(1),team2Result);
-        }catch (NumberFormatException e){
+
+            match.setMatchDate(dateField.getValue());
+            match.setMatchInfo(infoField.getText());
+            try{
+                if(!(timeField.getText().isEmpty() || timeField.getText().isBlank())) {
+                    match.setStartTime(LocalTime.parse((CharSequence) timeField.getText()));
+                }
+                //EXIT FROM RESULT
+                tournament.updateTournament();
+                tournamentDAO.save(); //Save changes to tournament.
+                returnToAdministrateTournament(event);
+            }catch (DateTimeParseException e){
+                System.out.println(e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Please check time");
+                alert.show();
+            }
+        }
+        catch (NumberFormatException e){
             System.out.println(e.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Please check numbers");
             alert.show();
         }
-        match.setMatchDate(dateField.getValue());
-        match.setMatchInfo(infoField.getText());
-        try{
-            if(!(timeField.getText().isEmpty() || timeField.getText().isBlank())) {
-                match.setStartTime(LocalTime.parse((CharSequence) timeField.getText()));
-            }
-        }catch (DateTimeParseException e){
+        catch (DateTimeException e){
             System.out.println(e.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Please check time");
+            alert.setContentText("Results cannot have negative values");
             alert.show();
         }
 
-        tournament.updateTournament();
-        tournamentDAO.save(); //Save changes to tournament.
-        returnToAdministrateTournament(event);
+
     }
 }
