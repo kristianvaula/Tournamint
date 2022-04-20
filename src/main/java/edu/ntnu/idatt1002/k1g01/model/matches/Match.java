@@ -156,12 +156,18 @@ public abstract class Match implements Serializable {
      * @author Martin Dammerud
      */
     public boolean containsDraw(int winners) {
-        LinkedHashMap<Team,String> results = getMatchResultOrdered();
-        Team[] teamsOrdered = (Team[]) results.keySet().toArray();
-        if(teamsOrdered[2].equals(teamsOrdered[3])){
-            return true;
+        if(this.isFinished()){
+            LinkedHashMap<Team,String> results = getMatchResultOrdered();
+            List<Team> teamsOrdered = new ArrayList<>();
+            for (Team team : results.keySet()) {
+                teamsOrdered.add(team);
+            }
+            if(results.get((Team) teamsOrdered.get(winners - 1)).equals(results.get((Team) teamsOrdered.get(winners)))){
+                return true;
+            }
+            return false;
         }
-        return false;
+        return true;
      }
 
     /**

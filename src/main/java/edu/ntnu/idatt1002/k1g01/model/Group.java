@@ -209,7 +209,7 @@ public class Group implements Serializable {
      * @return LinkedHashMap of Team, points.
      */
     public LinkedHashMap<Team, Integer> getStanding() {
-        return getStanding(getTeamCount());
+        return getStanding(size());
     }
 
     /**
@@ -220,7 +220,7 @@ public class Group implements Serializable {
      * @return ArrayList of top teams in descending order. Null if some matches are not finished.
      */
     public ArrayList<Team> getTopTeams(int n) {
-        if (getTeamCount() < n) throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+getTeamCount()+" teams!");
+        if (size() < n) throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+ size()+" teams!");
         for (Match match : matches) if (!match.isFinished()) return null;
         return new ArrayList<>(getStanding(n).keySet()); //TODO check if order is always retained.
     }
@@ -238,7 +238,7 @@ public class Group implements Serializable {
     public ArrayList<Team> getTeams() {return teams; }
     public ArrayList<Round> getRounds() { return rounds; }
     public ArrayList<Match> getMatches() { return matches; }
-    public int getTeamCount() { return teams.size(); }
+    public int size() { return teams.size(); }
     public int getRoundCount() { return rounds.size(); }
     public int getMatchCount() { return matches.size(); }
 
