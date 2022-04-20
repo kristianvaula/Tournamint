@@ -6,6 +6,7 @@ import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
@@ -23,10 +25,9 @@ import javafx.scene.text.Text;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class DisplayModeController implements Initializable {
 
@@ -36,9 +37,15 @@ public class DisplayModeController implements Initializable {
     private ArrayList<BracketRoundContainerController> roundControllers = new ArrayList<>();
 
     private final static String DLM = File.separator;
+    private final static int AUTO_DISPLAY_TIMER = 5;
 
     //The nested controller for the menuBar
     @FXML private TopMenuBarController topMenuBarController;
+
+    //Clock
+    @FXML private TextField clock;
+    @FXML private volatile boolean stopClock = false;
+    @FXML private volatile boolean autoDisplay = false;
 
     //Tabpane
     @FXML private TabPane displayTabPane;
@@ -71,12 +78,10 @@ public class DisplayModeController implements Initializable {
 
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("displayMode initialize start");
         System.out.println("    tournament ptr = " + tournament);
-
         //Preparing match table
         upcomTeamsColumn.setCellValueFactory(new PropertyValueFactory<>("participantsAsString"));
         upcomResultColumn.setCellValueFactory(new PropertyValueFactory<>("resultAsString"));
@@ -93,6 +98,7 @@ public class DisplayModeController implements Initializable {
         prevInfoColumn.setCellValueFactory(new PropertyValueFactory<>("matchInfo"));
         previousMatchesTable.setEditable(false);
 
+        Timenow();
     }
 
     /**
@@ -113,6 +119,7 @@ public class DisplayModeController implements Initializable {
             //TODO handle exception if loading somehow fails. Should not be possible at this point.
         }
         tournamentNameOutput.setText(tournament.getTournamentName());
+        clock.setText(new SimpleDateFormat("hh:mm:ss").format(new Date()));
 
         displayTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
@@ -137,6 +144,33 @@ public class DisplayModeController implements Initializable {
             else loadGroupStageTab();
         }
         else loadUpcomingMatchesTab();
+    }
+
+    /**
+     * Changes the tab to the next display tab in the order
+     */
+    @FXML
+    public void changeToNextTab(){
+        SingleSelectionModel<Tab> selectionModel = displayTabPane.getSelectionModel();
+        Tab selectedTab = selectionModel.getSelectedItem();
+
+        if(selectedTab == upcomingMatchesTab){
+            selectionModel.select(previousMatchesTab);
+        }
+        else if(selectedTab == previousMatchesTab) {
+            if(tournament.hasGroupStage()){
+                selectionModel.select(groupStageTab);
+            }
+            else{
+                selectionModel.select(knockoutStageTab);
+            }
+        }
+        else if(selectedTab == groupStageTab){
+            selectionModel.select(knockoutStageTab);
+        }
+        else if(selectedTab == knockoutStageTab){
+            selectionModel.select(upcomingMatchesTab);
+        }
     }
 
     /**
@@ -208,7 +242,7 @@ public class DisplayModeController implements Initializable {
      * @throws IOException
      */
     public void setBracketRoundContainers() throws IOException {
-       int numberOfRounds = this.tournament.getKnockoutStage().getRounds().size();
+        int numberOfRounds = this.tournament.getKnockoutStage().getRounds().size();
         if (numberOfRounds == 0) throw new IllegalArgumentException("       Number of rounds in knockout stage is zero");
         else if (numberOfRounds > 4) {
             for (int i = numberOfRounds - 4; i < numberOfRounds; i++) {
@@ -232,5 +266,54 @@ public class DisplayModeController implements Initializable {
         BracketRoundContainerController controller = loader.getController();
         controller.setMatchesInRoundContainers(round);
         roundControllers.add(controller);
+    }
+
+    /**
+     * Switches on or off the auto display function
+     */
+    public void autoDisplaySwitch(){
+        if(autoDisplay == false){
+            this.autoDisplay = true;
+            System.out.println("Autodisplay on");
+        } else {
+            this.autoDisplay = false;
+            System.out.println("Autodisplay off");
+        }
+    }
+
+    /**
+     * Stops clock
+     */
+    @FXML
+    public void stopClock() {
+        this.stopClock = false;
+        System.out.println("Stopped clock at " + new SimpleDateFormat("hh:mm:ss").format(new Date()));
+    }
+
+    /**
+     * Running clock
+     * Has to be stopped before changing scene.
+     */
+    @FXML
+    public void Timenow(){
+        Thread thread = new Thread(() -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            while(!stopClock){
+                try{
+                    Thread.sleep(1000);
+                }catch(Exception e){
+                    System.out.println(e);
+                }
+                Calendar calendar = Calendar.getInstance();
+                final String timeNow = sdf.format(calendar.getTime());
+                Platform.runLater(()->{
+                    if(calendar.get(Calendar.SECOND) % AUTO_DISPLAY_TIMER == 0 && autoDisplay){
+                        changeToNextTab();
+                    }
+                    clock.setText(timeNow);
+                });
+            }
+        });
+        thread.start();
     }
 }
