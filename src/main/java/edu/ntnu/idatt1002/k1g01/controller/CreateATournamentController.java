@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -45,6 +46,7 @@ public class CreateATournamentController implements Initializable {
     //Tournament Settings
     @FXML private TextField tournamentNameInputField;
     @FXML private Button addTeamButton;
+    @FXML private ImageView addTeamButtonIcon;
     @FXML private ChoiceBox<String> tournamentTypeInput;
     @FXML private ChoiceBox<Integer> teamsPerGroupInput;
     @FXML private ChoiceBox<Integer> teamsAdvancingFromGroupInput;
@@ -303,9 +305,14 @@ public class CreateATournamentController implements Initializable {
         if (teamNameInputField.getText().length() > Team.maxNameLength) {
             addTeamErrorOutput.setText("Name is too long");
             addTeamButton.setDisable(true);
+            addTeamButtonIcon.setVisible(false);
         }
-        else addTeamErrorOutput.setText("");
-        addTeamButton.setDisable(false);
+        else {
+            addTeamErrorOutput.setText("");
+            addTeamButton.setDisable(false);
+            addTeamButtonIcon.setVisible(true);
+        }
+
     }
 
     /**

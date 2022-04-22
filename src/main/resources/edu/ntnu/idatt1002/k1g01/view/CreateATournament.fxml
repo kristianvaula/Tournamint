@@ -99,7 +99,7 @@
                               <TextField fx:id="teamNameInputField" onKeyTyped="#checkNameLength" prefHeight="26.0" prefWidth="226.0" />
                               <Button fx:id="addTeamButton" mnemonicParsing="false" onAction="#addTeam" prefHeight="39.0" prefWidth="55.0" scaleShape="false" style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
                                  <graphic>
-                                    <ImageView fitHeight="31.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="addTeamButtonIcon" fitHeight="31.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@icons/plus.png" />
                                        </image>
