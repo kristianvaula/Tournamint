@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style=" -fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.EditTournamentController">
+    <children>
+        <BorderPane prefHeight="540.0" prefWidth="960.0" stylesheets="@style.css">
+            <top>
+                <VBox prefHeight="105.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml" />
+                        <Pane prefHeight="26.0" prefWidth="960.0" />
+                        <HBox alignment="CENTER" prefHeight="78.0" prefWidth="960.0">
+                            <children>
+                                  <Label prefHeight="33.0" prefWidth="143.0" text="Edit Tournament" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </top>
+            <center>
+                <HBox prefHeight="415.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane prefHeight="445.0" prefWidth="46.0" />
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="437.0" prefWidth="250.0">
+                            <children>
+                                <Label text="Tournament Name" />
+                                <TextField fx:id="tournamentNameField" />
+                        <Label fx:id="tournamentErrorOutput" prefHeight="24.0" prefWidth="257.0" />
+                                <Pane prefHeight="228.0" prefWidth="250.0" />
+                                <Button mnemonicParsing="false" onAction="#cancelBackToAdministrate" prefHeight="60.0" prefWidth="219.0" text="Cancel">
+                                    <effect>
+                                        <InnerShadow />
+                                    </effect>
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" />
+                           </VBox.margin></Button>
+                            </children></VBox>
+                        <Pane prefHeight="445.0" prefWidth="47.0" />
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="445.0" prefWidth="226.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#saveChanges" prefHeight="60.0" prefWidth="221.0" text="Save Changes">
+                                    <effect>
+                                        <InnerShadow />
+                                    </effect>
+                           <VBox.margin>
+                              <Insets bottom="15.0" />
+                           </VBox.margin></Button>
+                            </children></VBox>
+                        <Pane prefHeight="434.0" prefWidth="77.0" />
+                        <VBox prefHeight="428.0" prefWidth="266.0">
+                            <children>
+                                <Label alignment="CENTER" prefHeight="38.0" prefWidth="287.0" text="Team List" />
+                                <Label text="Edit Teamname" />
+                                <HBox alignment="CENTER" prefHeight="27.0" prefWidth="282.0">
+                                    <children>
+                                        <TextField fx:id="teamNameInputField" prefHeight="38.0" prefWidth="203.0">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin></TextField>
+                                        <Button mnemonicParsing="false" onAction="#editTeamName" prefHeight="39.0" prefWidth="55.0" scaleShape="false" style="-fx-border-color: black;" text="Save" />
+                                    </children>
+                                </HBox>
+                                <Label fx:id="editTeamErrorOutput" prefHeight="1.0" prefWidth="251.0" styleClass="errorFeedback" />
+                                <TableView fx:id="teamTableOutput" prefHeight="303.0" prefWidth="266.0">
+                                    <columns>
+                                        <TableColumn fx:id="teamNameColumn" prefWidth="265.59997560977934" text="Team Name" />
+                                    </columns>
+                                </TableView>
+                            </children></VBox>
+                    </children>
+                </HBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
