@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -34,8 +33,6 @@ import java.util.ResourceBundle;
  * @author kristvje
  */
 public class EnterPointResultsController implements Initializable {
-
-
 
     //The nested controller for the menuBar
     @FXML private TopMenuBarController topMenuBarController;
@@ -92,8 +89,8 @@ public class EnterPointResultsController implements Initializable {
             resultInputField1.setText(match.getMatchResult().get(team1));
             resultInputField2.setText(match.getMatchResult().get(team2));
         }else{
-            resultInputField1.setText("0");
-            resultInputField2.setText("0");
+            //resultInputField1.setText("0");
+            //resultInputField2.setText("0");
         }
         //Other fields
         timeField.setText(match.getStartTimeAsString());
@@ -101,6 +98,20 @@ public class EnterPointResultsController implements Initializable {
             dateField.setValue(match.getMatchDate());
         }
         infoField.setText(match.getMatchInfo());
+    }
+
+    /**
+     * Sets any resultField not parsable as Integer to "0".
+     */
+    @FXML
+    private void initResultFields() {
+        TextField[] resultFields = {resultInputField1, resultInputField2};
+        for (TextField field : resultFields) {
+            try { Integer.parseInt(field.getText()); }
+            catch (NumberFormatException e) {
+                field.setText("0");
+            }
+        }
     }
 
     /**
@@ -135,6 +146,7 @@ public class EnterPointResultsController implements Initializable {
      */
     @FXML
     public void incrementTeam1PointByOne() {
+        initResultFields();
         String result = resultInputField1.getText();
         int value = Integer.parseInt(result);
         value++;
@@ -146,6 +158,7 @@ public class EnterPointResultsController implements Initializable {
      */
     @FXML
     public void incrementTeam2PointByOne() {
+        initResultFields();
         String result = resultInputField2.getText();
         int value = Integer.parseInt(result);
         value++;
@@ -157,6 +170,7 @@ public class EnterPointResultsController implements Initializable {
      */
     @FXML
     public void decrementTeam1PointByOne() {
+        initResultFields();
         String result = resultInputField1.getText();
         int value = Integer.parseInt(result);
         if(value > 0) value--;
@@ -168,6 +182,7 @@ public class EnterPointResultsController implements Initializable {
      */
     @FXML
     public void decrementTeam2PointByOne() {
+        initResultFields();
         String result = resultInputField2.getText();
         int value = Integer.parseInt(result);
         if(value > 0) value--;
@@ -193,8 +208,10 @@ public class EnterPointResultsController implements Initializable {
     @FXML
     public void confirmResultsAndGoBack(ActionEvent event) throws IOException,NoSuchFieldException{
         try{
-            match.setResult(match.getParticipants().get(0),String.valueOf(resultInputField1.getText()));
-            match.setResult(match.getParticipants().get(1),String.valueOf(resultInputField2.getText()));
+            if (resultInputField1.getText().length() > 0 || resultInputField2.getText().length() > 0 ) {
+                match.setResult(match.getParticipants().get(0),String.valueOf(resultInputField1.getText()));
+                match.setResult(match.getParticipants().get(1),String.valueOf(resultInputField2.getText()));
+            }
             //System.out.println("result one: " + String.valueOf(resultInputField1));
             //System.out.println("result two: " + String.valueOf(resultInputField2));
 

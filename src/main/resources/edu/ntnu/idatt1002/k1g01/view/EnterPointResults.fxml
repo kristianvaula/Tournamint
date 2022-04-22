@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.EnterPointResultsController">
+<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.EnterPointResultsController">
     <children>
         <BorderPane prefHeight="540.0" prefWidth="960.0" stylesheets="@style.css">
             <top>
@@ -55,7 +55,7 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="292.0" prefWidth="450.0">
                                  <children>
-                                    <TextField fx:id="resultInputField1" alignment="CENTER" layoutX="25.0" layoutY="120.0" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
+                                    <TextField fx:id="resultInputField1" alignment="CENTER" layoutX="25.0" layoutY="120.0" onMouseClicked="#initResultFields" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
                                        <font>
                                           <Font size="70.0" />
                                        </font>
@@ -93,7 +93,7 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="292.0" prefWidth="450.0">
                                  <children>
-                                    <TextField fx:id="resultInputField2" alignment="CENTER" layoutX="25.0" layoutY="120.0" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
+                                    <TextField fx:id="resultInputField2" alignment="CENTER" layoutX="25.0" layoutY="120.0" onMouseClicked="#initResultFields" prefHeight="150.0" prefWidth="280.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
                                        <font>
                                           <Font size="75.0" />
                                        </font>
