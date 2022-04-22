@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
 import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
-import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import javafx.collections.FXCollections;
@@ -17,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -249,7 +247,6 @@ public class CreateATournamentController implements Initializable {
      */
     @FXML
     public void createTournament(ActionEvent event) throws IOException{
-
         try{
             tournament = generateTournament();
             changeSceneToAdministrateTournament(event);
@@ -264,13 +261,13 @@ public class CreateATournamentController implements Initializable {
      */
     @FXML
     public void addTeam(ActionEvent event) {
-        String teamName = teamNameInputField.getText();
+        String teamName = teamNameInputField.getText().trim();
         tournamentErrorOutput.setText("");
 
         if(teamName.isEmpty() || teamName.isBlank()){
             addTeamErrorOutput.setText("Please enter a team name");
         }
-        else if(teamList.contains(new Team(teamName))){
+        else if(teamList.stream().anyMatch(team -> team.getName().equals(teamName))){
             addTeamErrorOutput.setText("Teams cannot have the same name");
         }
         else if(teamList.size()>256){
