@@ -179,6 +179,41 @@ public class TopMenuBarController implements Initializable{
     }
 
     /**
+     * Changes the scene to edit tournament
+     * Also uses the edit tournament controller to
+     * send the tournament instance.
+     */
+    @FXML
+    public void changeSceneToEditTournament(){
+        //First check if a tournament is actually loaded so that it can be administrated.
+        if (tournamentDAO == null) { System.out.println("TopMenuBarController.TournamentDAO == null"); return; }
+
+        Stage stage = (Stage) topMenuBar.getScene().getWindow();
+
+        try {
+            stopClockThread();
+            //Load new scene from FXML document.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/EditTournament.fxml"));
+
+            //Load file.
+            Parent sceneParent = loader.load();
+            Scene scene = new Scene(sceneParent);
+            scene.setUserData(loader);
+
+            //Initiate new scene controller with loaded DAO as data.
+            EditTournamentController controller = loader.getController();
+            controller.initData(tournamentDAO);
+
+            //Switch to new scene.
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("" + e.getCause());
+        }
+    }
+
+    /**
      * Stops the
      */
     public void stopClockThread(){

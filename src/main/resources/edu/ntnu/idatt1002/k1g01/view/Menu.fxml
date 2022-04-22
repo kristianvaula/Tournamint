@@ -6,21 +6,21 @@
 
 <VBox fx:id="menuVBox" alignment="CENTER" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.MenuController">
    <children>
-      <Button mnemonicParsing="false" fx:id="displayModeButton" onAction="#changeSceneToDisplayMode" prefHeight="74.0" prefWidth="326.0" text="Display Mode">
+      <Button fx:id="displayModeButton" mnemonicParsing="false" onAction="#changeSceneToDisplayMode" prefHeight="74.0" prefWidth="326.0" text="Display Mode">
          <VBox.margin>
             <Insets />
          </VBox.margin>
       </Button>
-      <Button layoutX="127.0" fx:id="administrateTournamentButton" layoutY="143.0" mnemonicParsing="false" onAction="#changeSceneToAdministrateTournament" prefHeight="74.0" prefWidth="326.0" text="Administrate">
+      <Button fx:id="administrateTournamentButton" layoutX="127.0" layoutY="143.0" mnemonicParsing="false" onAction="#changeSceneToAdministrateTournament" prefHeight="74.0" prefWidth="326.0" text="Administrate">
          <VBox.margin>
             <Insets />
          </VBox.margin>
       </Button>
-      <Button layoutX="127.0" layoutY="200.0" fx:id="editTournamentButton" mnemonicParsing="false" prefHeight="74.0" prefWidth="326.0" text="Edit Tournament">
+      <Button fx:id="editTournamentButton" layoutX="127.0" layoutY="200.0" mnemonicParsing="false" onAction="#changeSceneToEditTournament" prefHeight="74.0" prefWidth="326.0" text="Edit Tournament">
          <VBox.margin>
             <Insets />
          </VBox.margin>
       </Button>
-      <Button layoutX="127.0" layoutY="217.0" fx:id="mainMenuButton" mnemonicParsing="false" onAction="#changeSceneToHomePage" prefHeight="74.0" prefWidth="326.0" text="Back to Menu" />
+      <Button fx:id="mainMenuButton" layoutX="127.0" layoutY="217.0" mnemonicParsing="false" onAction="#changeSceneToHomePage" prefHeight="74.0" prefWidth="326.0" text="Back to Menu" />
    </children>
 </VBox>

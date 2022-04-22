@@ -242,7 +242,6 @@ public class CreateATournamentController implements Initializable {
      */
     @FXML
     public void createTournament(ActionEvent event) throws IOException{
-
         try{
             tournament = generateTournament();
             changeSceneToAdministrateTournament(event);
@@ -257,13 +256,13 @@ public class CreateATournamentController implements Initializable {
      */
     @FXML
     public void addTeam(ActionEvent event) {
-        String teamName = teamNameInputField.getText();
+        String teamName = teamNameInputField.getText().trim();
         tournamentErrorOutput.setText("");
 
         if(teamName.isEmpty() || teamName.isBlank()){
             addTeamErrorOutput.setText("Please enter a team name");
         }
-        else if(teamList.contains(new Team(teamName))){
+        else if(teamList.stream().anyMatch(team -> team.getName().equals(teamName))){
             addTeamErrorOutput.setText("Teams cannot have the same name");
         }
         else if(teamList.size()>256){

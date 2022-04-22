@@ -228,18 +228,24 @@ public class EnterTimeResultsController implements Initializable {
      */
     @FXML
     public void confirmResultsAndGoBack(ActionEvent event) throws IOException,NoSuchFieldException{
-        String team1Result = team1Hours.getText() + ":" + team1Min.getText() + ":" + team1Sec.getText() + ":" + team1Nano.getText();
-        String team2Result = team2Hours.getText() + ":" + team2Min.getText() + ":" + team2Sec.getText() + ":" + team2Nano.getText();
-
         try{
-            match.setResult(match.getParticipants().get(0),team1Result);
-            match.setResult(match.getParticipants().get(1),team2Result);
+            String resultTeam1 = getResult("Team1");
+            String resultTeam2 = getResult("Team2");
+
+            if(resultTeam1 != null && resultTeam2 !=null){
+                System.out.println(resultTeam1);
+                System.out.println(resultTeam2);
+                match.setResult(match.getParticipants().get(0),resultTeam1);
+                match.setResult(match.getParticipants().get(1),resultTeam2);
+            }
 
             match.setMatchDate(dateField.getValue());
             match.setMatchInfo(infoField.getText());
             try{
                 if(!(timeField.getText().isEmpty() || timeField.getText().isBlank())) {
-                    match.setStartTime(LocalTime.parse((CharSequence) timeField.getText()));
+                    LocalTime newValue = LocalTime.parse((CharSequence) timeField.getText());
+                    match.setStartTime(newValue);
+
                 }
                 //EXIT FROM RESULT
                 tournament.updateTournament();
@@ -264,7 +270,65 @@ public class EnterTimeResultsController implements Initializable {
             alert.setContentText("Results cannot have negative values");
             alert.show();
         }
+        catch (IllegalArgumentException e){
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+    }
 
+    /**
+     * Gets result from input boxes and turns into
+     * string. Checks all the different inputs for
+     * bad values.
+     *
+     * @param team Which inputs we are checking
+     * @return the result
+     * @throws IllegalArgumentException if numbers are negative or to high
+     * @throws NumberFormatException if there are illegal characters in inputs
+     */
+    public String getResult(String team) throws IllegalArgumentException, NumberFormatException{
+        try{
+            if(team.equals("Team1")){
+                if(Integer.parseInt(team1Hours.getText()) > 23 || Integer.parseInt(team1Hours.getText()) < 0){
+                    throw new IllegalArgumentException("Hour must be between 0 and 23");
+                }
+                else if(Integer.parseInt(team1Min.getText()) > 59 || Integer.parseInt(team1Min.getText()) < 0){
+                    throw new IllegalArgumentException("Minutes must be between 0 and 59");
+                }
+                else if(Integer.parseInt(team1Sec.getText()) > 59 || Integer.parseInt(team2Sec.getText()) < 0){
+                    throw new IllegalArgumentException("Seconds must be between 0 and 59");
+                }
+                else if(Integer.parseInt(team1Nano.getText()) > 9999 || Integer.parseInt(team2Nano.getText()) < 0){
+                    throw new IllegalArgumentException("Nanoseconds must be between 0 and 9999");
+                }
+                String result = team1Hours.getText() + ":" + team1Min.getText() + ":" + team1Sec.getText() + ":" + team1Nano.getText();
+                if(result.matches("0:")) return null;
+                return result;
+            }
+            else if(team.equals("Team2")){
+                if(Integer.parseInt(team2Hours.getText()) > 23 || Integer.parseInt(team2Hours.getText()) < 0){
+                    throw new IllegalArgumentException("Hour must be between 0 and 23");
+                }
+                else if(Integer.parseInt(team2Min.getText()) > 59 || Integer.parseInt(team2Min.getText()) < 0){
+                    throw new IllegalArgumentException("Minutes must be between 0 and 59");
+                }
+                else if(Integer.parseInt(team2Sec.getText()) > 59 || Integer.parseInt(team2Sec.getText()) < 0){
+                    throw new IllegalArgumentException("Seconds must be between 0 and 59");
+                }
+                else if(Integer.parseInt(team2Nano.getText()) > 9999 || Integer.parseInt(team2Nano.getText()) < 0){
+                    throw new IllegalArgumentException("Nanoseconds must be between 0 and 9999");
+                }
+                String result = team2Hours.getText() + ":" + team2Min.getText() + ":" + team2Sec.getText() + ":" + team2Nano.getText();
+                if(result.matches("^[0:]+$")) return null;
+                return result;
+            }
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+            throw e;
+        }
 
+        return null;
     }
 }

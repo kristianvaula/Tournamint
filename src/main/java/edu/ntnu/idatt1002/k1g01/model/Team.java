@@ -51,39 +51,10 @@ public class Team implements Serializable {
      */
     public Team getTrueTeam() { return this; }
 
-    /**
-     * Two teams equal each other if
-     * they have the same name
-     * @param o The team we are comparing to
-     * @return True if teams have the same name
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (o == null) return false;
-        //First checks in case o is just a TeamHologram. Holograms are all initialized to name = "?" by default.
-        if (o.getClass() == TeamHologram.class) {
-            if (this == ((TeamHologram) o).getTrueTeam()) return true;
-            return this == o;
-        }
-        if (this == o) return true;
-        if (getClass() != o.getClass()) return false;
-        Team otherTeam = (Team) o;
-        return Objects.equals(name, otherTeam.name);
-    }
-
     @Override
     public String toString() {
         return "Team{" +
                 "name='" + name + '\'' +
                 '}';
-    }
-
-    /**
-     * Hashes name of team
-     * @return The hashcode
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
     }
 }

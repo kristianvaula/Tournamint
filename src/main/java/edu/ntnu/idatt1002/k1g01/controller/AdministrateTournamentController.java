@@ -175,6 +175,7 @@ public class AdministrateTournamentController implements Initializable {
      */
     @FXML
     public void displayAllMatches() {
+        matchTable.getItems().clear();
         ObservableList<Match> matchesObservable = FXCollections.observableArrayList();
 
         for(Round round : tournament.getAllRounds()){
