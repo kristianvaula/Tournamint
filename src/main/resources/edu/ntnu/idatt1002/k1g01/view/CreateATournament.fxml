@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
-<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style=" -fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.CreateATournamentController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style=" -fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.CreateATournamentController">
     <children>
         <BorderPane prefHeight="540.0" prefWidth="960.0" stylesheets="@style.css">
             <top>
@@ -43,7 +55,7 @@
                      <children>
                         <Pane prefHeight="38.0" prefWidth="202.0" />
                         <Label text="Tournament Name" />
-                        <TextField fx:id="nameInputField" />
+                        <TextField fx:id="tournamentNameInputField" />
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="22.0" prefWidth="202.0" />
                         <Label layoutX="10.0" layoutY="48.0" text="Tournament Type" />
                         <ChoiceBox fx:id="tournamentTypeInput" onAction="#tournamentTypeInputEvent" prefWidth="150.0" />
@@ -84,10 +96,10 @@
                         <Label text="Add Team" />
                         <HBox alignment="CENTER" prefHeight="27.0" prefWidth="282.0">
                            <children>
-                              <TextField fx:id="teamNameInputField" prefHeight="26.0" prefWidth="226.0" />
-                              <Button mnemonicParsing="false" onAction="#addTeam" prefHeight="39.0" prefWidth="55.0" scaleShape="false" style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
+                              <TextField fx:id="teamNameInputField" onKeyTyped="#checkNameLength" prefHeight="26.0" prefWidth="226.0" />
+                              <Button fx:id="addTeamButton" mnemonicParsing="false" onAction="#addTeam" prefHeight="39.0" prefWidth="55.0" scaleShape="false" style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
                                  <graphic>
-                                    <ImageView fitHeight="31.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="addTeamButtonIcon" fitHeight="31.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@icons/plus.png" />
                                        </image>

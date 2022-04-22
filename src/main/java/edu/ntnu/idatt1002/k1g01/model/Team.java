@@ -10,6 +10,7 @@ import java.util.Objects;
  */
 public class Team implements Serializable {
     // Name of the team
+    public static final int maxNameLength = 15;
     protected String name;
 
     /**
@@ -22,6 +23,8 @@ public class Team implements Serializable {
      * @param name Name of the team
      */
     public Team(String name) {
+        if (name.length() > maxNameLength)
+            throw new IllegalArgumentException("Team name exceeded max name length of " + maxNameLength + " characters");
         this.name = name;
     }
 

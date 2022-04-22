@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -43,7 +44,9 @@ public class CreateATournamentController implements Initializable {
     private ArrayList<Team> teamList = new ArrayList<>();
 
     //Tournament Settings
-    @FXML private TextField nameInputField;
+    @FXML private TextField tournamentNameInputField;
+    @FXML private Button addTeamButton;
+    @FXML private ImageView addTeamButtonIcon;
     @FXML private ChoiceBox<String> tournamentTypeInput;
     @FXML private ChoiceBox<Integer> teamsPerGroupInput;
     @FXML private ChoiceBox<Integer> teamsAdvancingFromGroupInput;
@@ -125,23 +128,15 @@ public class CreateATournamentController implements Initializable {
         teamTableOutput.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         //For testing
-        nameInputField.setText("Turnering");
+        tournamentNameInputField.setText("Turnering");
         teamList.add(new Team("Gutta Krutt"));
         teamList.add(new Team("Pølse Magne"));
         teamList.add(new Team("Kameratene"));
         teamList.add(new Team("Sennep Inc"));
-        teamList.add(new Team("Bilbo Baggins Boys"));
-        teamList.add(new Team("Samir and friends"));
+        teamList.add(new Team("Bilbo's Boys"));
+        teamList.add(new Team("Samir & friend"));
         teamList.add(new Team("An Ananas"));
         teamList.add(new Team("Pingas"));
-        //teamList.add(new Team("Gutta "));
-        //teamList.add(new Team("Pølse "));
-        //teamList.add(new Team("Kamerat"));
-        //teamList.add(new Team("Sennep "));
-        //teamList.add(new Team("Bilbo Baggins "));
-        //teamList.add(new Team("Samir and "));
-        //teamList.add(new Team("An "));
-        //teamList.add(new Team("Ping"));
         updateTeamTable();
     }
 
@@ -198,7 +193,7 @@ public class CreateATournamentController implements Initializable {
      * @return User specified tournament.
      */
     public Tournament generateTournament(){
-        String tournamentName =  nameInputField.getText();
+        String tournamentName =  tournamentNameInputField.getText();
         String tournamentType = tournamentTypeInput.getValue();
         int teamsPerGroup = teamsPerGroupInput.getValue();
         int teamsPerMatch = 2;
@@ -300,6 +295,23 @@ public class CreateATournamentController implements Initializable {
         }
         if(teamsObservable.size() == 0) return null;
         return teamsObservable;
+    }
+
+    /**
+     * Checks if input name is too long and warns user if it is.
+     */
+    public void checkNameLength() {
+        if (teamNameInputField.getText().length() > Team.maxNameLength) {
+            addTeamErrorOutput.setText("Name is too long");
+            addTeamButton.setDisable(true);
+            addTeamButtonIcon.setVisible(false);
+        }
+        else {
+            addTeamErrorOutput.setText("");
+            addTeamButton.setDisable(false);
+            addTeamButtonIcon.setVisible(true);
+        }
+
     }
 
     /**

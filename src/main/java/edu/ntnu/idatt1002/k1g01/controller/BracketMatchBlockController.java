@@ -5,7 +5,6 @@ import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -24,6 +23,10 @@ public class BracketMatchBlockController implements Initializable {
 
     }
 
+    /**
+     * method that sets info of team names and results in a BracketMatchBlock
+     * @param match
+     */
     public void setMatchInfo(Match match) {
         Team firstTeam = match.getParticipants().get(0);
         Team secondTeam = match.getParticipants().get(1);
