@@ -24,9 +24,12 @@ public class TeamTest {
         }
     }
 
+    /*
+    TODO remove these obsolete tests.
     @Nested
     @DisplayName("Tests Equals and HashCode methods")
     public class EqualsAndHashCode{
+
 
         @Test
         @DisplayName("Tests that two teams with same name are equal")
@@ -63,4 +66,5 @@ public class TeamTest {
             assertEquals(team1.hashCode(),team2.hashCode());
         }
     }
+    */
 }

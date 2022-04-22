@@ -62,12 +62,11 @@ public class TournamentDAOTest {
         catch (IOException ioException) {
             throw new AssertionError("failed to load tournament from file: " + ioException.getMessage());
         }
-        //TODO Perform more comprehensive comparison between Tournament objects to make sure they are indeed equivalent.
         assertEquals(savedTournament.getTournamentName(), loadedTournament.getTournamentName());
         assertEquals(savedTournament.getNumberOfTeams(), loadedTournament.getNumberOfTeams());
         for (int i = 0; i < savedTournament.getNumberOfTeams(); i++)
         {
-            assertEquals(savedTournament.getTeams().get(i), loadedTournament.getTeams().get(i));
+            assertEquals(savedTournament.getTeams().get(i).getName(), loadedTournament.getTeams().get(i).getName());
         }
     }
 
