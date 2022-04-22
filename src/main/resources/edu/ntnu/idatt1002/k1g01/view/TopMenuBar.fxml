@@ -2,27 +2,26 @@
 
 <?import javafx.scene.control.*?>
 
-<MenuBar fx:id="topMenuBar" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.TopMenuBarController">
+<MenuBar fx:id="topMenuBar" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.TopMenuBarController">
     <menus>
         <Menu fx:id="topMenuBarFile" mnemonicParsing="false" text="File">
             <items>
                 <MenuItem fx:id="topMenuBarOpen" mnemonicParsing="false" onAction="#openFile" text="Open" />
-                <MenuItem fx:id="topMenuBarClose" mnemonicParsing="false" onAction="#changeSceneToHomePage" text="Close" disable="true"/>
-                <MenuItem fx:id="topMenuBarSaveAs" mnemonicParsing="false" onAction="#saveFile" text="Save as" disable="true"/>
+            <MenuItem fx:id="topMenuBarOpen1" mnemonicParsing="false" onAction="#changeSceneToEditTournament" text="Edit" />
+                <MenuItem fx:id="topMenuBarClose" disable="true" mnemonicParsing="false" onAction="#changeSceneToHomePage" text="Close" />
+                <MenuItem fx:id="topMenuBarSaveAs" disable="true" mnemonicParsing="false" onAction="#saveFile" text="Save as" />
             </items>
         </Menu>
-        <Menu fx:id="topMenuBarView" mnemonicParsing="false" text="View" disable="true">
+        <Menu fx:id="topMenuBarView" disable="true" mnemonicParsing="false" text="View">
             <items>
-                <MenuItem mnemonicParsing="false" onAction="#changeSceneToDisplayMode" text="Display" fx:id="topMenuBarDisplay"/>
-                <MenuItem mnemonicParsing="false" onAction="#changeSceneToAdministrateTournament" text="Administrate" fx:id="topMenuBarAdministrate"/>
+                <MenuItem fx:id="topMenuBarDisplay" mnemonicParsing="false" onAction="#changeSceneToDisplayMode" text="Display" />
+                <MenuItem fx:id="topMenuBarAdministrate" mnemonicParsing="false" onAction="#changeSceneToAdministrateTournament" text="Administrate" />
             </items>
         </Menu>
-        <Menu fx:id="topMenuBarHelp" mnemonicParsing="false" text="Help" disable="true">
+        <Menu fx:id="topMenuBarHelp" disable="true" mnemonicParsing="false" text="Help">
             <items>
                 <MenuItem mnemonicParsing="false" text="About" />
             </items>
         </Menu>
     </menus>
 </MenuBar>
-
-
