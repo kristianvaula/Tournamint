@@ -299,7 +299,7 @@ public class CreateATournamentController implements Initializable {
     }
 
     /**
-     * Checks if input name is too long, and warns user if it is.
+     * Checks if input name is too long and warns user if it is.
      */
     public void checkNameLength() {
         if (teamNameInputField.getText().length() > Team.maxNameLength) {

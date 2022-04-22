@@ -197,6 +197,9 @@ public class Tournament implements Serializable {
      * @return ArrayList all rounds
      */
     public ArrayList<Round> getAllRounds(){
+
+        /*
+        TODO remove old disabled code eventually
         if(hasGroupStage){
             if(!groupStage.isFinished()){
                 return groupStage.getGroupRounds();
@@ -208,7 +211,12 @@ public class Tournament implements Serializable {
             }
         }
         return knockoutStage.getRounds();
+        */
 
+        ArrayList<Round> output = new ArrayList<>();
+        if (hasGroupStage) output.addAll(groupStage.getGroupRounds());
+        output.addAll(knockoutStage.getRounds());
+        return output;
     }
 
     /**
