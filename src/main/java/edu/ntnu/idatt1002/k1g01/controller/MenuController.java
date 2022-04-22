@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
@@ -37,6 +39,7 @@ public class MenuController implements Initializable{
 
     private TournamentDAO tournamentDAO;
 
+    @FXML private HBox outerHBox;
     @FXML private VBox menuVBox;
     @FXML private Button displayModeButton;
     @FXML private Button administrateTournamentButton;
@@ -180,7 +183,25 @@ public class MenuController implements Initializable{
     }
 
     /**
-     * Stops the
+     * Disables DisplayMode button,Edit Tournament and Administrate Tournament Button
+     */
+    public void disableDisplayAndAdministrate(){
+        displayModeButton.setDisable(true);
+        editTournamentButton.setDisable(true);
+        administrateTournamentButton.setDisable(true);
+    }
+
+    /**
+     * Hides menu when user presses close button
+     */
+    public void hideMenu(){
+        StackPane parent = (StackPane) outerHBox.getParent();
+        parent.setVisible(false);
+        parent.setDisable(true);
+    }
+
+    /**
+     * Stops the clock thread when we exit
      */
     public void stopClockThread(){
         FXMLLoader loader = (FXMLLoader) menuVBox.getScene().getUserData();
@@ -193,14 +214,5 @@ public class MenuController implements Initializable{
             AdministrateTournamentController controller = loader.getController();
             controller.stopClock();
         }
-    }
-
-    /**
-     * Disables DisplayMode button,Edit Tournament and Administrate Tournament Button
-     */
-    public void disableDisplayAndAdministrate(){
-        displayModeButton.setDisable(true);
-        editTournamentButton.setDisable(true);
-        administrateTournamentButton.setDisable(true);
     }
 }

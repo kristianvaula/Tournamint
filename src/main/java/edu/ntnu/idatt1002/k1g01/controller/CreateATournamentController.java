@@ -3,6 +3,8 @@ package edu.ntnu.idatt1002.k1g01.controller;
 import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,18 +47,24 @@ public class CreateATournamentController implements Initializable {
 
     //Tournament Settings
     @FXML private TextField tournamentNameInputField;
-    @FXML private Button addTeamButton;
-    @FXML private ImageView addTeamButtonIcon;
-    @FXML private ChoiceBox<String> tournamentTypeInput;
+    @FXML private RadioButton knockoutStageButton;
+    @FXML private RadioButton groupStageButton;
+    private ToggleGroup stageToggleGroup;
     @FXML private ChoiceBox<Integer> teamsPerGroupInput;
+    @FXML private Label teamsPerGroupLabel;
     @FXML private ChoiceBox<Integer> teamsAdvancingFromGroupInput;
+    @FXML private Label teamsAdvancingFromGroupLabel;
+    @FXML private ChoiceBox<Integer> teamsPerMatchInput;
+    @FXML private Label teamsPerMatchLabel;
     @FXML private RadioButton pointMatchButton;
     @FXML private RadioButton timeMatchButton;
+    private ToggleGroup matchToggleGroup;
     @FXML private Label tournamentErrorOutput;
     @FXML private Label tournamentWarningOutput;
-    private ToggleGroup radioToggleGroup;
 
     //Team settings
+    @FXML private Button addTeamButton;
+    @FXML private ImageView addTeamButtonIcon;
     @FXML private TextField teamNameInputField;
     @FXML private TableView<Team> teamTableOutput;
     @FXML private TableColumn<Team,String> teamNameColumn;
@@ -97,9 +105,17 @@ public class CreateATournamentController implements Initializable {
         menuStackPane.setVisible(false);
 
         //Adding tournamentTypes values to choicebox
-        tournamentTypeInput.getItems().add("Knockout Stage");
-        tournamentTypeInput.getItems().add("Group Stage + Knockout Stage");
-        tournamentTypeInput.setValue("Knockout Stage");
+        stageToggleGroup = new ToggleGroup();
+        knockoutStageButton.setToggleGroup(stageToggleGroup);
+        groupStageButton.setToggleGroup(stageToggleGroup);
+        stageToggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observableValue, Toggle oldVal, Toggle newVal) {
+                tournamentTypeChangeEvent((RadioButton) newVal);
+            }
+        });
+        stageToggleGroup.selectToggle(knockoutStageButton);
+
 
         //Adding teamsPerGroup values to choicebox
         for (int n = 2; n < 9; n++)
@@ -114,10 +130,33 @@ public class CreateATournamentController implements Initializable {
         teamsAdvancingFromGroupInput.setValue(2);
 
         //Adding matchType radio button values
-        radioToggleGroup = new ToggleGroup();
-        pointMatchButton.setToggleGroup(radioToggleGroup);
-        timeMatchButton.setToggleGroup(radioToggleGroup);
-        radioToggleGroup.selectToggle(pointMatchButton);
+        matchToggleGroup = new ToggleGroup();
+        pointMatchButton.setToggleGroup(matchToggleGroup);
+        timeMatchButton.setToggleGroup(matchToggleGroup);
+        matchToggleGroup.selectToggle(pointMatchButton);
+        //Adding listeners to change options based on type.
+        matchToggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> changed, Toggle oldVal, Toggle newVal) {
+                if((RadioButton)newVal == pointMatchButton){
+                    groupStageButton.setDisable(false);
+                    groupStageButton.setStyle("-fx-opacity: 1");
+                }
+                else if((RadioButton)newVal == timeMatchButton){
+                    stageToggleGroup.selectToggle(knockoutStageButton);
+                    groupStageButton.setDisable(true);
+                    groupStageButton.setStyle("-fx-opacity:0.4");
+                }
+            }
+        });
+
+        //Teams per match values
+        teamsPerMatchInput.getItems().add(2);
+        teamsPerMatchInput.getItems().add(4);
+        teamsPerMatchInput.getItems().add(6);
+        teamsPerMatchInput.getItems().add(8);
+        teamsPerMatchInput.getItems().add(12);
+        teamsPerMatchInput.setValue(2);
 
         //Setting up table
         teamNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -194,12 +233,12 @@ public class CreateATournamentController implements Initializable {
      */
     public Tournament generateTournament(){
         String tournamentName =  tournamentNameInputField.getText();
-        String tournamentType = tournamentTypeInput.getValue();
         int teamsPerGroup = teamsPerGroupInput.getValue();
-        int teamsPerMatch = 2;
+        int teamsPerMatch = teamsPerMatchInput.getValue();
         int teamsAdvancingFromGroup = teamsAdvancingFromGroupInput.getValue();
+
         String matchType;
-        if(radioToggleGroup.getSelectedToggle().equals(timeMatchButton)){
+        if(matchToggleGroup.getSelectedToggle().equals(timeMatchButton)){
             matchType = "timeMatch";
         }else matchType = "pointMatch";
 
@@ -210,7 +249,7 @@ public class CreateATournamentController implements Initializable {
             tournamentErrorOutput.setText("Not enough teams");
         }
         else { // Create tournament
-            if(tournamentType.equals("Group Stage + Knockout Stage")){
+            if(stageToggleGroup.getSelectedToggle().equals(groupStageButton)){
                 try{
                     tournament = new Tournament(tournamentName,teamList,matchType,teamsPerMatch,teamsPerGroup,teamsAdvancingFromGroup);
                 }catch (IllegalArgumentException e){
@@ -346,17 +385,35 @@ public class CreateATournamentController implements Initializable {
      * @author Martin Dammerud
      */
     @FXML
-    public void tournamentTypeInputEvent() {
-        System.out.println(tournamentTypeInput.getValue());
-        switch (tournamentTypeInput.getValue()){
-            case ("Knockout Stage"):
-                teamsPerGroupInput.setDisable(true);
-                teamsAdvancingFromGroupInput.setDisable(true);
-                break;
-            case ("Group Stage + Knockout Stage"):
-                teamsPerGroupInput.setDisable(false);
-                teamsAdvancingFromGroupInput.setDisable(false);
-                break;
+    public void tournamentTypeChangeEvent(RadioButton radioButton) {
+        System.out.println(radioButton.getText());
+        if (radioButton.equals(knockoutStageButton)) {
+            //teamsPerGroupInput.setVisible(false);
+            teamsPerGroupInput.setDisable(true);
+            //teamsPerGroupLabel.setVisible(false);
+            teamsPerGroupLabel.setStyle("-fx-opacity:0.4");
+            //teamsAdvancingFromGroupInput.setVisible(false);
+            teamsAdvancingFromGroupInput.setDisable(true);
+            //teamsAdvancingFromGroupLabel.setVisible(false);
+            teamsAdvancingFromGroupLabel.setStyle("-fx-opacity:0.4");
+            //teamsPerMatchInput.setVisible(true);
+            teamsPerMatchInput.setDisable(false);
+            //teamsPerMatchLabel.setVisible(true);
+            teamsPerMatchLabel.setStyle("-fx-opacity:1");
+        }
+        else if (radioButton.equals(groupStageButton)) {
+            //teamsPerGroupInput.setVisible(true);
+            teamsPerGroupInput.setDisable(false);
+            //teamsPerGroupLabel.setVisible(true);
+            teamsPerGroupLabel.setStyle("-fx-opacity:1");
+            //teamsAdvancingFromGroupInput.setVisible(true);
+            teamsAdvancingFromGroupInput.setDisable(false);
+            //teamsAdvancingFromGroupLabel.setVisible(true);
+            teamsAdvancingFromGroupLabel.setStyle("-fx-opacity:1");
+            //teamsPerMatchInput.setVisible(false);
+            teamsPerMatchInput.setDisable(true);
+            //teamsPerMatchLabel.setVisible(false);
+            teamsPerMatchLabel.setStyle("-fx-opacity:0.4");
         }
     }
     /**
