@@ -96,6 +96,7 @@ public class DisplayModeController implements Initializable {
         upcomTimeColumn.setCellValueFactory(new PropertyValueFactory<>("StartTimeAsString"));
         upcomInfoColumn.setCellValueFactory(new PropertyValueFactory<>("matchInfo"));
         upcomingMatchesTable.setEditable(false);
+        upcomingMatchesTable.setSelectionModel(null);
 
         //Preparing match table
         prevTeamsColumn.setCellValueFactory(new PropertyValueFactory<>("participantsAsString"));
@@ -104,6 +105,7 @@ public class DisplayModeController implements Initializable {
         prevTimeColumn.setCellValueFactory(new PropertyValueFactory<>("StartTimeAsString"));
         prevInfoColumn.setCellValueFactory(new PropertyValueFactory<>("matchInfo"));
         previousMatchesTable.setEditable(false);
+        previousMatchesTable.setSelectionModel(null);
 
         Timenow();
     }
@@ -159,7 +161,10 @@ public class DisplayModeController implements Initializable {
             selectionModel.select(previousMatchesTab);
         }
         else if(selectedTab == previousMatchesTab) {
-            if(tournament.hasGroupStage()){
+            if(tournament.getTeamsPerMatch() != 2){
+                selectionModel.select(upcomingMatchesTab);
+            }
+            else if(tournament.hasGroupStage()){
                 selectionModel.select(groupStageTab);
             }
             else{
@@ -167,7 +172,12 @@ public class DisplayModeController implements Initializable {
             }
         }
         else if(selectedTab == groupStageTab){
-            selectionModel.select(knockoutStageTab);
+            if(tournament.getGroupStage().isFinished()){
+                selectionModel.select(knockoutStageTab);
+            }
+            else{
+                selectionModel.select(upcomingMatchesTab);
+            }
         }
         else if(selectedTab == knockoutStageTab){
             selectionModel.select(upcomingMatchesTab);
@@ -242,13 +252,14 @@ public class DisplayModeController implements Initializable {
     @FXML
     public void loadKnockOutStage(){
         outerHbox.getChildren().clear();
-
-        if (tournament.getKnockoutStage() != null){
-            if(!tournament.getKnockoutStage().getRounds().isEmpty()){
-                try {
-                    setBracketRoundContainers();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if(tournament.getTeamsPerMatch() == 2){
+            if (tournament.getKnockoutStage() != null){
+                if(!tournament.getKnockoutStage().getRounds().isEmpty()){
+                    try {
+                        setBracketRoundContainers();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
