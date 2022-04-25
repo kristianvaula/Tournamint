@@ -65,6 +65,7 @@ public class HomePageController implements Initializable {
 
             //Get TournamentDAO from user specified file.
             TournamentDAO tournamentDAO = FileController.openFromFile(window);
+            if (tournamentDAO == null) return; //Cancelled by user.
 
             //Open administrate tournament with DAO.
             FXMLLoader loader = new FXMLLoader();

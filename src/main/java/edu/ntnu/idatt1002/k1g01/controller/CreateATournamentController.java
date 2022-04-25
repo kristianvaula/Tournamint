@@ -94,6 +94,22 @@ public class CreateATournamentController implements Initializable {
     }
 
     /**
+     * Generated dummy Teams for testing
+     * @param n number of teams to generate
+     * @return ArrayList of teams.
+     */
+    private ArrayList<Team> generateTeams(int n){
+        ArrayList<Team> teams = new ArrayList<>();
+        String[] names = {"pingas", "luigi", "princess", "maiboi", "stinker", "frog", "guttaBoys", "sennep inc", "din mor", "covfefe", "mousie"};
+        for (int i = 0; i < n; i++) {
+            String number = String.valueOf(i/names.length + 1);
+            if (number.equals("1")) number = "";
+            teams.add(new Team(names[i % names.length] + number));
+        }
+        return teams;
+    }
+
+    /**
      * Initializes CreateATournament
      * @param url url
      * @param resourceBundle resourceBundle
@@ -168,14 +184,7 @@ public class CreateATournamentController implements Initializable {
 
         //For testing
         tournamentNameInputField.setText("Turnering");
-        teamList.add(new Team("Gutta Krutt"));
-        teamList.add(new Team("Pølse Magne"));
-        teamList.add(new Team("Kameratene"));
-        teamList.add(new Team("Sennep Inc"));
-        teamList.add(new Team("Bilbo's Boys"));
-        teamList.add(new Team("Samir & friend"));
-        teamList.add(new Team("An Ananas"));
-        teamList.add(new Team("Pingas"));
+        teamList = generateTeams(64);
         updateTeamTable();
     }
 

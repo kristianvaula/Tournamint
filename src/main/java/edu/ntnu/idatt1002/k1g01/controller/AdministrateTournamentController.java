@@ -90,6 +90,7 @@ public class AdministrateTournamentController implements Initializable {
                 if (!row.isEmpty() && event.getButton()== MouseButton.PRIMARY
                         && event.getClickCount() == 2) {
                     Match match = row.getItem();
+
                     enterResultEvent(event, match);
                 }
             });
