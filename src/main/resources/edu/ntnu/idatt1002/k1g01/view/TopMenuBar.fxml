@@ -7,7 +7,7 @@
         <Menu fx:id="topMenuBarFile" mnemonicParsing="false" text="File">
             <items>
                 <MenuItem fx:id="topMenuBarOpen" mnemonicParsing="false" onAction="#openFile" text="Open" />
-            <MenuItem fx:id="topMenuBarOpen1" mnemonicParsing="false" onAction="#changeSceneToEditTournament" text="Edit" />
+                <MenuItem fx:id="topMenuBarEdit" disable="true" mnemonicParsing="false" onAction="#changeSceneToEditTournament" text="Edit" />
                 <MenuItem fx:id="topMenuBarClose" disable="true" mnemonicParsing="false" onAction="#changeSceneToHomePage" text="Close" />
                 <MenuItem fx:id="topMenuBarSaveAs" disable="true" mnemonicParsing="false" onAction="#saveFile" text="Save as" />
             </items>
