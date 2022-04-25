@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -12,17 +13,17 @@
                 <VBox prefHeight="105.0" prefWidth="960.0" BorderPane.alignment="CENTER">
                     <children>
                         <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml" />
-                        <Pane prefHeight="26.0" prefWidth="960.0" />
-                        <HBox alignment="CENTER" prefHeight="78.0" prefWidth="960.0">
+                        <HBox alignment="CENTER" prefHeight="69.0" prefWidth="960.0" styleClass="dark-background">
                             <children>
-                                  <Label prefHeight="33.0" prefWidth="143.0" text="Edit Tournament" />
+                                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="246.0" styleClass="title-text" text="Edit Tournament" />
                             </children>
                         </HBox>
+                        <Pane minHeight="7.0" prefHeight="7.0" prefWidth="960.0" style="-fx-background-color: #019A06;" />
                     </children>
                 </VBox>
             </top>
             <center>
-                <HBox prefHeight="415.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+                <HBox prefHeight="415.0" prefWidth="960.0" styleClass="background" BorderPane.alignment="CENTER">
                     <children>
                         <Pane prefHeight="445.0" prefWidth="46.0" />
                         <VBox alignment="BOTTOM_LEFT" prefHeight="437.0" prefWidth="250.0">
@@ -37,7 +38,11 @@
                                     </effect>
                            <VBox.margin>
                               <Insets bottom="15.0" left="15.0" />
-                           </VBox.margin></Button>
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="dark-medium-text" />
+                              <String fx:value="custom-button" />
+                           </styleClass></Button>
                             </children></VBox>
                         <Pane prefHeight="445.0" prefWidth="47.0" />
                         <VBox alignment="BOTTOM_CENTER" prefHeight="445.0" prefWidth="226.0">
@@ -48,7 +53,11 @@
                                     </effect>
                            <VBox.margin>
                               <Insets bottom="15.0" />
-                           </VBox.margin></Button>
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="custom-button" />
+                              <String fx:value="dark-medium-text" />
+                           </styleClass></Button>
                             </children></VBox>
                         <Pane prefHeight="434.0" prefWidth="77.0" />
                         <VBox prefHeight="428.0" prefWidth="266.0">
@@ -61,7 +70,7 @@
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin></TextField>
-                                        <Button mnemonicParsing="false" onAction="#editTeamName" prefHeight="39.0" prefWidth="55.0" scaleShape="false" style="-fx-border-color: black;" text="Save" />
+                                        <Button mnemonicParsing="false" onAction="#editTeamName" prefHeight="39.0" prefWidth="55.0" scaleShape="false" styleClass="custom-button" text="Save" />
                                     </children>
                                 </HBox>
                                 <Label fx:id="editTeamErrorOutput" prefHeight="1.0" prefWidth="251.0" styleClass="errorFeedback" />

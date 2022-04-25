@@ -42,10 +42,12 @@ public class DisplayModeController implements Initializable {
     @FXML private TopMenuBarController topMenuBarController;
     @FXML private MenuController popUpMenuController;
 
-    //Clock
+    //Clock and auto display button
     @FXML private TextField clock;
     @FXML private volatile boolean stopClock = false;
     @FXML private volatile boolean autoDisplay = false;
+    @FXML private Button autoButton;
+
 
     //Tabpane
     @FXML private TabPane displayTabPane;
@@ -75,7 +77,7 @@ public class DisplayModeController implements Initializable {
     //Tab knockoutStage
     @FXML private Tab knockoutStageTab;
     @FXML private HBox outerHbox;
-    @FXML private Text tournamentNameOutput;
+    @FXML private Label tournamentNameOutput;
 
     //Pop-up menu
     @FXML private StackPane menuStackPane;
@@ -146,6 +148,9 @@ public class DisplayModeController implements Initializable {
             }
         });
 
+        if(!tournament.hasGroupStage()){
+            groupStageTab.setDisable(true);
+        }
         changeToNextTab();
     }
 
@@ -158,7 +163,17 @@ public class DisplayModeController implements Initializable {
         Tab selectedTab = selectionModel.getSelectedItem();
 
         if(selectedTab == upcomingMatchesTab){
-            selectionModel.select(previousMatchesTab);
+            if(previousMatchesTab.disableProperty().get()){
+                if(tournament.hasGroupStage()){
+                    selectionModel.select(groupStageTab);
+                }
+                else{
+                    selectionModel.select(knockoutStageTab);
+                }
+            }
+            else{
+                selectionModel.select(previousMatchesTab);
+            }
         }
         else if(selectedTab == previousMatchesTab) {
             if(tournament.getTeamsPerMatch() != 2){
@@ -172,7 +187,7 @@ public class DisplayModeController implements Initializable {
             }
         }
         else if(selectedTab == groupStageTab){
-            if(tournament.getGroupStage().isFinished()){
+            if(tournament.hasGroupStage() && tournament.getGroupStage().isFinished()){
                 selectionModel.select(knockoutStageTab);
             }
             else{
@@ -222,7 +237,13 @@ public class DisplayModeController implements Initializable {
                 }
             }
         }
-        previousMatchesTable.setItems(matchesObservable);
+        if(matchesObservable.size()<1){
+            previousMatchesTab.setDisable(true);
+            changeToNextTab();
+        }
+        else {
+            previousMatchesTable.setItems(matchesObservable);
+        }
     }
 
     /**
@@ -327,9 +348,11 @@ public class DisplayModeController implements Initializable {
     public void autoDisplaySwitch(){
         if(autoDisplay == false){
             this.autoDisplay = true;
+            autoButton.setStyle("-fx-border-color: green");
             System.out.println("Autodisplay on");
         } else {
             this.autoDisplay = false;
+            autoButton.setStyle("-fx-border-color: red");
             System.out.println("Autodisplay off");
         }
     }
@@ -350,7 +373,7 @@ public class DisplayModeController implements Initializable {
     @FXML
     public void Timenow(){
         Thread thread = new Thread(() -> {
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
             while(!stopClock){
                 try{
                     Thread.sleep(1000);

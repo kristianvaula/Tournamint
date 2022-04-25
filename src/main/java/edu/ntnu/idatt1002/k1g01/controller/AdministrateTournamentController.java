@@ -46,7 +46,7 @@ public class AdministrateTournamentController implements Initializable {
     private TournamentDAO tournamentDAO;
 
     //General Settings
-    @FXML private Text tournamentNameOutput;
+    @FXML private Label tournamentNameOutput;
     @FXML private TextField clock;
     @FXML private volatile boolean stopClock = false;
 
@@ -288,7 +288,7 @@ public class AdministrateTournamentController implements Initializable {
      */
     public void Timenow(){
         Thread thread = new Thread(() -> {
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
             while(!stopClock){
                 try{
                     Thread.sleep(1000);
