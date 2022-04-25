@@ -85,12 +85,12 @@ public class EnterMultiTeamResultsController implements Initializable {
         hbox.prefHeight(22.0);
         Label teams = new Label("Teams");
         teams.prefHeight(22.0);
-        teams.setMinWidth((teamVBox.getPrefWidth()*60)/100);
-        teams.setAlignment(CENTER);
+        teams.setMinWidth((teamVBox.getPrefWidth()*40)/100);
+        //teams.setAlignment(CENTER);
         Label results = new Label("Results");
         results.prefHeight(22.0);
-        results.setMinWidth((teamVBox.getPrefWidth()*40)/100);
-        results.setAlignment(CENTER);
+        results.setMinWidth((teamVBox.getPrefWidth()*50)/100);
+        //results.setAlignment(CENTER);
         results.setStyle("-fx-background-color: gray");
         hbox.getChildren().add(teams);
         hbox.getChildren().add(results);
@@ -136,7 +136,7 @@ public class EnterMultiTeamResultsController implements Initializable {
             try {
                 updateAndSetResults();
                 if(!(timeField.getText().isEmpty() || timeField.getText().isBlank())) {
-                    match.setStartTime(LocalTime.parse((CharSequence) timeField.getText()));
+                    match.setStartTime(LocalTime.parse(timeField.getText()));
                 }
                 match.setMatchDate(dateField.getValue());
                 match.setMatchInfo(infoField.getText());
@@ -160,7 +160,13 @@ public class EnterMultiTeamResultsController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Date was not valid");
                 alert.show();
-            }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(e.getMessage());
+                alert.show();
+        }
+
         }else {
             System.out.println("ERROR ALERT");
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -203,22 +209,25 @@ public class EnterMultiTeamResultsController implements Initializable {
             if(tournament.getMatchType().equals("timeMatch")){
                 result.setPromptText(" HH:MM:SS:NN ");
             }
+            else if(tournament.getMatchType().equals("pointMatch")){
+                result.setPromptText(" score ");
+            }
 
             HBox hbox = new HBox();
             hbox.setPrefHeight(30.0);
             teamName.setPrefHeight(30.0);
-            teamName.setMinWidth((teamVBox.getPrefWidth()*60)/100);
+            teamName.setMinWidth((teamVBox.getPrefWidth()*40)/100);
             teamName.getStyleClass().add("label-multiTeam");
 
             teamName.setPadding(new Insets(5,0,5,10));
 
             result.setPrefHeight(30.0);
-            result.setMinWidth((teamVBox.getPrefWidth()*40)/100);
+            result.setMinWidth((teamVBox.getPrefWidth()*50)/100);
             result.setId(team.getName());
             result.getStyleClass().add("label-multiTeam");
             result.setPadding(new Insets(5,0,5,0));
 
-            String background = null;
+            String background;
             if(i%2==0){
                 background = "-fx-background-color: #ffffff";
             }else {
@@ -234,14 +243,33 @@ public class EnterMultiTeamResultsController implements Initializable {
     }
 
     @FXML
-    public void updateAndSetResults() throws NumberFormatException{
+    public void updateAndSetResults() throws NumberFormatException, IllegalStateException{
+        //Check if any results have been set, and if all results are set.
+        boolean hasBlank = false;
+        boolean hasResult = false;
         for(Node hBox : teamVBox.getChildren()){
-            if(hBox instanceof HBox){
-                for(Node textField : ((HBox)hBox).getChildren()){
-                    if(textField instanceof TextField){
-                        Team team = tournament.getTeamByName(textField.getId());
-                        String value = ((TextField) textField).getText();
-                        match.setResult(team, value);
+            if(hBox instanceof HBox) {
+                for (Node textField : ((HBox) hBox).getChildren()) {
+                    if (textField instanceof TextField) {
+                        if (((TextField) textField).getText().isBlank()) hasBlank = true;
+                        else hasResult = true;
+                    }
+                }
+            }
+        }
+
+        //Attempt to actually save results if there are no blank fields.
+        //Throw error if some fields are blank.
+        if (hasResult) {
+            if (hasBlank) throw new IllegalStateException("Cannot save if only some results are entered");
+            for(Node hBox : teamVBox.getChildren()){
+                if(hBox instanceof HBox){
+                    for(Node textField : ((HBox)hBox).getChildren()){
+                        if(textField instanceof TextField){
+                            Team team = tournament.getTeamByName(textField.getId());
+                            String value = ((TextField) textField).getText();
+                            match.setResult(team, value);
+                        }
                     }
                 }
             }

@@ -115,11 +115,11 @@ public class TimeMatch extends Match{
      * updateIsFinished().
      *
      * @param team Team we add results for
-     * @param value
+     * @param value Result to be attributed to team.
      * @throws ClassCastException if match still contains TeamHolograms.
      */
     @Override
-    public void setResult(Team team, String value) throws DateTimeParseException,DateTimeException{
+    public void setResult(Team team, String value) throws DateTimeException{
         if (!playable()) throw new ClassCastException("Match needs winners from unfinished matches");
 
         //used to be inside a try block that did nothing.
@@ -162,15 +162,17 @@ public class TimeMatch extends Match{
      * @param inputString String input
      * @return Localtime parsed
      */
-    public LocalTime timeResultParser(String inputString) throws DateTimeParseException, DateTimeException {
+    public LocalTime timeResultParser(String inputString) throws DateTimeException {
         String[] inputTable = inputString.split(":");
-        int hours = Integer.parseInt(inputTable[0]);
-        int minutes = Integer.parseInt(inputTable[1]);
-        int seconds = Integer.parseInt(inputTable[2]);
-        int milliseconds = Integer.parseInt(inputTable[3]) * 100;
-
-        //Used to be inside a try block that did nothing.
-        return LocalTime.of(hours,minutes,seconds,milliseconds);
-
+        try {
+            int hours = Integer.parseInt(inputTable[0]);
+            int minutes = Integer.parseInt(inputTable[1]);
+            int seconds = Integer.parseInt(inputTable[2]);
+            int milliseconds = Integer.parseInt(inputTable[3]) * 100;
+            return LocalTime.of(hours,minutes,seconds,milliseconds);
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            throw new DateTimeException("Could not parse " + inputString + " as a time! Please enter time in format HH:MM:SS:NN");
+        }
     }
 }

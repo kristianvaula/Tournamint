@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
@@ -78,7 +79,12 @@ public class HomePageController implements Initializable {
             window.show();
         }
         catch (IOException e) {
+            System.out.println("ERROR ALERT");
             System.out.println(e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage() + "\nFile may be corrupted, or created by outdated version of Tournamint.");
+            alert.show();
+
         }
     }
 
