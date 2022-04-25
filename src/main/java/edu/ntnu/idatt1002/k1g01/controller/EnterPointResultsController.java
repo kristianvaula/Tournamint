@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -22,6 +23,7 @@ import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -50,6 +52,12 @@ public class EnterPointResultsController implements Initializable {
     @FXML private TextField resultInputField1;
     @FXML private TextField resultInputField2;
 
+    // Increment buttons
+    @FXML private Button team1PlusButton;
+    @FXML private Button team2PlusButton;
+    @FXML private Button team1MinusButton;
+    @FXML private Button team2MinusButton;
+
     //General Input Fields
     @FXML private DatePicker dateField;
     @FXML private TextField timeField;
@@ -77,6 +85,14 @@ public class EnterPointResultsController implements Initializable {
         this.tournament = tournamentDAO.load(); //TODO handle the exception from this better.
         topMenuBarController.setTournamentDAO(tournamentDAO);//Give menuBar controller access to the DAO.
         this.match = match;
+
+        // Disable all result inputs if match is not yet playable.
+        if (!match.isPlayable()) {
+            resultInputField1.setDisable(true);
+            resultInputField2.setDisable(true);
+            Button[] iterateButtons = {team1PlusButton, team2PlusButton, team1MinusButton, team2MinusButton};
+            for (Button b : iterateButtons) { b.setDisable(true); b.setStyle("-fx-opacity:0.4"); }
+        }
 
         // Sets up the current match info
         // Names

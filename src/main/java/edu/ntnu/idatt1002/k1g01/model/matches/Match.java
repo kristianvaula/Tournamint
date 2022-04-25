@@ -83,7 +83,7 @@ public abstract class Match implements Serializable {
      * If there are any holograms, then the match can't yet be played.
      * @return true if there
      */
-    public boolean playable() {
+    public boolean isPlayable() {
         for (Team team : participants) {
             if (team.getTrueTeam() == null) return false;
         }

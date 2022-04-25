@@ -5,7 +5,6 @@ import edu.ntnu.idatt1002.k1g01.model.Team;
 
 import java.time.DateTimeException;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -120,7 +119,7 @@ public class TimeMatch extends Match{
      */
     @Override
     public void setResult(Team team, String value) throws DateTimeException{
-        if (!playable()) throw new ClassCastException("Match needs winners from unfinished matches");
+        if (!isPlayable()) throw new ClassCastException("Match needs winners from unfinished matches");
 
         //used to be inside a try block that did nothing.
         LocalTime result = this.timeResultParser(value);
