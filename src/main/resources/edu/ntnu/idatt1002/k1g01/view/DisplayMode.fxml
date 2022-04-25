@@ -7,28 +7,26 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.DisplayModeController">
-    <BorderPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css">
+    <BorderPane maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" styleClass="background" stylesheets="@style.css">
         <top>
-            <VBox prefHeight="78.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="105.0" prefWidth="960.0" BorderPane.alignment="CENTER">
                 <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml" />
-                <HBox prefHeight="100.0" prefWidth="200.0">
-                    <Pane prefHeight="58.0" prefWidth="11.0" />
-                    <Button mnemonicParsing="false" onAction="#displayPopUpMenu" prefHeight="58.0" prefWidth="88.0" style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
+                <HBox prefHeight="100.0" prefWidth="200.0" styleClass="dark-background">
+                    <Button mnemonicParsing="false" onAction="#displayPopUpMenu" prefHeight="58.0" prefWidth="88.0" style="-fx-border-color: #2D2D2D;" styleClass="dark-background">
                         <graphic>
                             <ImageView fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
-                                <Image url="@icons/menu.png" />
+                                <Image url="@icons/menu_bright.png" />
                             </ImageView>
                         </graphic>
+                  <HBox.margin>
+                     <Insets left="20.0" />
+                  </HBox.margin>
                     </Button>
                     <Pane prefHeight="58.0" prefWidth="181.0" />
-                    <Text fx:id="tournamentNameOutput" fill="#18205b" strokeType="OUTSIDE" strokeWidth="0.0" text="Tournament name" textAlignment="CENTER" wrappingWidth="387.61865234375">
-                        <font>
-                            <Font size="35.0" />
-                        </font>
-                    </Text>
+               <Label fx:id="tournamentNameOutput" alignment="CENTER" prefHeight="59.0" prefWidth="386.0" styleClass="title-text" text="Tournament name" textAlignment="CENTER" />
                     <Pane layoutX="90.0" layoutY="10.0" prefHeight="58.0" prefWidth="26.0" />
                     <StackPane prefHeight="58.0" prefWidth="159.0">
-                        <Button mnemonicParsing="false" fx:id="autoButton" onAction="#autoDisplaySwitch" prefHeight="33.0" prefWidth="98.0" text="Auto" />
+                        <Button fx:id="autoButton" mnemonicParsing="false" onAction="#autoDisplaySwitch" prefHeight="33.0" prefWidth="98.0" styleClass="custom-button" text="Auto" />
                     </StackPane>
                     <StackPane fx:id="time" prefHeight="58.0" prefWidth="84.0">
                         <TextField fx:id="clock" alignment="CENTER" prefHeight="31.0" prefWidth="91.0" text="10:09:35">
@@ -36,54 +34,68 @@
                                 <Font size="15.0" />
                             </font>
                         </TextField>
+                  <HBox.margin>
+                     <Insets right="20.0" />
+                  </HBox.margin>
                     </StackPane>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                 </HBox>
+            <Pane minHeight="7.0" prefHeight="7.0" prefWidth="181.0" style="-fx-background-color: #019A06;" />
             </VBox>
         </top>
-        <center>
-            <TabPane fx:id="displayTabPane" maxHeight="435.0" maxWidth="920.0" minHeight="435.0" minWidth="920.0" prefHeight="435.0" prefWidth="934.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-                <Tab fx:id="upcomingMatchesTab" text="Upcoming Matches">
-                    <TableView fx:id="upcomingMatchesTable" prefHeight="441.0" prefWidth="934.0">
-                        <columns>
-                            <TableColumn fx:id="upcomTeamsColumn" prefWidth="310.0" text="Teams" />
-                            <TableColumn fx:id="upcomResultColumn" minWidth="0.0" prefWidth="221.0" text="Result" />
-                            <TableColumn fx:id="upcomDateColumn" minWidth="0.0" prefWidth="125.0" text="Date" />
-                            <TableColumn fx:id="upcomTimeColumn" minWidth="0.0" prefWidth="125.0" text="Time" />
-                            <TableColumn fx:id="upcomInfoColumn" minWidth="0.0" prefWidth="136.79998779296875" text="Info" />
-                        </columns>
-                    </TableView>
-                </Tab>
-                <Tab fx:id="previousMatchesTab" text="Previous Matches">
-                    <TableView fx:id="previousMatchesTable" prefHeight="441.0" prefWidth="934.0">
-                        <columns>
-                            <TableColumn fx:id="prevTeamsColumn" prefWidth="310.0" text="Teams" />
-                            <TableColumn fx:id="prevResultColumn" minWidth="0.0" prefWidth="221.0" text="Result " />
-                            <TableColumn fx:id="prevDateColumn" minWidth="0.0" prefWidth="125.0" text="Date" />
-                            <TableColumn fx:id="prevTimeColumn" minWidth="0.0" prefWidth="125.0" text="Time" />
-                            <TableColumn fx:id="prevInfoColumn" minWidth="0.0" prefWidth="136.79998779296875" text="Info" />
-                        </columns>
-                    </TableView>
-                </Tab>
-                <Tab fx:id="groupStageTab" text="GroupStage">
-                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="416.0" prefWidth="921.0">
-                     <content>
-                              <HBox fx:id="groupStageHBox" alignment="CENTER" prefHeight="403.0" prefWidth="920.0">
+      <center>
+         <VBox alignment="CENTER" prefHeight="419.0" prefWidth="960.0" styleClass="background" BorderPane.alignment="CENTER">
+            <children>
+                  <TabPane fx:id="displayTabPane" maxHeight="435.0" maxWidth="960.0" minHeight="394.0" minWidth="920.0" prefHeight="394.0" prefWidth="920.0" styleClass="background" tabClosingPolicy="UNAVAILABLE">
+                      <Tab fx:id="upcomingMatchesTab" text="Upcoming Matches">
+                          <TableView fx:id="upcomingMatchesTable" prefHeight="441.0" prefWidth="934.0">
+                              <columns>
+                                  <TableColumn fx:id="upcomTeamsColumn" prefWidth="310.0" text="Teams" />
+                                  <TableColumn fx:id="upcomResultColumn" minWidth="0.0" prefWidth="221.0" text="Result" />
+                                  <TableColumn fx:id="upcomDateColumn" minWidth="0.0" prefWidth="125.0" text="Date" />
+                                  <TableColumn fx:id="upcomTimeColumn" minWidth="0.0" prefWidth="125.0" text="Time" />
+                                  <TableColumn fx:id="upcomInfoColumn" minWidth="0.0" prefWidth="136.79998779296875" text="Info" />
+                              </columns>
+                          </TableView>
+                      </Tab>
+                      <Tab fx:id="previousMatchesTab" text="Previous Matches">
+                          <TableView fx:id="previousMatchesTable" prefHeight="441.0" prefWidth="934.0">
+                              <columns>
+                                  <TableColumn fx:id="prevTeamsColumn" prefWidth="310.0" text="Teams" />
+                                  <TableColumn fx:id="prevResultColumn" minWidth="0.0" prefWidth="221.0" text="Result " />
+                                  <TableColumn fx:id="prevDateColumn" minWidth="0.0" prefWidth="125.0" text="Date" />
+                                  <TableColumn fx:id="prevTimeColumn" minWidth="0.0" prefWidth="125.0" text="Time" />
+                                  <TableColumn fx:id="prevInfoColumn" minWidth="0.0" prefWidth="136.79998779296875" text="Info" />
+                              </columns>
+                          </TableView>
+                      </Tab>
+                      <Tab fx:id="groupStageTab" text="GroupStage">
+                          <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background">
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="416.0" prefWidth="921.0" styleClass="background">
+                           <content>
+                                    <HBox fx:id="groupStageHBox" alignment="CENTER" prefHeight="403.0" prefWidth="920.0" styleClass="background">
                             <!--> Will place BracketRoundContainers here <!-->
                         </HBox>
-                     </content>
-                  </ScrollPane>
-                    </AnchorPane>
-                </Tab>
-                <Tab fx:id="knockoutStageTab" text="KnockoutStage">
-                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                        <HBox fx:id="outerHbox" alignment="CENTER" prefHeight="403.0" prefWidth="918.0">
+                           </content>
+                        </ScrollPane>
+                          </AnchorPane>
+                      </Tab>
+                      <Tab fx:id="knockoutStageTab" text="KnockoutStage">
+                          <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #2D2D2D;">
+                              <HBox fx:id="outerHbox" alignment="CENTER" prefHeight="403.0" prefWidth="918.0">
                             <!--> Will place BracketRoundContainers here <!-->
                         </HBox>
-                    </AnchorPane>
-                </Tab>
-            </TabPane>
-        </center>
+                          </AnchorPane>
+                      </Tab>
+                  <VBox.margin>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                  </VBox.margin>
+                  </TabPane>
+            </children>
+         </VBox>
+      </center>
     </BorderPane>
    <StackPane fx:id="menuStackPane" prefHeight="540.0" prefWidth="960.0">
        <fx:include fx:id="popUpMenu" source="Menu.fxml" />
