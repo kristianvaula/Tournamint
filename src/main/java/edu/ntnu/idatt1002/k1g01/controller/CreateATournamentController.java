@@ -69,6 +69,7 @@ public class CreateATournamentController implements Initializable {
     @FXML private TableView<Team> teamTableOutput;
     @FXML private TableColumn<Team,String> teamNameColumn;
     @FXML private Label addTeamErrorOutput;
+    @FXML private Label teamCounterOutput;
 
     //Pop-up menu
     @FXML private StackPane menuStackPane;
@@ -313,7 +314,7 @@ public class CreateATournamentController implements Initializable {
         else if(teamList.stream().anyMatch(team -> team.getName().equals(teamName))){
             addTeamErrorOutput.setText("Teams cannot have the same name");
         }
-        else if(teamList.size()>256){
+        else if(teamList.size()>256){ //TODO consider removing this.
             addTeamErrorOutput.setText("Too many teams");
         }else{
             teamList.add(new Team(teamName));
@@ -367,6 +368,7 @@ public class CreateATournamentController implements Initializable {
      */
     @FXML
     public void updateTeamTable(){
+        teamCounterOutput.setText("teams: " + getTeams().size());
         if(getTeams() != null) teamTableOutput.setItems(getTeams());
     }
 
@@ -383,10 +385,11 @@ public class CreateATournamentController implements Initializable {
         selectedRows = teamTableOutput.getSelectionModel().getSelectedItems();
 
         //Loop through selected and remove from lists.
-        for(Team team : selectedRows){
+        for(Team team : selectedRows){ //TODO This causes a soft error if the last team is deleted from the list
             teamList.remove(team);
             tableRows.remove(team);
         }
+        teamCounterOutput.setText("teams: " + teamList.size());
     }
 
     /**
