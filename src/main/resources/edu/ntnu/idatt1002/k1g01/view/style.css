@@ -36,6 +36,10 @@
     -fx-font-size: 15pt;
     -fx-text-fill:#2D2D2D;
 }
+.label-groupStage{
+    -fx-font-size: 12pt;
+    -fx-text-fill:#2D2D2D;
+}
 .errorFeedback{
     -fx-font-size: 11pt;
     -fx-text-fill:red;

@@ -184,7 +184,7 @@ public class CreateATournamentController implements Initializable {
 
         //For testing
         tournamentNameInputField.setText("Turnering");
-        teamList = generateTeams(64);
+        teamList = generateTeams(16);
         updateTeamTable();
     }
 
