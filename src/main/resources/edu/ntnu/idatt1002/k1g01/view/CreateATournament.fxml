@@ -21,7 +21,7 @@
                               <Label alignment="CENTER" prefHeight="34.0" prefWidth="437.0" styleClass="title-text" text="Create Tournament" BorderPane.alignment="CENTER" />
                            </center>
                            <left>
-                              <Button mnemonicParsing="false" onAction="#displayPopUpMenu" prefHeight="58.0" prefWidth="88.0" styleClass="dark-background" BorderPane.alignment="CENTER">
+                              <Button mnemonicParsing="false" onAction="#displayPopUpMenu" prefHeight="62.0" prefWidth="155.0" style="-fx-font-size: 20; -fx-text-fill: F7F7F3;" styleClass="dark-background" text="Menu" BorderPane.alignment="CENTER">
                                  <graphic>
                                     <ImageView fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -32,7 +32,7 @@
                               </Button>
                            </left>
                            <right>
-                              <Pane prefHeight="58.0" prefWidth="88.0" styleClass="dark-background" BorderPane.alignment="CENTER" />
+                              <Pane prefHeight="70.0" prefWidth="155.0" styleClass="dark-background" BorderPane.alignment="CENTER" />
                            </right>
                            <bottom>
                               <Pane prefHeight="7.0" prefWidth="960.0" style="-fx-background-color: #019A06;" BorderPane.alignment="CENTER" />
@@ -149,18 +149,24 @@
                         <HBox alignment="CENTER" prefHeight="27.0" prefWidth="282.0">
                            <children>
                               <TextField fx:id="teamNameInputField" onKeyTyped="#checkNameLength" prefHeight="26.0" prefWidth="226.0" />
-                              <Button fx:id="addTeamButton" mnemonicParsing="false" onAction="#addTeam" prefHeight="39.0" prefWidth="55.0" scaleShape="false" style="-fx-border-color: #474747;">
-                                 <graphic>
-                                    <ImageView fx:id="addTeamButtonIcon" fitHeight="31.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@icons/plus_bright.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <styleClass>
-                                    <String fx:value="background" />
-                                    <String fx:value="clickable" />
-                                 </styleClass></Button>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="Add" />
+                                    <Button fx:id="addTeamButton" mnemonicParsing="false" onAction="#addTeam" prefHeight="39.0" prefWidth="55.0" scaleShape="false" style="-fx-border-color: #474747;">
+                                       <graphic>
+                                          <ImageView fx:id="addTeamButtonIcon" fitHeight="31.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@icons/plus_bright.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="background" />
+                                          <String fx:value="clickable" />
+                                       </styleClass>
+                                    </Button>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                         <Label fx:id="addTeamErrorOutput" prefHeight="22.0" prefWidth="251.0" styleClass="errorFeedback" />
@@ -180,8 +186,9 @@
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin></VBox>
-                  <VBox alignment="BOTTOM_CENTER" prefHeight="434.0" prefWidth="16.0">
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="434.0" prefWidth="58.0">
                      <children>
+                        <Label text="Remove" />
                         <Button mnemonicParsing="false" onAction="#deleteSelectedTeam" prefHeight="42.0" prefWidth="12.0" style="-fx-border-color: #474747;">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">

@@ -14,11 +14,6 @@ import static java.util.stream.Collectors.toCollection;
 /**
  * Represents a group stage.
  * Initiates groups with teams.
- *
- * @author kristvje
- * @author martnal
- * @author espenjus
- * @author martdam
  */
 public class GroupStage extends Stage {
 
@@ -118,7 +113,6 @@ public class GroupStage extends Stage {
      */
     public ArrayList<Team> getWinnersFromGroups() {
         ArrayList<Team> teamsProceeding = new ArrayList<>();
-
         for (Group group : groups) {
             teamsProceeding.addAll(group.getTopTeams(advancingFromGroup));
         }
@@ -191,13 +185,6 @@ public class GroupStage extends Stage {
         }
         return rounds;
     }
-
-    /**
-     * Implementation of abstract method in Stage.
-     * Currently, does nothing in this class.
-     * Flesh out if something needs to be updated between matches.
-     */
-    public void update() {}
 
     /**
      * Checking if the groupStage is finished.

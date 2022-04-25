@@ -1,9 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.model;
-// import edu.ntnu.idatt1002.k1g01.match.*;
 
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
-
-// import edu.ntnu.idatt1002.k1g01.match.Match;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -62,10 +59,17 @@ public class Round implements Serializable {
         return true;
     }
 
-    public ArrayList<Team> getWinners(int advancingPerRound){
+    /**
+     * Gets winners from round. Takes how many should advance per
+     * match and gets winners from each match.
+     *
+     * @param advancingPerMatch How many should advance per match
+     * @return Winners from round.
+     */
+    public ArrayList<Team> getWinners(int advancingPerMatch){
         ArrayList<Team> winners = new ArrayList<>();
         for(Match match : matches){
-            winners.addAll(match.getWinners(advancingPerRound));
+            winners.addAll(match.getWinners(advancingPerMatch));
         }
         return winners;
     }

@@ -72,7 +72,7 @@
                 <HBox prefHeight="100.0" prefWidth="200.0" styleClass="dark-background">
                <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="200.0" styleClass="dark-background">
                   <children>
-                          <Button mnemonicParsing="false" onAction="#displayPopUpMenu" prefHeight="58.0" prefWidth="88.0" style="-fx-border-color: #2D2D2D;">
+                          <Button mnemonicParsing="false" onAction="#displayPopUpMenu" prefHeight="62.0" prefWidth="154.0" style="-fx-border-color: #2D2D2D; -fx-font-size: 20; -fx-text-fill: F7F7F3;" text="Menu">
                               <graphic>
                                   <ImageView fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
                                       <Image url="@icons/menu_bright.png" />

@@ -35,9 +35,4 @@ public abstract class Stage implements Serializable {
     public void setRounds(ArrayList<Round> rounds) {
         this.rounds = rounds;
     }
-
-    /**
-     * Abstract method called to make a stage check its internal state.
-     */
-    public abstract void update();
 }

@@ -11,6 +11,9 @@ import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
+/**
+ * Runs the Tournament Application
+ */
 public class TournamentApplication extends Application {
 
     @Override
