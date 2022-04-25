@@ -1,16 +1,14 @@
 package edu.ntnu.idatt1002.k1g01.model;
 
-
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * Represents a team in the tournament
- * @author kristvje
  */
 public class Team implements Serializable {
-    // Name of the team
+    //Maximum length of name
     public static final int maxNameLength = 15;
+    // Name of the team
     protected String name;
 
     /**
@@ -46,7 +44,6 @@ public class Team implements Serializable {
 
     /**
      * Only here to make it easier to handle holograms.
-     * TODO look for a way to not need this stupid method.
      * @return this exact same Team.
      */
     public Team getTrueTeam() { return this; }

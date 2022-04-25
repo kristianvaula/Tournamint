@@ -86,33 +86,6 @@ public class TournamentTest {
         }
 
         @Test
-        @DisplayName("Tests that the addTeam method adds a new team")
-        public void AddTeamWithNewTeam(){
-            Tournament tournament = new Tournament("testName",teamList3,"pointMatch",2,4,2);
-
-            Team newTeam = new Team("NewTeam");
-            tournament.addTeam(newTeam);
-
-            assertEquals(newTeam,tournament.getTeams().get(tournament.getNumberOfTeams()-1));
-        }
-
-        @Test
-        @DisplayName("Tests that the addTeam method throws IllegalArgumentException when trying to add the same team ")
-        public void AddTeamWithSameTeam(){
-            Team testTeam = new Team("TestTeam");
-            teamList3.add(testTeam);
-
-            Tournament tournament = new Tournament("testName",teamList3,"pointMatch",2,3,1);
-
-            try{
-                tournament.addTeam(testTeam);
-                fail();
-            }catch(IllegalArgumentException e){
-                assertEquals(e.getClass(), IllegalArgumentException.class);
-            }
-        }
-
-        @Test
         @DisplayName("Tests that the getNumberOfTeam method returns correct amount of teams")
         public void GetCorrectNumberOfTeams(){
             Tournament tournament = new Tournament("testName",teamList3,"pointMatch",2,4,2);

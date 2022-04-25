@@ -47,7 +47,6 @@ public class KnockoutStage extends Stage {
             }
             roundSetUp(rounds.get(i), holoTeams);
         }
-        update();
     }
 
     public ArrayList<Team> getTeams() {
@@ -143,7 +142,7 @@ public class KnockoutStage extends Stage {
             return "QUARTERFINAL";
         }
         else {
-            return "ROUND OF " + Math.pow(2,roundNumber);
+            return "ROUND OF " + (int)(Math.floor(Math.pow(2,roundNumber)));
         }
     }
 
@@ -178,32 +177,6 @@ public class KnockoutStage extends Stage {
                 round.addMatch(match);
             }
         }
-    }
-
-    /**
-     * Generates new rounds if necessary.
-     * Generates new matches for next round if previous round is finished.
-     */
-    @Override
-    public void update(){
-        /*
-        ArrayList<Round> rounds = getRounds();
-
-        if(rounds.get(0).getMatches().isEmpty()){
-            this.roundSetUp(rounds.get(0),getTeams());
-        }
-        for (int i = 0; i < rounds.size()-1; i++) {
-            //Loops through until we find round(i) is finished but
-            //next round does not have matches.
-            if(rounds.get(i).isFinished() && rounds.get(i+1).getMatches().isEmpty()){
-                Round lastRound = rounds.get(i);
-                Round nextRound = rounds.get(i+1);
-
-                ArrayList<Team> winners = lastRound.getWinners(advancingPerMatch);
-                this.roundSetUp(nextRound,winners);
-            }
-        }
-        */
     }
 
     /**

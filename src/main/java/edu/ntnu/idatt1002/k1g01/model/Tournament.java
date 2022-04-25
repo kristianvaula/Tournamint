@@ -18,17 +18,17 @@ public class Tournament implements Serializable {
     //Name of the tournament
     private String tournamentName;
     //All the teams competing in the tournament
-    private ArrayList<Team> teams;
+    private final ArrayList<Team> teams;
     //Group stage of tournament
     private GroupStage groupStage;
     //Tells us if tournament has group stage
-    private boolean hasGroupStage;
+    private final boolean hasGroupStage;
     //Knockout stage of tournament;
     private KnockoutStage knockoutStage;
     //How many teams play each other in a match
-    private int teamsPerMatch;
+    private final int teamsPerMatch;
     //What types of matches they play (PointMatch // TimeMatch)
-    private String matchType;
+    private final String matchType;
 
     /**
      * Initiates a new tournament.
@@ -197,22 +197,6 @@ public class Tournament implements Serializable {
      * @return ArrayList all rounds
      */
     public ArrayList<Round> getAllRounds(){
-
-        /*
-        TODO remove old disabled code eventually
-        if(hasGroupStage){
-            if(!groupStage.isFinished()){
-                return groupStage.getGroupRounds();
-            }
-            else if(groupStage.isFinished()){
-                ArrayList allRounds = groupStage.getGroupRounds();
-                allRounds.addAll(knockoutStage.getRounds());
-                return allRounds;
-            }
-        }
-        return knockoutStage.getRounds();
-        */
-
         ArrayList<Round> output = new ArrayList<>();
         if (hasGroupStage) output.addAll(groupStage.getGroupRounds());
         output.addAll(knockoutStage.getRounds());
@@ -237,37 +221,6 @@ public class Tournament implements Serializable {
                  //Generate knockoutStage from finished groupStage.
                  knockoutStage = new KnockoutStage(groupStage.getWinnersFromGroups(),teamsPerMatch,matchType);
              }
-             else {
-                 //Updates groupStage. This method currently does nothing.
-                 groupStage.update();
-             }
          }
-         else knockoutStage.update();
-    }
-
-    /**
-     * Adds a team to the tournament
-     * <br> Checks if team is already in
-     * tournament before it adds it to the
-     * tournament team list.
-     * TODO does this actually work? Tournament would need to be re-initialized with altered team list.
-     */
-    public void addTeam(Team team) throws IllegalArgumentException{
-        if(teams.contains(team)){
-            throw new IllegalArgumentException(
-                    "You cannot add the same team more than once");
-        }
-        else teams.add(team);
-    }
-
-    /**
-     * removes a team to the tournament
-     * <br> Checks if team is already in
-     * tournament before it removes it to the
-     * tournament team list.
-     * TODO does this actually work? Tournament would need to be re-initialized with altered team list.
-     */
-    public void removeTeam(Team team){
-        teams.remove(team);
     }
 }

@@ -9,9 +9,7 @@ import edu.ntnu.idatt1002.k1g01.model.matches.*;
 
 /**
  * Contains a list of teams who all play one match against all others.
- * TODO Create groups with more than 2 teams per match.
  * Matches are divided among rounds so that every match in a round can be played concurrently.
- * @author Martin Dammerud
  */
 public class Group implements Serializable {
     private final ArrayList<Team> teams;
@@ -19,7 +17,7 @@ public class Group implements Serializable {
     private final ArrayList<Match> matches;
 
     /**
-     * Recursive nightmare method.
+     * Recursive round generation method.
      * Uses recursion to navigate search space of possible match combinations until an optimal round is found.
      * Round is optimal when:
      *      0 or 1 team plays no matches this round.
@@ -87,7 +85,6 @@ public class Group implements Serializable {
      * @throws IllegalArgumentException if < 2 teams, or any duplicate teams in input.
      * @throws ClassCastException if matchType string does not match any known types.
      * @throws IllegalStateException if round generation algorithm fails.
-     * TODO WARNING! Round generation algorithm currently fails for groups with > 12 teams.
      */
     public Group( String matchType, ArrayList<Team> teams) {
         //validate input.
@@ -215,14 +212,13 @@ public class Group implements Serializable {
     /**
      * Finds the n best performing teams in this group.
      * WARNING! Only accounts for single best team in each match, as this class currently only handles 2 teams per match.
-     * TODO: Handle draws better! Currently awards group victory to team with lowest list index.
      * @param n Number of teams to fetch.
      * @return ArrayList of top teams in descending order. Null if some matches are not finished.
      */
     public ArrayList<Team> getTopTeams(int n) {
         if (size() < n) throw new IndexOutOfBoundsException("Requested top "+n+" teams from group with only "+ size()+" teams!");
         for (Match match : matches) if (!match.isFinished()) return null;
-        return new ArrayList<>(getStanding(n).keySet()); //TODO check if order is always retained.
+        return new ArrayList<>(getStanding(n).keySet());
     }
 
     /**

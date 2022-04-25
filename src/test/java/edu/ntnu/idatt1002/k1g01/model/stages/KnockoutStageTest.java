@@ -95,7 +95,6 @@ class KnockoutStageTest {
                 match.setResult(match.getParticipants().get(i), String.valueOf(i));
             }
         }
-        knockoutStage2.update();
         System.out.println(rounds.get(1).getMatches().get(0).getParticipants().toString());
         assertTrue(rounds.get(1).getMatches().get(0).getParticipants().size() > 0);
     }
@@ -110,7 +109,6 @@ class KnockoutStageTest {
                 match.setResult(match.getParticipants().get(i), String.valueOf(i));
             }
         }
-        knockoutStage2.update();
         ArrayList<Match> matches1 = rounds.get(1).getMatches();
         for(Match match: matches1) {
             for (int i = 0; i < match.getParticipants().size(); i++) {

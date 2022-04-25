@@ -2,7 +2,6 @@ package edu.ntnu.idatt1002.k1g01.model.matches;
 
 import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
-import edu.ntnu.idatt1002.k1g01.model.TeamHologram;
 
 import java.util.ArrayList;
 import java.util.HashMap;

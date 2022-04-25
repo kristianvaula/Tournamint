@@ -5,7 +5,6 @@ import edu.ntnu.idatt1002.k1g01.model.Team;
 
 import java.time.DateTimeException;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -14,8 +13,6 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a match where the winner(s)
  * are based on who has the most points.
- *
- * @author kristjve
  */
 public class TimeMatch extends Match{
 

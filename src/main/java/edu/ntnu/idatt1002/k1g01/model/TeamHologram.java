@@ -7,12 +7,11 @@ import edu.ntnu.idatt1002.k1g01.model.matches.Match;
  * When input match is finished, this team will take the name of the specified winner of that match
  * and make the true Match.getWinner() available.
  * Handy when matches need to be constructed before their teams are ready.
- * @author Martin Dammerud
  */
 public class TeamHologram extends Team{
-    Match match;
-    Group group;
-    int winner;
+    private Match match;
+    private Group group;
+    private int winner;
 
     /**
      * Creates this placeholder team.
