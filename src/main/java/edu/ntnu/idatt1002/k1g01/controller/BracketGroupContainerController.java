@@ -57,16 +57,16 @@ public class BracketGroupContainerController implements Initializable {
             System.out.println(String.valueOf(standings.get(team)));
             Label points = new Label(String.valueOf(standings.get(team)));
             HBox hbox = new HBox();
-            hbox.setPrefHeight(40.0);
+            hbox.setPrefHeight(30.0);
 
-            teamName.setPrefHeight(40.0);
-            teamName.getStyleClass().add("label-multiTeam");
+            teamName.setPrefHeight(30.0);
+            teamName.getStyleClass().add("label-groupStage");
             teamName.setPadding(new Insets(5,0,5,10));
             teamName.setAlignment(CENTER);
             teamName.setMinWidth((BracketGroupContainer.getPrefWidth()*60)/100);
 
-            points.setPrefHeight(40.0);
-            points.getStyleClass().add("label-multiTeam");
+            points.setPrefHeight(30.0);
+            points.getStyleClass().add("label-groupStage");
             points.setPadding(new Insets(5,0,5,0));
             points.setAlignment(CENTER);
             points.setMinWidth((BracketGroupContainer.getPrefWidth()*40)/100);

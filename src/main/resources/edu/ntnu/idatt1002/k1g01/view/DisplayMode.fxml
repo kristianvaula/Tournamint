@@ -48,7 +48,7 @@
       <center>
          <VBox alignment="CENTER" prefHeight="419.0" prefWidth="960.0" styleClass="background" BorderPane.alignment="CENTER">
             <children>
-                  <TabPane fx:id="displayTabPane" maxHeight="435.0" maxWidth="960.0" minHeight="394.0" minWidth="920.0" prefHeight="394.0" prefWidth="920.0" styleClass="background" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="displayTabPane" maxHeight="519.0" maxWidth="960.0" minHeight="394.0" minWidth="920.0" prefHeight="519.0" prefWidth="920.0" styleClass="background" tabClosingPolicy="UNAVAILABLE">
                       <Tab fx:id="upcomingMatchesTab" text="Upcoming Matches">
                           <TableView fx:id="upcomingMatchesTable" prefHeight="441.0" prefWidth="934.0">
                               <columns>
@@ -72,8 +72,8 @@
                           </TableView>
                       </Tab>
                       <Tab fx:id="groupStageTab" text="GroupStage">
-                          <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background">
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="416.0" prefWidth="921.0" styleClass="background">
+                          <AnchorPane prefHeight="281.0" prefWidth="922.0" styleClass="background">
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="391.0" prefWidth="922.0" styleClass="background">
                            <content>
                                     <HBox fx:id="groupStageHBox" alignment="CENTER" prefHeight="403.0" prefWidth="920.0" styleClass="background">
                             <!--> Will place BracketRoundContainers here <!-->
@@ -90,7 +90,7 @@
                           </AnchorPane>
                       </Tab>
                   <VBox.margin>
-                     <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                     <Insets bottom="5.0" left="20.0" right="20.0" top="10.0" />
                   </VBox.margin>
                   </TabPane>
             </children>
