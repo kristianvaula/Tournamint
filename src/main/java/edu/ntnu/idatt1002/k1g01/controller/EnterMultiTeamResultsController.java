@@ -83,11 +83,11 @@ public class EnterMultiTeamResultsController implements Initializable {
         HBox hbox = new HBox();
         hbox.setStyle("-fx-background-color: gray");
         hbox.prefHeight(22.0);
-        Label teams = new Label("Teams");
+        Label teams = new Label("  Teams");
         teams.prefHeight(22.0);
         teams.setMinWidth((teamVBox.getPrefWidth()*40)/100);
         //teams.setAlignment(CENTER);
-        Label results = new Label("Results");
+        Label results = new Label("  Results");
         results.prefHeight(22.0);
         results.setMinWidth((teamVBox.getPrefWidth()*50)/100);
         //results.setAlignment(CENTER);
