@@ -75,10 +75,17 @@ public class TopMenuBarController implements Initializable{
         Stage stage = (Stage) topMenuBar.getScene().getWindow();
         try {
             tournamentDAO = FileController.openFromFile(stage);
+            if (tournamentDAO == null) return;
             tournamentDAO.load();
             changeSceneToAdministrateTournament();
         }
-        catch (Exception e) { System.out.println(e.getMessage()); }
+        catch (Exception e) {
+            System.out.println("ERROR ALERT");
+            System.out.println(e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage() + "\nFile may be corrupted, or created by outdated version of Tournamint.");
+            alert.show();
+        }
     }
 
     /**

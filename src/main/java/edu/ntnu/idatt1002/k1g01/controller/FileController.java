@@ -54,6 +54,7 @@ public interface FileController {
         //Show file selection dialog and get tournamentDAO from file.
         try {
             File file = fileChooser.showOpenDialog(window);
+            if (file == null) return null; //If cancelled by user
             TournamentDAO tournamentDAO = new TournamentDAO(file);
             tournamentDAO.load();
             return tournamentDAO;
