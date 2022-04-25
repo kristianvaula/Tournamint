@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -13,27 +14,29 @@
                 <VBox prefHeight="105.0" prefWidth="960.0" BorderPane.alignment="CENTER">
                     <children>
                         <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml" />
-                  <Pane prefHeight="26.0" prefWidth="960.0" />
                   <HBox prefHeight="78.0" prefWidth="960.0">
                      <children>
-                        <BorderPane prefHeight="65.0" prefWidth="963.0">
+                        <BorderPane prefHeight="65.0" prefWidth="963.0" styleClass="dark-background">
                            <center>
-                              <Label alignment="CENTER" prefHeight="34.0" prefWidth="437.0" text="Create Tournament" BorderPane.alignment="CENTER" />
+                              <Label alignment="CENTER" prefHeight="34.0" prefWidth="437.0" styleClass="title-text" text="Create Tournament" BorderPane.alignment="CENTER" />
                            </center>
                            <left>
-                              <Button mnemonicParsing="false" onAction="#displayPopUpMenu" prefHeight="58.0" prefWidth="88.0" style="-fx-background-color: lightgray; -fx-border-color: lightgray;" BorderPane.alignment="CENTER">
+                              <Button mnemonicParsing="false" onAction="#displayPopUpMenu" prefHeight="58.0" prefWidth="88.0" styleClass="dark-background" BorderPane.alignment="CENTER">
                                  <graphic>
                                     <ImageView fitHeight="50.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@icons/menu.png" />
+                                          <Image url="@icons/menu_bright.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Button>
                            </left>
                            <right>
-                              <Pane prefHeight="58.0" prefWidth="88.0" BorderPane.alignment="CENTER" />
+                              <Pane prefHeight="58.0" prefWidth="88.0" styleClass="dark-background" BorderPane.alignment="CENTER" />
                            </right>
+                           <bottom>
+                              <Pane prefHeight="7.0" prefWidth="960.0" style="-fx-background-color: #019A06;" BorderPane.alignment="CENTER" />
+                           </bottom>
                         </BorderPane>
                      </children>
                   </HBox>
@@ -41,7 +44,7 @@
                 </VBox>
             </top>
          <center>
-            <HBox alignment="TOP_CENTER" prefHeight="415.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+            <HBox alignment="TOP_CENTER" prefHeight="415.0" prefWidth="960.0" styleClass="background" BorderPane.alignment="CENTER">
                <children>
                   <VBox prefHeight="437.0" prefWidth="250.0">
                      <children>
@@ -54,11 +57,11 @@
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin></Label>
-                        <RadioButton fx:id="pointMatchButton" mnemonicParsing="false" text="Point Match">
+                        <RadioButton fx:id="pointMatchButton" mnemonicParsing="false" styleClass="clickable" text="Point Match">
                            <VBox.margin>
                               <Insets top="3.0" />
                            </VBox.margin></RadioButton>
-                        <RadioButton fx:id="timeMatchButton" mnemonicParsing="false" text="Time Match">
+                        <RadioButton fx:id="timeMatchButton" mnemonicParsing="false" styleClass="clickable" text="Time Match">
                            <VBox.margin>
                               <Insets top="3.0" />
                            </VBox.margin></RadioButton>
@@ -66,12 +69,12 @@
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin></Label>
-                        <RadioButton fx:id="knockoutStageButton" layoutX="10.0" layoutY="160.0" mnemonicParsing="false" text="Knockout Stage">
+                        <RadioButton fx:id="knockoutStageButton" layoutX="10.0" layoutY="160.0" mnemonicParsing="false" styleClass="clickable" text="Knockout Stage">
                            <VBox.margin>
                               <Insets top="3.0" />
                            </VBox.margin>
                         </RadioButton>
-                        <RadioButton fx:id="groupStageButton" layoutX="10.0" layoutY="222.0" mnemonicParsing="false" text="Group Stage + Knockout stage">
+                        <RadioButton fx:id="groupStageButton" layoutX="10.0" layoutY="222.0" mnemonicParsing="false" styleClass="clickable" text="Group Stage + Knockout stage">
                            <VBox.margin>
                               <Insets top="3.0" />
                            </VBox.margin>
@@ -85,6 +88,10 @@
                                  <HBox.margin>
                                     <Insets bottom="30.0" />
                                  </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="custom-button" />
+                                    <String fx:value="dark-medium-text" />
+                                 </styleClass>
                               </Button>
                            </children>
                         </HBox>
@@ -99,17 +106,17 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Label>
-                        <ChoiceBox fx:id="teamsPerMatchInput" prefHeight="45.0" prefWidth="95.0" />
+                        <ChoiceBox fx:id="teamsPerMatchInput" prefHeight="45.0" prefWidth="95.0" styleClass="clickable" />
                         <Label fx:id="teamsPerGroupLabel" text="Teams Per Group">
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin></Label>
-                        <ChoiceBox fx:id="teamsPerGroupInput" disable="true" prefHeight="45.0" prefWidth="95.0" />
+                        <ChoiceBox fx:id="teamsPerGroupInput" disable="true" prefHeight="45.0" prefWidth="95.0" styleClass="clickable" />
                         <Label fx:id="teamsAdvancingFromGroupLabel" prefHeight="25.0" prefWidth="266.0" text="Teams Advancing From Each Group">
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin></Label>
-                        <ChoiceBox fx:id="teamsAdvancingFromGroupInput" disable="true" prefHeight="45.0" prefWidth="93.0" />
+                        <ChoiceBox fx:id="teamsAdvancingFromGroupInput" disable="true" prefHeight="45.0" prefWidth="93.0" styleClass="clickable" />
                         <VBox alignment="BOTTOM_CENTER" prefHeight="270.0" prefWidth="226.0">
                            <children>
                               <Label fx:id="tournamentWarningOutput" alignment="BOTTOM_LEFT" layoutX="28.0" layoutY="94.0" prefHeight="42.0" prefWidth="224.0" style="-fx-text-fill: orange;" wrapText="true" />
@@ -121,6 +128,10 @@
                                  <VBox.margin>
                                     <Insets bottom="30.0" />
                                  </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="custom-button" />
+                                    <String fx:value="dark-medium-text" />
+                                 </styleClass>
                               </Button>
                            </children>
                            <VBox.margin>
@@ -138,14 +149,18 @@
                         <HBox alignment="CENTER" prefHeight="27.0" prefWidth="282.0">
                            <children>
                               <TextField fx:id="teamNameInputField" onKeyTyped="#checkNameLength" prefHeight="26.0" prefWidth="226.0" />
-                              <Button fx:id="addTeamButton" mnemonicParsing="false" onAction="#addTeam" prefHeight="39.0" prefWidth="55.0" scaleShape="false" style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
+                              <Button fx:id="addTeamButton" mnemonicParsing="false" onAction="#addTeam" prefHeight="39.0" prefWidth="55.0" scaleShape="false" style="-fx-border-color: #474747;">
                                  <graphic>
                                     <ImageView fx:id="addTeamButtonIcon" fitHeight="31.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@icons/plus.png" />
+                                          <Image url="@icons/plus_bright.png" />
                                        </image>
                                     </ImageView>
-                                 </graphic></Button>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="background" />
+                                    <String fx:value="clickable" />
+                                 </styleClass></Button>
                            </children>
                         </HBox>
                         <Label fx:id="addTeamErrorOutput" prefHeight="22.0" prefWidth="251.0" styleClass="errorFeedback" />
@@ -167,17 +182,21 @@
                      </HBox.margin></VBox>
                   <VBox alignment="BOTTOM_CENTER" prefHeight="434.0" prefWidth="16.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#deleteSelectedTeam" prefHeight="42.0" prefWidth="12.0" style="-fx-background-color: lightgray; -fx-border-color: lightgray;">
+                        <Button mnemonicParsing="false" onAction="#deleteSelectedTeam" prefHeight="42.0" prefWidth="12.0" style="-fx-border-color: #474747;">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icons/remove.png" />
+                                    <Image url="@icons/remove_bright.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                            <VBox.margin>
                               <Insets bottom="30.0" />
                            </VBox.margin>
+                           <styleClass>
+                              <String fx:value="background" />
+                              <String fx:value="clickable" />
+                           </styleClass>
                         </Button>
                      </children>
                      <HBox.margin>

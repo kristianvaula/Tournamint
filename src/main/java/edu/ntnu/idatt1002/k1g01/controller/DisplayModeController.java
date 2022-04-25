@@ -42,10 +42,12 @@ public class DisplayModeController implements Initializable {
     @FXML private TopMenuBarController topMenuBarController;
     @FXML private MenuController popUpMenuController;
 
-    //Clock
+    //Clock and auto display button
     @FXML private TextField clock;
     @FXML private volatile boolean stopClock = false;
     @FXML private volatile boolean autoDisplay = false;
+    @FXML private Button autoButton;
+
 
     //Tabpane
     @FXML private TabPane displayTabPane;
@@ -327,9 +329,11 @@ public class DisplayModeController implements Initializable {
     public void autoDisplaySwitch(){
         if(autoDisplay == false){
             this.autoDisplay = true;
+            autoButton.setStyle("-fx-border-color: green");
             System.out.println("Autodisplay on");
         } else {
             this.autoDisplay = false;
+            autoButton.setStyle("-fx-border-color: red");
             System.out.println("Autodisplay off");
         }
     }

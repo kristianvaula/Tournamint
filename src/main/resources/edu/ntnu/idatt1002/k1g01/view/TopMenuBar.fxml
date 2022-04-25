@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 
-<MenuBar fx:id="topMenuBar" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.TopMenuBarController">
+<MenuBar id="top-menu-bar" fx:id="topMenuBar" styleClass="dark-background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.TopMenuBarController">
     <menus>
         <Menu fx:id="topMenuBarFile" mnemonicParsing="false" text="File">
             <items>

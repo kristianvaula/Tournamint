@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -43,8 +44,8 @@ public class EnterPointResultsController implements Initializable {
     private Match match;
 
     // TeamNames
-    @FXML private Text team1Text;
-    @FXML private Text team2Text;
+    @FXML private Label team1Text;
+    @FXML private Label team2Text;
 
     // Result Fields
     @FXML private TextField resultInputField1;

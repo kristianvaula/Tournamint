@@ -28,7 +28,7 @@
                     </Text>
                     <Pane layoutX="90.0" layoutY="10.0" prefHeight="58.0" prefWidth="26.0" />
                     <StackPane prefHeight="58.0" prefWidth="159.0">
-                        <Button mnemonicParsing="false" onAction="#autoDisplaySwitch" prefHeight="33.0" prefWidth="98.0" text="Auto" />
+                        <Button mnemonicParsing="false" fx:id="autoButton" onAction="#autoDisplaySwitch" prefHeight="33.0" prefWidth="98.0" text="Auto" />
                     </StackPane>
                     <StackPane fx:id="time" prefHeight="58.0" prefWidth="84.0">
                         <TextField fx:id="clock" alignment="CENTER" prefHeight="31.0" prefWidth="91.0" text="10:09:35">

@@ -46,7 +46,7 @@ public class AdministrateTournamentController implements Initializable {
     private TournamentDAO tournamentDAO;
 
     //General Settings
-    @FXML private Text tournamentNameOutput;
+    @FXML private Label tournamentNameOutput;
     @FXML private TextField clock;
     @FXML private volatile boolean stopClock = false;
 
