@@ -75,9 +75,6 @@ public class KnockoutStage extends Stage {
      */
     private static ArrayList<Round> generateKnockOutRounds(int amountOfTeams, int teamsPerMatch, int advancingPerMatch){
         int numberOfRounds = getNumberOfRounds(amountOfTeams,teamsPerMatch,advancingPerMatch);
-        if(numberOfRounds == 0) {
-            throw new IllegalArgumentException("Combination of teams and tournament settings is invalid");
-        }
 
         ArrayList<Round> rounds = new ArrayList<>();
 
@@ -97,7 +94,7 @@ public class KnockoutStage extends Stage {
      * @param numberOfTeams Number of teams
      * @param teamsPerMatch Teams per round
      * @return Int number of rounds
-     * TODO This method is replaced by a new version. Delete this soon.
+     * TODO This method is replaced by a new version. Delete this version eventually.
      */
     public static int getNumberOfRoundsOld(int numberOfTeams,int teamsPerMatch,int advancingPerMatch){
         System.out.println("calculating number of knockout rounds: ");
@@ -134,27 +131,33 @@ public class KnockoutStage extends Stage {
      * @param teamsPerMatch Number of teams competing in each match.
      * @param advancingPerMatch Number of teams advancing from each match.
      * @return Number of rounds in this groupStage. 0 if parameters are incompatible.
+     * @throws IllegalArgumentException If parameters are incompatible.
      * @author Martin Dammerud
      */
-    public static int getNumberOfRounds(int numberOfTeams,int teamsPerMatch,int advancingPerMatch){
+    public static int getNumberOfRounds(int numberOfTeams,int teamsPerMatch,int advancingPerMatch) throws IllegalArgumentException{
         System.out.println("calculating number of knockout rounds: ");
         System.out.println("numberOfTeams: " + numberOfTeams);
         System.out.println("teamsPerMatch: " + teamsPerMatch);
         System.out.println("advancingPerMatch: " + advancingPerMatch);
         if(teamsPerMatch % advancingPerMatch != 0) {//Make sure teamsPerMatch is divisible by advancingPerMatch.
-            return 0; //TODO consider better way to signal incompatibility.
+            throw new IllegalArgumentException("Cannot create matches with " + teamsPerMatch +
+                    " teams and " + advancingPerMatch + " advancing from each match");
         }
         int advanceRatio = teamsPerMatch / advancingPerMatch; //Represents number of matches feeding winners to next match.
         int exponent = -1; //iterated to 0 at beginning of loop.
+        int lowerTeamsNeeded = 2;
+        int upperTeamsNeeded = 2;
         int remainder = Integer.MAX_VALUE;
         while (remainder > 0) {
             exponent++;
-            int teamsNeeded = teamsPerMatch * (int)Math.pow(advanceRatio, exponent);
-            remainder = numberOfTeams - teamsNeeded;
+            lowerTeamsNeeded = upperTeamsNeeded;
+            upperTeamsNeeded = teamsPerMatch * (int)Math.pow(advanceRatio, exponent);
+            remainder = numberOfTeams - upperTeamsNeeded;
 
         }
         if (remainder == 0) return exponent + 1;
-        else return 0; //TODO consider better way to signal incompatibility.
+        else throw new IllegalArgumentException("knockout stage got " + numberOfTeams + " teams. Needs " + lowerTeamsNeeded + " or "+
+                upperTeamsNeeded + " teams");
     }
 
     /**
