@@ -170,6 +170,7 @@
                            </children>
                         </HBox>
                         <Label fx:id="addTeamErrorOutput" prefHeight="22.0" prefWidth="251.0" styleClass="errorFeedback" />
+                        <Label fx:id="teamCounterOutput" prefHeight="22.0" prefWidth="251.0" />
                         <HBox prefHeight="312.0" prefWidth="266.0">
                            <children>
                               <TableView fx:id="teamTableOutput" prefHeight="311.0" prefWidth="277.0">
@@ -214,11 +215,13 @@
             </HBox>
          </center>
         </BorderPane>
+
        <StackPane fx:id="menuStackPane" prefHeight="540.0" prefWidth="960.0">
           <fx:include fx:id="popUpMenu" source="Menu.fxml" />
           <StackPane.margin>
              <Insets bottom="100.0" left="200.0" right="200.0" top="100.0" />
           </StackPane.margin>
        </StackPane>
+
     </children>
 </AnchorPane>

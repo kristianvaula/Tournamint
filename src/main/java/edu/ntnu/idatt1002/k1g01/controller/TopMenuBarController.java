@@ -35,6 +35,7 @@ import java.util.ResourceBundle;
 public class TopMenuBarController implements Initializable{
     @FXML MenuBar topMenuBar;
     @FXML MenuItem topMenuBarOpen;
+    @FXML MenuItem topMenuBarEdit;
     @FXML MenuItem topMenuBarClose;
     @FXML MenuItem topMenuBarSaveAs;
     @FXML Menu topMenuBarView;
@@ -53,6 +54,7 @@ public class TopMenuBarController implements Initializable{
     public void setTournamentDAO(TournamentDAO tournamentDAO) {
         this.tournamentDAO = tournamentDAO;
         topMenuBarSaveAs.setDisable(false);
+        topMenuBarEdit.setDisable(false);
         topMenuBarClose.setDisable(false);
         topMenuBarDisplay.setDisable(false);
         topMenuBarView.setDisable(false);
