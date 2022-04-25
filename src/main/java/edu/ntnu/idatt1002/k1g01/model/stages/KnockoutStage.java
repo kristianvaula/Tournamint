@@ -97,8 +97,9 @@ public class KnockoutStage extends Stage {
      * @param numberOfTeams Number of teams
      * @param teamsPerMatch Teams per round
      * @return Int number of rounds
+     * TODO This method is replaced by a new version. Delete this soon.
      */
-    public static int getNumberOfRounds(int numberOfTeams,int teamsPerMatch,int advancingPerMatch){
+    public static int getNumberOfRoundsOld(int numberOfTeams,int teamsPerMatch,int advancingPerMatch){
         System.out.println("calculating number of knockout rounds: ");
         System.out.println("numberOfTeams: " + numberOfTeams);
         System.out.println("teamsPerMatch: " + teamsPerMatch);
@@ -124,6 +125,36 @@ public class KnockoutStage extends Stage {
             }
         }
         return 0;
+    }
+
+    /**
+     * Calculates how many rounds are needed to create a valid stage.
+     * Also checks if given parameters are compatible.
+     * @param numberOfTeams Number of teams in the knockoutStage.
+     * @param teamsPerMatch Number of teams competing in each match.
+     * @param advancingPerMatch Number of teams advancing from each match.
+     * @return Number of rounds in this groupStage. 0 if parameters are incompatible.
+     * @author Martin Dammerud
+     */
+    public static int getNumberOfRounds(int numberOfTeams,int teamsPerMatch,int advancingPerMatch){
+        System.out.println("calculating number of knockout rounds: ");
+        System.out.println("numberOfTeams: " + numberOfTeams);
+        System.out.println("teamsPerMatch: " + teamsPerMatch);
+        System.out.println("advancingPerMatch: " + advancingPerMatch);
+        if(teamsPerMatch % advancingPerMatch != 0) {//Make sure teamsPerMatch is divisible by advancingPerMatch.
+            return 0; //TODO consider better way to signal incompatibility.
+        }
+        int advanceRatio = teamsPerMatch / advancingPerMatch; //Represents number of matches feeding winners to next match.
+        int exponent = -1; //iterated to 0 at beginning of loop.
+        int remainder = Integer.MAX_VALUE;
+        while (remainder > 0) {
+            exponent++;
+            int teamsNeeded = teamsPerMatch * (int)Math.pow(advanceRatio, exponent);
+            remainder = numberOfTeams - teamsNeeded;
+
+        }
+        if (remainder == 0) return exponent + 1;
+        else return 0; //TODO consider better way to signal incompatibility.
     }
 
     /**
