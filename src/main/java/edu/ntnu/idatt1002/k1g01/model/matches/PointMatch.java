@@ -108,7 +108,7 @@ public class PointMatch extends Match{
     @Override
     public void setResult(Team team, String value) throws NumberFormatException, ClassCastException,IllegalArgumentException{
         if (Integer.parseInt(value) < 0) throw new IllegalArgumentException("Match score cannot be negative");
-        if (!playable()) throw new ClassCastException("Match needs winners from unfinished matches");
+        if (!isPlayable()) throw new ClassCastException("Match needs winners from unfinished matches");
         try {
             pointResult.put(team, Integer.parseInt(value));
         } catch (NumberFormatException e){

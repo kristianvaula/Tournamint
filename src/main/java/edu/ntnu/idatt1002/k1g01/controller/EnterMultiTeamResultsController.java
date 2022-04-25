@@ -201,6 +201,7 @@ public class EnterMultiTeamResultsController implements Initializable {
         for(Team team : match.getParticipants()){
             Label teamName = new Label(team.getName());
             TextField result = new TextField();
+            if (!match.isPlayable()) result.setDisable(true); // Disable if match is not yet playable.
             if(match.getMatchResult() != null){
                 if(match.getMatchResult().get(team) != null){
                     result.setText(match.getMatchResult().get(team));

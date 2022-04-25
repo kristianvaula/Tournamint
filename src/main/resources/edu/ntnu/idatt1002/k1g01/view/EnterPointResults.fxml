@@ -38,7 +38,7 @@
                                     </TextField>
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#incrementTeam1PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: white;" styleClass="incrementButtons">
+                                          <Button fx:id="team1PlusButton" mnemonicParsing="false" onAction="#incrementTeam1PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: white;" styleClass="incrementButtons">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
@@ -50,7 +50,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <Button mnemonicParsing="false" onAction="#decrementTeam1PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: red;" styleClass="incrementButtons">
+                                          <Button fx:id="team1MinusButton" mnemonicParsing="false" onAction="#decrementTeam1PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: red;" styleClass="incrementButtons">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
@@ -83,7 +83,7 @@
                                     </TextField>
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#incrementTeam2PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: white;" styleClass="incrementButtons">
+                                          <Button fx:id="team2PlusButton" mnemonicParsing="false" onAction="#incrementTeam2PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: white;" styleClass="incrementButtons">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
@@ -95,7 +95,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <Button mnemonicParsing="false" onAction="#decrementTeam2PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: red;" styleClass="incrementButtons">
+                                          <Button fx:id="team2MinusButton" mnemonicParsing="false" onAction="#decrementTeam2PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: red;" styleClass="incrementButtons">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>

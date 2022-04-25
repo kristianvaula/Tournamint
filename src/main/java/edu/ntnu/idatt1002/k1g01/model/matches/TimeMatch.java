@@ -117,7 +117,7 @@ public class TimeMatch extends Match{
      */
     @Override
     public void setResult(Team team, String value) throws DateTimeException{
-        if (!playable()) throw new ClassCastException("Match needs winners from unfinished matches");
+        if (!isPlayable()) throw new ClassCastException("Match needs winners from unfinished matches");
 
         //used to be inside a try block that did nothing.
         LocalTime result = this.timeResultParser(value);

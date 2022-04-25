@@ -57,6 +57,12 @@ public class EnterTimeResultsController implements Initializable {
     @FXML private TextField timeField;
     @FXML private TextField infoField;
 
+    // Increment buttons
+    @FXML private Button team1IncrementHour, team1IncrementMin, team1IncrementSec, team1IncrementNano;
+    @FXML private Button team1DecrementHour, team1DecrementMin, team1DecrementSec, team1DecrementNano;
+    @FXML private Button team2IncrementHour, team2IncrementMin, team2IncrementSec, team2IncrementNano;
+    @FXML private Button team2DecrementHour, team2DecrementMin, team2DecrementSec, team2DecrementNano;
+
     /**
      * Initializes EnterResult
      * @param url url
@@ -79,6 +85,18 @@ public class EnterTimeResultsController implements Initializable {
         this.tournament = tournamentDAO.load(); //TODO handle the exception from this better.
         topMenuBarController.setTournamentDAO(tournamentDAO);//Give menuBar controller access to the DAO.
         this.match = match;
+
+        // Disable all result inputs if match is not yet playable.
+        if (!match.isPlayable()) {
+            TextField[] resultFields = {team1Hours, team1Min, team1Sec, team1Nano, team2Hours, team2Min, team2Sec, team2Nano};
+            for (TextField f : resultFields) f.setDisable(true);
+            Button[] buttons = {team1IncrementHour, team1IncrementMin, team1IncrementSec, team1IncrementNano,
+                    team1DecrementHour, team1DecrementMin, team1DecrementSec, team1DecrementNano,
+                    team2IncrementHour, team2IncrementMin, team2IncrementSec, team2IncrementNano,
+                    team2DecrementHour, team2DecrementMin, team2DecrementSec, team2DecrementNano};
+            for (Button b : buttons) { b.setDisable(true); b.setStyle("-fx-opacity:0.4"); }
+        }
+
 
         // Sets up the current match info
         // Names
