@@ -218,6 +218,7 @@ public class TopMenuBarController implements Initializable{
      */
     public void stopClockThread(){
         FXMLLoader loader = (FXMLLoader) topMenuBar.getScene().getUserData();
+        if (loader == null) return; //In case this scene has no clock.
         Class controllerClass = loader.getController().getClass();
 
         if(controllerClass.equals(DisplayModeController.class)){
