@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k1g01.model.stages;
+package edu.ntnu.idatt1002.k1g01.model;
 
 import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;

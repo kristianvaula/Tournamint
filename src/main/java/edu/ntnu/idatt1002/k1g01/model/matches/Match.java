@@ -122,6 +122,18 @@ public abstract class Match implements Serializable {
     public abstract void updateIsFinished();
 
     /**
+     * Returns a team based on name
+     * @param name Name of team
+     * @return Team if exists
+     */
+    public Team getTeamByName(String name){
+        for(Team team : participants){
+            if(team.getName().equals(name)) return team;
+        }
+        return null;
+    }
+
+    /**
      * Gets n match winners in descending
      * orders.<br> Gets the keySet from
      * getMatchResultOrdered() and creates a

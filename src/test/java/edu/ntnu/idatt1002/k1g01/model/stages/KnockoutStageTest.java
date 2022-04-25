@@ -7,6 +7,7 @@ import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.matches.PointMatch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
@@ -19,6 +20,22 @@ class KnockoutStageTest {
     private ArrayList<Team> teamList1, teamList2, teamList3;
     private PointMatch testMatch1, testMatch2;
     private KnockoutStage knockoutStage1, knockoutStage2;
+
+    /**
+     * Generated dummy Teams for testing
+     * @param n number of teams to generate
+     * @return ArrayList of teams.
+     */
+    private ArrayList<Team> generateTeams(int n){
+        ArrayList<Team> teams = new ArrayList<>();
+        String[] names = {"pingas", "luigi", "princess", "maiboi", "stinker", "frog", "guttaBoys", "sennep inc", "din mor", "covfefe", "mousie"};
+        for (int i = 0; i < n; i++) {
+            String number = String.valueOf(i/names.length + 1);
+            if (number.equals("1")) number = "";
+            teams.add(new Team(names[i % names.length] + number));
+        }
+        return teams;
+    }
 
     @BeforeEach
     void setUp() {
@@ -121,4 +138,86 @@ class KnockoutStageTest {
 
         assertEquals(winner,knockoutStage2.getTournamentWinner());
     }
+
+    @Nested
+    @DisplayName("Tests if a groupStage can be completed with various settings")
+    public class completionTests {
+
+        /**
+         * Attempts to complete a stage with given parameters using both timeMatch and pointMatch.
+         * @param teamCount number of teams to use.
+         * @param matchSize number of teams per match.
+         */
+        void canFinishWith(int teamCount, int matchSize) {
+            KnockoutStage stage = new KnockoutStage(generateTeams(teamCount), matchSize, "pointMatch");
+            for (Round round : stage.getRounds()) for (Match match : round.getMatches()) {
+                ArrayList<Team> teams = match.getParticipants();
+                for (Team team : teams) {
+                    match.setResult(team, String.valueOf(teams.indexOf(team)));
+                }
+            }
+            Team winner = stage.getTournamentWinner();
+            assertNotNull(winner);
+
+            stage = new KnockoutStage(generateTeams(teamCount), matchSize, "timeMatch");
+            for (Round round : stage.getRounds()) for (Match match : round.getMatches()) {
+                ArrayList<Team> teams = match.getParticipants();
+                for (Team team : teams) {
+                    match.setResult(team, "00:00:" + String.valueOf(teams.indexOf(team)) + ":00");
+                }
+            }
+            winner = stage.getTournamentWinner();
+            assertNotNull(winner);
+        }
+
+        @Test
+        @DisplayName("Can finish a knockoutStage with 32 teams and 2 teams per match")
+        void canFinishWit8and2() {
+            canFinishWith(8, 2);
+        }
+
+        @Test
+        @DisplayName("Can finish a knockoutStage with 64 teams and 2 teams per match")
+        void canFinishWit64and2() {
+            canFinishWith(64, 2);
+        }
+
+        @Test
+        @DisplayName("Can finish a knockoutStage with 256 teams and 2 teams per match")
+        void canFinishWit256and2() {
+            canFinishWith(256, 2);
+        }
+
+        @Test
+        @DisplayName("Can finish a knockoutStage with 64 teams and 4 teams per match")
+        void canFinishWit64and4() {
+            canFinishWith(64, 4);
+        }
+
+        @Test
+        @DisplayName("Can finish a knockoutStage with 256 teams and 4 teams per match")
+        void canFinishWit256and4() {
+            canFinishWith(256, 4);
+        }
+
+        @Test
+        @DisplayName("Can finish a knockoutStage with 256 teams and 8 teams per match")
+        void canFinishWit256and8() {
+            canFinishWith(256, 8);
+        }
+
+        @Test
+        @DisplayName("Can finish a knockoutStage with 320 teams and 10 teams per match")
+        void canFinishWit320and10() {
+            canFinishWith(320, 10);
+        }
+
+        @Test
+        @DisplayName("Can finish a knockoutStage with 384 teams and 12 teams per match")
+        void canFinishWit384and12() {
+            canFinishWith(384, 12);
+        }
+    }
+
+
 }

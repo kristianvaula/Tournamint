@@ -267,7 +267,7 @@ public class EnterMultiTeamResultsController implements Initializable {
                 if(hBox instanceof HBox){
                     for(Node textField : ((HBox)hBox).getChildren()){
                         if(textField instanceof TextField){
-                            Team team = tournament.getTeamByName(textField.getId());
+                            Team team = match.getTeamByName(textField.getId());
                             String value = ((TextField) textField).getText();
                             match.setResult(team, value);
                         }

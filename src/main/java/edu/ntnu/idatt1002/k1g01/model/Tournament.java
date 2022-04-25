@@ -210,6 +210,7 @@ public class Tournament implements Serializable {
      * we initiate the knockoutStage. Else we
      * just call for the knockoutStage update
      * method();
+     * TODO is this still in use? Might be redundant now.
      */
     public void updateTournament(){
         System.out.println("Updating tournament:");

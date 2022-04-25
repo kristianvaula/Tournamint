@@ -101,7 +101,8 @@ public class CreateATournamentController implements Initializable {
      */
     private ArrayList<Team> generateTeams(int n){
         ArrayList<Team> teams = new ArrayList<>();
-        String[] names = {"pingas", "luigi", "princess", "maiboi", "stinker", "frog", "guttaBoys", "sennep inc", "din mor", "covfefe", "mousie"};
+        String[] names = {"pingas", "luigi", "princess", "maiboi", "stinker", "frog", "guttaBoys", "sennep inc", "din mor",
+                "covfefe", "mousie", "faceDesks", "snibs", "mumu", "bobo", "powercromp"};
         for (int i = 0; i < n; i++) {
             String number = String.valueOf(i/names.length + 1);
             if (number.equals("1")) number = "";
