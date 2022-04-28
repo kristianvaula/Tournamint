@@ -10,20 +10,17 @@ import java.nio.file.Path;
  * Used for saving and loading a tournament type Object.
  * Stores path to target file as object variable.
  * Tournaments are saved as ".qxz" files. Dumb extension name, but definitely unique.
- *
- * //TODO Possibly change extension to something pronounceable.
- * //TODO Possibly change file format to something more human readable.
  * @author Martin Dammerud
  */
 public class TournamentDAO {
     private static final String fileExtension = ".qxz";
-    //private final String filePath;
     private File file;
     private Tournament tournament = null;
 
     /**
      * Constructor for Data Access Object.
      * Adds extension automatically if missing in input
+     *
      * @param file Object representing file where data will be saved.
      */
     public TournamentDAO(File file) {
@@ -34,6 +31,7 @@ public class TournamentDAO {
     /**
      * Used to change all parameters of this DAO into that of given DAO.
      * Handy when the content needs to change but the pointer cannot change.
+     *
      * @param otherTDAO TournamentDAO that this will copy all contents of.
      * @throws IOException If otherDAO is null, or it fails to load.
      */
@@ -72,6 +70,7 @@ public class TournamentDAO {
 
     /**
      * Saves given tournament to file.
+     *
      * @param tournament of type Tournament.
      * @see Tournament
      * @throws IOException if saving failed.
