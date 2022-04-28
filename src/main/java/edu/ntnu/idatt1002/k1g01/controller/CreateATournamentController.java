@@ -199,7 +199,7 @@ public class CreateATournamentController implements Initializable {
      * @author Martin Dammerud
      */
     @FXML
-    private TournamentDAO saveTournamentToFile(ActionEvent event) {
+    private TournamentDAO saveTournamentToFile (ActionEvent event) throws IOException {
         try { return FileController.saveToFile(tournament, (Stage) ((Node)event.getSource()).getScene().getWindow()); }
         catch (Exception e) { System.out.println(e.getMessage()); return null; }
     }
@@ -243,6 +243,10 @@ public class CreateATournamentController implements Initializable {
      * @return User specified tournament.
      */
     public Tournament generateTournament(){
+        //First clear error/warning messages
+        tournamentErrorOutput.setText("");
+        tournamentWarningOutput.setText("");
+
         String tournamentName =  tournamentNameInputField.getText();
         int teamsPerGroup = teamsPerGroupInput.getValue();
         int teamsPerMatch = teamsPerMatchInput.getValue();

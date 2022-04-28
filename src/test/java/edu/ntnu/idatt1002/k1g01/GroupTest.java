@@ -72,7 +72,7 @@ public class GroupTest {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Group group = new Group("pointMatch", teamPingas);
         });
-        String expected = "Attempted to create group with " + 1 + " teams. Minimum group size: 2!";
+        String expected = "Attempted to create group with 1 team. Minimum group size is 2 teams!";
         String actual = exception.getMessage();
         assertEquals(expected, actual);
         exception = assertThrows(IllegalArgumentException.class, () -> {

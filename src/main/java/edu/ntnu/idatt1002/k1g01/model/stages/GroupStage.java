@@ -37,11 +37,17 @@ public class GroupStage extends Stage {
      */
     public GroupStage(ArrayList<Team> teams, int advancingFromGroup, int teamsPerGroup, String matchType) {
         super(new ArrayList<>());
-        if (advancingFromGroup < 1 || advancingFromGroup >= teamsPerGroup) throw new IllegalArgumentException("Teams advancing from group must be at least one and maximum the amount of teams in the group");
+        if (advancingFromGroup < 1) throw new IllegalArgumentException("At least one team must advance from each group!");
+        else if(advancingFromGroup >= teamsPerGroup) throw new IllegalArgumentException("Cannot let " + advancingFromGroup + " teams advance from a group with only " + teamsPerGroup + " teams!");
         this.teamsPerGroup = teamsPerGroup;
         this.matchType = matchType;
         this.advancingFromGroup = advancingFromGroup;
         this.groups.addAll(setUpGroups(new ArrayList<>(teams), advancingFromGroup,teamsPerGroup,matchType));
+        for (Group group : groups) {
+            if (group.size() <= advancingFromGroup) {
+                throw new IllegalArgumentException(advancingFromGroup + " teams advancing from group with only " + group.size() + "teams!");
+            }
+        }
     }
 
     /**
@@ -90,20 +96,12 @@ public class GroupStage extends Stage {
         //Verify that all groups are valid.
         for (Group group : groups) {
             if (group.size() <= advancingFromGroup) {
-                throw new IllegalArgumentException("Invalid group! At least one group of size: " + group.size()
-                        + " with " + advancingFromGroup + " advancing.");
+                throw new IllegalArgumentException("At least one group with: " + group.size()
+                        + " teams and " + advancingFromGroup + " teams advancing!");
             }
         }
 
-        //Makes sure a power of 2 teams will advance to the knockoutStage.
-        int advanceToFinals = groups.size()*advancingFromGroup;
-        boolean compatible = false;
-        for (int i = 1; i < 10; i++) {
-            if (advanceToFinals == Math.pow(2, i)) { compatible = true; break; }
-        }
-        if (!compatible) {
-            throw new IllegalArgumentException("Incompatible number of teams advancing to finals: " + advanceToFinals);
-        }
+        //Following knockoutStage will itself test if it receives compatible number of teams.
         return groups;
     }
 

@@ -89,7 +89,7 @@ public class Group implements Serializable {
     public Group( String matchType, ArrayList<Team> teams) {
         //validate input.
         if (teams.size() < 2) {
-            throw new IllegalArgumentException("Attempted to create group with " + teams.size() + " teams. Minimum group size: 2!");
+            throw new IllegalArgumentException("Attempted to create group with " + teams.size() + " team. Minimum group size is 2 teams!");
         }
         HashSet<Team> teamSet = new HashSet<>(teams);
         if (teamSet.size() != teams.size())  {
@@ -234,9 +234,13 @@ public class Group implements Serializable {
     public ArrayList<Team> getTeams() {return teams; }
     public ArrayList<Round> getRounds() { return rounds; }
     public ArrayList<Match> getMatches() { return matches; }
-    public int size() { return teams.size(); }
     public int getRoundCount() { return rounds.size(); }
     public int getMatchCount() { return matches.size(); }
+
+    /**
+     * @return number of teams in this group.
+     */
+    public int size() { return teams.size(); }
 
     /**
      * Checks if every match in the group has been played.
