@@ -34,6 +34,7 @@ public class TimeMatch extends Match{
     /**
      * Preemptively creates match from other matches.
      * This match will eventually get its teams from the winners of these input matches.
+     *
      * @param previousMatches Match[] that will feed their winners to this match.
      * @implNote
      *          compiler doesn't like overloading with signature difference inside generic class.
@@ -47,6 +48,7 @@ public class TimeMatch extends Match{
     /**
      * Preemptively creates match from Groups.
      * This match will eventually get its teams from the winners of these input matches.
+     *
      * @param previousGroups Group[] that will feed their winners to this match.
      * @implNote
      *      compiler doesn't like overloading with signature difference inside generic class.
@@ -156,6 +158,7 @@ public class TimeMatch extends Match{
      *        1#  01:23:30:00
      *        2#  00:00:23:21
      * {code}</p>
+     *
      * @param inputString String input
      * @return Localtime parsed
      */

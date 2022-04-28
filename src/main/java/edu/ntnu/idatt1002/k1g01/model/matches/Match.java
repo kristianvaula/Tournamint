@@ -35,6 +35,7 @@ public abstract class Match implements Serializable {
     /**
      * Initiates a new Match.
      * <br> Takes participants as argument.
+     *
      * @param participants Team participants in the match
      */
     public Match(ArrayList<Team> participants) {
@@ -77,10 +78,8 @@ public abstract class Match implements Serializable {
     }
 
     /**
-     * Checks if any of teams in this match are just holograms.
-     * Unpacks normal teams from holograms if possible.
-     * If there are any holograms, then the match can't yet be played.
-     * @return true if there
+     * Checks if any of teams in this match are just holograms waiting for other matches to finish.
+     * @return true if any and all holograms are resolved. false if waiting for other matches.
      */
     public boolean isPlayable() {
         for (Team team : participants) {
@@ -300,7 +299,7 @@ public abstract class Match implements Serializable {
      * @return String[] participants
      */
     public static String[] generateMatchAsString(ArrayList<Team> participants,HashMap<Team,String> result){
-        String[] returnString = new String[2];  // [0] = Teams [1] = Result
+        String[] returnString = new String[2];
         returnString[0] = "";
         returnString[1] = "";
         if(result != null && !result.isEmpty()){ // If match has result

@@ -101,6 +101,7 @@ public class PointMatch extends Match{
      * Sets result in pointsResult.
      * After setting result method calls for
      * updateIsFinished().
+     *
      * @param team Team we add results for
      * @param value String number value
      * @throws ClassCastException if match still contains TeamHolograms.
