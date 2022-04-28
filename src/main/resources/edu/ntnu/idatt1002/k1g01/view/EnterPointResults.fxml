@@ -28,7 +28,7 @@
                               <Label fx:id="team1Text" alignment="CENTER" prefHeight="72.0" prefWidth="490.0" styleClass="title-text" textAlignment="CENTER" />
                               <HBox prefHeight="223.0" prefWidth="470.0">
                                  <children>
-                                    <TextField fx:id="resultInputField1" alignment="CENTER" onMouseClicked="#initResultFields" prefHeight="225.0" prefWidth="336.0" style="-fx-font-size: 30pt;" styleClass="resultInput">
+                                    <TextField fx:id="resultInputField1" alignment="CENTER" prefHeight="225.0" prefWidth="336.0" style="-fx-font-size: 30pt;" styleClass="resultInput">
                                        <font>
                                           <Font size="70.0" />
                                        </font>
@@ -73,7 +73,7 @@
                               <Label fx:id="team2Text" alignment="CENTER" prefHeight="72.0" prefWidth="490.0" styleClass="title-text" textAlignment="CENTER" />
                               <HBox prefHeight="223.0" prefWidth="470.0">
                                  <children>
-                                    <TextField fx:id="resultInputField2" alignment="CENTER" onMouseClicked="#initResultFields" prefHeight="225.0" prefWidth="336.0" style="-fx-font-size: 30pt;" styleClass="resultInput">
+                                    <TextField fx:id="resultInputField2" alignment="CENTER" prefHeight="225.0" prefWidth="336.0" style="-fx-font-size: 30pt;" styleClass="resultInput">
                                        <font>
                                           <Font size="70.0" />
                                        </font>
