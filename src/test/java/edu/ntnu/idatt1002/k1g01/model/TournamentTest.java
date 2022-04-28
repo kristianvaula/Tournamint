@@ -1,8 +1,6 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model;
 
 import edu.ntnu.idatt1002.k1g01.model.stages.KnockoutStage;
-import edu.ntnu.idatt1002.k1g01.model.Team;
-import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

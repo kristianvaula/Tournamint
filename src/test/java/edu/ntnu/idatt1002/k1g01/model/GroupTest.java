@@ -1,8 +1,5 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model;
 
-import edu.ntnu.idatt1002.k1g01.model.Group;
-import edu.ntnu.idatt1002.k1g01.model.Round;
-import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
