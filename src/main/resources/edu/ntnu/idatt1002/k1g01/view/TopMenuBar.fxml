@@ -18,9 +18,9 @@
                 <MenuItem fx:id="topMenuBarAdministrate" mnemonicParsing="false" onAction="#changeSceneToAdministrateTournament" text="Administrate" />
             </items>
         </Menu>
-        <Menu fx:id="topMenuBarHelp" disable="true" mnemonicParsing="false" text="Help">
+        <Menu fx:id="topMenuBarHelp" mnemonicParsing="false" text="Help">
             <items>
-                <MenuItem mnemonicParsing="false" text="About" />
+                <MenuItem fx:id="topMenuBarManual" mnemonicParsing="false" onAction="#openManual" text="User manual" />
             </items>
         </Menu>
     </menus>
