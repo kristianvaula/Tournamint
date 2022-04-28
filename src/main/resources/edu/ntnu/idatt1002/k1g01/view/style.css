@@ -157,18 +157,18 @@
 .split-pane:vertical > .split-pane-divider {
     -fx-background-color: transparent;
 }
-
 .menu-bar {
     -fx-background-color: #2D2D2D ;
     -fx-opacity: 1;
-
+}
+.menu:hover{
+    -fx-cursor: hand;
 }
 .menu-bar .label {
     -fx-font-size: 12.0 pt;
     -fx-text-fill: #F7F7F3;
     -fx-font-weight: bold;
     -fx-padding: 5.0px;
-
 }
 
 .menu-item {
@@ -176,11 +176,15 @@
     -fx-text-fill: #F7F7F3;
     -fx-background: #2D2D2D ;
 }
+.menu-item:hover{
+    -fx-cursor: hand;
+}
 .menu-item .label{
     -fx-font-size: 12.0 pt;
     -fx-text-fill: #F7F7F3;
 }
 .menu-item .label:hover{
+    -fx-cursor: hand;
     -fx-font-size: 12.0 pt;
     -fx-background: #2D2D2D ;
     -fx-text-fill: #F7F7F3;
