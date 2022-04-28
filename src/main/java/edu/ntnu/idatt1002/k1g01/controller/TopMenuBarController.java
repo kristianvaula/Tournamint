@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
 import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
-import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +13,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import java.awt.Desktop;
+import java.net.URI;
 
 /**
  * Module with all controllers for the top MenuBar.
@@ -41,6 +43,9 @@ public class TopMenuBarController implements Initializable{
     @FXML Menu topMenuBarView;
     @FXML MenuItem topMenuBarDisplay;
     @FXML MenuItem topMenuBarAdministrate;
+    @FXML MenuItem topMenuBarAbout;
+    @FXML MenuItem topMenuBarManual;
+
     private TournamentDAO tournamentDAO;
 
     @Override
@@ -58,15 +63,6 @@ public class TopMenuBarController implements Initializable{
         topMenuBarClose.setDisable(false);
         topMenuBarDisplay.setDisable(false);
         topMenuBarView.setDisable(false);
-    }
-
-    public void printState() {
-        System.out.println("State of TopMenuBarController:");
-        System.out.println("    topMenuBar: " + topMenuBar);
-        System.out.println("    topMenuBarOpen: " + topMenuBarOpen);
-        System.out.println("    topMenuBarClose: " + topMenuBarClose);
-        System.out.println("    topMenuBarSaveAs: " + topMenuBarSaveAs);
-        System.out.println("    tournamentDAO: " + tournamentDAO);
     }
 
     /**
@@ -236,6 +232,23 @@ public class TopMenuBarController implements Initializable{
         }else if(controllerClass.equals(AdministrateTournamentController.class)){
             AdministrateTournamentController controller = loader.getController();
             controller.stopClock();
+        }
+    }
+
+    /**
+     * Opens the User Manual PDF using the system's default browser
+     */
+    public void openManual() {
+        try {
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(new URI("https://gitlab.stud.idi.ntnu.no/kristvje/idatt1002_2022_k1-g01/-/wikis/uploads/0294c71d9b6a32c67b2732e6f78145f8/User_Manual.pdf"));
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
         }
     }
 }
