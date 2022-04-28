@@ -124,55 +124,6 @@ public class AdministrateTournamentController implements Initializable {
     }
 
     /**
-     * Switches back to the start page.
-     */
-    @FXML
-    public void switchToHomePage() {
-        stopClock = true;
-        try {
-            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/HomePage.fxml")));
-            Scene scene = new Scene(parent);
-
-            //This line gets the Stage information
-            Stage window = (Stage) topMenuBar.getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * Opens another tournament from file.
-     */
-    @FXML
-    public void openFile() {
-        try { tournamentDAO = FileController.openFromFile( (Stage)topMenuBar.getScene().getWindow()); }
-        catch (Exception e) { System.out.println(e.getMessage()); }
-        initData(tournamentDAO);
-    }
-
-    /**
-     * Saves tournament to new file and switches working directory.
-     */
-    @FXML
-    public void saveFile() {
-        try {  tournamentDAO = FileController.saveToFile(tournament, (Stage)topMenuBar.getScene().getWindow()); }
-        catch (Exception e) { System.out.println(e.getMessage()); }
-    }
-
-    /**
-     * Whenever a result is added we call the
-     * updateTournament function so that the
-     * tournament can generate new matches based
-     * on previous result.
-     */
-    public void updateTournament(){
-        this.tournament.updateTournament();
-    }
-
-    /**
      * Sets table rows to all matches
      */
     @FXML
