@@ -49,6 +49,9 @@ public class CreateATournamentController implements Initializable {
     //Teams the user adds
     private ArrayList<Team> teamList = new ArrayList<>();
 
+    //Stores previous non-critical warning, so that each new warning will only interrupt Tournament creation once.
+    private String warningFlag = "";
+
     //Tournament Settings
     @FXML private TextField tournamentNameInputField;
     @FXML private RadioButton knockoutStageButton;
@@ -78,9 +81,6 @@ public class CreateATournamentController implements Initializable {
     @FXML private StackPane menuStackPane;
     @FXML private Node menuVBox;
 
-    //Used to check if warning status has changed.
-    private String warningFlag = "";
-
     /**
      * Changes the scene to CreateATournamentWindow
      */
@@ -101,20 +101,18 @@ public class CreateATournamentController implements Initializable {
     }
 
     /**
-     * Generated dummy Teams for testing
-     * @param n number of teams to generate
-     * @return ArrayList of teams.
+     * Adds dummy teams and tourmament name for rapid testing.
      */
-    private ArrayList<Team> generateDummyTeams(int n){
-        ArrayList<Team> teams = new ArrayList<>();
+    private void addDummyData(){
+        tournamentNameInputField.setText("DummyTournament");
         String[] names = {"pingas", "luigi", "princess", "maiboi", "stinker", "frog", "guttaBoys", "sennep inc", "din mor",
                 "covfefe", "mousie", "faceDesks", "snibs", "mumu", "bobo", "powercromp"};
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < dummyTeamCount; i++) {
             String number = String.valueOf(i/names.length + 1);
             if (number.equals("1")) number = "";
-            teams.add(new Team(names[i % names.length] + number));
+            this.teamList.add(new Team(names[i % names.length] + number));
+            updateTeamTable();
         }
-        return teams;
     }
 
     /**
@@ -190,13 +188,8 @@ public class CreateATournamentController implements Initializable {
         //If we want the user to select multiple rows at once
         teamTableOutput.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        //Add dummy data if testMode is set to true.
-        if(testMode) {
-            tournamentNameInputField.setText("DummyTournament");
-            teamList = generateDummyTeams(dummyTeamCount);
-            updateTeamTable();
-        }
-
+        //Adds dummy data if testMode is set to true.
+        if(testMode) addDummyData();
     }
 
     /**
