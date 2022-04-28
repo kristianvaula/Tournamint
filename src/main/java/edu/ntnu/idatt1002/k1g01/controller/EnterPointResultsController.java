@@ -16,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,7 +23,6 @@ import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -105,9 +103,6 @@ public class EnterPointResultsController implements Initializable {
         if(match.getMatchResult().size()>0 ){
             resultInputField1.setText(match.getMatchResult().get(team1));
             resultInputField2.setText(match.getMatchResult().get(team2));
-        }else{
-            //resultInputField1.setText("0");
-            //resultInputField2.setText("0");
         }
         //Other fields
         timeField.setText(match.getStartTimeAsString());
@@ -229,8 +224,6 @@ public class EnterPointResultsController implements Initializable {
                 match.setResult(match.getParticipants().get(0),String.valueOf(resultInputField1.getText()));
                 match.setResult(match.getParticipants().get(1),String.valueOf(resultInputField2.getText()));
             }
-            //System.out.println("result one: " + String.valueOf(resultInputField1));
-            //System.out.println("result two: " + String.valueOf(resultInputField2));
 
             match.setMatchDate(dateField.getValue());
             match.setMatchInfo(infoField.getText());
