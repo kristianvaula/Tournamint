@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
 import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
-import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import javafx.beans.value.ChangeListener;
@@ -34,6 +33,10 @@ import java.util.ResourceBundle;
  * @author martdam
  */
 public class CreateATournamentController implements Initializable {
+
+    //Constants used for testing
+    private static final Boolean testMode = true; // true -> activate testMode.
+    private static final int dummyTeamCount = 12; //Number of dummy teams to populate teamList.
 
     //The nested controller for the menuBar and pop-up menu
     @FXML private TopMenuBarController topMenuBarController;
@@ -187,10 +190,13 @@ public class CreateATournamentController implements Initializable {
         //If we want the user to select multiple rows at once
         teamTableOutput.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        //For testing
-        tournamentNameInputField.setText("Turnering");
-        teamList = generateTeams(24);
-        updateTeamTable();
+        //Add dummy data if testMode is set to true.
+        if(testMode) {
+            tournamentNameInputField.setText("DummyTournament");
+            teamList = generateTeams(dummyTeamCount);
+            updateTeamTable();
+        }
+
     }
 
     /**
@@ -271,6 +277,7 @@ public class CreateATournamentController implements Initializable {
                 try{
                     tournament = new Tournament(tournamentName,teamList,matchType,teamsPerMatch,teamsPerGroup,teamsAdvancingFromGroup);
                 }catch (IllegalArgumentException e){
+                    this.warningFlag = ""; //Reset warningFlag.
                     tournamentErrorOutput.setText(e.getMessage());
                     return null;
                 }
@@ -279,6 +286,7 @@ public class CreateATournamentController implements Initializable {
                 try{
                     tournament = new Tournament(tournamentName,teamList,matchType,teamsPerMatch);
                 }catch (IllegalArgumentException e){
+                    this.warningFlag = ""; //Reset warningFlag.
                     tournamentErrorOutput.setText(e.getMessage());
                     return null;
                 }
@@ -286,18 +294,19 @@ public class CreateATournamentController implements Initializable {
         }
 
         //Warn the user if some groups in groupStage are not full.
-        int countMinSize = tournament.partialGroupCount();
-        if (tournament!= null && countMinSize != 0) {
+
+        if (tournament!= null && tournament.partialGroupCount() != 0) {
+            int countMinSize = tournament.partialGroupCount();
             int minGroupSize = tournament.getGroupStage().minGroupTeamCount();
             int groupCount = tournament.getGroupStage().getGroups().size();
 
-            String warning = "Warning: Cannot fill all groups. ";
+            String warning = "Warning: Cannot fill all groups.\n";
             if (countMinSize == 1) {
                 warning += "1 of "+ groupCount + " groups has only " + minGroupSize + " teams. ";
             }
             else {
                 if (countMinSize == groupCount) {
-                    warning += "No groups with " + teamsPerGroup + " teams! ";
+                    warning += "No groups with " + teamsPerGroup + " teams!\n";
                 }
                 countMinSize = (int)tournament.getGroupStage().getGroups().stream()
                         .filter(g -> g.size() == minGroupSize).count();
@@ -309,7 +318,7 @@ public class CreateATournamentController implements Initializable {
             tournamentErrorOutput.setStyle("-fx-text-fill: orange");
             tournamentErrorOutput.setText(warning);
 
-            //Use flag to check if user chose to ignore previous warning.
+            //Use warningFlag to check if user chose to ignore previous warning.
             if (! this.warningFlag.equals(warning)) tournament = null; System.out.println(warningFlag);
             this.warningFlag = warning;
         }
