@@ -65,6 +65,7 @@ public class EnterTimeResultsController implements Initializable {
 
     /**
      * Initializes EnterResult
+     *
      * @param url url
      * @param resourceBundle resourceBundle
      */
@@ -75,6 +76,7 @@ public class EnterTimeResultsController implements Initializable {
     /**
      * Used by other controllers to initialize important
      * data before we open the page
+     *
      * @param match match we are going to enter results to
      * @param tournamentDAO the TournamentDAO
      * @throws IOException if load fails
@@ -82,7 +84,7 @@ public class EnterTimeResultsController implements Initializable {
     @FXML
     public void initData(Match match, TournamentDAO tournamentDAO) throws IOException{
         this.tournamentDAO = tournamentDAO;
-        this.tournament = tournamentDAO.load(); //TODO handle the exception from this better.
+        this.tournament = tournamentDAO.load();
         topMenuBarController.setTournamentDAO(tournamentDAO);//Give menuBar controller access to the DAO.
         this.match = match;
 
@@ -245,7 +247,7 @@ public class EnterTimeResultsController implements Initializable {
      * Changes the scene to AdministrateTournament
      */
     @FXML
-    public void confirmResultsAndGoBack(ActionEvent event) throws IOException,NoSuchFieldException{
+    public void confirmResultsAndGoBack(ActionEvent event) throws IOException {
         try{
             String resultTeam1 = getResult("Team1");
             String resultTeam2 = getResult("Team2");
@@ -261,7 +263,7 @@ public class EnterTimeResultsController implements Initializable {
             match.setMatchInfo(infoField.getText());
             try{
                 if(!(timeField.getText().isEmpty() || timeField.getText().isBlank())) {
-                    LocalTime newValue = LocalTime.parse((CharSequence) timeField.getText());
+                    LocalTime newValue = LocalTime.parse(timeField.getText());
                     match.setStartTime(newValue);
 
                 }

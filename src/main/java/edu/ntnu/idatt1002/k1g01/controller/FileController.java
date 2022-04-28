@@ -8,14 +8,25 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Bundle of static, commonly used file handling code.
+ * Bundle of static file handling code.
+ * Uses the Operating systems GUI to let the user easily save and load files.
+ * //TODO Consider setting a default path to save new tournaments and more readable file extension.
+ * @author Martin Dammerud
+ * @implNote Split off as separate object vs TournamentDAO because this interface handles the user interaction.
  */
 public interface FileController {
 
+    /**
+     * Uses OS GUI to create save file, and then saves given Tournament to that file.
+     *
+     * @param tournament of type Tournament
+     * @param window active window
+     * @return TournamentDAO, a link between the tournament, and the file that stores it.
+     * @throws IOException if saving fails or is cancelled.
+     */
     static TournamentDAO saveToFile(Tournament tournament, Stage window) throws IOException {
 
         //Initialize file selection dialog.
-        //TODO Consider more readable file extension name. Using .qxz because it does not collide with any known extensions.
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Tournamint Files (*.qxz)", "*.qxz");
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(extensionFilter);
@@ -23,7 +34,7 @@ public interface FileController {
         fileChooser.setInitialFileName(tournament.getTournamentName());
         fileChooser.setTitle("Save Tournament");
 
-        //TODO Consider setting a default path to save new tournaments.
+
         try {
             //Show file selection dialog and get tournamentDAO from file.
             File file = fileChooser.showSaveDialog(window);
@@ -39,8 +50,11 @@ public interface FileController {
     }
 
     /**
-     * Opens another tournament from file.
-     * TODO Consider more readable file extension name.
+     * Uses OS GUI to find and open a file containing a previously save tournament.
+     *
+     * @param window active window
+     * @return TournamentDAO, a link between the tournament, and the file that stores it.
+     * @throws IOException if loading fails or is cancelled.
      */
     static TournamentDAO openFromFile(Stage window) throws IOException{
 

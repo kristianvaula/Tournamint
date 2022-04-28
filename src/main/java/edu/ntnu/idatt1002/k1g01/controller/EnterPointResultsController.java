@@ -27,7 +27,6 @@ import java.util.ResourceBundle;
 
 /**
  * Controls the enter points results page
- *
  * @author thomaniv
  * @author espjus
  * @author martdam
@@ -64,6 +63,7 @@ public class EnterPointResultsController implements Initializable {
 
     /**
      * Initializes EnterResult
+     *
      * @param url url
      * @param resourceBundle resourceBundle
      */
@@ -74,6 +74,7 @@ public class EnterPointResultsController implements Initializable {
     /**
      * Used by other controllers to initialize important
      * data before we open the page
+     *
      * @param match match we are going to enter results to
      * @param tournamentDAO the TournamentDAO
      * @throws IOException if load fails
@@ -81,7 +82,7 @@ public class EnterPointResultsController implements Initializable {
     @FXML
     public void initData(Match match, TournamentDAO tournamentDAO) throws IOException{
         this.tournamentDAO = tournamentDAO;
-        this.tournament = tournamentDAO.load(); //TODO handle the exception from this better.
+        this.tournament = tournamentDAO.load();
         topMenuBarController.setTournamentDAO(tournamentDAO);//Give menuBar controller access to the DAO.
         this.match = match;
 
@@ -218,7 +219,7 @@ public class EnterPointResultsController implements Initializable {
      * Changes the scene to AdministrateTournament
      */
     @FXML
-    public void confirmResultsAndGoBack(ActionEvent event) throws IOException,NoSuchFieldException{
+    public void confirmResultsAndGoBack(ActionEvent event) throws IOException {
         try{
             if (resultInputField1.getText().length() > 0 || resultInputField2.getText().length() > 0 ) {
                 match.setResult(match.getParticipants().get(0),String.valueOf(resultInputField1.getText()));
@@ -229,7 +230,7 @@ public class EnterPointResultsController implements Initializable {
             match.setMatchInfo(infoField.getText());
             try{
                 if(!(timeField.getText().isEmpty() || timeField.getText().isBlank())) {
-                    match.setStartTime(LocalTime.parse((CharSequence) timeField.getText()));
+                    match.setStartTime(LocalTime.parse(timeField.getText()));
                 }
             }catch (DateTimeParseException e){
                 System.out.println(e.getMessage());

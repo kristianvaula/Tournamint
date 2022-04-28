@@ -34,6 +34,9 @@ import java.util.ResourceBundle;
  */
 public class CreateATournamentController implements Initializable {
 
+    //Somewhat arbitrary team cap. Application poorly tested beyond this limit.
+    public static final int MAX_TEAM_COUNT = 256;
+
     //Constants used for testing
     private static final Boolean testMode = true; // true -> activate testMode.
     private static final int dummyTeamCount = 12; //Number of dummy teams to populate teamList.
@@ -101,16 +104,21 @@ public class CreateATournamentController implements Initializable {
     }
 
     /**
-     * Adds dummy teams and tourmament name for rapid testing.
+     * Adds dummy Teams and dummy Tournament name for rapid testing.
+     * @author Martin Dammerud
      */
     private void addDummyData(){
         tournamentNameInputField.setText("DummyTournament");
-        String[] names = {"pingas", "luigi", "princess", "maiboi", "stinker", "frog", "guttaBoys", "sennep inc", "din mor",
+        String[] dummyNames = {"pingas", "luigi", "princess", "maiboi", "stinker", "frog", "guttaBoys", "sennep inc", "din mor",
                 "covfefe", "mousie", "faceDesks", "snibs", "mumu", "bobo", "powercromp"};
+
+        //Cycle through list of dummyNames as many times as needed.
+        //Append number from second loop and onward to keep all names unique.
+        //Add Dummy teams to teamList.
         for (int i = 0; i < dummyTeamCount; i++) {
-            String number = String.valueOf(i/names.length + 1);
+            String number = String.valueOf(i/dummyNames.length + 1);
             if (number.equals("1")) number = "";
-            this.teamList.add(new Team(names[i % names.length] + number));
+            this.teamList.add(new Team(dummyNames[i % dummyNames.length] + number));
             updateTeamTable();
         }
     }
@@ -195,6 +203,7 @@ public class CreateATournamentController implements Initializable {
     /**
      * Asks the user for a file path and file name to save the new tournament.
      * Creates TournamentDAO with user provided path.
+     *
      * @param event the event
      * @return TournamentDAO which links tournament object with persistent file.
      * @throws IOException If saving is not completed.
@@ -210,6 +219,7 @@ public class CreateATournamentController implements Initializable {
      * Changes the scene to administrate tournament
      * Also uses the administrate tournament controller to
      * send the tournament instance.
+     *
      * @param event the event
      * @throws IOException if fxml file bad
      */
@@ -287,12 +297,12 @@ public class CreateATournamentController implements Initializable {
         }
 
         //Warn the user if some groups in groupStage are not full.
-
         if (tournament!= null && tournament.partialGroupCount() != 0) {
             int countMinSize = tournament.partialGroupCount();
             int minGroupSize = tournament.getGroupStage().minGroupTeamCount();
             int groupCount = tournament.getGroupStage().getGroups().size();
 
+            //Assemble useful warning message.
             String warning = "Warning: Cannot fill all groups.\n";
             if (countMinSize == 1) {
                 warning += "1 of "+ groupCount + " groups has only " + minGroupSize + " teams. ";
@@ -307,7 +317,7 @@ public class CreateATournamentController implements Initializable {
             }
             warning += "\nCreate anyway?";
 
-            //Use the Error output field to display warning, and interrupt creation once.
+            //Use the Error output field to display assembled warning, and interrupt creation once.
             tournamentErrorOutput.setStyle("-fx-text-fill: orange");
             tournamentErrorOutput.setText(warning);
 
@@ -322,6 +332,7 @@ public class CreateATournamentController implements Initializable {
     /**
      * Gets called when user presses Create Tournament
      * If successful, proceeds to save and administrate tournament.
+     *
      * @param event the actionEvent
      */
     @FXML
@@ -336,6 +347,7 @@ public class CreateATournamentController implements Initializable {
 
     /**
      * Gets called when user presses (+)
+     *
      * @param event the actionEvent.
      */
     @FXML
@@ -349,8 +361,8 @@ public class CreateATournamentController implements Initializable {
         else if(teamList.stream().anyMatch(team -> team.getName().equals(teamName))){
             addTeamErrorOutput.setText("Teams cannot have the same name");
         }
-        else if(teamList.size()>256){ //TODO consider removing this.
-            addTeamErrorOutput.setText("Too many teams");
+        else if(teamList.size()>MAX_TEAM_COUNT){
+            addTeamErrorOutput.setText("Too many teams! Maximum team number is " + MAX_TEAM_COUNT + " teams.");
         }else{
             teamList.add(new Team(teamName));
             teamNameInputField.setText("");
@@ -360,6 +372,7 @@ public class CreateATournamentController implements Initializable {
 
     /**
      * Allows user to edit teams in list
+     *
      * @param editedCell the event
      */
     @FXML
@@ -374,9 +387,7 @@ public class CreateATournamentController implements Initializable {
      */
     public ObservableList<Team> getTeams(){
         ObservableList<Team> teamsObservable = FXCollections.observableArrayList();
-        for(Team team : teamList){
-            teamsObservable.add(team);
-        }
+        teamsObservable.addAll(teamList);
         if(teamsObservable.size() == 0) return null;
         return teamsObservable;
     }
@@ -410,6 +421,7 @@ public class CreateATournamentController implements Initializable {
     /**
      * Gets called when user presses delete button
      * Removes selected teams.
+     *
      * @param event the actionEvent.
      */
     public void deleteSelectedTeam(ActionEvent event){
@@ -420,8 +432,8 @@ public class CreateATournamentController implements Initializable {
         selectedRows = teamTableOutput.getSelectionModel().getSelectedItems();
 
         //Loop through selected and remove from lists.
-        for(Team team : selectedRows){ //TODO This causes a soft error if the last team is deleted from the list
-            teamList.remove(team);
+        for(Team team : selectedRows){
+            teamList.remove(team); //TODO A soft error happens when the last team is deleted from the list.
             tableRows.remove(team);
         }
         teamCounterOutput.setText("teams: " + teamList.size());
@@ -453,7 +465,7 @@ public class CreateATournamentController implements Initializable {
         }
     }
     /**
-     * Displays the pop up menu
+     * Displays the pop-up menu
      */
     @FXML
     public void displayPopUpMenu(){

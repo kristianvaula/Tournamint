@@ -14,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
@@ -25,7 +24,6 @@ import java.util.ResourceBundle;
 
 /**
  * Controls the edit tournament page
- *
  * @author kristvje
  */
 public class EditTournamentController implements Initializable {
@@ -84,8 +82,7 @@ public class EditTournamentController implements Initializable {
     /**
      * Starts session for administrating a tournament with TournamentDAO.
      * Makes file containing tournament accessible so that it can be easily updated frequently.
-     * TODO give user reassuring feedback whenever tournament file is updated.
-     * TODO better user feedback for errors.
+     *
      * @param tournamentDAO DAO for tournament object. Must be non-null.
      */
     @FXML
@@ -97,7 +94,6 @@ public class EditTournamentController implements Initializable {
         }
         catch (IOException ioException) {
             System.out.println("Error in initData: " + ioException.getMessage());
-            //TODO handle exception if loading somehow fails. Should not be possible at this point.
         }
         tournamentNameField.setText(tournament.getTournamentName());
         //Need to do a hard copy of teams so that we can make
@@ -106,20 +102,6 @@ public class EditTournamentController implements Initializable {
             teamList.add(new Team(team.getName()));
         }
         updateTeamTable();
-    }
-
-    /**
-     * Asks the user for a file path and file name to save the new tournament.
-     * Creates TournamentDAO with user provided path.
-     * @param event the event
-     * @return TournamentDAO which links tournament object with persistent file.
-     * @throws IOException If saving is not completed.
-     * @author Martin Dammerud
-     */
-    @FXML
-    private TournamentDAO saveTournamentToFile(ActionEvent event) {
-        try { return FileController.saveToFile(tournament, (Stage) ((Node)event.getSource()).getScene().getWindow()); }
-        catch (Exception e) { System.out.println(e.getMessage()); return null; }
     }
 
     /**
@@ -218,9 +200,7 @@ public class EditTournamentController implements Initializable {
      */
     public ObservableList<Team> getTeams(){
         ObservableList<Team> teamsObservable = FXCollections.observableArrayList();
-        for(Team team : teamList){
-            teamsObservable.add(team);
-        }
+        teamsObservable.addAll(teamList);
         if(teamsObservable.size() == 0) return null;
         return teamsObservable;
     }
@@ -232,7 +212,7 @@ public class EditTournamentController implements Initializable {
      * @param event the button click
      */
     @FXML
-    public void saveChanges(ActionEvent event) throws Exception{
+    public void saveChanges(ActionEvent event) {
         String tournamentNameInput = tournamentNameField.getText().trim();
         if(tournamentNameInput.isBlank() || tournamentNameInput.isEmpty()){
             tournamentErrorOutput.setText("Please enter a tournament name");

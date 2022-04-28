@@ -25,7 +25,7 @@ public class BracketMatchBlockController implements Initializable {
 
     /**
      * method that sets info of team names and results in a BracketMatchBlock
-     * @param match
+     * @param match of type Match
      */
     public void setMatchInfo(Match match) {
         Team firstTeam = match.getParticipants().get(0);

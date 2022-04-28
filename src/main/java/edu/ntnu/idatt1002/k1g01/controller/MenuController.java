@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
  *
  *      Include the following in the scene.fxml:
  *          " <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml"/> "
- *      This replaces the menuBar code and loads it from a separate file.
+ *      This injects the menuBar from a separate file.
  *
  *      Include the following in the SceneController.java:
  *          " @FXML private TopMenuBarController topMenuBarController; "
@@ -33,6 +33,7 @@ import java.util.ResourceBundle;
  *          " topMenuBarController.setTournamentDAO(tournamentDAO); "
  *      This makes it possible to save tournaments from the topMenuBar.
  *
+ * TODO replace pasta description?
  * @author Martin Dammerud
  */
 public class MenuController implements Initializable{
@@ -52,7 +53,9 @@ public class MenuController implements Initializable{
 
     /**
      * Gives this controller access to another controllers tournamentDAO.
-     * If the pointer to the DAO is changed the new variable should be passed here as well or the menuBar may behave unpredictably.
+     * If the pointer to the DAO is changed, the new variable should be passed here as well
+     * or the menuBar may behave unpredictably.
+     *
      * @param tournamentDAO the DAO
      */
     public void setTournamentDAO(TournamentDAO tournamentDAO) {
@@ -79,9 +82,8 @@ public class MenuController implements Initializable{
     }
 
     /**
-     * Changes the scene to administrate tournament
-     * Also uses the administrate tournament controller to
-     * send the tournament instance.
+     * Changes the scene to administrate tournament.
+     * Initializes controller with TournamentDAO instance.
      */
     @FXML
     public void changeSceneToAdministrateTournament(){
@@ -113,9 +115,8 @@ public class MenuController implements Initializable{
     }
 
     /**
-     * Changes the scene to administrate tournament
-     * Also uses the administrate tournament controller to
-     * send the tournament instance.
+     * Changes the scene to display mode.
+     * Initializes controller with TournamentDAO instance.
      */
     @FXML
     public void changeSceneToDisplayMode(){
@@ -148,9 +149,8 @@ public class MenuController implements Initializable{
     }
 
     /**
-     * Changes the scene to edit tournament
-     * Also uses the edit tournament controller to
-     * send the tournament instance.
+     * Changes the scene to edit tournament.
+     * Initializes controller with TournamentDAO instance.
      */
     @FXML
     public void changeSceneToEditTournament(){

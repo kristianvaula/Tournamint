@@ -18,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -115,8 +114,7 @@ public class DisplayModeController implements Initializable {
     /**
      * Starts session for administrating a tournament with TournamentDAO.
      * Makes file containing tournament accessible so that it can be easily updated frequently.
-     * TODO give user reassuring feedback whenever tournament file is updated.
-     * TODO better user feedback for errors.
+     *
      * @param tournamentDAO DAO for tournament object. Must be non-null.
      */
     public void initData(TournamentDAO tournamentDAO) {
@@ -128,7 +126,6 @@ public class DisplayModeController implements Initializable {
         }
         catch (IOException ioException) {
             System.out.println("Error in initData: " + ioException.getMessage());
-            //TODO handle exception if loading somehow fails. Should not be possible at this point.
         }
         tournamentNameOutput.setText(tournament.getTournamentName());
 
@@ -326,8 +323,6 @@ public class DisplayModeController implements Initializable {
                 addBracketGroupContainer();
             }
         }
-
-
     }
 
     /**
@@ -394,7 +389,7 @@ public class DisplayModeController implements Initializable {
     }
 
     /**
-     * Displays the pop up menu
+     * Displays the pop-up menu
      */
     @FXML
     public void displayPopUpMenu(){

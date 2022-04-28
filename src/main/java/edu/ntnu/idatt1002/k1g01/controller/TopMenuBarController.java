@@ -116,9 +116,8 @@ public class TopMenuBarController implements Initializable{
     }
 
     /**
-     * Changes the scene to administrate tournament
-     * Also uses the administrate tournament controller to
-     * send the tournament instance.
+     * Changes the scene to administrate tournament.
+     * Initializes controller with TournamentDAO instance.
      */
     @FXML
     public void changeSceneToAdministrateTournament(){
@@ -149,9 +148,8 @@ public class TopMenuBarController implements Initializable{
     }
 
     /**
-     * Changes the scene to administrate tournament
-     * Also uses the administrate tournament controller to
-     * send the tournament instance.
+     * Changes the scene to display mode.
+     * Initializes controller with TournamentDAO instance.
      */
     @FXML
     public void changeSceneToDisplayMode(){
@@ -185,8 +183,7 @@ public class TopMenuBarController implements Initializable{
 
     /**
      * Changes the scene to edit tournament
-     * Also uses the edit tournament controller to
-     * send the tournament instance.
+     * Initializes controller with TournamentDAO instance.
      */
     @FXML
     public void changeSceneToEditTournament(){
@@ -219,7 +216,7 @@ public class TopMenuBarController implements Initializable{
     }
 
     /**
-     * Stops the
+     * Stops the corner clock.
      */
     public void stopClockThread(){
         FXMLLoader loader = (FXMLLoader) topMenuBar.getScene().getUserData();

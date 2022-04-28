@@ -54,7 +54,6 @@ public class BracketGroupContainerController implements Initializable {
         int i = 1;
         for(Team team : teams){
             Label teamName = new Label(team.getName());
-            System.out.println(String.valueOf(standings.get(team)));
             Label points = new Label(String.valueOf(standings.get(team)));
             HBox hbox = new HBox();
             hbox.setPrefHeight(30.0);

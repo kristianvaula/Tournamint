@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import java.io.*;
-import javafx.stage.FileChooser;
 
 public class HomePageController implements Initializable {
 
@@ -53,6 +51,7 @@ public class HomePageController implements Initializable {
 
     /**
      * Shows a fileChooser dialog and ask user for path to file.
+     *
      * @param event of type ActionEvent
      * @author Martin Dammerud
      */
@@ -73,6 +72,7 @@ public class HomePageController implements Initializable {
             Parent administrateParent = loader.load();
             Scene administrateScene = new Scene(administrateParent);
             administrateScene.setUserData(loader);
+
             //Prepare controller and switch scene.
             AdministrateTournamentController controller = loader.getController();
             controller.initData(tournamentDAO);
@@ -80,12 +80,10 @@ public class HomePageController implements Initializable {
             window.show();
         }
         catch (IOException e) {
-            System.out.println("ERROR ALERT");
             System.out.println(e.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage() + "\nFile may be corrupted, or created by outdated version of Tournamint.");
             alert.show();
-
         }
     }
 

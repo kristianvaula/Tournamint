@@ -15,6 +15,7 @@ import java.util.ArrayList;
  * @author kristvje
  */
 public class Tournament implements Serializable {
+
     //Name of the tournament
     private String tournamentName;
     //All the teams competing in the tournament

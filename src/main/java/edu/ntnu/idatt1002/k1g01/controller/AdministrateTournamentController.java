@@ -105,8 +105,6 @@ public class AdministrateTournamentController implements Initializable {
     /**
      * Starts session for administrating a tournament with TournamentDAO.
      * Makes file containing tournament accessible so that it can be easily updated frequently.
-     * TODO give user reassuring feedback whenever tournament file is updated.
-     * TODO better user feedback for errors.
      * @param tournamentDAO DAO for tournament object. Must be non-null.
      */
     @FXML
@@ -119,7 +117,6 @@ public class AdministrateTournamentController implements Initializable {
         }
         catch (IOException ioException) {
             System.out.println("Error in initData: " + ioException.getMessage());
-            //TODO handle exception if loading somehow fails. Should not be possible at this point.
         }
         tournamentNameOutput.setText("Administrate " + tournament.getTournamentName());
         clock.setText(new SimpleDateFormat("hh:mm:ss").format(new Date()));

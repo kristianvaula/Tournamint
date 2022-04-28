@@ -15,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,11 +23,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
-import static javafx.geometry.Pos.CENTER;
 
 /**
  * Controls the enter multi team results page
- *
  * @author kristvje
  */
 public class EnterMultiTeamResultsController implements Initializable {
@@ -51,6 +48,7 @@ public class EnterMultiTeamResultsController implements Initializable {
 
     /**
      * Initializes page
+     *
      * @param url url
      * @param resourceBundle src bundle
      */
@@ -62,6 +60,7 @@ public class EnterMultiTeamResultsController implements Initializable {
     /**
      * Used by other controllers to initialize important
      * data before we open the page
+     *
      * @param match match we are going to enter results to
      * @param tournamentDAO the TournamentDAO
      * @throws IOException if load fails
@@ -86,11 +85,9 @@ public class EnterMultiTeamResultsController implements Initializable {
         Label teams = new Label("  Teams");
         teams.prefHeight(22.0);
         teams.setMinWidth((teamVBox.getPrefWidth()*40)/100);
-        //teams.setAlignment(CENTER);
         Label results = new Label("  Results");
         results.prefHeight(22.0);
         results.setMinWidth((teamVBox.getPrefWidth()*50)/100);
-        //results.setAlignment(CENTER);
         results.setStyle("-fx-background-color: gray");
         hbox.getChildren().add(teams);
         hbox.getChildren().add(results);
