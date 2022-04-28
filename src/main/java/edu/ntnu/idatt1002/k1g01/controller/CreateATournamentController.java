@@ -105,7 +105,7 @@ public class CreateATournamentController implements Initializable {
      * @param n number of teams to generate
      * @return ArrayList of teams.
      */
-    private ArrayList<Team> generateTeams(int n){
+    private ArrayList<Team> generateDummyTeams(int n){
         ArrayList<Team> teams = new ArrayList<>();
         String[] names = {"pingas", "luigi", "princess", "maiboi", "stinker", "frog", "guttaBoys", "sennep inc", "din mor",
                 "covfefe", "mousie", "faceDesks", "snibs", "mumu", "bobo", "powercromp"};
@@ -193,7 +193,7 @@ public class CreateATournamentController implements Initializable {
         //Add dummy data if testMode is set to true.
         if(testMode) {
             tournamentNameInputField.setText("DummyTournament");
-            teamList = generateTeams(dummyTeamCount);
+            teamList = generateDummyTeams(dummyTeamCount);
             updateTeamTable();
         }
 
@@ -442,31 +442,20 @@ public class CreateATournamentController implements Initializable {
     public void tournamentTypeChangeEvent(RadioButton radioButton) {
         System.out.println(radioButton.getText());
         if (radioButton.equals(knockoutStageButton)) {
-            //teamsPerGroupInput.setVisible(false);
             teamsPerGroupInput.setDisable(true);
-            //teamsPerGroupLabel.setVisible(false);
             teamsPerGroupLabel.setStyle("-fx-opacity:0.4");
-            //teamsAdvancingFromGroupInput.setVisible(false);
             teamsAdvancingFromGroupInput.setDisable(true);
-            //teamsAdvancingFromGroupLabel.setVisible(false);
             teamsAdvancingFromGroupLabel.setStyle("-fx-opacity:0.4");
-            //teamsPerMatchInput.setVisible(true);
             teamsPerMatchInput.setDisable(false);
-            //teamsPerMatchLabel.setVisible(true);
             teamsPerMatchLabel.setStyle("-fx-opacity:1");
         }
         else if (radioButton.equals(groupStageButton)) {
-            //teamsPerGroupInput.setVisible(true);
             teamsPerGroupInput.setDisable(false);
-            //teamsPerGroupLabel.setVisible(true);
             teamsPerGroupLabel.setStyle("-fx-opacity:1");
-            //teamsAdvancingFromGroupInput.setVisible(true);
             teamsAdvancingFromGroupInput.setDisable(false);
-            //teamsAdvancingFromGroupLabel.setVisible(true);
             teamsAdvancingFromGroupLabel.setStyle("-fx-opacity:1");
-            //teamsPerMatchInput.setVisible(false);
+            teamsPerMatchInput.setValue(2);
             teamsPerMatchInput.setDisable(true);
-            //teamsPerMatchLabel.setVisible(false);
             teamsPerMatchLabel.setStyle("-fx-opacity:0.4");
         }
     }
