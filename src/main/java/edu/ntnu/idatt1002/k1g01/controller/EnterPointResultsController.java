@@ -219,7 +219,7 @@ public class EnterPointResultsController implements Initializable {
     }
 
     /**
-     * Updates all tye match data and information, then
+     * Updates all the match data and information, then
      * Changes the scene to AdministrateTournament
      */
     @FXML

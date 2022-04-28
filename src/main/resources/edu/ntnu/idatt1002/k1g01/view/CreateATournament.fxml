@@ -131,8 +131,7 @@
                         <ChoiceBox fx:id="teamsAdvancingFromGroupInput" disable="true" prefHeight="45.0" prefWidth="93.0" styleClass="clickable" />
                         <VBox alignment="BOTTOM_CENTER" prefHeight="270.0" prefWidth="226.0">
                            <children>
-                              <Label fx:id="tournamentWarningOutput" alignment="BOTTOM_LEFT" layoutX="28.0" layoutY="94.0" prefHeight="42.0" prefWidth="224.0" style="-fx-text-fill: orange;" wrapText="true" />
-                              <Label fx:id="tournamentErrorOutput" alignment="BOTTOM_LEFT" prefHeight="83.0" prefWidth="224.0" style="-fx-text-fill: red;" wrapText="true" />
+                              <Label fx:id="tournamentErrorOutput" alignment="BOTTOM_LEFT" prefHeight="116.0" prefWidth="224.0" style="-fx-text-fill: red;" wrapText="true" />
                               <Button mnemonicParsing="false" onAction="#createTournament" prefHeight="60.0" prefWidth="221.0" text="Create Tournament">
                                  <effect>
                                     <InnerShadow />

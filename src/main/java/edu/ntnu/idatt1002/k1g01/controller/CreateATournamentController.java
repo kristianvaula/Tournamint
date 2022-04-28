@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k1g01.controller;
 
 import edu.ntnu.idatt1002.k1g01.dao.TournamentDAO;
+import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import javafx.beans.value.ChangeListener;
@@ -60,7 +61,6 @@ public class CreateATournamentController implements Initializable {
     @FXML private RadioButton timeMatchButton;
     private ToggleGroup matchToggleGroup;
     @FXML private Label tournamentErrorOutput;
-    @FXML private Label tournamentWarningOutput;
 
     //Team settings
     @FXML private Button addTeamButton;
@@ -74,6 +74,9 @@ public class CreateATournamentController implements Initializable {
     //Pop-up menu
     @FXML private StackPane menuStackPane;
     @FXML private Node menuVBox;
+
+    //Used to check if warning status has changed.
+    private String warningFlag = "";
 
     /**
      * Changes the scene to CreateATournamentWindow
@@ -245,7 +248,7 @@ public class CreateATournamentController implements Initializable {
     public Tournament generateTournament(){
         //First clear error/warning messages
         tournamentErrorOutput.setText("");
-        tournamentWarningOutput.setText("");
+        tournamentErrorOutput.setStyle("-fx-text-fill: red");
 
         String tournamentName =  tournamentNameInputField.getText();
         int teamsPerGroup = teamsPerGroupInput.getValue();
@@ -281,11 +284,36 @@ public class CreateATournamentController implements Initializable {
                 }
             }
         }
+
+        //Warn the user if some groups in groupStage are not full.
         int countMinSize = tournament.partialGroupCount();
         if (tournament!= null && countMinSize != 0) {
             int minGroupSize = tournament.getGroupStage().minGroupTeamCount();
-            tournamentWarningOutput.setText("Warning: " + countMinSize + " groups have only " + minGroupSize + " teams.");
+            int groupCount = tournament.getGroupStage().getGroups().size();
+
+            String warning = "Warning: Cannot fill all groups. ";
+            if (countMinSize == 1) {
+                warning += "1 of "+ groupCount + " groups has only " + minGroupSize + " teams. ";
+            }
+            else {
+                if (countMinSize == groupCount) {
+                    warning += "No groups with " + teamsPerGroup + " teams! ";
+                }
+                countMinSize = (int)tournament.getGroupStage().getGroups().stream()
+                        .filter(g -> g.size() == minGroupSize).count();
+                warning += countMinSize + " of " + groupCount + " groups have only " + minGroupSize + " teams. ";
+            }
+            warning += "\nCreate anyway?";
+
+            //Use the Error output field to display warning, and interrupt creation once.
+            tournamentErrorOutput.setStyle("-fx-text-fill: orange");
+            tournamentErrorOutput.setText(warning);
+
+            //Use flag to check if user chose to ignore previous warning.
+            if (! this.warningFlag.equals(warning)) tournament = null; System.out.println(warningFlag);
+            this.warningFlag = warning;
         }
+        else this.warningFlag = ""; //Reset warningFlag.
         return tournament;
     }
 
