@@ -38,7 +38,7 @@ public class CreateATournamentController implements Initializable {
     public static final int MAX_TEAM_COUNT = 256;
 
     //Constants used for testing
-    private static final Boolean TEST_MODE = true; // true -> activate testMode.
+    private static final Boolean TEST_MODE = false; // true -> activate testMode.
     private static final int DUMMY_TEAM_COUNT = 12; //Number of dummy teams to populate teamList.
 
     //The nested controller for the menuBar and pop-up menu
