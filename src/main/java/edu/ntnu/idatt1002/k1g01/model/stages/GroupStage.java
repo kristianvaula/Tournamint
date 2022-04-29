@@ -30,6 +30,7 @@ public class GroupStage extends Stage {
      * Initiates a new group stage.
      * Calls for the setUpGroups() method
      * that creates the groups.
+     *
      * @param teams The teams to enter the group stage
      * @param advancingFromGroup Number of teams advancing from a group
      * @param teamsPerGroup Number of teams per group
@@ -52,6 +53,7 @@ public class GroupStage extends Stage {
 
     /**
      * Randomly splits a list of teams into optimal sub-lists sized no larger than teamsPerGroup.
+     *
      * @param teamList ArrayLists of teams.
      * @param teamsPerGroup Maximum number of teams per output sub-list.
      * @return input teams divided evenly between optimal number of sub-lists.

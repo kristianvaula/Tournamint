@@ -90,6 +90,7 @@ public class KnockoutStage extends Stage {
     /**
      * Calculates how many rounds are needed to create a valid stage.
      * Also checks if given parameters are compatible.
+     *
      * @param numberOfTeams Number of teams in the knockoutStage.
      * @param teamsPerMatch Number of teams competing in each match.
      * @param advancingPerMatch Number of teams advancing from each match.
@@ -125,6 +126,7 @@ public class KnockoutStage extends Stage {
 
     /**
      * Generates a round name
+     *
      * @param roundNumber Which round it is counting from final
      * @return String round name
      */
@@ -148,8 +150,9 @@ public class KnockoutStage extends Stage {
      * Takes a round and a list of teams. Creates
      * matches in the round using the list of
      * teams.
+     *
      * @param round Round
-     * @param teamList
+     * @param teamList ArrayList of Team objects.
      */
     public void roundSetUp(Round round,ArrayList<Team> teamList){
         ArrayList<Team> teams = new ArrayList<>(teamList);
