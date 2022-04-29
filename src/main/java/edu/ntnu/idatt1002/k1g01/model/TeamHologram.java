@@ -4,17 +4,18 @@ import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 
 /**
  * A nameless placeholder team.
- * When input match is finished, this team will take the name of the specified winner of that match
- * and make the true Match.getWinner() available.
+ * When input match/group is finished, this team will take the name of the specified winner of that match/group.
  * Handy when matches need to be constructed before their teams are ready.
+ * @author Martin Dammerud
  */
 public class TeamHologram extends Team{
     private Match match;
     private Group group;
-    private int winner;
+    private final int winner;
 
     /**
-     * Creates this placeholder team.
+     * Creates this placeholder team based on a match.
+     *
      * @param match Match that this team will eventually get its name from.
      * @param winner index for Match.getWinner(winner).
      */
@@ -30,7 +31,8 @@ public class TeamHologram extends Team{
     }
 
     /**
-     * Creates this placeholder team.
+     * Creates this placeholder team based on a group.
+     *
      * @param group Group that this team will eventually get its name from.
      * @param winner index for Group.getTopTeams(winner).
      */

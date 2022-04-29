@@ -10,6 +10,7 @@ import edu.ntnu.idatt1002.k1g01.model.matches.*;
 /**
  * Contains a list of teams who all play one match against all others.
  * Matches are divided among rounds so that every match in a round can be played concurrently.
+ * @author Martin Dammerud
  */
 public class Group implements Serializable {
     private final ArrayList<Team> teams;
@@ -22,6 +23,7 @@ public class Group implements Serializable {
      * Round is optimal when:
      *      0 or 1 team plays no matches this round.
      *      No team has played more than 1 match more than any other team so far this group.
+     *
      * @param tempMatches ArrayList of unallocated matches.
      * @param teamsInRound ArrayList of teams that have already played this round ,and are thus unavailable.
      * @param targetRoundSize Number of matches to add to round. (Also used to break out of recursion.)
@@ -80,6 +82,7 @@ public class Group implements Serializable {
     /**
      * Creates a group of teams. Every team will be paired up in a match against every other team.
      * Matches will be grouped into rounds, so that every match in a round can be played concurrently.
+     *
      * @param matchType Type of match as a string. Accepted: [pointMatch, timeMatch]
      * @param teams ArrayList of teams for the group.
      * @throws IllegalArgumentException if < 2 teams, or any duplicate teams in input.
@@ -147,9 +150,10 @@ public class Group implements Serializable {
     }
 
     /**
-     * Overloaded constructor. Does not require team list on the form of an ArrayList.
+     * Overloaded constructor. Does not require team list in the form of an ArrayList.
      * Creates a group of teams. Every team will be paired up in a match against every other team.
      * Matches will be grouped into rounds, so that every match in a round can be played concurrently.
+     *
      * @param matchType Type of match as a string. Accepted: [point, time]
      * @param teams teams for the group.
      * @throws IllegalArgumentException if < 2 teams, or any duplicate teams in input.
@@ -160,6 +164,7 @@ public class Group implements Serializable {
 
     /**
      * Returns a LinkedHasMap with n teams sorted from highest to lowest score, and current score.
+     *
      * @param n number of teams to get.
      * @return LinkedHashMap of Team, points.
      */
@@ -211,7 +216,9 @@ public class Group implements Serializable {
 
     /**
      * Finds the n best performing teams in this group.
-     * WARNING! Only accounts for single best team in each match, as this class currently only handles 2 teams per match.
+     * WARNING! Only accounts for single best team in each match,
+     * as this class currently only handles 2 teams per match.
+     *
      * @param n Number of teams to fetch.
      * @return ArrayList of top teams in descending order. Null if some matches are not finished.
      */
@@ -223,6 +230,7 @@ public class Group implements Serializable {
 
     /**
      * Returns single Team that got n'th place in this group.
+     *
      * @param n place to get.
      * @return single n'th place Team.
      */

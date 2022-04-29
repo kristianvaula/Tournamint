@@ -15,6 +15,7 @@ public class Round implements Serializable {
 
     /**
      * Initiates an empty round.
+     *
      * @param roundName returns the name of the round.
      */
     public Round(String roundName) {
@@ -25,6 +26,7 @@ public class Round implements Serializable {
 
     /**
      * Initiates a round.
+     *
      * @param matches returns matches in round.
      * @param roundName returns the name of the round.
      */
@@ -76,6 +78,7 @@ public class Round implements Serializable {
 
     /**
      * Adds a match to the matches list
+     *
      * @param match match to add
      */
     public void addMatch(Match match){
@@ -92,6 +95,7 @@ public class Round implements Serializable {
 
     /**
      * Set the matches that are competing in the round.
+     *
      * @param matches Matches you want to partake in the Round.
      */
     public void setMatches(ArrayList<Match> matches) {

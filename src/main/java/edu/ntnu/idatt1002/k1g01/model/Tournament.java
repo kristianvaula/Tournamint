@@ -35,6 +35,7 @@ public class Tournament implements Serializable {
      * Initiates a new tournament.
      * <br>Takes a name, list of teams,
      * and a knockoutstage as arguments.
+     *
      * @param tournamentName Name of tournament
      * @param teams Teams to be in tournament
      * @param matchType type of match ("pointMatch" / "timeMatch")
@@ -57,6 +58,7 @@ public class Tournament implements Serializable {
      * Initiates a new tournament.
      * <br>Takes a name and a list of
      * teams as arguments.
+     *
      * @param tournamentName Name of tournament
      * @param teams Teams to be in tournament
      * @param matchType type of match ("pointMatch" / "timeMatch")
@@ -81,6 +83,7 @@ public class Tournament implements Serializable {
 
     /**
      * Generates stand-in teams (holograms) based on a groupStage.
+     *
      * @param groupStage A groupStage
      * @return ArrayList of TeamHolograms.
      * @author Martin Dammerud.
@@ -121,6 +124,7 @@ public class Tournament implements Serializable {
 
     /**
      * Returns a team based on name
+     *
      * @param name Name of team
      * @return Team if exists
      */
@@ -214,10 +218,6 @@ public class Tournament implements Serializable {
      * TODO is this still in use? Might be redundant now.
      */
     public void updateTournament(){
-        System.out.println("Updating tournament:");
-        System.out.println("    teamsPerMatch: " + teamsPerMatch);
-        System.out.println("    matchType: " + matchType);
-
          if (groupStage != null && knockoutStage == null) {
              if (groupStage.isFinished()) {
                  //Generate knockoutStage from finished groupStage.
