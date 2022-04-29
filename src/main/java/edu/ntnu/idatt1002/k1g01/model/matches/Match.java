@@ -1,13 +1,13 @@
 package edu.ntnu.idatt1002.k1g01.model.matches;
 
+import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.TeamHologram;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 /**
  * Represents a match between at least two teams.
@@ -19,8 +19,10 @@ import java.util.LinkedHashMap;
 public abstract class Match implements Serializable {
     //The match participants
     private ArrayList<Team> participants;
-    //String representation of the participants
-    private String matchAsString;
+    //String representation of the participants, implemented for GUI
+    private String participantsAsString;
+    //String representation of the result, implemented for GUI
+    private String resultAsString;
     //The time at which the match starts
     private LocalTime startTime = null;
     //The date at which the match starts
@@ -33,11 +35,57 @@ public abstract class Match implements Serializable {
     /**
      * Initiates a new Match.
      * <br> Takes participants as argument.
+     *
      * @param participants Team participants in the match
      */
     public Match(ArrayList<Team> participants) {
         this.participants = participants;
-        this.matchAsString = generateMatchAsString(participants,new HashMap<>());
+
+        String[] matchAsString = generateMatchAsString(participants,new HashMap<>());
+        this.participantsAsString = matchAsString[0];
+    }
+
+    /**
+     * Preemptively creates match from other matches.
+     * This match will eventually get its teams from the winners of these input matches.
+     * @param previousMatches Match[] that will feed their winners to this match.
+     * @implNote
+ *          compiler doesn't like overloading with signature difference inside generic class.
+ *          Therefore, raw array instead of ArrayList<?>
+     * @author Martin Dammerud
+     */
+    public Match(int advancingPerMatch, Match[] previousMatches) {
+        this.participants = new ArrayList<>();
+        for (Match match : previousMatches) for (int winner = 0; winner < advancingPerMatch; winner++) {
+            this.participants.add(new TeamHologram(match, winner));
+        }
+    }
+
+    /**
+     * Preemptively creates match from Groups.
+     * This match will eventually get its teams from the winners of these input matches.
+     * @param previousGroups Group[] that will feed their winners to this match.
+     * @implNote
+     *      compiler doesn't like overloading with signature difference inside generic class.
+     *      Therefore, raw array instead of ArrayList<?>
+     * @author Martin Dammerud
+     */
+    public Match( int advancingPerGroup, Group[] previousGroups) {
+        this.participants = new ArrayList<>();
+        for (Group group : previousGroups) for (int winner = 0; winner < advancingPerGroup; winner++) {
+            this.participants.add(new TeamHologram(group, winner));
+        }
+    }
+
+    /**
+     * Checks if any of teams in this match are just holograms waiting for other matches to finish.
+     * @return true if any and all holograms are resolved. false if waiting for other matches.
+     */
+    public boolean isPlayable() {
+        for (Team team : participants) {
+            if (team.getTrueTeam() == null) return false;
+        }
+        return true;
     }
 
     /**
@@ -45,6 +93,11 @@ public abstract class Match implements Serializable {
      * @return the match result
      */
     public abstract HashMap<Team,String> getMatchResult();
+
+    /**
+     * Sets the match result
+     */
+    public abstract void setResult(Team team, String value);
 
     /**
      * Gets match result in descending orders
@@ -58,6 +111,26 @@ public abstract class Match implements Serializable {
      * @return The result of the match.
      */
     public abstract String getMatchResultByTeam(Team team);
+
+    /**
+     * Checks if there is registered a
+     * result on all participants in the match.
+     * If all participants have result, sets
+     * isFinished to true;
+     */
+    public abstract void updateIsFinished();
+
+    /**
+     * Returns a team based on name
+     * @param name Name of team
+     * @return Team if exists
+     */
+    public Team getTeamByName(String name){
+        for(Team team : participants){
+            if(team.getName().equals(name)) return team;
+        }
+        return null;
+    }
 
     /**
      * Gets n match winners in descending
@@ -79,9 +152,30 @@ public abstract class Match implements Serializable {
      }
 
     /**
-     * Sets the match result
+     * Checks if worst ranked winner and best ranked loser
+     * has equal result.
+     * @return
+     *      true: if there is at least 2 participants have the same result-value.
+     *      false: if there is no draw.
+     * @author Martin Dammerud
      */
-    public abstract void setResult(Team team, String value);
+    public boolean containsDraw(int winners) {
+        if(this.isFinished()){
+            LinkedHashMap<Team,String> results = getMatchResultOrdered();
+            List<Team> teamsOrdered = new ArrayList<>(results.keySet());
+            return results.get(teamsOrdered.get(winners - 1)).equals(results.get(teamsOrdered.get(winners)));
+        }
+        return true;
+     }
+
+    /**
+     * Returns single Team that got n'th place in this match.
+     * @param n place to get.
+     * @return single n'th place Team.
+     */
+     public Team getWinner(int n) {
+         return getWinners(participants.size()).get(n);
+     }
 
     /**
      * Gets a copy of the list of
@@ -90,14 +184,6 @@ public abstract class Match implements Serializable {
      */
     public ArrayList<Team> getParticipants() {
         return new ArrayList<>(participants);
-    }
-
-    /**
-     * Gets participants as String
-     * @return String participants
-     */
-    public String getMatchAsString() {
-        return matchAsString;
     }
 
     /**
@@ -165,12 +251,22 @@ public abstract class Match implements Serializable {
     }
 
     /**
-     * Checks if there is registered a
-     * result on all participants in the match.
-     * If all participants have result, sets
-     * isFinished to true;
+     * Gets participants as String
+     * @return String participants
      */
-    public abstract void updateIsFinished();
+    public String getParticipantsAsString() {
+        updateMatchAsString();
+        return participantsAsString;
+    }
+
+
+    /**
+     * Gets the result as String
+     * @return result as string
+     */
+    public String getResultAsString(){
+        return resultAsString;
+    }
 
     /**
      * Gets a string representation of the
@@ -178,62 +274,80 @@ public abstract class Match implements Serializable {
      * @return String start time
      */
     public String getStartTimeAsString() {
+        if(getStartTime() == null){
+            return "";
+        }
         return getStartTime().toString();
     }
 
     /**
      * Gets a string representation of the
-     * match date in format D/M
+     * match date in format D . M
      * @return String match date
      */
     public String getMatchDateAsString() {
-        return "" + matchDate.getDayOfMonth() + " / " + matchDate.getMonth();
+        if(matchDate == null) return "";
+        String month = matchDate.getMonth().toString().toLowerCase();
+        return "" + matchDate.getDayOfMonth() + ". " + month;
     }
 
     /**
      * Returns the match participants,
      * and if there is a result this is also
-     * added.
-     * @return String participants
+     * added. Participants is added to the first
+     * indexation and result as the next.
+     * @return String[] participants
      */
-    public static String generateMatchAsString(ArrayList<Team> participants,HashMap<Team,String> result){
-        if(!result.isEmpty()){
-            if(participants.size() == 2){
-                return participants.get(0).getName() + " "
-                        + result.get(participants.get(0))
-                        + " - "
-                        + result.get(participants.get(1)) + " "
-                        + participants.get(1).getName();
+    public static String[] generateMatchAsString(ArrayList<Team> participants,HashMap<Team,String> result){
+        String[] returnString = new String[2];
+        returnString[0] = "";
+        returnString[1] = "";
+        if(result != null && !result.isEmpty()){ // If match has result
+            Set<Team> keySet = result.keySet();
+            ArrayList<Team> participantsOrdered = new ArrayList<>(keySet);
+            if(participantsOrdered.size() == 2){ // If two participant teams
+                returnString[0] = participantsOrdered.get(0).getName() + " vs "
+                                + participantsOrdered.get(1).getName();
+                returnString[1] =  result.get(participantsOrdered.get(0)) + " - "
+                                    + result.get(participantsOrdered.get(1));
             }
-            else if(participants.size() > 2 ){
-                String resultS = "";
-                for (Team team : participants){
-                    resultS += team.getName() + " " + result.get(team) + "\n";
+            else if(participantsOrdered.size() > 2 ){ // More than two participant teams
+                for (Team team : participantsOrdered){
+                    returnString[0] += team.getName() + "\n";
+                    returnString[1] += result.get(team) + "\n";
                 }
-                return resultS;
-            }else
-                return "Insufficient data";
-        }else{
-            if(participants.size() == 2){
-                return participants.get(0).getName() + " vs " + participants.get(1).getName();
             }
-            else if(participants.size() > 2 ){
-                String resultS = "";
-                for (Team team : participants){
-                    resultS += team.getName() + "\n";
+        }else{ // If match does not have result
+            if(participants.size() == 2){ // If two participant teams
+                returnString[0] = participants.get(0).getName() + " vs "
+                                + participants.get(1).getName();
+            }
+            else if(participants.size() > 2 ) { // If more than two participant teams
+                for (Team team : participants) {
+                    returnString[0] += team.getName() + "\n";
                 }
-                return resultS;
-            }else
-                return "Insufficient data";
+            }
+        }
+        return returnString;
+    }
+
+    /**
+     * Updates the match as a String
+     * if changes are made.
+     */
+    public void updateMatchAsString(ArrayList<Team> participants,HashMap<Team,String> result){
+        String[] updatedString = generateMatchAsString(participants,result);
+        this.participantsAsString = updatedString[0];
+        if(updatedString[1] != null) {
+            this.resultAsString = updatedString[1];
         }
     }
 
     /**
-     * Sets matchAsString
-     * @param matchAsString the string
+     * Updates the match as a string if any changes have been made.
      */
-    public void setMatchAsString(String matchAsString) {
-        this.matchAsString = matchAsString;
+    public void updateMatchAsString() {
+        updateMatchAsString(participants, getMatchResult());
     }
 
     /**

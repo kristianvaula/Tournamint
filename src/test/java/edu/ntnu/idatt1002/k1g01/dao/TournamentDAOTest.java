@@ -1,13 +1,25 @@
 package edu.ntnu.idatt1002.k1g01.dao;
 import edu.ntnu.idatt1002.k1g01.model.Tournament;
 import edu.ntnu.idatt1002.k1g01.model.Team;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TournamentDAOTest {
-    String filePath = "testSaveFile";
+    static final String filePath = "testSaveFile";
+
+    @AfterEach
+    public void deleteTestFile() {
+        File file = new File(filePath + TournamentDAO.getFileExtension());
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
 
     private ArrayList<Team> generateTeams(int n){
         ArrayList<Team> teams = new ArrayList<>();
@@ -29,7 +41,8 @@ public class TournamentDAOTest {
     public void saveTournamentToFile() {
         Tournament tournament = new Tournament("testTournament", generateTeams(32), "pointMatch", 2, 4, 1);
         try {
-            TournamentDAO dao = new TournamentDAO(filePath);
+            File file = new File(filePath);
+            TournamentDAO dao = new TournamentDAO(file);
             dao.save(tournament);
         }
         catch (IOException ioException) {
@@ -43,17 +56,17 @@ public class TournamentDAOTest {
         Tournament savedTournament = new Tournament("testTournament", generateTeams(32), "pointMatch",
                 2, 4, 1);
         Tournament loadedTournament;
-        TournamentDAO dao = new TournamentDAO(filePath);
+        File file = new File(filePath);
+        TournamentDAO dao = new TournamentDAO(file);
         try { loadedTournament = dao.load(); }
         catch (IOException ioException) {
             throw new AssertionError("failed to load tournament from file: " + ioException.getMessage());
         }
-        //TODO Perform more comprehensive comparison between Tournament objects to make sure they are indeed equivalent.
         assertEquals(savedTournament.getTournamentName(), loadedTournament.getTournamentName());
         assertEquals(savedTournament.getNumberOfTeams(), loadedTournament.getNumberOfTeams());
         for (int i = 0; i < savedTournament.getNumberOfTeams(); i++)
         {
-            assertEquals(savedTournament.getTeams().get(i), loadedTournament.getTeams().get(i));
+            assertEquals(savedTournament.getTeams().get(i).getName(), loadedTournament.getTeams().get(i).getName());
         }
     }
 
@@ -78,7 +91,8 @@ public class TournamentDAOTest {
     @Test
     public void fileDeletionWorks() {
         saveTournamentToFile();
-        TournamentDAO dao = new TournamentDAO(filePath);
+        File file = new File(filePath);
+        TournamentDAO dao = new TournamentDAO(file);
         try { dao.deleteFile(); }
         catch (IOException ioException) {
             throw new AssertionError(ioException.getMessage());
@@ -91,9 +105,9 @@ public class TournamentDAOTest {
         Tournament oldTournament = new Tournament("testTournament", generateTeams(32), "pointMatch", 2, 4, 1);
         Tournament newTournament = new Tournament("testTournament", generateTeams(32), "pointMatch", 2, 4, 1);
         try {
-            TournamentDAO dao = new TournamentDAO(filePath);
+            File file = new File(filePath);
+            TournamentDAO dao = new TournamentDAO(file);
             dao.save(oldTournament);
-            assertEquals(dao.load().getTournamentName(), newTournament.getTournamentName());
             oldTournament.setTournamentName("Some Other Name");
             dao.save();
             assertNotEquals(oldTournament.getTournamentName(), newTournament.getTournamentName());

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.EnterPointResultsController">
+    <children>
+        <BorderPane prefHeight="540.0" prefWidth="960.0" stylesheets="@style.css">
+            <top>
+                <VBox prefHeight="27.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml" />
+                        <Pane prefHeight="26.0" prefWidth="960.0" />
+                    </children>
+                </VBox>
+            </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="background" BorderPane.alignment="CENTER">
+               <children>
+                  <SplitPane dividerPositions="0.49757815940114486" prefHeight="294.0" prefWidth="910.0" styleClass="light-background">
+                    <items>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="team1Text" alignment="CENTER" prefHeight="72.0" prefWidth="490.0" styleClass="title-text" textAlignment="CENTER" />
+                              <HBox prefHeight="223.0" prefWidth="470.0">
+                                 <children>
+                                    <TextField fx:id="resultInputField1" alignment="CENTER" prefHeight="225.0" prefWidth="336.0" style="-fx-font-size: 30pt;" styleClass="resultInput">
+                                       <font>
+                                          <Font size="70.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="20.0" left="20.0" right="10.0" top="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Button fx:id="team1PlusButton" mnemonicParsing="false" onAction="#incrementTeam1PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: white;" styleClass="incrementButtons">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@icons/plus.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="team1MinusButton" mnemonicParsing="false" onAction="#decrementTeam1PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: red;" styleClass="incrementButtons">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@icons/minus.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="team2Text" alignment="CENTER" prefHeight="72.0" prefWidth="490.0" styleClass="title-text" textAlignment="CENTER" />
+                              <HBox prefHeight="223.0" prefWidth="470.0">
+                                 <children>
+                                    <TextField fx:id="resultInputField2" alignment="CENTER" prefHeight="225.0" prefWidth="336.0" style="-fx-font-size: 30pt;" styleClass="resultInput">
+                                       <font>
+                                          <Font size="70.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="20.0" left="20.0" right="10.0" top="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Button fx:id="team2PlusButton" mnemonicParsing="false" onAction="#incrementTeam2PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: white;" styleClass="incrementButtons">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@icons/plus.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="team2MinusButton" mnemonicParsing="false" onAction="#decrementTeam2PointByOne" prefHeight="50.0" prefWidth="100.0" style="-fx-border-color: red;" styleClass="incrementButtons">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@icons/minus.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                       </items>
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </SplitPane>
+                  <HBox alignment="CENTER" prefHeight="82.0" prefWidth="950.0" styleClass="light-background">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0">
+                           <children>
+                              <Text fill="#5b5b5b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #F1F2EB;" styleClass="medium-text" text="Date">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <DatePicker fx:id="dateField" prefHeight="35.0" prefWidth="313.0" promptText="DD.MM.YYYY">
+                                 <VBox.margin>
+                                    <Insets left="30.0" right="30.0" />
+                                 </VBox.margin></DatePicker>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="300.0">
+                           <children>
+                              <Text fill="#5b5b5b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #F1F2EB;" styleClass="medium-text" text="Time">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="timeField" prefHeight="35.0" prefWidth="221.0" promptText="HH:MM">
+                                 <VBox.margin>
+                                    <Insets left="30.0" right="30.0" />
+                                 </VBox.margin></TextField>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" layoutX="110.0" layoutY="10.0" prefHeight="200.0" prefWidth="300.0">
+                           <children>
+                              <Text fill="#5b5b5b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #F1F2EB;" styleClass="medium-text" text="Info">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="infoField" prefHeight="35.0" prefWidth="250.0" promptText="Information">
+                                 <VBox.margin>
+                                    <Insets left="30.0" right="30.0" />
+                                 </VBox.margin></TextField>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#returnToAdministrateTournament" prefHeight="69.0" prefWidth="300.0" style="-fx-background-color: #FF282D; -fx-border-color: black; -fx-text-fill: white; -fx-font-size: 20pt;" text="Cancel" textFill="WHITE">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#confirmResultsAndGoBack" prefHeight="69.0" prefWidth="308.0" style="-fx-background-color: #03AC13; -fx-border-color: black; -fx-text-fill: White; -fx-font-size: 20pt;" text="Confirm Results" textFill="WHITE">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

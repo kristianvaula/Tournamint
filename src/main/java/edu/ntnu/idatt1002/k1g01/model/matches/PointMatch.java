@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.model.matches;
 
+import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 
 import java.util.ArrayList;
@@ -24,6 +25,32 @@ public class PointMatch extends Match{
      */
     public PointMatch(ArrayList<Team> participants) {
         super(participants);
+    }
+
+    /**
+     * Preemptively creates match from other matches.
+     * This match will eventually get its teams from the winners of these input matches.
+     * @param previousMatches Match[] that will feed their winners to this match.
+     * @implNote
+     *          compiler doesn't like overloading with signature difference inside generic class.
+     *          Therefore, raw array instead of ArrayList<?>
+     * @author Martin Dammerud
+     */
+    public PointMatch(int i, Match[] previousMatches) {
+        super(i, previousMatches);
+    }
+
+    /**
+     * Preemptively creates match from Groups.
+     * This match will eventually get its teams from the winners of these input matches.
+     * @param previousGroups Group[] that will feed their winners to this match.
+     * @implNote
+     *      compiler doesn't like overloading with signature difference inside generic class.
+     *      Therefore, raw array instead of ArrayList<?>
+     * @author Martin Dammerud
+     */
+    public PointMatch(int i, Group[] previousGroups) {
+        super(i, previousGroups);
     }
 
     /**
@@ -74,18 +101,22 @@ public class PointMatch extends Match{
      * Sets result in pointsResult.
      * After setting result method calls for
      * updateIsFinished().
+     *
      * @param team Team we add results for
      * @param value String number value
+     * @throws ClassCastException if match still contains TeamHolograms.
      */
     @Override
-    public void setResult(Team team, String value) throws NumberFormatException{
+    public void setResult(Team team, String value) throws NumberFormatException, ClassCastException,IllegalArgumentException{
+        if (Integer.parseInt(value) < 0) throw new IllegalArgumentException("Match score cannot be negative");
+        if (!isPlayable()) throw new ClassCastException("Match needs winners from unfinished matches");
         try {
-            pointResult.put(team,Integer.parseInt(value));
+            pointResult.put(team, Integer.parseInt(value));
         } catch (NumberFormatException e){
             throw new NumberFormatException("Result not a number");
         }
         updateIsFinished();
-        updateMatchAsString();
+        updateMatchAsString(getParticipants(),getMatchResultOrdered());
     }
 
     /**
@@ -100,17 +131,9 @@ public class PointMatch extends Match{
         for(Team team : getParticipants()){
             if(!pointResult.containsKey(team)){
                 hasResult = false;
+                break;
             }
         }
         setFinished(hasResult);
     }
-
-    /**
-     * Updates the match as a String
-     * if changes are made.
-     */
-    public void updateMatchAsString(){
-        super.setMatchAsString(super.generateMatchAsString(getParticipants(),getMatchResultOrdered()));
-    }
-
 }

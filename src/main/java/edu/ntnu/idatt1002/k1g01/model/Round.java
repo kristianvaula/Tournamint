@@ -1,9 +1,6 @@
 package edu.ntnu.idatt1002.k1g01.model;
-// import edu.ntnu.idatt1002.k1g01.match.*;
 
 import edu.ntnu.idatt1002.k1g01.model.matches.Match;
-
-// import edu.ntnu.idatt1002.k1g01.match.Match;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +14,19 @@ public class Round implements Serializable {
     private String roundName; // Name of the round. Quarterfinals for example.
 
     /**
+     * Initiates an empty round.
+     *
+     * @param roundName returns the name of the round.
+     */
+    public Round(String roundName) {
+
+        this.matches = new ArrayList<>();
+        this.roundName = roundName;
+    }
+
+    /**
      * Initiates a round.
+     *
      * @param matches returns matches in round.
      * @param roundName returns the name of the round.
      */
@@ -52,16 +61,24 @@ public class Round implements Serializable {
         return true;
     }
 
-    public ArrayList<Team> getWinners(int advancingPerRound){
+    /**
+     * Gets winners from round. Takes how many should advance per
+     * match and gets winners from each match.
+     *
+     * @param advancingPerMatch How many should advance per match
+     * @return Winners from round.
+     */
+    public ArrayList<Team> getWinners(int advancingPerMatch){
         ArrayList<Team> winners = new ArrayList<>();
         for(Match match : matches){
-            winners.addAll(match.getWinners(advancingPerRound));
+            winners.addAll(match.getWinners(advancingPerMatch));
         }
         return winners;
     }
 
     /**
      * Adds a match to the matches list
+     *
      * @param match match to add
      */
     public void addMatch(Match match){
@@ -78,6 +95,7 @@ public class Round implements Serializable {
 
     /**
      * Set the matches that are competing in the round.
+     *
      * @param matches Matches you want to partake in the Round.
      */
     public void setMatches(ArrayList<Match> matches) {

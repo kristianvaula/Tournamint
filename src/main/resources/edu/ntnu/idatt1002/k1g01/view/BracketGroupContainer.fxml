@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox fx:id="BracketGroupContainer" alignment="CENTER" prefHeight="421.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.BracketGroupContainerController">
+    <!--> will place groups in this BBox <!-->
+    </VBox>

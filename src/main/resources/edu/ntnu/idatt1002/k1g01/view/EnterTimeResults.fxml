@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.EnterTimeResultsController">
+    <children>
+        <BorderPane prefHeight="540.0" prefWidth="960.0" styleClass="background" stylesheets="@style.css">
+            <top>
+                <VBox prefHeight="27.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml" />
+                        <Pane prefHeight="26.0" prefWidth="960.0" />
+                    </children>
+                </VBox>
+            </top>
+            <center>
+                <VBox prefHeight="502.0" prefWidth="960.0" styleClass="dark-background" BorderPane.alignment="CENTER">
+                    <children>
+                          <SplitPane prefHeight="347.0" prefWidth="960.0" style="-fx-background-color: #707070;">
+                              <items>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="300.0" prefWidth="958.0" styleClass="light-background">
+                          <items>
+                              <VBox alignment="BOTTOM_CENTER" prefHeight="155.0" prefWidth="958.0">
+                                  <Text fx:id="team1Text" fill="#3c4a6b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #F1F2EB;" styleClass="title-text" textAlignment="CENTER" wrappingWidth="700.0000145435333">
+                                      <font>
+                                        <Font size="45.0" />
+                                      </font>
+                                      <VBox.margin>
+                                        <Insets bottom="10.0" top="5.0" />
+                                      </VBox.margin>
+                                  </Text>
+                                  <HBox alignment="BOTTOM_CENTER" prefHeight="127.0" prefWidth="464.0">
+                                      <children>
+                                        <VBox alignment="BOTTOM_CENTER" prefHeight="127.0" prefWidth="100.0">
+                                            <children>
+                                                <Label alignment="CENTER" prefHeight="49.0" prefWidth="40.0" text="Hours" />
+                                                <TextField fx:id="team1Hours" alignment="CENTER" prefHeight="83.0" prefWidth="66.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
+                                                    <font>
+                                                        <Font size="75.0" />
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets left="5.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" prefHeight="198.0" prefWidth="60.0">
+                                            <children>
+                                                <Button fx:id="team1IncrementHour" mnemonicParsing="false" onAction="#incrementValueEvent" prefHeight="9.0" prefWidth="16.0">
+                                                    <VBox.margin>
+                                                        <Insets bottom="20.0" top="20.0" />
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@icons/up.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="team1DecrementHour" mnemonicParsing="false" onAction="#incrementValueEvent">
+                                                    <VBox.margin>
+                                                        <Insets />
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@icons/down.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                            <HBox.margin>
+                                                <Insets right="10.0" />
+                                            </HBox.margin>
+                                        </VBox>
+                                        <VBox alignment="BOTTOM_CENTER" layoutX="166.0" layoutY="10.0" prefHeight="127.0" prefWidth="100.0">
+                                            <children>
+                                                <Label alignment="CENTER" prefHeight="49.0" prefWidth="40.0" text="Min" />
+                                                <TextField fx:id="team1Min" alignment="CENTER" prefHeight="83.0" prefWidth="66.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
+                                                    <font>
+                                                        <Font size="75.0" />
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets left="5.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" layoutX="193.0" layoutY="10.0" prefHeight="198.0" prefWidth="60.0">
+                                            <children>
+                                                <Button fx:id="team1IncrementMin" mnemonicParsing="false" onAction="#incrementValueEvent" prefHeight="9.0" prefWidth="16.0">
+                                                    <VBox.margin>
+                                                        <Insets bottom="20.0" top="20.0" />
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@icons/up.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="team1DecrementMin" mnemonicParsing="false" onAction="#incrementValueEvent">
+                                                    <VBox.margin>
+                                                        <Insets />
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@icons/down.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="BOTTOM_CENTER" layoutX="231.0" layoutY="10.0" prefHeight="127.0" prefWidth="100.0">
+                                            <children>
+                                                <Label alignment="CENTER" prefHeight="49.0" prefWidth="40.0" text="Sec" />
+                                                <TextField fx:id="team1Sec" alignment="CENTER" prefHeight="83.0" prefWidth="66.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
+                                                    <font>
+                                                        <Font size="75.0" />
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets left="5.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" layoutX="259.0" layoutY="10.0" prefHeight="198.0" prefWidth="60.0">
+                                            <children>
+                                                <Button fx:id="team1IncrementSec" mnemonicParsing="false" onAction="#incrementValueEvent" prefHeight="9.0" prefWidth="16.0">
+                                                    <VBox.margin>
+                                                        <Insets bottom="20.0" top="20.0" />
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@icons/up.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="team1DecrementSec" mnemonicParsing="false" onAction="#incrementValueEvent">
+                                                    <VBox.margin>
+                                                        <Insets />
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@icons/down.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="BOTTOM_CENTER" layoutX="285.0" layoutY="10.0" prefHeight="127.0" prefWidth="100.0">
+                                            <children>
+                                                <Label alignment="CENTER" prefHeight="49.0" prefWidth="40.0" text="Nano" />
+                                                <TextField fx:id="team1Nano" alignment="CENTER" prefHeight="83.0" prefWidth="66.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
+                                                    <font>
+                                                        <Font size="75.0" />
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets left="5.0" />
+                                                    </VBox.margin>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" layoutX="313.0" layoutY="10.0" prefHeight="198.0" prefWidth="60.0">
+                                            <children>
+                                                <Button fx:id="team1IncrementNano" mnemonicParsing="false" onAction="#incrementValueEvent" prefHeight="9.0" prefWidth="16.0">
+                                                    <VBox.margin>
+                                                        <Insets bottom="20.0" top="20.0" />
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@icons/up.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="team1DecrementNano" mnemonicParsing="false" onAction="#incrementValueEvent">
+                                                    <VBox.margin>
+                                                        <Insets />
+                                                    </VBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@icons/down.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+                                      </children>
+                                      <VBox.margin>
+                                        <Insets bottom="10.0" left="5.0" right="5.0" />
+                                      </VBox.margin>
+                                  </HBox>
+                              </VBox>
+                              <VBox alignment="BOTTOM_CENTER" prefHeight="154.0" prefWidth="958.0">
+                                  <children>
+                                      <Text fx:id="team2Text" fill="#3c4a6b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #F1F2EB;" styleClass="title-text" textAlignment="CENTER" wrappingWidth="700.0000114440918">
+                                          <font>
+                                              <Font size="45.0" />
+                                          </font>
+                                          <VBox.margin>
+                                              <Insets bottom="10.0" top="5.0" />
+                                          </VBox.margin>
+                                      </Text>
+                                      <HBox alignment="BOTTOM_CENTER" prefHeight="127.0" prefWidth="464.0">
+                                          <children>
+                                              <VBox alignment="BOTTOM_CENTER" prefHeight="127.0" prefWidth="100.0">
+                                                  <children>
+                                                      <Label alignment="CENTER" prefHeight="49.0" prefWidth="40.0" text="Hours" />
+                                                      <TextField fx:id="team2Hours" alignment="CENTER" prefHeight="83.0" prefWidth="66.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
+                                                          <font>
+                                                              <Font size="75.0" />
+                                                          </font>
+                                                          <VBox.margin>
+                                                              <Insets left="5.0" />
+                                                          </VBox.margin>
+                                                      </TextField>
+                                                  </children>
+                                              </VBox>
+                                              <VBox alignment="CENTER" prefHeight="198.0" prefWidth="60.0">
+                                                  <children>
+                                                      <Button fx:id="team2IncrementHour" mnemonicParsing="false" onAction="#incrementValueEvent" prefHeight="9.0" prefWidth="16.0">
+                                                          <VBox.margin>
+                                                              <Insets bottom="20.0" top="20.0" />
+                                                          </VBox.margin>
+                                                          <graphic>
+                                                              <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                                  <image>
+                                                                      <Image url="@icons/up.png" />
+                                                                  </image>
+                                                              </ImageView>
+                                                          </graphic>
+                                                      </Button>
+                                                      <Button fx:id="team2DecrementHour" mnemonicParsing="false" onAction="#incrementValueEvent">
+                                                          <VBox.margin>
+                                                              <Insets />
+                                                          </VBox.margin>
+                                                          <graphic>
+                                                              <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                                  <image>
+                                                                      <Image url="@icons/down.png" />
+                                                                  </image>
+                                                              </ImageView>
+                                                          </graphic>
+                                                      </Button>
+                                                  </children>
+                                                  <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                  </HBox.margin>
+                                              </VBox>
+                                              <VBox alignment="BOTTOM_CENTER" layoutX="166.0" layoutY="10.0" prefHeight="127.0" prefWidth="100.0">
+                                                  <children>
+                                                      <Label alignment="CENTER" prefHeight="49.0" prefWidth="40.0" text="Min" />
+                                                      <TextField fx:id="team2Min" alignment="CENTER" prefHeight="83.0" prefWidth="66.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
+                                                          <font>
+                                                              <Font size="75.0" />
+                                                          </font>
+                                                          <VBox.margin>
+                                                              <Insets left="5.0" />
+                                                          </VBox.margin>
+                                                      </TextField>
+                                                  </children>
+                                              </VBox>
+                                              <VBox alignment="CENTER" layoutX="193.0" layoutY="10.0" prefHeight="198.0" prefWidth="60.0">
+                                                  <children>
+                                                      <Button fx:id="team2IncrementMin" mnemonicParsing="false" onAction="#incrementValueEvent" prefHeight="9.0" prefWidth="16.0">
+                                                          <VBox.margin>
+                                                              <Insets bottom="20.0" top="20.0" />
+                                                          </VBox.margin>
+                                                          <graphic>
+                                                              <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                                  <image>
+                                                                      <Image url="@icons/up.png" />
+                                                                  </image>
+                                                              </ImageView>
+                                                          </graphic>
+                                                      </Button>
+                                                      <Button fx:id="team2DecrementMin" mnemonicParsing="false" onAction="#incrementValueEvent">
+                                                          <VBox.margin>
+                                                              <Insets />
+                                                          </VBox.margin>
+                                                          <graphic>
+                                                              <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                                  <image>
+                                                                      <Image url="@icons/down.png" />
+                                                                  </image>
+                                                              </ImageView>
+                                                          </graphic>
+                                                      </Button>
+                                                  </children>
+                                              </VBox>
+                                              <VBox alignment="BOTTOM_CENTER" layoutX="231.0" layoutY="10.0" prefHeight="127.0" prefWidth="100.0">
+                                                  <children>
+                                                      <Label alignment="CENTER" prefHeight="49.0" prefWidth="40.0" text="Sec" />
+                                                      <TextField fx:id="team2Sec" alignment="CENTER" prefHeight="83.0" prefWidth="66.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
+                                                          <font>
+                                                              <Font size="75.0" />
+                                                          </font>
+                                                          <VBox.margin>
+                                                              <Insets left="5.0" />
+                                                          </VBox.margin>
+                                                      </TextField>
+                                                  </children>
+                                              </VBox>
+                                              <VBox alignment="CENTER" layoutX="259.0" layoutY="10.0" prefHeight="198.0" prefWidth="60.0">
+                                                  <children>
+                                                      <Button fx:id="team2IncrementSec" mnemonicParsing="false" onAction="#incrementValueEvent" prefHeight="9.0" prefWidth="16.0">
+                                                          <VBox.margin>
+                                                              <Insets bottom="20.0" top="20.0" />
+                                                          </VBox.margin>
+                                                          <graphic>
+                                                              <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                                  <image>
+                                                                      <Image url="@icons/up.png" />
+                                                                  </image>
+                                                              </ImageView>
+                                                          </graphic>
+                                                      </Button>
+                                                      <Button fx:id="team2DecrementSec" mnemonicParsing="false" onAction="#incrementValueEvent">
+                                                          <VBox.margin>
+                                                              <Insets />
+                                                          </VBox.margin>
+                                                          <graphic>
+                                                              <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                                  <image>
+                                                                      <Image url="@icons/down.png" />
+                                                                  </image>
+                                                              </ImageView>
+                                                          </graphic>
+                                                      </Button>
+                                                  </children>
+                                              </VBox>
+                                              <VBox alignment="BOTTOM_CENTER" layoutX="285.0" layoutY="10.0" prefHeight="127.0" prefWidth="100.0">
+                                                  <children>
+                                                      <Label alignment="CENTER" prefHeight="49.0" prefWidth="40.0" text="Nano" />
+                                                      <TextField fx:id="team2Nano" alignment="CENTER" prefHeight="83.0" prefWidth="66.0" style="-fx-border-color: lightgray;" styleClass="resultInput">
+                                                          <font>
+                                                              <Font size="75.0" />
+                                                          </font>
+                                                          <VBox.margin>
+                                                              <Insets left="5.0" />
+                                                          </VBox.margin>
+                                                      </TextField>
+                                                  </children>
+                                              </VBox>
+                                              <VBox alignment="CENTER" layoutX="313.0" layoutY="10.0" prefHeight="198.0" prefWidth="60.0">
+                                                  <children>
+                                                      <Button fx:id="team2IncrementNano" mnemonicParsing="false" onAction="#incrementValueEvent" prefHeight="9.0" prefWidth="16.0">
+                                                          <VBox.margin>
+                                                              <Insets bottom="20.0" top="20.0" />
+                                                          </VBox.margin>
+                                                          <graphic>
+                                                              <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                                  <image>
+                                                                      <Image url="@icons/up.png" />
+                                                                  </image>
+                                                              </ImageView>
+                                                          </graphic>
+                                                      </Button>
+                                                      <Button fx:id="team2DecrementNano" mnemonicParsing="false" onAction="#incrementValueEvent">
+                                                          <VBox.margin>
+                                                              <Insets />
+                                                          </VBox.margin>
+                                                          <graphic>
+                                                              <ImageView fitHeight="14.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                                                  <image>
+                                                                      <Image url="@icons/down.png" />
+                                                                  </image>
+                                                              </ImageView>
+                                                          </graphic>
+                                                      </Button>
+                                                  </children>
+                                              </VBox>
+                                          </children>
+                                          <VBox.margin>
+                                              <Insets bottom="10.0" left="5.0" right="5.0" />
+                                          </VBox.margin>
+                                      </HBox>
+                                  </children>
+                              </VBox>
+                          </items>
+                        </SplitPane>
+                              </items>
+                          </SplitPane>
+                  <HBox alignment="CENTER" prefHeight="65.0" prefWidth="960.0">
+                     <children>
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="66.0" prefWidth="250.0">
+                           <children>
+                                      <Text fill="#5b5b5b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #F7F7F3;" text="Date">
+                                          <font>
+                                              <Font size="20.0" />
+                                          </font>
+                                      </Text>
+                                      <DatePicker fx:id="dateField" prefHeight="35.0" prefWidth="250.0" promptText="DD.MM.YYYY" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="74.0" prefWidth="251.0">
+                           <children>
+                                      <Text fill="#5b5b5b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #F7F7F3;" text="Time">
+                                          <font>
+                                              <Font size="20.0" />
+                                          </font>
+                                      </Text>
+                                      <TextField fx:id="timeField" prefHeight="35.0" prefWidth="250.0" promptText="HH:MM" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="250.0">
+                           <children>
+                                      <Text fill="#5b5b5b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #F7F7F3;" text="Info">
+                                          <font>
+                                              <Font size="20.0" />
+                                          </font>
+                                      </Text>
+                                      <TextField fx:id="infoField" prefHeight="35.0" prefWidth="250.0" promptText="Information" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                        <HBox prefHeight="76.0" prefWidth="960.0">
+                            <children>
+                                <Pane prefHeight="90.0" prefWidth="92.0" />
+                                <Button mnemonicParsing="false" onAction="#returnToAdministrateTournament" prefHeight="69.0" prefWidth="300.0" style="-fx-background-color: #FF282D; -fx-border-color: black; -fx-text-fill: white; -fx-font-size: 20pt;" text="Cancel" textFill="WHITE">
+                                    <font>
+                                        <Font size="25.0" />
+                                    </font>
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                                </Button>
+                                <Pane layoutX="10.0" layoutY="10.0" prefHeight="90.0" prefWidth="130.0" />
+                                <Button defaultButton="true" mnemonicParsing="false" onAction="#confirmResultsAndGoBack" prefHeight="69.0" prefWidth="308.0" style="-fx-background-color: #03AC13; -fx-border-color: black; -fx-text-fill: White; -fx-font-size: 20pt;" text="Confirm Results" textFill="WHITE">
+                                    <font>
+                                        <Font size="25.0" />
+                                    </font>
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                                </Button>
+                            </children>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                        </HBox>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

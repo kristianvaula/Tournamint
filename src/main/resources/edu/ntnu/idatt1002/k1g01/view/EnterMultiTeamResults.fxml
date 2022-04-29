@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="810.0" maxWidth="1440.0" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: lightgray;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.EnterMultiTeamResultsController">
+    <children>
+        <BorderPane prefHeight="540.0" prefWidth="960.0" styleClass="background" stylesheets="@style.css">
+            <top>
+                <VBox prefHeight="27.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <fx:include fx:id="topMenuBar" source="TopMenuBar.fxml" />
+                        <Pane prefHeight="26.0" prefWidth="960.0" />
+                    </children>
+                </VBox>
+            </top>
+            <center>
+                <VBox prefHeight="502.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+                    <children>
+                  <VBox alignment="CENTER" prefHeight="323.0" prefWidth="939.0">
+                     <children>
+                        <Label text="Edit Results And Confirm" />
+                        <HBox prefHeight="309.0" prefWidth="939.0" style="-fx-background-color: white;">
+                           <children>
+                              <ScrollPane hbarPolicy="NEVER" prefHeight="302.0" prefWidth="958.0">
+                                 <content>
+                                    <VBox fx:id="teamVBox" prefHeight="302.0" prefWidth="947.0" styleClass="light-background" />
+                                 </content>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </ScrollPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                     </VBox.margin></VBox>
+                        <HBox alignment="CENTER" prefHeight="76.0" prefWidth="1015.0" styleClass="light-background">
+                            <children>
+                                <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="66.0" prefWidth="250.0">
+                                    <children>
+                                        <Text fill="#5b5b5b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #F1F2EB;" styleClass="medium-text" text="Date">
+                                            <font>
+                                                <Font size="20.0" />
+                                            </font>
+                                        </Text>
+                                        <DatePicker fx:id="dateField" prefHeight="35.0" prefWidth="250.0" promptText="DD.MM.YYYY" />
+                                    </children>
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" left="15.0" right="15.0" />
+                                    </HBox.margin>
+                                </VBox>
+                                <VBox alignment="CENTER" prefHeight="74.0" prefWidth="251.0">
+                                    <children>
+                                        <Text fill="#5b5b5b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #F1F2EB;" styleClass="medium-text" text="Time">
+                                            <font>
+                                                <Font size="20.0" />
+                                            </font>
+                                        </Text>
+                                        <TextField fx:id="timeField" prefHeight="35.0" prefWidth="250.0" promptText="HH:MM" />
+                                    </children>
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" left="15.0" right="15.0" />
+                                    </HBox.margin>
+                                </VBox>
+                                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="250.0">
+                                    <children>
+                                        <Text fill="#5b5b5b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #F1F2EB;" styleClass="medium-text" text="Info">
+                                            <font>
+                                                <Font size="20.0" />
+                                            </font>
+                                        </Text>
+                                        <TextField fx:id="infoField" prefHeight="35.0" prefWidth="250.0" promptText="Information" />
+                                    </children>
+                                    <HBox.margin>
+                                        <Insets bottom="10.0" left="15.0" right="15.0" />
+                                    </HBox.margin>
+                                </VBox>
+                            </children>
+                     <VBox.margin>
+                        <Insets left="30.0" right="30.0" />
+                     </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="90.0" prefWidth="960.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#returnToAdministrateTournament" prefHeight="69.0" prefWidth="300.0" style="-fx-background-color: #FF282D; -fx-border-color: black; -fx-text-fill: white; -fx-font-size: 20pt;" text="Cancel" textFill="WHITE">
+                                    <font>
+                                        <Font size="25.0" />
+                                    </font>
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                                </Button>
+                                <Button defaultButton="true" mnemonicParsing="false" onAction="#confirmResultsAndGoBack" prefHeight="69.0" prefWidth="308.0" style="-fx-background-color: #03AC13; -fx-border-color: black; -fx-text-fill: White; -fx-font-size: 20pt;" text="Confirm Results" textFill="WHITE">
+                                    <font>
+                                        <Font size="25.0" />
+                                    </font>
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                                </Button>
+                            </children>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </HBox>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

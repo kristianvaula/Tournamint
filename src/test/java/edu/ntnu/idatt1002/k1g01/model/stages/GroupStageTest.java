@@ -6,6 +6,7 @@ import edu.ntnu.idatt1002.k1g01.model.Team;
 import edu.ntnu.idatt1002.k1g01.model.matches.PointMatch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -57,8 +58,8 @@ class GroupStageTest {
     @Test
     @DisplayName("Tests that the GroupStage constructor divides teams from passed in ArrayList to correct number of groups")
     public void groupStageConstructorTest() {
-        assertTrue(!groupStage.getGroups().isEmpty());
-        assertTrue(groupStage.getGroups().size() == (teamList3.size()/teamsPerGroup));
+        assertFalse(groupStage.getGroups().isEmpty());
+        assertEquals(groupStage.getGroups().size(), (teamList3.size()/teamsPerGroup));
         for (Group testGroup : groupStage.getGroups()) {
             for (Team testTeam : testGroup.getTeams()) {
                 assertTrue(teamList3.contains(testTeam));
@@ -70,8 +71,8 @@ class GroupStageTest {
     @Test
     @DisplayName("Test exceptions for advancingFromGroup variable lower than 1 and higher than teams in group")
     public void groupStageExceptionsTest() {
-        assertThrows(IllegalArgumentException.class, () -> { GroupStage groupStage = new GroupStage(teamList3, 0,4, "point");;});
-        assertThrows(IllegalArgumentException.class, () -> { GroupStage groupStage = new GroupStage(teamList3, 5,4, "point");;});
+        assertThrows(IllegalArgumentException.class, () -> { GroupStage groupStage = new GroupStage(teamList3, 0,4, "point");});
+        assertThrows(IllegalArgumentException.class, () -> { GroupStage groupStage = new GroupStage(teamList3, 5,4, "point");});
     }
 
 
@@ -122,5 +123,113 @@ class GroupStageTest {
             }
         }
         assertTrue(groupStage1.isFinished());
+    }
+
+
+    @Test
+    @DisplayName("Test that isFinished does not report true if it has any matches left.")
+    void isFinishedDoesNotTriggerEarly() {
+        assertFalse(groupStage.isFinished());
+        for (Group group : groupStage.getGroups()) for (Match match : group.getMatches()) {
+            assertFalse(groupStage.isFinished());
+            match.setFinished(true);
+        }
+        assertTrue(groupStage.isFinished());
+    }
+
+
+    @Nested
+    @DisplayName("Test constructor for groupStages with various settings")
+    public class ConstructorBulkTests {
+
+        //generates n teams with unique names.
+        private ArrayList<Team> generateTeams(int n) {
+            ArrayList<Team> teams = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                int roll = i % 6;
+                switch (roll) {
+                    case 0: {
+                        teams.add(new Team("pingas_" + i / 6));
+                        break;
+                    }
+                    case 1: {
+                        teams.add(new Team("luigi_" + i / 6));
+                        break;
+                    }
+                    case 2: {
+                        teams.add(new Team("princess_" + i / 6));
+                        break;
+                    }
+                    case 3: {
+                        teams.add(new Team("maiboi_" + i / 6));
+                        break;
+                    }
+                    case 4: {
+                        teams.add(new Team("stinker_" + i / 6));
+                        break;
+                    }
+                    case 5: {
+                        teams.add(new Team("frog_" + i / 6));
+                        break;
+                    }
+                }
+            }
+            return teams;
+        }
+
+        public void constructWithFullGroups(int knockoutSize, int teamsPerGroup, int teamsAdvancing) {
+            //String tournamentName, ArrayList<Team> teams, String matchType,int teamsPerMatch,int teamsPerGroup,int advancingPerGroup
+            int teamCount = knockoutSize * teamsPerGroup / teamsAdvancing;
+            GroupStage groupStage = new GroupStage(generateTeams(teamCount), teamsAdvancing, teamsPerGroup,
+                    "pointMatch");
+            for (int trueSize : groupStage.getGroups().stream().mapToInt(Group::size).toArray()) {
+                //Check every group is actually full.
+                assertEquals(teamsPerGroup, trueSize);
+                assertEquals(0, groupStage.partialGroupCount());
+            }
+            //Check correct number of groups were generated in groupStage.
+            assertEquals(teamCount, groupStage.getGroups().size() * teamsPerGroup);
+
+            //Check rounds can be extracted without exception;
+            groupStage.getGroupRounds();
+        }
+
+        @Test
+        @DisplayName("Test constructor for groupStages with full groups and various settings")
+        public void constructWithVariousFullGroups() {
+            constructWithFullGroups(8, 2, 1);
+            constructWithFullGroups(32, 3, 2);
+            constructWithFullGroups(16, 4, 1);
+            constructWithFullGroups(64, 4, 2);
+            constructWithFullGroups(16, 5, 1);
+            constructWithFullGroups(32, 5, 2);
+            constructWithFullGroups(16, 6, 1);
+            constructWithFullGroups(16, 6, 2);
+            constructWithFullGroups(16, 7, 4);
+        }
+
+        public void constructWithPartialGroups(int teamCount, int teamsPerGroup, int teamsAdvancing) {
+            //String tournamentName, ArrayList<Team> teams, String matchType,int teamsPerMatch,int teamsPerGroup,int advancingPerGroup
+            GroupStage groupStage = new GroupStage(generateTeams(teamCount), teamsAdvancing, teamsPerGroup,
+                    "pointMatch");
+            for (int trueSize : groupStage.getGroups().stream().mapToInt(Group::size).toArray()) {
+                //Check no group is missing more than one team.
+                assertTrue(teamsPerGroup == trueSize || teamsPerGroup == trueSize + 1);
+            }
+            assertTrue(groupStage.partialGroupCount() > 0);
+
+            //Check rounds can be extracted without exception;
+            groupStage.getGroupRounds();
+        }
+
+        @Test
+        @DisplayName("Test constructor with groupStages with non-full groups and various setting")
+        public void constructWithVariousPartialGroups() {
+            constructWithPartialGroups(15, 4, 1);
+            constructWithPartialGroups(13, 4, 1);
+            constructWithPartialGroups(13, 4, 2);
+            constructWithPartialGroups(19, 5, 2);
+            constructWithPartialGroups(29, 8, 2);
+        }
     }
 }

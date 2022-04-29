@@ -2,6 +2,8 @@ package edu.ntnu.idatt1002.k1g01.model.stages;
 
 import edu.ntnu.idatt1002.k1g01.model.Round;
 import edu.ntnu.idatt1002.k1g01.model.Team;
+import edu.ntnu.idatt1002.k1g01.model.TeamHologram;
+import edu.ntnu.idatt1002.k1g01.model.matches.Match;
 import edu.ntnu.idatt1002.k1g01.model.matches.PointMatch;
 import edu.ntnu.idatt1002.k1g01.model.matches.TimeMatch;
 
@@ -16,13 +18,14 @@ import java.util.Random;
  */
 public class KnockoutStage extends Stage {
 
-    private ArrayList<Team> teams = new ArrayList<>();
+    private ArrayList<Team> teams;
     private int teamsPerMatch;
     private int advancingPerMatch;
     private String tournamentType;
 
     /**
      * Initiates a KnockoutStage
+     *
      * @param teams ArrayList of teams we will include in groupStage.
      */
     public KnockoutStage(ArrayList<Team> teams,int teamsPerMatch,String tournamentType) throws IllegalArgumentException{
@@ -31,7 +34,20 @@ public class KnockoutStage extends Stage {
         this.teamsPerMatch = teamsPerMatch;
         this.advancingPerMatch =teamsPerMatch/2;
         this.tournamentType = tournamentType;
-        updateKnockoutStage();
+
+        ArrayList<Round> rounds = getRounds();
+        roundSetUp(rounds.get(0), teams);
+        int roundCount = getNumberOfRounds(teams.size(), teamsPerMatch, advancingPerMatch);
+        for (int i = 1; i < roundCount; i++) {
+
+            ArrayList<Team> holoTeams = new ArrayList<>();
+            for (Match match : rounds.get(i-1).getMatches()) {
+                for (int w = 0; w < advancingPerMatch; w++) {
+                    holoTeams.add(new TeamHologram(match, w));
+                }
+            }
+            roundSetUp(rounds.get(i), holoTeams);
+        }
     }
 
     public ArrayList<Team> getTeams() {
@@ -55,14 +71,12 @@ public class KnockoutStage extends Stage {
      * stage based on the amount of teams. Checks if the
      * number of teams is compatible, and then generates
      * the rounds.
+     *
      * @param amountOfTeams the amount of teams that will play the first round
      * @return Rounds of knockout stage.
      */
     private static ArrayList<Round> generateKnockOutRounds(int amountOfTeams, int teamsPerMatch, int advancingPerMatch){
         int numberOfRounds = getNumberOfRounds(amountOfTeams,teamsPerMatch,advancingPerMatch);
-        if(numberOfRounds == 0) {
-            throw new IllegalArgumentException("Amount of teams must be divisible by four");
-        }
 
         ArrayList<Round> rounds = new ArrayList<>();
 
@@ -74,31 +88,45 @@ public class KnockoutStage extends Stage {
     }
 
     /**
-     * Checks which power of teamsPerRound equals the
-     * amount of teams. Gives us the amount of
-     * rounds we need in our tournament. Returns
-     * 0 if we dont get a match, which means that
-     * the amount of teams is not compatible.
-     * @param numberOfTeams Number of teams
-     * @param teamsPerRound Teams per round
-     * @return Int number of rounds
+     * Calculates how many rounds are needed to create a valid stage.
+     * Also checks if given parameters are compatible.
+     *
+     * @param numberOfTeams Number of teams in the knockoutStage.
+     * @param teamsPerMatch Number of teams competing in each match.
+     * @param advancingPerMatch Number of teams advancing from each match.
+     * @return Number of rounds in this groupStage. 0 if parameters are incompatible.
+     * @throws IllegalArgumentException If parameters are incompatible.
+     * @author Martin Dammerud
      */
-    public static int getNumberOfRounds(int numberOfTeams,int teamsPerRound,int advancingPerMatch){
-        if(advancingPerMatch == 2){
-            for (int i = 0; i < 12; i++) {
-                if(Math.pow(teamsPerRound,i) == numberOfTeams && numberOfTeams <= 256) return i;
-            }
+    public static int getNumberOfRounds(int numberOfTeams,int teamsPerMatch,int advancingPerMatch) throws IllegalArgumentException{
+        System.out.println("calculating number of knockout rounds: ");
+        System.out.println("numberOfTeams: " + numberOfTeams);
+        System.out.println("teamsPerMatch: " + teamsPerMatch);
+        System.out.println("advancingPerMatch: " + advancingPerMatch);
+        if(teamsPerMatch % advancingPerMatch != 0) {//Make sure teamsPerMatch is divisible by advancingPerMatch.
+            throw new IllegalArgumentException("Cannot create matches with " + teamsPerMatch +
+                    " teams and " + advancingPerMatch + " advancing from each match");
         }
-        else{
-            for (int i = 0; i < 12; i++) {
-                if(Math.pow(teamsPerRound,i +(advancingPerMatch/4)) == numberOfTeams && numberOfTeams <= 256) return i;
-            }
+        int advanceRatio = teamsPerMatch / advancingPerMatch; //Represents number of matches feeding winners to next match.
+        int exponent = -1; //iterated to 0 at beginning of loop.
+        int lowerTeamsNeeded = 2;
+        int upperTeamsNeeded = 2;
+        int remainder = Integer.MAX_VALUE;
+        while (remainder > 0) {
+            exponent++;
+            lowerTeamsNeeded = upperTeamsNeeded;
+            upperTeamsNeeded = teamsPerMatch * (int)Math.pow(advanceRatio, exponent);
+            remainder = numberOfTeams - upperTeamsNeeded;
+
         }
-        return 0;
+        if (remainder == 0) return exponent + 1;
+        else throw new IllegalArgumentException("knockout stage got " + numberOfTeams + " teams. Needs " + lowerTeamsNeeded + " or "+
+                upperTeamsNeeded + " teams");
     }
 
     /**
      * Generates a round name
+     *
      * @param roundNumber Which round it is counting from final
      * @return String round name
      */
@@ -109,11 +137,11 @@ public class KnockoutStage extends Stage {
         else if(roundNumber == 2){
             return "SEMIFINAL";
         }
-        else if(roundNumber == 2){
+        else if(roundNumber == 3){
             return "QUARTERFINAL";
         }
         else {
-            return "ROUND OF " + Math.pow(2,roundNumber);
+            return "ROUND OF " + (int)(Math.floor(Math.pow(2,roundNumber)));
         }
     }
 
@@ -122,8 +150,9 @@ public class KnockoutStage extends Stage {
      * Takes a round and a list of teams. Creates
      * matches in the round using the list of
      * teams.
+     *
      * @param round Round
-     * @param teamList
+     * @param teamList ArrayList of Team objects.
      */
     public void roundSetUp(Round round,ArrayList<Team> teamList){
         ArrayList<Team> teams = new ArrayList<>(teamList);
@@ -138,29 +167,14 @@ public class KnockoutStage extends Stage {
                 participants.add(teams.get(index));
                 teams.remove(index);
             }
-            if(tournamentType.equals("time")){
-                round.addMatch(new TimeMatch(participants));
+            if(tournamentType.equals("timeMatch")){
+                Match match = new TimeMatch(participants);
+                match.setMatchInfo(round.getRoundName());
+                round.addMatch(match);
             } else{
-                round.addMatch(new PointMatch(participants));
-            }
-        }
-    }
-
-    public void updateKnockoutStage(){
-        ArrayList<Round> rounds = getRounds();
-
-        if(rounds.get(0).getMatches().isEmpty()){
-            this.roundSetUp(rounds.get(0),getTeams());
-        }
-        for (int i = 0; i < rounds.size()-1; i++) {
-            //Loops through until we find round(i) is finished but
-            //next round does not have matches.
-            if(rounds.get(i).isFinished() && rounds.get(i+1).getMatches().isEmpty()){
-                Round lastRound = rounds.get(i);
-                Round nextRound = rounds.get(i+1);
-
-                ArrayList<Team> winners = lastRound.getWinners(advancingPerMatch);
-                this.roundSetUp(nextRound,winners);
+                Match match = new PointMatch(participants);
+                match.setMatchInfo(round.getRoundName());
+                round.addMatch(match);
             }
         }
     }
@@ -172,7 +186,9 @@ public class KnockoutStage extends Stage {
     public Team getTournamentWinner() {
         for(Round round : getRounds()){
             if(round.getRoundName().equals("FINAL")){
-                return round.getMatches().get(0).getWinners(1).get(0);
+                if(round.isFinished()){
+                    return round.getMatches().get(0).getWinners(1).get(0);
+                }
             }
         }
         return null;

@@ -14,6 +14,7 @@ public abstract class Stage implements Serializable {
 
     /**
      * Initiates a Stage
+     *
      * @param rounds an ArrayList of type Round
      */
     public Stage(ArrayList<Round> rounds) {
@@ -30,6 +31,7 @@ public abstract class Stage implements Serializable {
 
     /**
      * Sets the rounds in the Stage
+     *
      * @param rounds ArrayList of rounds
      */
     public void setRounds(ArrayList<Round> rounds) {

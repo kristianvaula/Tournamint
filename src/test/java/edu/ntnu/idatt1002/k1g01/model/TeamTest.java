@@ -1,6 +1,5 @@
-package edu.ntnu.idatt1002.k1g01;
+package edu.ntnu.idatt1002.k1g01.model;
 
-import edu.ntnu.idatt1002.k1g01.model.Team;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,9 +23,12 @@ public class TeamTest {
         }
     }
 
+    /*
+    TODO remove these obsolete tests.
     @Nested
     @DisplayName("Tests Equals and HashCode methods")
     public class EqualsAndHashCode{
+
 
         @Test
         @DisplayName("Tests that two teams with same name are equal")
@@ -63,4 +65,5 @@ public class TeamTest {
             assertEquals(team1.hashCode(),team2.hashCode());
         }
     }
+    */
 }

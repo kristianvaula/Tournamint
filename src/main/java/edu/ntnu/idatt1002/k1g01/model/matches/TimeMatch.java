@@ -1,9 +1,10 @@
 package edu.ntnu.idatt1002.k1g01.model.matches;
 
+import edu.ntnu.idatt1002.k1g01.model.Group;
 import edu.ntnu.idatt1002.k1g01.model.Team;
 
+import java.time.DateTimeException;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -12,8 +13,6 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a match where the winner(s)
  * are based on who has the most points.
- *
- * @author kristjve
  */
 public class TimeMatch extends Match{
 
@@ -30,6 +29,34 @@ public class TimeMatch extends Match{
      */
     public TimeMatch(ArrayList<Team> participants) {
         super(participants);
+    }
+
+    /**
+     * Preemptively creates match from other matches.
+     * This match will eventually get its teams from the winners of these input matches.
+     *
+     * @param previousMatches Match[] that will feed their winners to this match.
+     * @implNote
+     *          compiler doesn't like overloading with signature difference inside generic class.
+     *          Therefore, raw array instead of ArrayList<?>
+     * @author Martin Dammerud
+     */
+    public TimeMatch(int i, Match[] previousMatches) {
+        super(i, previousMatches);
+    }
+
+    /**
+     * Preemptively creates match from Groups.
+     * This match will eventually get its teams from the winners of these input matches.
+     *
+     * @param previousGroups Group[] that will feed their winners to this match.
+     * @implNote
+     *      compiler doesn't like overloading with signature difference inside generic class.
+     *      Therefore, raw array instead of ArrayList<?>
+     * @author Martin Dammerud
+     */
+    public TimeMatch(int i, Group[] previousGroups) {
+        super(i, previousGroups);
     }
 
     /**
@@ -87,18 +114,19 @@ public class TimeMatch extends Match{
      * updateIsFinished().
      *
      * @param team Team we add results for
-     * @param value
+     * @param value Result to be attributed to team.
+     * @throws ClassCastException if match still contains TeamHolograms.
      */
     @Override
-    public void setResult(Team team, String value) throws DateTimeParseException{
-        try{
-            LocalTime result = this.timeResultParser(value);
-            timeResult.put(team,result);
-        }catch(DateTimeParseException e){
-            throw e;
-        }
+    public void setResult(Team team, String value) throws DateTimeException{
+        if (!isPlayable()) throw new ClassCastException("Match needs winners from unfinished matches");
+
+        //used to be inside a try block that did nothing.
+        LocalTime result = this.timeResultParser(value);
+        timeResult.put(team,result);
+
         updateIsFinished();
-        updateMatchAsString();
+        updateMatchAsString(getParticipants(),getMatchResultOrdered());
     }
 
     /**
@@ -113,6 +141,7 @@ public class TimeMatch extends Match{
         for(Team team : getParticipants()){
             if(!timeResult.containsKey(team)){
                 hasResult = false;
+                break;
             }
         }
         setFinished(hasResult);
@@ -126,30 +155,24 @@ public class TimeMatch extends Match{
      *        'hours:minutes:seconds:milliseconds'
      *
      *        Example:
-     *        1#  01:23:30:0000
-     *        2#  00:00:23:2130
+     *        1#  01:23:30:00
+     *        2#  00:00:23:21
      * {code}</p>
+     *
      * @param inputString String input
      * @return Localtime parsed
      */
-    public LocalTime timeResultParser(String inputString) throws DateTimeParseException{
+    public LocalTime timeResultParser(String inputString) throws DateTimeException {
         String[] inputTable = inputString.split(":");
-        int hours = Integer.parseInt(inputTable[0]);
-        int minutes = Integer.parseInt(inputTable[1]);
-        int seconds = Integer.parseInt(inputTable[2]);
-        int milliseconds = Integer.parseInt(inputTable[3]);
         try {
+            int hours = Integer.parseInt(inputTable[0]);
+            int minutes = Integer.parseInt(inputTable[1]);
+            int seconds = Integer.parseInt(inputTable[2]);
+            int milliseconds = Integer.parseInt(inputTable[3]) * 100;
             return LocalTime.of(hours,minutes,seconds,milliseconds);
-        }catch(DateTimeParseException e){
-            throw e;
         }
-    }
-
-    /**
-     * Updates the match as a String
-     * if changes are made.
-     */
-    public void updateMatchAsString(){
-        super.setMatchAsString(super.generateMatchAsString(getParticipants(),getMatchResultOrdered()));
+        catch (ArrayIndexOutOfBoundsException e) {
+            throw new DateTimeException("Could not parse " + inputString + " as a time! Please enter time in format HH:MM:SS:NN");
+        }
     }
 }

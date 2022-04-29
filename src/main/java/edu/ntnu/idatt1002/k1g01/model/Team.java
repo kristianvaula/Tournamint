@@ -1,23 +1,28 @@
 package edu.ntnu.idatt1002.k1g01.model;
 
-
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * Represents a team in the tournament
- * @author kristvje
  */
 public class Team implements Serializable {
+    //Maximum length of name
+    public static final int maxNameLength = 15;
     // Name of the team
-    private String name;
+    protected String name;
 
+    /**
+     * Default constructor for inheritance.
+     */
+    public Team() {}
 
     /**
      * Initiates a new team
      * @param name Name of the team
      */
     public Team(String name) {
+        if (name.length() > maxNameLength)
+            throw new IllegalArgumentException("Team name exceeded max name length of " + maxNameLength + " characters");
         this.name = name;
     }
 
@@ -38,32 +43,15 @@ public class Team implements Serializable {
     }
 
     /**
-     * Two teams equal each other if
-     * they have the same name
-     * @param o The team we are comparing to
-     * @return True if teams have the same name
+     * Only here to make it easier to handle holograms.
+     * @return this exact same Team.
      */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Team team = (Team) o;
-        return Objects.equals(name, team.name);
-    }
+    public Team getTrueTeam() { return this; }
 
     @Override
     public String toString() {
         return "Team{" +
                 "name='" + name + '\'' +
                 '}';
-    }
-
-    /**
-     * Hashes name of team
-     * @return The hashcode
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
     }
 }

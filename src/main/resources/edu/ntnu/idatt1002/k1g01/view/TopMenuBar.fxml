@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+
+<MenuBar id="top-menu-bar" fx:id="topMenuBar" styleClass="dark-background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k1g01.controller.TopMenuBarController">
+    <menus>
+        <Menu fx:id="topMenuBarFile" mnemonicParsing="false" text="File">
+            <items>
+                <MenuItem fx:id="topMenuBarOpen" mnemonicParsing="false" onAction="#openFile" text="Open" />
+                <MenuItem fx:id="topMenuBarEdit" disable="true" mnemonicParsing="false" onAction="#changeSceneToEditTournament" text="Edit" />
+                <MenuItem fx:id="topMenuBarClose" disable="true" mnemonicParsing="false" onAction="#changeSceneToHomePage" text="Close" />
+                <MenuItem fx:id="topMenuBarSaveAs" disable="true" mnemonicParsing="false" onAction="#saveFile" text="Save as" />
+            </items>
+        </Menu>
+        <Menu fx:id="topMenuBarView" disable="true" mnemonicParsing="false" text="View">
+            <items>
+                <MenuItem fx:id="topMenuBarDisplay" mnemonicParsing="false" onAction="#changeSceneToDisplayMode" text="Display" />
+                <MenuItem fx:id="topMenuBarAdministrate" mnemonicParsing="false" onAction="#changeSceneToAdministrateTournament" text="Administrate" />
+            </items>
+        </Menu>
+        <Menu fx:id="topMenuBarHelp" mnemonicParsing="false" text="Help">
+            <items>
+                <MenuItem fx:id="topMenuBarManual" mnemonicParsing="false" onAction="#openManual" text="User manual" />
+            </items>
+        </Menu>
+    </menus>
+</MenuBar>
