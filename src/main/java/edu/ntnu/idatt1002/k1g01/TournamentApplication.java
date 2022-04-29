@@ -36,8 +36,7 @@ public class TournamentApplication extends Application {
             primaryStage.show();
 
         } catch (IOException e) {
-            System.out.println(e.getCause());
-            throw e;
+            System.out.println(e);
         }
     }
 
