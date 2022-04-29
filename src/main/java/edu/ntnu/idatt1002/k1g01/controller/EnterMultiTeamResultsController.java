@@ -138,7 +138,6 @@ public class EnterMultiTeamResultsController implements Initializable {
                 match.setMatchDate(dateField.getValue());
                 match.setMatchInfo(infoField.getText());
 
-                tournament.updateTournament();
                 tournamentDAO.save(); //Save changes to tournament.
                 returnToAdministrateTournament(event);
 

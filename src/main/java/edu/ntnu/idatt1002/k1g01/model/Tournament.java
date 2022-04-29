@@ -207,22 +207,4 @@ public class Tournament implements Serializable {
         output.addAll(knockoutStage.getRounds());
         return output;
     }
-
-    /**
-     * Updates the tournament.
-     * If the groupStage is finished and the
-     * knockoutStage has not yet been created,
-     * we initiate the knockoutStage. Else we
-     * just call for the knockoutStage update
-     * method();
-     * TODO is this still in use? Might be redundant now.
-     */
-    public void updateTournament(){
-         if (groupStage != null && knockoutStage == null) {
-             if (groupStage.isFinished()) {
-                 //Generate knockoutStage from finished groupStage.
-                 knockoutStage = new KnockoutStage(groupStage.getWinnersFromGroups(),teamsPerMatch,matchType);
-             }
-         }
-    }
 }

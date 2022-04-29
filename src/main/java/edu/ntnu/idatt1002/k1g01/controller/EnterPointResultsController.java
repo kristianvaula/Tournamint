@@ -235,7 +235,6 @@ public class EnterPointResultsController implements Initializable {
             }catch (DateTimeParseException e){
                 System.out.println(e.getMessage());
             }
-            tournament.updateTournament();
             tournamentDAO.save(); //Save changes to tournament.
 
             returnToAdministrateTournament(event);

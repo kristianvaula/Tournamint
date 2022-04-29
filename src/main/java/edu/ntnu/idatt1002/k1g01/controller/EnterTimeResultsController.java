@@ -268,7 +268,6 @@ public class EnterTimeResultsController implements Initializable {
 
                 }
                 //EXIT FROM RESULT
-                tournament.updateTournament();
                 tournamentDAO.save(); //Save changes to tournament.
                 returnToAdministrateTournament(event);
             }catch (DateTimeParseException e){
