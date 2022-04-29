@@ -25,6 +25,7 @@ public class KnockoutStage extends Stage {
 
     /**
      * Initiates a KnockoutStage
+     *
      * @param teams ArrayList of teams we will include in groupStage.
      */
     public KnockoutStage(ArrayList<Team> teams,int teamsPerMatch,String tournamentType) throws IllegalArgumentException{
@@ -70,6 +71,7 @@ public class KnockoutStage extends Stage {
      * stage based on the amount of teams. Checks if the
      * number of teams is compatible, and then generates
      * the rounds.
+     *
      * @param amountOfTeams the amount of teams that will play the first round
      * @return Rounds of knockout stage.
      */
@@ -83,45 +85,6 @@ public class KnockoutStage extends Stage {
         }
 
         return rounds;
-    }
-
-    /**
-     * Checks which power of teamsPerMatch equals the
-     * amount of teams. Gives us the amount of
-     * rounds we need in our tournament. Returns
-     * 0 if we dont get a match, which means that
-     * the amount of teams is not compatible.
-     * @param numberOfTeams Number of teams
-     * @param teamsPerMatch Teams per round
-     * @return Int number of rounds
-     * TODO This method is replaced by a new version. Delete this version eventually.
-     */
-    public static int getNumberOfRoundsOld(int numberOfTeams,int teamsPerMatch,int advancingPerMatch){
-        System.out.println("calculating number of knockout rounds: ");
-        System.out.println("numberOfTeams: " + numberOfTeams);
-        System.out.println("teamsPerMatch: " + teamsPerMatch);
-        System.out.println("advancingPerMatch: " + advancingPerMatch);
-        // If 2 teams per match
-        if(teamsPerMatch == 2 && advancingPerMatch == 1){
-            for (int i = 0; i < 12; i++) {
-                if(Math.pow(teamsPerMatch,i) == numberOfTeams) return i;
-            }
-        }// If 4 teams per match
-        else if(teamsPerMatch == 4){
-            for (int i = 0; i < 12; i++) {
-                if(Math.pow((teamsPerMatch/advancingPerMatch),i) == numberOfTeams){
-                    return i - (advancingPerMatch-1);
-                }
-            }
-        }// If 8 teams per match
-        else if(teamsPerMatch == 8){
-            for (int i = 0; i < 12; i++) {
-                if(teamsPerMatch * Math.pow((teamsPerMatch/advancingPerMatch),i) == numberOfTeams){
-                    return i + 1;
-                }
-            }
-        }
-        return 0;
     }
 
     /**
