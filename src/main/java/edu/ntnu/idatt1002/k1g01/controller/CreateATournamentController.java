@@ -38,8 +38,8 @@ public class CreateATournamentController implements Initializable {
     public static final int MAX_TEAM_COUNT = 256;
 
     //Constants used for testing
-    private static final Boolean testMode = true; // true -> activate testMode.
-    private static final int dummyTeamCount = 12; //Number of dummy teams to populate teamList.
+    private static final Boolean TEST_MODE = true; // true -> activate testMode.
+    private static final int DUMMY_TEAM_COUNT = 12; //Number of dummy teams to populate teamList.
 
     //The nested controller for the menuBar and pop-up menu
     @FXML private TopMenuBarController topMenuBarController;
@@ -115,7 +115,7 @@ public class CreateATournamentController implements Initializable {
         //Cycle through list of dummyNames as many times as needed.
         //Append number from second loop and onward to keep all names unique.
         //Add Dummy teams to teamList.
-        for (int i = 0; i < dummyTeamCount; i++) {
+        for (int i = 0; i < DUMMY_TEAM_COUNT; i++) {
             String number = String.valueOf(i/dummyNames.length + 1);
             if (number.equals("1")) number = "";
             this.teamList.add(new Team(dummyNames[i % dummyNames.length] + number));
@@ -197,7 +197,7 @@ public class CreateATournamentController implements Initializable {
         teamTableOutput.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         //Adds dummy data if testMode is set to true.
-        if(testMode) addDummyData();
+        if(TEST_MODE) addDummyData();
     }
 
     /**
