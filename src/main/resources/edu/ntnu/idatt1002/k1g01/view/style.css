@@ -151,6 +151,10 @@
     -fx-shape: null;
 }
 
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: #2D2D2D;
+}
+
 .split-pane:horizontal > .split-pane-divider {
     -fx-background-color: transparent;
 }
